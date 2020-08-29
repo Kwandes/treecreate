@@ -39,18 +39,17 @@ public class LoginController
     UserService userService;
 
     @PostMapping("/submitLogin")
-    public String submitLogin(WebRequest wr, Model model, HttpServletRequest request)
+    public String submitLogin(WebRequest wr, HttpServletRequest request)
     {
         User user = userService.searchByUsername(wr.getParameter("username"));
-        String password = wr.getParameter("password");
         if (user == null || !user.getUsername().equals(wr.getParameter("username")))
         {
-            LOGGER.info("Failed login - '" + request.getSession().getId() + "': Username + " + wr.getParameter("username") + "' not found");
+            LOGGER.info("[" + request.getSession().getId() + "] Failed login - Failed to find Username '" + wr.getParameter("username") + "'");
             request.getSession().setAttribute("loginError", "invalid credentials");
             return "redirect:/login";
-        } else if (!PasswordService.matches(password, user.getPassword()))
+        } else if (!PasswordService.matches(wr.getParameter("password"), user.getPassword()))
         {
-            LOGGER.info("Failed login - '" + request.getSession().getId() + "' has inputted wrong password");
+            LOGGER.info("[" + request.getSession().getId() + "] Failed login - Wrong password");
             request.getSession().setAttribute("loginError", "invalid credentials");
             return "redirect:/login";
         }
@@ -100,7 +99,6 @@ public class LoginController
             return "redirect:/login";
         }
 
-        // log successful login
         LOGGER.info("New login as [" + SessionService.getSessionName(request) + "]");
         model.addAttribute("username", request.getSession().getAttribute("username"));
         model.addAttribute("email", request.getSession().getAttribute("email"));
