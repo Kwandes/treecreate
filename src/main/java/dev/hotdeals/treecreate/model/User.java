@@ -20,7 +20,7 @@ public class User
 
     public String toString()
     {
-        return "Id: " + id + " | User:" + username + " | Pass: " + password + " | Email: " + email + " | AccessLevel: " + accessLevel;
+        return "Id: " + id + " | User:" + username + " | Email: " + email + " | AccessLevel: " + accessLevel;
     }
 
     public int getId()
