@@ -2,6 +2,7 @@ package dev.hotdeals.treecreate.controller;
 
 import dev.hotdeals.treecreate.model.User;
 import dev.hotdeals.treecreate.service.PasswordService;
+import dev.hotdeals.treecreate.service.SessionService;
 import dev.hotdeals.treecreate.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,16 +45,18 @@ public class LoginController
         String password = wr.getParameter("password");
         if (user == null || !user.getUsername().equals(wr.getParameter("username")))
         {
-            System.out.println("Failed login - Username '" + wr.getParameter("username") + "' not found");
+            LOGGER.info("Failed login - '" + request.getSession().getId() + "': Username + " + wr.getParameter("username") + "' not found");
             request.getSession().setAttribute("loginError", "invalid credentials");
             return "redirect:/login";
         } else if (!PasswordService.matches(password, user.getPassword()))
         {
-            System.out.println("Failed login - User '" + wr.getParameter("username") + "' has inputted wrong password");
+            LOGGER.info("Failed login - '" + request.getSession().getId() + "' has inputted wrong password");
             request.getSession().setAttribute("loginError", "invalid credentials");
             return "redirect:/login";
         }
 
+        LOGGER.info("New session login [" + SessionService.getSessionName(request) + "]");
+        request.getSession().setAttribute("userId", user.getId());
         request.getSession().setAttribute("username", user.getUsername());
         request.getSession().setAttribute("email", user.getEmail());
         request.getSession().setAttribute("accessLevel", user.getAccessLevel());
@@ -72,7 +75,7 @@ public class LoginController
         User user = userService.searchByUsername(wr.getParameter("username"));
         if (user != null)
         {
-            System.out.println("User " + user.getUsername() + " already exists");
+            LOGGER.info("Attempted creation of an account failed, username [" + user.getUsername() + "] already exists");
             request.getSession().setAttribute("loginError", "username is taken");
             return "redirect:/login";
         }
@@ -92,13 +95,13 @@ public class LoginController
         // check if given user has access to this page
         if (request.getSession().getAttribute("accessLevel") == null)
         {
-            LOGGER.debug("Access Denied to user [" + request.getSession().getAttribute("username") + "] due to null access Level");
+            LOGGER.info("Access Denied to user [" + SessionService.getSessionName(request) + "] due to null access Level");
             request.getSession().setAttribute("loginError", "invalid access level");
             return "redirect:/login";
         }
 
         // log successful login
-        LOGGER.debug("New login as " + request.getSession().getAttribute("username"));
+        LOGGER.info("New login as [" + SessionService.getSessionName(request) + "]");
         model.addAttribute("username", request.getSession().getAttribute("username"));
         model.addAttribute("email", request.getSession().getAttribute("email"));
         model.addAttribute("accessLevel", request.getSession().getAttribute("accessLevel"));
@@ -109,7 +112,7 @@ public class LoginController
     @GetMapping("/logout")
     public String logout(HttpServletRequest request)
     {
-        LOGGER.debug(request.getSession().getAttribute("username") + " has logged out");
+        LOGGER.info("[" + SessionService.getSessionName(request) + "] has logged out");
         request.getSession().invalidate();
         return "redirect:/login";
     }
