@@ -1,0 +1,15 @@
+# Compiled class files
+*.class
+/target/*
+
+# Log files
+*.log
+
+# IDE configuration files
+.idea/*
+.mvn/*
+*.iml
+
+# Auto generated files
+HELP.md
+
