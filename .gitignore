@@ -5,10 +5,10 @@
 
 # Log files
 *.log
+*log.gz
 
 # IDE configuration files
 .idea/*
-.mvn/*
 *.iml
 
 # Auto generated files
