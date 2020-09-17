@@ -20,6 +20,13 @@ public class PasswordServiceTests
     {
         String password = "test";
         assertThat(PasswordService.encodePassword(password).isEmpty()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Verify that encoded string is different from original")
+    void verifyEncodedPasswordTest()
+    {
+        String password = "test";
         assertThat(PasswordService.encodePassword(password)).isNotEqualTo(password);
     }
 
