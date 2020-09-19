@@ -14,12 +14,14 @@
             <img th:src="@{~/img/login-logo.png}" class="logo" alt="Treecreate">
             <h2>Treecreate</h2>
             <form action="/submitLogin" method="post">
-                <i class="fa fa-user-o" aria-hidden="true"></i><input type="text" id="username" name="username"
-                                                                      placeholder="username" maxlength="30"
-                                                                      required><br>
-                <i class="fa fa-shield" aria-hidden="true"></i><input type="password" id="password" name="password"
-                                                                      placeholder="password" maxlength="60"
-                                                                      required><br>
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                <input type="text" id="username" name="username"
+                       placeholder="username" maxlength="30"
+                       required><br>
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <input type="password" id="password" name="password"
+                       placeholder="password" maxlength="60"
+                       required><br>
                 <span style="font-size: 12px" th:if="${loginError != null}" class="errorText"
                       th:text="'Error : ' + ${loginError}"></span>
                 <button type="submit">Login</button>
