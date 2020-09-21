@@ -14,14 +14,21 @@
             <img th:src="@{~/img/create-account-logo.png}" class="logo" alt="Treecreate">
             <h2>Treecreate</h2>
             <form action="/submitNewAccount" method="post">
-                <i class="fa fa-envelope-o" aria-hidden="true"></i><input type="text" id="email" name="email"
-                                                                      placeholder="email" maxlength="50" required><br>
-                <i class="fa fa-user-o" aria-hidden="true"></i><input type="text" id="username" name="username"
-                                                                          placeholder="username" maxlength="30"
-                                                                          required><br>
-                <i class="fa fa-shield" aria-hidden="true"></i><input type="password" id="password" name="password"
-                                                                      placeholder="password" maxlength="60"
-                                                                      required><br>
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <input type="email" id="email" name="email"
+                       placeholder="email" maxlength="50"
+                       pattern="^\b[\w.!#$%&’*+\/=?^`{|}~-]+@[\w-]+(?:\.[\w-]+)+\b$"
+                       required><br>
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                <input type="text" id="username" name="username"
+                       placeholder="username" maxlength="30"
+                       pattern="^[A-Za-z][A-Za-z0-9_-]{2,29}$"
+                       required><br>
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <input type="password" id="password" name="password"
+                       placeholder="password" maxlength="60"
+                       pattern="^(?!.* )(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!$%&\?\^\+\-\*#@]).{6,}$"
+                       required><br>
                 <button type="submit">Create Account</button>
             </form>
         </div>
