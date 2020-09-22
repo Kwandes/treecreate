@@ -1,0 +1,13 @@
+/* Styling code shared across the product screens */
+
+html, body
+{
+    /* Page Background */
+    background-color: white;
+
+    /* document-wide styling */
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    color: black;
+}
