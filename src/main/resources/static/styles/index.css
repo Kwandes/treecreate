@@ -3,17 +3,22 @@
 body, html
 {
     background-color: white;
+    font-family: Share Tech, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 27px;
     color: black;
     margin: 0;
 }
 
 a
-{   /* Remove hyper-link decoration */
+{ /* Remove hyper-link decoration */
     color: black;
     text-decoration: none;
 }
 
 :focus
-{   /* remove an outline on focusing of an element */
+{ /* remove an outline on focusing of an element */
     outline: none;
 }

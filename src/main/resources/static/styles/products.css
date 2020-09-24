@@ -46,6 +46,7 @@ html, body
     align-items: center;
     height: 95vh; /* Account for the navbar height */
 }
+
 #product
 {
     padding: 10vh;
