@@ -35,16 +35,14 @@
             <div id="product">
                 <!-- Draggable Box -->
                 <div id="draggableBoxContainer">
-                    <div class="draggableBox">
-                        <input type="text" default="Bob">
-                    </div>
-
-                    <div class="draggableBox">
-                        <input type="text" default="Bob">
-                    </div>
-
-                    <div class="draggableBox">
-                        <input type="text" default="Bob">
+                    <div id = "draggableBoxSpawnzone">
+                        <div class="draggableBox">
+                            <input type="text">
+                            <button class="deleteDraggableBoxButton" onclick="deleteBox(this)">
+                                <img th:src="@{~/img/icons/deleteDraggableBoxIcon.png}" alt="delete box"
+                                     class="deleteDraggableBoxIcon icon">
+                            </button>
+                        </div>
                     </div>
                 </div>
 
