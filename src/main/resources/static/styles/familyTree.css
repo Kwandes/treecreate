@@ -1,4 +1,4 @@
-#draggableBox
+.draggableBox
 {
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@
     width: 500px;
 }
 
-#draggableBox input
+.draggableBox input
 {
 
 }

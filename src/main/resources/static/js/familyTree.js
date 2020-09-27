@@ -1,14 +1,9 @@
-window.onload = function () {
-    var dragItem = document.getElementById("draggableBox");
-    var container = document.getElementById("draggableBoxContainer");
+window.onload = function ()
+{
+    var container = document.querySelector("#draggableBoxContainer");
+    var activeItem = null;
 
     var active = false;
-    var currentX;
-    var currentY;
-    var initialX;
-    var initialY;
-    var xOffset = 0;
-    var yOffset = 0;
 
     container.addEventListener("touchstart", dragStart, false);
     container.addEventListener("touchend", dragEnd, false);
@@ -19,43 +14,60 @@ window.onload = function () {
     container.addEventListener("mousemove", drag, false);
 
     function dragStart(e) {
-        if (e.type === "touchstart") {
-            initialX = e.touches[0].clientX - xOffset;
-            initialY = e.touches[0].clientY - yOffset;
-        } else {
-            initialX = e.clientX - xOffset;
-            initialY = e.clientY - yOffset;
-        }
 
-        if (e.target === dragItem) {
+        if (e.target !== e.currentTarget) {
             active = true;
+
+            // this is the item we are interacting with
+            activeItem = e.target;
+
+            if (activeItem !== null) {
+                if (!activeItem.xOffset) {
+                    activeItem.xOffset = 0;
+                }
+
+                if (!activeItem.yOffset) {
+                    activeItem.yOffset = 0;
+                }
+
+                if (e.type === "touchstart") {
+                    activeItem.initialX = e.touches[0].clientX - activeItem.xOffset;
+                    activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
+                } else {
+                    console.log("doing something!");
+                    activeItem.initialX = e.clientX - activeItem.xOffset;
+                    activeItem.initialY = e.clientY - activeItem.yOffset;
+                }
+            }
         }
     }
 
     function dragEnd(e) {
-        initialX = currentX;
-        initialY = currentY;
+        if (activeItem !== null) {
+            activeItem.initialX = activeItem.currentX;
+            activeItem.initialY = activeItem.currentY;
+        }
 
         active = false;
+        activeItem = null;
     }
 
     function drag(e) {
         if (active) {
-
-            e.preventDefault();
-
             if (e.type === "touchmove") {
-                currentX = e.touches[0].clientX - initialX;
-                currentY = e.touches[0].clientY - initialY;
+                e.preventDefault();
+
+                activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
+                activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
             } else {
-                currentX = e.clientX - initialX;
-                currentY = e.clientY - initialY;
+                activeItem.currentX = e.clientX - activeItem.initialX;
+                activeItem.currentY = e.clientY - activeItem.initialY;
             }
 
-            xOffset = currentX;
-            yOffset = currentY;
+            activeItem.xOffset = activeItem.currentX;
+            activeItem.yOffset = activeItem.currentY;
 
-            setTranslate(currentX, currentY, dragItem);
+            setTranslate(activeItem.currentX, activeItem.currentY, activeItem);
         }
     }
 
