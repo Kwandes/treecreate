@@ -5,8 +5,8 @@ function deleteBox(button)
 
 window.onload = function ()
 {
-    var boundaries = document.getElementById("productContainer");
-    var spawnzone = document.getElementById("draggableBoxSpawnzone");
+    var boundaries = document.getElementById("draggableBoxContainer");
+    var spawnzone = document.getElementById("draggableBoxContainer");
     var boxes = document.getElementsByClassName("draggableBox");
 
     var container = document.querySelector("#draggableBoxContainer");
@@ -25,29 +25,31 @@ window.onload = function ()
     boundaries.addEventListener("click", createBox);
 
     function createBox(e) {
-        // limit has to be increased by 1, as the very first box is invisible and cannot be interacted with
-        if (boxes.length <= 26)
+        if (e.target === boundaries)
         {
-            if (e.target === boundaries)
+            // limit has to be increased by 1, as the very first box is invisible and cannot be interacted with
+            if (boxes.length <= 26)
             {
                 clone = boxes[0].cloneNode(true)
 
-                clone.style.top = 50 + '%';
-                clone.style.left = 50 + '%';
+                var cursorX = e.clientX;
+                var cursorY = e.clientY;
+                console.log("Cursor " + cursorX + " " + cursorY);
+
                 clone.style.display = 'flex';
                 clone.style.position = 'absolute';
                 clone.style.height = 250 + 'px';
                 clone.style.width = 500 + 'px';
 
                 spawnzone.appendChild(clone);
-
+                clone.style.transform = "translate3d(" + cursorX + "px, " + cursorY + "px, 0)";
+                console.log("Clone " + clone.style.top + " " + clone.style.left);
+            }
+            else
+            {
+                alert("Cannot exceed limit of 25 boxes.");
             }
         }
-        else
-        {
-            alert("Cannot exceed limit of 25 boxes.");
-        }
-
     }
 
     function dragStart(e) {

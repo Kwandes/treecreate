@@ -30,22 +30,20 @@
     </nav>
 </section>
 <section id="contentContainer">
+    <!-- Draggable Box -->
+    <div id="draggableBoxContainer">
+        <div class="draggableBox">
+            <input type="text">
+            <button class="deleteDraggableBoxButton" onclick="deleteBox(this)">
+                <img th:src="@{~/img/icons/deleteDraggableBoxIcon.png}" alt="delete box"
+                     class="deleteDraggableBoxIcon icon">
+            </button>
+        </div>
+    </div>
+
     <div id="content">
         <div id="productContainer">
             <div id="product">
-                <!-- Draggable Box -->
-                <div id="draggableBoxContainer">
-                    <div id = "draggableBoxSpawnzone">
-                        <div class="draggableBox">
-                            <input type="text">
-                            <button class="deleteDraggableBoxButton" onclick="deleteBox(this)">
-                                <img th:src="@{~/img/icons/deleteDraggableBoxIcon.png}" alt="delete box"
-                                     class="deleteDraggableBoxIcon icon">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet convallis nisi. Sed ac sem
                     nec
