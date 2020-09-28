@@ -20,7 +20,7 @@ html, body
 
 #navBar a
 {
-    padding: 0 16px;
+    padding: 0 13px;
     font-size: 17px;
 }
 
@@ -29,6 +29,12 @@ html, body
     width: 4vh;
     height: 4vh;
     vertical-align: middle;
+}
+
+#navBar-right .icon
+{
+    width: 2.7vh;
+    padding-bottom: 0.6vh;
 }
 
 #productContainer
