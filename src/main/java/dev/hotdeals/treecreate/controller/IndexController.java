@@ -11,6 +11,12 @@ public class IndexController
     @RequestMapping(value = {"", "/", "/index", "/index/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index()
     {
-        return "redirect:/products";
+        return "redirect:/aboutUs";
+    }
+
+    @RequestMapping(value = "/aboutUs", method = {RequestMethod.GET, RequestMethod.POST})
+    public String aboutUs()
+    {
+        return "home/aboutUs";
     }
 }
