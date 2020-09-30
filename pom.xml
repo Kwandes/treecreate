@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.hotdeals</groupId>
     <artifactId>treecreate</artifactId>
-    <version>0.3.5</version>
+    <version>0.4.0.CREATE_FUNCTIONAL_TESTS_CI</version>
     <name>treecreate</name>
     <description>Springboot-based website for Treecreate project</description>
 
@@ -70,6 +70,19 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Functional testing - Selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>4.2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -78,6 +91,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/functional_tests/**</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
 
             <!-- Packaging the jar into an executable form -->
