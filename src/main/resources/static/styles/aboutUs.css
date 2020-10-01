@@ -29,7 +29,6 @@ html, body
     width: 100%;
     height: 6vh;
     background-color: white;
-    /*background-color: #fce4d2;*/
 }
 
 
@@ -40,7 +39,6 @@ html, body
     justify-content: center;
     align-items: center;
 
-    background-color: #d2f6fc;
 }
 
 #footerContainer
@@ -52,7 +50,6 @@ html, body
 
     width: 100%;
     height: 20vh;
-    background-color: #d2fcea;
 }
 
 #navBar a
@@ -76,7 +73,6 @@ html, body
 
 #content
 {
-    background-color: cadetblue;
     margin: 5vh 15vw;
     width: 70vw;
     font-size: 24px;
@@ -105,8 +101,6 @@ html, body
     justify-content: center;
     align-items: flex-start;
     margin: 2.5vh 2.5vw;
-
-    background-color: green;
 }
 
 #aboutUs .imageCollection
@@ -117,17 +111,13 @@ html, body
     justify-content: space-between;
     width: 34vw;
     margin: 1vh 1vw;
-
-    background-color: darkgreen;
 }
 
 #aboutUs section img
 {
-    width: 34vh;
+    width: 34vw;
     height: 34vh;
     margin: 1vh 1vw;
-
-    background-color: aquamarine;
 }
 
 #aboutUs section .imageCollection .image
@@ -135,16 +125,12 @@ html, body
     height: 30%;
     width: 30%;
     margin: 5%;
-
-    background-color: aquamarine;
 }
 
 #aboutUs section .text
 {
     width: 34vw;
     margin: 1vh 1vw;
-
-    background-color: darkgreen;
 }
 
 #aboutUs #generalInformation
@@ -170,7 +156,6 @@ html, body
 
 .footer-row
 {
-    background-color: aliceblue;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -184,7 +169,6 @@ html, body
 
 #footer .section
 {
-    background-color: aquamarine;
     margin: 0 2vw;
 }
 
