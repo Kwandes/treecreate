@@ -38,7 +38,7 @@ html, body
     display: flex;
     justify-content: center;
     align-items: center;
-
+    color: white;
 }
 
 #footerContainer
@@ -47,6 +47,7 @@ html, body
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    color: white;
 
     width: 100%;
     height: 20vh;
@@ -77,6 +78,7 @@ html, body
     width: 70vw;
     font-size: 24px;
     text-align: center;
+    text-shadow: 0 1px 3px #000000;
 }
 
 #aboutUs
@@ -175,6 +177,7 @@ html, body
 #footer
 {
     font-size: 18px;
+    text-shadow: 0 1px 3px #000000;
 }
 
 #footer .title
@@ -185,4 +188,10 @@ html, body
 #footer-bottom
 {
     font-size: 14px;
+}
+
+#footer-separator
+{
+    color: white;
+    width: 70vw;
 }
