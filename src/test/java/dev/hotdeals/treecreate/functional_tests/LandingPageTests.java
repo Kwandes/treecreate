@@ -9,8 +9,11 @@ package dev.hotdeals.treecreate.functional_tests;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -49,6 +52,30 @@ public class LandingPageTests
     {
         webDriver.get("http://localhost:" + port + "/aboutUs");
         assertThat(webDriver.getTitle()).isEqualTo("About Us");
+    }
+
+    @Test
+    @DisplayName("Contains a navigation bar")
+    public void getNavbarTest()
+    {
+        webDriver.get("http://localhost:" + port + "/aboutUs");
+        WebElement navbar = webDriver.findElement(By.id("navBar"));
+    }
+
+    @Test
+    @DisplayName("Contains an About Us section")
+    public void getAboutUsTest()
+    {
+        webDriver.get("http://localhost:" + port + "/aboutUs");
+        WebElement aboutUs = webDriver.findElement(By.id("aboutUs"));
+    }
+
+    @Test
+    @DisplayName("Contains a footer")
+    public void getFooterTest()
+    {
+        webDriver.get("http://localhost:" + port + "/aboutUs");
+        WebElement footer = webDriver.findElement(By.id("footer"));
     }
 
     @AfterAll
