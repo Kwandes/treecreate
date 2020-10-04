@@ -174,10 +174,16 @@ html, body
     margin: 0 2vw;
 }
 
+#footer .footer-row:first-child .section
+{
+    width: 25%;
+}
+
 #footer
 {
     font-size: 18px;
     text-shadow: 0 1px 3px #000000;
+    text-align: center;
 }
 
 #footer .title
