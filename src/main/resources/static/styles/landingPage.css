@@ -3,6 +3,7 @@ html, body
     /* document-wide styling */
     align-items: center;
     height: 100%;
+    color: black;
 }
 
 #pageContainer
@@ -12,11 +13,13 @@ html, body
     flex-direction: column;
     justify-content: space-between;
 
+    /* This entire section gets overridden anyway
     background-image: url('../img/images/backgrounds/forestDarkImage.jpg');
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: 120% 120%;
     background-size: cover;
+    */
 }
 
 #navBar
@@ -38,7 +41,7 @@ html, body
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
 }
 
 #footerContainer
@@ -47,7 +50,7 @@ html, body
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    color: white;
+    color: black;
 
     width: 100%;
     height: 20vh;
@@ -198,12 +201,40 @@ html, body
 
 #footer-separator
 {
-    color: white;
+    color: black;
     width: 70vw;
 }
 
 /* This is the stuff that is actually different from the AboutUs css as of version 0.4.1 */
 /* I have separated the two so that aboutUs-related modifications don't break this landing page*/
+body, html
+{
+    color: black;
+    font-size: 1.25vw;
+}
+#pageContainer
+{
+    color: black;
+    background-image: url('../img/images/landingPage/innerWoodScale.jpg');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% 44%;
+}
+
+#content
+{
+    text-shadow: none;
+}
+
+#aboutUs
+{
+    color: black;
+}
+#aboutUs .title
+{
+    color: white;
+}
+
 #aboutUs #reviews
 {
     text-align: center;
@@ -223,12 +254,108 @@ html, body
 
 #reviews .review .image
 {
-    width: 100%;
+    width: 90%;
     height: auto;
+}
+
+#reviews .title
+{
+    font-family: Share Tech, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: black;
+    font-size: 1.25vw;
 }
 
 #reviews .review .text
 {
     width: 100%;
     height: auto;
+    font-family: Simonetta, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+#footer
+{
+    text-shadow: none;
+}
+
+#footerContainer
+{
+    height: 30vh;
+}
+
+/* Newsletter thing */
+#newsletterContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 70vh;
+    margin-top: 5vh;
+    margin-bottom: 15vh;
+}
+
+#newsletter
+{
+    color: white;
+    text-align: center;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+}
+#treecreateLogo
+{
+    width: 24vw;
+    height: auto;
+    color: white;
+}
+
+#comingSoon
+{
+    font-size: 6.25vw;
+    line-height: 6.25vw;
+}
+#subscribe
+{
+    font-size: 1.56vw;
+    line-height: 1.56vw;
+}
+
+#emailContainer
+{
+    margin-top: 1vh;
+}
+
+#emailInput
+{
+    font-size: 1.25vw;
+    background: none;
+    border: 2px white solid;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+    height: 4vh;
+    width: 20vw;
+    margin-right: 1vw;
+}
+
+#emailInput::placeholder
+{
+    color: white;
+    opacity: 1;
+    font-size: 1.25vw;
+    line-height: 1.3vw;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+}
+
+#emailSubmitBtn
+{
+    font-size: 1.25vw;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
+    height: 4vh;
+    width: 6vw;
+    border: none;
+    color: #AF6826;
 }
