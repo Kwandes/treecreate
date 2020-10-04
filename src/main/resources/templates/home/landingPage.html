@@ -22,8 +22,9 @@
                     <br>
                     <span id="subscribe">Subscribe for starting offers</span>
                     <div id="emailContainer">
-                        <form action="/submitNewsletterEmail">
-                            <input type="email" id="emailInput" placeholder=" Your email...">
+                        <form action="/submitNewsletterEmail" method="POST">
+                            <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Your email..."
+                                   required>
                             <button id="emailSubmitBtn" type="submit">Submit</button>
                         </form>
                     </div>

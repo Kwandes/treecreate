@@ -14,12 +14,6 @@ public class IndexController
         return "redirect:/landingPage";
     }
 
-    @RequestMapping(value = "/landingPage", method = {RequestMethod.GET, RequestMethod.POST})
-    public String landingPage()
-    {
-        return "home/landingPage";
-    }
-
     @RequestMapping(value = "/aboutUs", method = {RequestMethod.GET, RequestMethod.POST})
     public String aboutUs()
     {
