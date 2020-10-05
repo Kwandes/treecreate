@@ -1,68 +1,73 @@
 /* Popup container */
-.popup {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+#popupContainer
+{
+    position: fixed;
+    left: 50%;
+    top: 85vh;
+
+    display: none;
 }
 
 /* The actual popup (appears on top) */
-.popup .popupText {
-    visibility: hidden;
-    font-size: 3vh;
-    display: none;
+#popup
+{
+    font-size: 2vw;
     width: 40vw;
-    height: 10vh;
+    height: fit-content;
     background-color: #8FBC8F;
     color: #fff;
-    justify-content: center;
-    flex-direction: column;
     border-radius: 6px;
     padding: 8px 0;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    top: 85vh;
     margin-left: -20vw;
-    margin-bottom: 10vh;
+    text-align: center;
 }
 
-
-
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-.popup .show {
-    display: flex;
-    visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
-}
-
-.popup .hide{
-    -webkit-animation: fadeOut 1s;
-    animation: fadeOut 1s;
-}
-
-.popup .disable{
-    display: none;
-    visibility: hidden;
-}
 
 /* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+@-webkit-keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
+    }
 }
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
+@keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
+    }
 }
 
-@-webkit-keyframes fadeOut {
-    from {opacity: 1;}
-    to {opacity: 0;}
+@-webkit-keyframes fadeOut
+{
+    from
+    {
+        opacity: 1;
+    }
+    to
+    {
+        opacity: 0;
+    }
 }
 
-@keyframes fadeOut {
-    from {opacity: 1;}
-    to {opacity: 0;}
+@keyframes fadeOut
+{
+    from
+    {
+        opacity: 1;
+    }
+    to
+    {
+        opacity: 0;
+    }
 }

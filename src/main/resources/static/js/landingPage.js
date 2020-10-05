@@ -1,6 +1,6 @@
 function submitPopup()
 {
-    var popup = document.getElementById("landingPagePopup");
+    var popup = document.getElementById("popupContainer");
     var emailInput = document.getElementById("emailInput");
     var emailValue = emailInput.value.toString();
 
@@ -9,9 +9,15 @@ function submitPopup()
     {
         emailInput.value = '';
 
-        popup.classList.toggle("show");
-        setTimeout(() => {popup.classList.toggle("hide")}, 2000);
-        setTimeout(() => {popup.classList.toggle("disable")}, 2900);
+        popup.style.display = 'block';
+        popup.style.animation = 'fadeIn 1s';
+        setTimeout(() => {
+            popup.style.animation = 'fadeOut 1s';
+            }, 3000);
+
+        setTimeout(() => {
+            popup.style.display = 'none'
+        }, 4000);
 
         uploadEmail(emailValue);
     }
@@ -22,16 +28,12 @@ function uploadEmail(email)
     fetch("http://localhost:5000/submitNewsletterEmail",
         {
             method: "POST",
-            body: JSON.stringify(email),
+            body: email,
             headers:
                 {
-                'Content-type': 'application/json; charset=UTF-8'
+                    'Content-type': 'application/json; charset=UTF-8'
                 }
             }
     )
-        .then(response => response.json())
-        .then(json =>
-        {
-            console.log(json);
-        })
+        .then(response => response.json());
 }

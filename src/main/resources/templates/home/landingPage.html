@@ -12,6 +12,9 @@
 </head>
 <body>
 <section id="pageContainer">
+    <div id="popupContainer">
+        <div id="popup"><p>Thanks for subscribing ! :D</p></div>
+    </div>
     <section id="contentContainer">
         <div id="content">
             <div id="newsletterContainer">
@@ -26,9 +29,8 @@
                     <div id="emailContainer">
                         <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Your email..."
                                required>
-                        <button id="emailSubmitBtn" type="button"
-                                class="popup" onclick="submitPopup()">Submit
-                            <span class="popupText" id="landingPagePopup">Thanks for subscribing ! :D</span>
+                        <button id="emailSubmitBtn" type="button" onclick="submitPopup()">
+                            Submit
                         </button>
                     </div>
                 </div>
