@@ -1,0 +1,47 @@
+/* Popup container */
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popupText {
+    visibility: hidden;
+    font-size: 3vh;
+    display: flex;
+    width: 40vw;
+    height: 10vh;
+    background-color: #8FBC8F;
+    color: #fff;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 85vh;
+    margin-left: -20vw;
+    margin-bottom: 10vh;
+}
+
+
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
