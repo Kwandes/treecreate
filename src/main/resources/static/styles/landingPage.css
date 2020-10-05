@@ -3,7 +3,8 @@ html, body
     /* document-wide styling */
     align-items: center;
     height: 100%;
-    color: black;
+    color: white;
+    line-height: normal;
 }
 
 #pageContainer
@@ -41,7 +42,7 @@ html, body
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: white;
 }
 
 #footerContainer
@@ -50,7 +51,7 @@ html, body
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    color: black;
+    color: white;
 
     width: 100%;
     height: 20vh;
@@ -59,7 +60,7 @@ html, body
 #navBar a
 {
     padding: 0 13px;
-    font-size: 17px;
+    font-size: 1.8vw;
 }
 
 #navBar .icon
@@ -79,7 +80,7 @@ html, body
 {
     margin: 5vh 15vw;
     width: 70vw;
-    font-size: 24px;
+    font-size: 2.4vw;
     text-align: center;
     text-shadow: 0 1px 3px #000000;
 }
@@ -91,12 +92,12 @@ html, body
 
 #aboutUs .title
 {
-    font-size: 48px;
+    font-size: 4.75vw;
 }
 
 #aboutUs .subTitle
 {
-    font-size: 32px;
+    font-size: 3.17vw;
 }
 
 #aboutUs section
@@ -184,24 +185,24 @@ html, body
 
 #footer
 {
-    font-size: 18px;
+    font-size: 1.8vw;
     text-shadow: 0 1px 3px #000000;
     text-align: center;
 }
 
 #footer .title
 {
-    font-size: 30px;
+    font-size: 3vw;
 }
 
 #footer-bottom
 {
-    font-size: 14px;
+    font-size: 1.4vw;
 }
 
 #footer-separator
 {
-    color: black;
+    color: white;
     width: 70vw;
 }
 
@@ -209,16 +210,16 @@ html, body
 /* I have separated the two so that aboutUs-related modifications don't break this landing page*/
 body, html
 {
-    color: black;
+    color: white;
     font-size: 1.25vw;
 }
 #pageContainer
 {
-    color: black;
-    background-image: url('../img/images/landingPage/innerWoodScale.jpg');
+    color: white;
+    background-image: url('../img/images/backgrounds/forestDarkImage.jpg');
     background-repeat: no-repeat;
     background-position: top center;
-    background-size: 100% 44%;
+    background-size: 120% 120%;
 }
 
 #content
@@ -228,7 +229,7 @@ body, html
 
 #aboutUs
 {
-    color: black;
+    color: white;
 }
 #aboutUs .title
 {
@@ -263,8 +264,12 @@ body, html
     font-family: Share Tech, sans-serif;
     font-style: normal;
     font-weight: normal;
-    color: black;
-    font-size: 1.25vw;
+    color: white;
+    font-size: 2.4vw;
+}
+#reviews span.title
+{
+    margin-bottom: 2vw;
 }
 
 #reviews .review .text
@@ -293,9 +298,8 @@ body, html
     flex-direction: column;
     justify-content: center;
 
-    height: 70vh;
     margin-top: 5vh;
-    margin-bottom: 15vh;
+    margin-bottom: 10vh;
 }
 
 #newsletter
