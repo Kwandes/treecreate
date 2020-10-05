@@ -355,6 +355,16 @@ body, html
     text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
 }
 
+#emailInput
+{
+    color: white;
+    opacity: 1;
+    font-size: 1.25vw;
+    line-height: 1.3vw;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 1);
+    padding-left: 7px;
+}
+
 #emailSubmitBtn
 {
     font-size: 1.25vw;

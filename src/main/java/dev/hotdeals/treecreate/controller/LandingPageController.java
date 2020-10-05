@@ -27,18 +27,4 @@ public class LandingPageController
     {
         return "home/landingPage";
     }
-
-    @PostMapping(value = "/submitNewsletterEmail")
-    public String submitNewsletterEmail(Model model, WebRequest wr)
-    {
-        String email = wr.getParameter("newsletterEmail");
-        System.out.println("Email: " + email);
-
-        if (!landingPageRepo.addNewsletterEmail(LocalDateTime.now().toString(), email))
-        {
-            LOGGER.warn("Failed to add a newsletter email: " + email);
-        }
-
-        return "redirect:/landingPage"; //TODO - give confirmation to the user
-    }
 }

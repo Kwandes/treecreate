@@ -9,7 +9,7 @@
 .popup .popupText {
     visibility: hidden;
     font-size: 3vh;
-    display: flex;
+    display: none;
     width: 40vw;
     height: 10vh;
     background-color: #8FBC8F;
@@ -30,9 +30,20 @@
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
+    display: flex;
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
+}
+
+.popup .hide{
+    -webkit-animation: fadeOut 1s;
+    animation: fadeOut 1s;
+}
+
+.popup .disable{
+    display: none;
+    visibility: hidden;
 }
 
 /* Add animation (fade in the popup) */
@@ -44,4 +55,14 @@
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity:1 ;}
+}
+
+@-webkit-keyframes fadeOut {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+@keyframes fadeOut {
+    from {opacity: 1;}
+    to {opacity: 0;}
 }

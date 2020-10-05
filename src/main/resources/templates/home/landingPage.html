@@ -24,15 +24,12 @@
                     <br>
                     <span id="subscribe">Subscribe for starting offers</span>
                     <div id="emailContainer">
-                        <form action="/submitNewsletterEmail" method="POST">
-                            <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Your email..."
-                                   required>
-                            <button id="emailSubmitBtn" type="submit"
-                                    class="popup" onclick="submitPopup()">Submit
-                                <span class="popupText" id="landingPagePopup">Thanks for subscribing ! :D</span>
-                            </button>
-                        </form>
-
+                        <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Your email..."
+                               required>
+                        <button id="emailSubmitBtn" type="button"
+                                class="popup" onclick="submitPopup()">Submit
+                            <span class="popupText" id="landingPagePopup">Thanks for subscribing ! :D</span>
+                        </button>
                     </div>
                 </div>
             </div>
