@@ -19,14 +19,17 @@
     width: 0;
 }
 
-.draggableBox input
-{
-
-}
-
 .draggableBox .icon
 {
     width: 4vh;
     height: 4vh;
     vertical-align: middle;
+}
+
+.dragDraggableBoxButton
+{
+    vertical-align: bottom;
+    horiz-align: right;
+    height: 7vh;
+    width: 7vh;
 }

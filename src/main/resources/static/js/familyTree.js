@@ -14,17 +14,10 @@ window.onload = function ()
 
     var active = false;
 
-    container.addEventListener("touchstart", dragStart, false);
-    container.addEventListener("touchend", dragEnd, false);
-    container.addEventListener("touchmove", drag, false);
-
-    container.addEventListener("mousedown", dragStart, false);
-    container.addEventListener("mouseup", dragEnd, false);
-    container.addEventListener("mousemove", drag, false);
-
     boundaries.addEventListener("click", createBox);
 
-    function createBox(e) {
+    function createBox(e)
+    {
         if (e.target === boundaries)
         {
             // limit has to be increased by 1, as the very first box is invisible and cannot be interacted with
@@ -32,18 +25,34 @@ window.onload = function ()
             {
                 clone = boxes[0].cloneNode(true)
 
+                var boxWidth = 500;
+                var boxHeight = 250;
+
                 var cursorX = e.clientX;
                 var cursorY = e.clientY;
-                console.log("Cursor " + cursorX + " " + cursorY);
+                var offsetX = boxWidth / 2;
+                var offsetY = boxHeight / 2;
 
                 clone.style.display = 'flex';
                 clone.style.position = 'absolute';
-                clone.style.height = 250 + 'px';
-                clone.style.width = 500 + 'px';
+                clone.style.width = boxWidth + 'px';
+                clone.style.height = boxHeight + 'px';
 
                 spawnzone.appendChild(clone);
-                clone.style.transform = "translate3d(" + cursorX + "px, " + cursorY + "px, 0)";
-                console.log("Clone " + clone.style.top + " " + clone.style.left);
+                clone.style.top = cursorY - offsetY + 'px';
+                clone.style.left = cursorX - offsetX + 'px';
+
+                var button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
+
+                console.log(button.className);
+                button.addEventListener("touchstart", dragStart, false);
+                button.addEventListener("touchend", dragEnd, false);
+                button.addEventListener("touchmove", drag, false);
+
+                button.addEventListener("mousedown", dragStart, false);
+                button.addEventListener("mouseup", dragEnd, false);
+                button.addEventListener("mousemove", drag, false);
+
             }
             else
             {
@@ -53,13 +62,13 @@ window.onload = function ()
     }
 
     function dragStart(e) {
-
-        if (e.target !== e.currentTarget)
-        {
+        //if (e.target !== e.currentTarget)
+        //{
             active = true;
 
             // this is the item we are interacting with
-            activeItem = e.target;
+            activeItem = e.target.parentNode;
+            console.log(activeItem.className);
 
             if (activeItem !== null) {
                 if (!activeItem.xOffset) {
@@ -78,7 +87,7 @@ window.onload = function ()
                     activeItem.initialY = e.clientY - activeItem.yOffset;
                 }
             }
-        }
+        //}
     }
 
     function dragEnd(e) {
