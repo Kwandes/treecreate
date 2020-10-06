@@ -9,12 +9,11 @@
 .draggableBox
 {
     display: none;
-    justify-content: center;
+    border: none;
+    justify-content: space-between;
     align-items: center;
     position: absolute;
     z-index: 100;
-    background-color: #f1f1f1;
-    border: 1px solid #d3d3d3;
     height: 0;
     width: 0;
 }
@@ -26,10 +25,49 @@
     vertical-align: middle;
 }
 
+.draggableBox input
+{
+    border: none;
+    padding: 0;
+}
+
+.draggableBoxLeftColumn
+{
+    flex-direction: column;
+    display: flex;
+    height: 100%;
+    width: 33%;
+}
+
+.draggableBoxMiddleColumn
+{
+    flex-direction: row;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    width: 33%;
+}
+
+.draggableBoxRightColumn
+{
+    flex-direction: column;
+    justify-content: space-between;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    width: 33%;
+}
+
 .dragDraggableBoxButton
 {
-    vertical-align: bottom;
-    horiz-align: right;
+    background-image: url("../img/icons/danishTransportIcon.svg");
+    height: 7vh;
+    width: 7vh;
+}
+
+.deleteDraggableBoxButton
+{
+    background-image: url("../img/icons/recyclingIcon.svg");
     height: 7vh;
     width: 7vh;
 }

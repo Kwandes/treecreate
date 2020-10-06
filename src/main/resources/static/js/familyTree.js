@@ -7,7 +7,7 @@ function getRandomInt(min, max) {
 // triggered by deleteDraggableBoxButton
 function deleteBox(button)
 {
-    button.parentNode.parentNode.removeChild(button.parentNode);
+    button.parentNode.parentNode.parentNode.removeChild(button.parentNode.parentNode);
 }
 
 function getBoxImageSources(i, path)
@@ -94,7 +94,7 @@ window.onload = function ()
         active = true;
 
         // this is the item we are interacting with
-        activeItem = e.target.parentNode;
+        activeItem = e.target.parentNode.parentNode;
 
         if (activeItem !== null)
         {
