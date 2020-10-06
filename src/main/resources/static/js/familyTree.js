@@ -1,11 +1,37 @@
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
 // triggered by deleteDraggableBoxButton
 function deleteBox(button)
 {
     button.parentNode.parentNode.removeChild(button.parentNode);
 }
 
+function getBoxImageSources(i, path)
+{
+    var imgArray = new Array();
+    for (var j = 1; j <= i; j ++)
+    {
+        var imgSrc = path + "box" + j + ".svg";
+        imgArray.push(imgSrc);
+    }
+    return imgArray;
+}
+
+function assignBoxBackground(imgArray)
+{
+    var imageNumber = getRandomInt(0, imgArray.length - 1);
+    var backgroundSrc = 'url(' + imgArray[imageNumber] + ') 100% 100%';
+    return backgroundSrc;
+}
+
 window.onload = function ()
 {
+    var imgPath = "../img/images/boxDesign/box01/";
+    var images = getBoxImageSources(9, imgPath);
     var boundaries = document.getElementById("draggableBoxContainer");
     var boxes = document.getElementsByClassName("draggableBox");
     var activeItem = null;
@@ -43,6 +69,9 @@ window.onload = function ()
                 boundaries.appendChild(clone);
                 clone.style.top = cursorY - offsetY + 'px';
                 clone.style.left = cursorX - offsetX + 'px';
+                //clone.style.backgroundImage = assignBoxBackground(images);
+                clone.style.background = assignBoxBackground(images);
+                clone.style.backgroundSize = '100% 100%';
 
                 // add events listeners on the drag button
                 var button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
