@@ -5,7 +5,9 @@
     <title>Family Tree</title>
     <link th:href="@{/styles/index.css}" rel="stylesheet">
     <link th:href="@{/styles/products.css}" rel="stylesheet">
+    <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <script th:src="@{/js/familyTree.js}"></script>
 </head>
 <body>
 <section id="navigationContainer">
@@ -30,6 +32,18 @@
     </nav>
 </section>
 <section id="contentContainer">
+    <!-- Draggable Box -->
+    <div id="draggableBoxContainer">
+        <div class="draggableBox">
+            <input type="text">
+            <button class="deleteDraggableBoxButton" onclick="deleteBox(this)">
+                <img th:src="@{~/img/icons/deleteDraggableBoxIcon.png}" alt="delete box"
+                     class="deleteDraggableBoxIcon icon">
+            </button>
+            <button class="dragDraggableBoxButton"></button>
+        </div>
+    </div>
+
     <div id="content">
         <div id="productContainer">
             <div id="product">
