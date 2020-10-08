@@ -169,8 +169,8 @@ html, body
 
 #footer .icon
 {
-    height: 4vh;
-    width: 4vh;
+    height: calc(20px + 3vh);
+    width: calc(20px + 3vh);
 }
 
 #footer .section
@@ -185,25 +185,48 @@ html, body
 
 #footer
 {
-    font-size: 1.8vw;
+    font-size: calc(12px + 1vw);
     text-shadow: 0 1px 3px #000000;
     text-align: center;
 }
 
 #footer .title
 {
-    font-size: 3vw;
+    font-size: calc(16px + 2vw)
 }
 
 #footer-bottom
 {
-    font-size: 1.4vw;
+    font-size: calc(11px + 0.7vw);
+    padding-bottom: 17px;
 }
 
 #footer-separator
 {
     color: white;
+    border-top: 1px solid white;
     width: 70vw;
+}
+
+.icon-row img
+{
+    padding: 10px 17px 0px 17px;
+}
+
+.icon-row-top img
+{
+    padding: 15px 10px 0px 10px;
+    -webkit-filter: drop-shadow( 1px 3px 3px rgba(0, 0, 0, .2));
+            filter: drop-shadow( 1px 3px 3px rgba(0, 0, 0, .2));
+}
+
+.icon-row-top img:hover
+{
+    padding: 16px 11px 1px 11px;
+    width: calc(18px + 3vh);
+    height: calc(18px + 3vh);
+    -webkit-filter: drop-shadow( 1px 1px 3px rgba(255, 255, 255, .3));
+            filter: drop-shadow( 1px 1px 3px rgba(255, 255, 255, .3));
 }
 
 /* This is the stuff that is actually different from the AboutUs css as of version 0.4.1 */
@@ -261,7 +284,7 @@ body, html
 
 #reviews .title
 {
-    font-family: Share Tech, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: normal;
     color: white;
@@ -276,7 +299,7 @@ body, html
 {
     width: 100%;
     height: auto;
-    font-family: Simonetta, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: normal;
 }
@@ -300,31 +323,32 @@ body, html
     justify-content: center;
 
     margin-top: 5vh;
-    margin-bottom: 10vh;
+    margin-bottom: 7vh;
 }
 
 #newsletter
 {
     color: white;
     text-align: center;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
 }
 #treecreateLogo
 {
-    width: 24vw;
+    width: 26vw;
     height: auto;
     color: white;
+    -webkit-filter: drop-shadow( 3px 3px 10px rgba(0, 0, 0, .2));
+    filter: drop-shadow( 3px 3px 10px rgba(0, 0, 0, .2));
 }
 
 #comingSoon
 {
-    font-size: 6.25vw;
-    line-height: 6.25vw;
+    font-size: calc(36px + 3vw);
+    line-height: calc(36px + 3vw);
 }
 #subscribe
 {
-    font-size: 1.56vw;
-    line-height: 1.56vw;
+    font-size: calc(12px + 1vw);
+    line-height: calc(12px + 1vw);
 }
 
 #emailContainer
@@ -334,45 +358,76 @@ body, html
 
 #emailInput
 {
-    font-size: 1.25vw;
+    font-size: calc(6px + 1vw);
     background: none;
     border: 2px white solid;
     border-radius: 5px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
-    height: 4vh;
+    height: calc(15px + 3vh);
     min-width: 20vw;
     max-width: 30vw;
     width: 100%;
     margin-right: 1vw;
+    color: white;
+    opacity: 1;
+    font-size: calc(6px + 1vw);
+    line-height: calc(6px + 1vw);
+    padding-left: 7px;
 }
 
 #emailInput::placeholder
 {
     color: white;
     opacity: 1;
-    font-size: 1.25vw;
-    line-height: 1.3vw;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
-}
-
-#emailInput
-{
-    color: white;
-    opacity: 1;
-    font-size: 1.25vw;
-    line-height: 1.3vw;
-    text-shadow: 0 2px 3px rgba(0, 0, 0, 1);
-    padding-left: 7px;
+    font-size: calc(6px + 1vw);
+    line-height: calc(6px + 1vw);
 }
 
 #emailSubmitBtn
 {
-    font-size: 1.25vw;
+    font-size: calc(7px + 1vw);
     background: white;
     border-radius: 7px;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.7);
-    height: 4vh;
-    width: 6vw;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    height: calc(15px + 3vh);
+    width: calc(40px + 5vh);
     border: none;
     color: #AF6826;
 }
+
+#emailSubmitBtn:hover
+{
+    height: calc(18px + 2vh);
+    width: calc(56px + 2vh);
+    margin: 1px 5px;
+    font-size: calc(5px + 1vw);
+    box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
+}
+
+/* * * * * * * * * * * * * * *
+Scale dependent
+* * * * * * * * * * * * * * */
+@media (max-width : 950px)
+{
+  .scale-dependent-show
+  {
+    display: block !important;
+  }
+  .scale-dependent-removal
+  {
+      display: none !important;
+  }
+  .mobile-review img
+  {
+    width: 200px;
+    height: 200px;
+  }
+  .mobile-review  p
+  {
+    margin: 15px 50px;
+  }
+  .review
+  {
+    padding-bottom: 15px;
+  }
+}
+
