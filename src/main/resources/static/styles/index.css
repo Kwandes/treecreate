@@ -1,108 +1,24 @@
-html, body {
-    /* Page Background */
-    background: #46abe3; /* fallback for browsers that don't support gradients */
-    background: url("../img/background-swirl_pattern.png"); /* fallback for browsers that don't support gradients */
-    background: url("../img/background-swirl_pattern.png"), linear-gradient(#54c5f7, #006ce7); /* Page background */
+/* Styling code shared across all screens  */
 
-    /* document-wide styling */
-    font-family: FontAwesome, sans-serif;
-    align-items: center;
-    height: 100%;
+body, html
+{
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 27px;
+    color: black;
     margin: 0;
-    color: white;
 }
 
-a {
-    /* Remove hyperlink decoration */
-    color: white;
+a
+{ /* Remove hyper-link decoration */
+    color: black;
     text-decoration: none;
 }
 
-:focus { /* remove an outline on focusing of an element */
+:focus
+{ /* remove an outline on focusing of an element */
     outline: none;
-}
-
-#content {
-    /* Align the content in the center of the page horizontally and vertically */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* Make the content span the entire height of the page and account for the footer */
-    min-height: 100%;
-    margin: 0 auto -50px; /* height of the footer */
-}
-
-.logo {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-}
-
-#credentialsSection {
-    text-align: center;
-    width: 300px;
-    margin-bottom: 100px; /* move the entire section up */
-}
-
-/* adjust styling for the credentials section */
-#credentialsSection input {
-    background: white;
-    border-color: #cccccc;
-    border-style: solid;
-    border-radius: 20px;
-    border-width: 0;
-    font-size: 16px;
-    padding: 5px;
-
-    width: 290px; /* section width minus padding */
-    margin: 4px;
-}
-
-#credentialsSection input::placeholder { /* has to be targeted specifically */
-    color: #d5d5d5
-}
-
-#credentialsSection button {
-    background: #333333;
-    color: white;
-    border-style: solid;
-    border-radius: 20px;
-    border-width: 0;
-    font-size: 16px;
-    padding: 5px;
-    margin: 4px;
-
-    width: 300px; /* button width works different from the input, includes the padding within the limit */
-}
-
-#credentialsSection button:hover {
-    background: #1a72d6;
-    background: linear-gradient(270deg, #54c5f7, #006ce7);
-    cursor: pointer;
-}
-
-/* Move the icons in the input field */
-#credentialsSection i {
-    position: absolute;
-    margin-top: 10px;
-    margin-left: 20px;
-    z-index: 1; /* move the icon to the front of the input */
-    color: #d5d5d5 /* set them to match the input placeholder color */
-}
-
-#credentialsSection input {
-    position: relative;
-    text-indent: 35px; /* make space for the icon */
-}
-
-/* styling of the login error message */
-#credentialsSection .errorText {
-    color: white;
-}
-
-/* Footer */
-.footer {
-    text-align: center;
-    height: 50px;
 }

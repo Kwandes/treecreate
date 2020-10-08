@@ -1,0 +1,73 @@
+/* Popup container */
+#popupContainer
+{
+    position: fixed;
+    left: 50%;
+    top: 85vh;
+
+    display: none;
+}
+
+/* The actual popup (appears on top) */
+#popup
+{
+    font-size: 2vw;
+    width: 40vw;
+    height: fit-content;
+    background-color: #8FBC8F;
+    color: #fff;
+    border-radius: 6px;
+    padding: 8px 0;
+    margin-left: -20vw;
+    text-align: center;
+}
+
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeOut
+{
+    from
+    {
+        opacity: 1;
+    }
+    to
+    {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut
+{
+    from
+    {
+        opacity: 1;
+    }
+    to
+    {
+        opacity: 0;
+    }
+}

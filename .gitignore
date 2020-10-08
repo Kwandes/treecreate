@@ -14,3 +14,5 @@
 # Auto generated files
 HELP.md
 
+# Mac OS indexing file for the Finder application. Useless on windows etc
+.DS_Store

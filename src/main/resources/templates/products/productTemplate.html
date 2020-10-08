@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Template</title>
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/products.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+</head>
+<body>
+<section id="navigationContainer">
+    <nav id="navBar">
+        <div id="navBar-left">
+            <a href="/index"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}" alt="treecreate" id="treecreateLogo"
+                                  class="icon" style="width: 14vh;"></a>
+            <a href="/facebook" target="popup"
+               onclick="window.open('https://www.facebook.com/treecreate.dk', 'name', 'width=600,height=800')">
+                <img th:src="@{~/img/logos/facebookBlackIcon.svg}" alt="facebook" id="facebookIcon" class="icon"></a>
+            <a href="https://www.instagram.com/tree_create/" target="popup"
+               onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
+                <img th:src="@{~/img/logos/instagramBlackIcon.svg}" alt="instagram" id="instagramIcon" class="icon"></a>
+        </div>
+        <div id="navBar-right">
+            <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
+                                           id="shoppingBasketIcon" class="icon"> (0) Items</a>
+            <a href="/aboutUs">About Us</a>
+            <a href="/specialRequest">Special Request</a>
+            <a href="/login">Login</a>
+        </div>
+    </nav>
+</section>
+<section id="contentContainer">
+    <div id="content">
+        <div id="productContainer">
+            <div id="product">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet convallis nisi. Sed ac sem
+                    nec
+                    velit facilisis euismod. Phasellus ex ex, ultrices ut fermentum non, eleifend et nisl. Etiam nec dui
+                    felis. Duis a dui interdum tellus dapibus scelerisque. Donec euismod eu libero a fringilla. Quisque
+                    blandit a augue sit amet egestas. Fusce quis risus sit amet leo aliquet porta eget eu diam. In
+                    rhoncus
+                    tortor at mollis auctor. Ut in lacinia ipsum. Duis laoreet nisl nibh, ut iaculis leo sagittis ut.
+                    Proin
+                    enim sapien, mollis sed ligula a, suscipit convallis risus. Integer ullamcorper convallis enim
+                    scelerisque sollicitudin.
+                </p>
+            </div>
+        </div>
+        <!--    For extra content, simply add a new container and it's content here
+                The product will span 100% of the main view and subsequent containers will be below it,
+                 forcing you to scroll down -->
+    </div>
+</section>
+</body>
+</html>
