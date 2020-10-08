@@ -1,0 +1,433 @@
+html, body
+{
+    /* document-wide styling */
+    align-items: center;
+    height: 100%;
+    color: white;
+    line-height: normal;
+}
+
+#pageContainer
+{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* This entire section gets overridden anyway
+    background-image: url('../img/images/backgrounds/forestDarkImage.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: 120% 120%;
+    background-size: cover;
+    */
+}
+
+#navBar
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 6vh;
+    background-color: white;
+}
+
+
+#contentContainer
+{
+    /* Align the content in the center of the page horizontally and vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#footerContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    color: white;
+
+    width: 100%;
+    height: 20vh;
+}
+
+#navBar a
+{
+    padding: 0 13px;
+    font-size: 1.8vw;
+}
+
+#navBar .icon
+{
+    width: 4vh;
+    height: 4vh;
+    vertical-align: middle;
+}
+
+#navBar-right .icon
+{
+    width: 2.7vh;
+    padding-bottom: 0.6vh;
+}
+
+#content
+{
+    margin: 0 15vw;
+    width: 70vw;
+    font-size: 2.4vw;
+    text-align: center;
+    text-shadow: 0 1px 3px #000000;
+}
+
+#aboutUs
+{
+    width: 100%;
+}
+
+#aboutUs .title
+{
+    font-size: 4.75vw;
+}
+
+#aboutUs .subTitle
+{
+    font-size: 3.17vw;
+}
+
+#aboutUs section
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 2.5vh 2.5vw;
+}
+
+#aboutUs .imageCollection
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 34vw;
+    margin: 1vh 1vw;
+}
+
+#aboutUs section img
+{
+    width: 34vw;
+    height: 34vh;
+    margin: 1vh 1vw;
+}
+
+#aboutUs section .imageCollection .image
+{
+    height: 30%;
+    width: 30%;
+    margin: 5%;
+}
+
+#aboutUs section .text
+{
+    width: 34vw;
+    margin: 1vh 1vw;
+}
+
+#aboutUs #generalInformation
+{
+    display: inline-block;
+}
+
+#aboutUs #development
+{
+    text-align: left;
+}
+
+#aboutUs #familytrees
+{
+    text-align: right;
+}
+
+#aboutUs #specialRequests
+{
+    text-align: left;
+}
+
+
+.footer-row
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#footer .icon
+{
+    height: calc(20px + 3vh);
+    width: calc(20px + 3vh);
+}
+
+#footer .section
+{
+    margin: 0 2vw;
+}
+
+#footer .footer-row:first-child .section
+{
+    width: 25%;
+}
+
+#footer
+{
+    font-size: calc(12px + 1vw);
+    text-shadow: 0 1px 3px #000000;
+    text-align: center;
+}
+
+#footer .title
+{
+    font-size: calc(16px + 2vw)
+}
+
+#footer-bottom
+{
+    font-size: calc(11px + 0.7vw);
+    padding-bottom: 17px;
+}
+
+#footer-separator
+{
+    color: white;
+    border-top: 1px solid white;
+    width: 70vw;
+}
+
+.icon-row img
+{
+    padding: 10px 17px 0px 17px;
+}
+
+.icon-row-top img
+{
+    padding: 15px 10px 0px 10px;
+    -webkit-filter: drop-shadow( 1px 3px 3px rgba(0, 0, 0, .2));
+            filter: drop-shadow( 1px 3px 3px rgba(0, 0, 0, .2));
+}
+
+.icon-row-top img:hover
+{
+    padding: 16px 11px 1px 11px;
+    width: calc(18px + 3vh);
+    height: calc(18px + 3vh);
+    -webkit-filter: drop-shadow( 1px 1px 3px rgba(255, 255, 255, .3));
+            filter: drop-shadow( 1px 1px 3px rgba(255, 255, 255, .3));
+}
+
+/* This is the stuff that is actually different from the AboutUs css as of version 0.4.1 */
+/* I have separated the two so that aboutUs-related modifications don't break this landing page*/
+body, html
+{
+    color: white;
+    font-size: 1.25vw;
+}
+#pageContainer
+{
+    color: white;
+    background-image: url('../img/images/backgrounds/forestDarkImage.jpg');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 120% 120%;
+}
+
+#content
+{
+    text-shadow: none;
+}
+
+#aboutUs
+{
+    color: white;
+}
+#aboutUs .title
+{
+    color: white;
+}
+
+#aboutUs #reviews
+{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#reviews .review
+{
+    width: 25%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#reviews .review .image
+{
+    width: 90%;
+    height: auto;
+}
+
+#reviews .title
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: white;
+    font-size: 2.4vw;
+}
+#reviews span.title
+{
+    margin-bottom: 2vw;
+}
+
+#reviews .review .text
+{
+    width: 100%;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+#footer
+{
+    text-shadow: none;
+}
+
+#footerContainer
+{
+    height: fit-content;
+    margin-top: 1vh;
+}
+
+/* Newsletter thing */
+#newsletterContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-top: 5vh;
+    margin-bottom: 7vh;
+}
+
+#newsletter
+{
+    color: white;
+    text-align: center;
+}
+#treecreateLogo
+{
+    width: 26vw;
+    height: auto;
+    color: white;
+    -webkit-filter: drop-shadow( 3px 3px 10px rgba(0, 0, 0, .2));
+    filter: drop-shadow( 3px 3px 10px rgba(0, 0, 0, .2));
+}
+
+#comingSoon
+{
+    font-size: calc(36px + 3vw);
+    line-height: calc(36px + 3vw);
+}
+#subscribe
+{
+    font-size: calc(12px + 1vw);
+    line-height: calc(12px + 1vw);
+}
+
+#emailContainer
+{
+    margin-top: 1vh;
+}
+
+#emailInput
+{
+    font-size: calc(6px + 1vw);
+    background: none;
+    border: 2px white solid;
+    border-radius: 5px;
+    height: calc(15px + 3vh);
+    min-width: 20vw;
+    max-width: 30vw;
+    width: 100%;
+    margin-right: 1vw;
+    color: white;
+    opacity: 1;
+    font-size: calc(6px + 1vw);
+    line-height: calc(6px + 1vw);
+    padding-left: 7px;
+}
+
+#emailInput::placeholder
+{
+    color: white;
+    opacity: 1;
+    font-size: calc(6px + 1vw);
+    line-height: calc(6px + 1vw);
+}
+
+#emailSubmitBtn
+{
+    font-size: calc(7px + 1vw);
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    height: calc(15px + 3vh);
+    width: calc(40px + 5vh);
+    border: none;
+    color: #AF6826;
+}
+
+#emailSubmitBtn:hover
+{
+    height: calc(18px + 2vh);
+    width: calc(56px + 2vh);
+    margin: 1px 5px;
+    font-size: calc(5px + 1vw);
+    box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
+}
+
+/* * * * * * * * * * * * * * *
+Scale dependent
+* * * * * * * * * * * * * * */
+@media (max-width : 950px)
+{
+  .scale-dependent-show
+  {
+    display: block !important;
+  }
+  .scale-dependent-removal
+  {
+      display: none !important;
+  }
+  .mobile-review img
+  {
+    width: 200px;
+    height: 200px;
+  }
+  .mobile-review  p
+  {
+    margin: 15px 50px;
+  }
+  .review
+  {
+    padding-bottom: 15px;
+  }
+}
+

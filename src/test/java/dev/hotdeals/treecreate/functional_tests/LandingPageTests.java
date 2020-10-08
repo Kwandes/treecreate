@@ -44,7 +44,7 @@ public class LandingPageTests
     public void getIndexTitleTest()
     {
         webDriver.get("http://localhost:" + port);
-        assertThat(webDriver.getTitle()).isEqualTo("About Us");
+        assertThat(webDriver.getTitle()).isEqualTo("Treecreate");
     }
 
     @Test
@@ -52,6 +52,13 @@ public class LandingPageTests
     {
         webDriver.get("http://localhost:" + port + "/aboutUs");
         assertThat(webDriver.getTitle()).isEqualTo("About Us");
+    }
+
+    @Test
+    public void getLandingPageTitleTest()
+    {
+        webDriver.get("http://localhost:" + port + "/landingPage");
+        assertThat(webDriver.getTitle()).isEqualTo("Treecreate");
     }
 
     @Test

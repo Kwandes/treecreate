@@ -44,3 +44,43 @@ BEGIN
             CURRENT_TIME(6),
             CONCAT(OLD.username, ' | ', OLD.password, ' | ', OLD.email, ' | ', OLD.access_level));
 END;
+
+-- -----------------------------------------------------
+-- Table treecreate.newsletterEmail
+-- -----------------------------------------------------
+CREATE TRIGGER tr_treecreate_newsletterEmail_ins
+    AFTER INSERT
+    ON treecreate.newsletterEmail
+    FOR EACH ROW
+    INSERT INTO treecreate.log(user_id, action, table_name, log_time, data)
+    VALUES (USER(),
+            'insert',
+            'newsletterEmail',
+            CURRENT_TIME(6),
+            CONCAT(NEW.timePlusDate, ' | ', NEW.email));
+
+CREATE TRIGGER tr_treecreate_newsletterEmail_upd
+    BEFORE UPDATE
+    ON treecreate.newsletterEmail
+    FOR EACH ROW
+BEGIN
+    INSERT INTO treecreate.log(user_id, action, table_name, log_time, data)
+    VALUES (USER(),
+            'update',
+            'newsletterEmail',
+            CURRENT_TIME(6),
+            CONCAT(NEW.timePlusDate, ' | ', NEW.email));
+END;
+
+CREATE TRIGGER tr_treecreate_newsletterEmail_del
+    BEFORE DELETE
+    ON treecreate.newsletterEmail
+    FOR EACH ROW
+BEGIN
+    INSERT INTO treecreate.log(user_id, action, table_name, log_time, data)
+    VALUES (USER(),
+            'delete',
+            'newsletterEmail',
+            CURRENT_TIME(6),
+            CONCAT(OLD.timePlusDate, ' | ', OLD.email));
+END;
