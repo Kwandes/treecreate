@@ -22,8 +22,12 @@ public class RestLandingPageController
     @PostMapping(value = "/submitNewsletterEmail")
     public void submitNewsletterEmail(@RequestBody String email)
     {
-        System.out.println("Email: " + email);
-
+        LOGGER.info("Email: " + email);
+        if (email.length() > 255)
+        {
+            LOGGER.warn("SOMEONE tried submitting an email longer than 255 characters: " + email);
+            return;
+        }
         if (!landingPageRepo.addNewsletterEmail(LocalDateTime.now().toString(), email))
         {
             LOGGER.warn("Failed to add a newsletter email: " + email);
