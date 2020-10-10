@@ -5,35 +5,49 @@
 
 >The program is docker-compatible and that is the suggested deployment method.
 
-Navigate over to the program directory and run:
+#### In order to run the project you need to have two environment variables set on your machine:
+
+- TREECREATE_JDBC_URL - an url pointing to the endpoint of your database, with the username and password included\
+*Example:* `jdbc:mysql://username:password@minecraft.net:3306/schemaName?serverTimezone=UTC`
+
+- TREECREATE_API_URL - an url you use to access the API to fetch data to/from. IN our case it is the website itself.\
+*Example:* `https://treecreate.dk`
+
+*Make sure to you have the environment variables setup with exactly matching names, otherwise the build/run will fail.*
+
+#### How to build and run via a Docker
+
+Navigate over to the project directory and run:
 ```
-docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL .
+docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_API_URL .
 ```
 For raspberry Pi and ARM architecture compatibility use **Dockerfile-arm** file
 ```
-docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL -f Dockerfile-arm .
+docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_API_URL -f Dockerfile-arm .
 ```
 
 This will compile the project and create an image.
-The `--build-arg TREECREATE_JDBC_URL` is used to add an environment variable during building of the project.
+The `--build-arg ARG` is used to add an environment variable during building of the project.\
+`X-X-X` refers to the version you're running and is optional.
 
 After that you can start the image with:
  ```
- docker run --name treecreate-X.X.X -e TREECREATE_JDBC_URL -dp 80:5000 treecreate-X.X.X
+ docker run --name treecreate-X.X.X -e TREECREATE_JDBC_URL --restart unless-stopped -dp 80:5000 treecreate-X.X.X
 ```
-The port 80 can be changed to whichever port you use to access the website.
-Hint: Easy deployment without any router port forwarding can be achieved with usage of Dataplicity's Wormhole service
+The port 80 can be changed to whichever port you use to access the website/webserver.\
+`--restart unless-stopped` will make sure the container automatically starts after a reboot of the host.
 
-*Make sure to you have the environment variables setup with exactly matching names, otherwise the build/run will fail.*
-*The url follow a format of*
+*Hint: Easy deployment without any router port forwarding can be achieved with usage of Dataplicity's Wormhole service*
 
-`jdbc:mysql://username:password@minecraft.net:3306/schemaName?serverTimezone=UTC`
+*Hint 2: For simple HTTPS and reverse proxy, you can use Caddy*
 
 ### Technologies Used
 - Java 11
-- Springboot
+- Springboot & Thymeleaf
 - SLF4j & Logback
 - Maven
+- Docker
+- JUnit & Selenium WebDriver
 
 ### License
 This Software is released under an [MIT license](https://opensource.org/licenses/MIT)
