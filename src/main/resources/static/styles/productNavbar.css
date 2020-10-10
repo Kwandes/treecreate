@@ -12,19 +12,28 @@
 
 #navBar a
 {
-    padding: 0 13px;
+    display: inline-block;
     font-size: 17px;
+    height: 4vh;
+    width: fit-content;
+    padding: 0 0.6vh;
 }
 
 #navBar .icon
 {
     width: 4vh;
-    height: 4vh;
+    height: 100%;
     vertical-align: middle;
 }
 
 #navBar-right .icon
 {
     width: 2.7vh;
-    padding-bottom: 0.6vh;
+}
+
+#treecreateLogo
+{
+    height: 100%;
+    width: 15vh;
+    vertical-align: middle;
 }
