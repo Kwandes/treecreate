@@ -24,14 +24,34 @@
     font-size: 17px;
     height: 4vh;
     width: fit-content;
-    padding: 0 0.6vh;
+    padding: 0.5vh 0.6vh;
     color: #AF6826;
+    position: relative; /* Used to align the hoverLine element properly */
+}
+
+#navBar a .hoverLine
+{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.5vh;
+    color: white;
+    border: none;
+    margin: 0
+}
+
+#navBar a:hover .hoverLine
+{
+    display: inline-block;
+    color: #AF6826;
+    background-color: #AF6826;
 }
 
 #navBar .icon
 {
     width: 4vh;
-    height: 100%;
     vertical-align: middle;
 }
 
