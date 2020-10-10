@@ -8,6 +8,7 @@
     width: 100%;
     height: 6vh;
     background-color: white;
+    --navbarMainColor: #AF6826;
 }
 
 #navBar img.filterColor
@@ -25,7 +26,7 @@
     height: 4vh;
     width: fit-content;
     padding: 0.5vh 0.6vh;
-    color: #AF6826;
+    color: var(--navbarMainColor);
     position: relative; /* Used to align the hoverLine element properly */
 }
 
@@ -45,8 +46,8 @@
 #navBar a:hover .hoverLine
 {
     display: inline-block;
-    color: #AF6826;
-    background-color: #AF6826;
+    color: var(--navbarMainColor);
+    background-color: var(--navbarMainColor);
 }
 
 #navBar .icon
