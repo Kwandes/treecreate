@@ -25,49 +25,77 @@
     vertical-align: middle;
 }
 
-.draggableBox input
+.draggableBox textarea
 {
+    font-family: Share Tech, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 27px;
+    color: black;
     border: none;
     padding: 0;
 }
 
-.draggableBoxLeftColumn
+.draggableBoxUpperRow
 {
-    flex-direction: column;
-    display: flex;
-    height: 100%;
-    width: 33%;
-}
-
-.draggableBoxMiddleColumn
-{
-    flex-direction: row;
-    align-items: center;
-    display: flex;
-    height: 100%;
-    width: 33%;
-}
-
-.draggableBoxRightColumn
-{
-    flex-direction: column;
+    flex-direction: row-reverse;
     justify-content: space-between;
     display: flex;
     align-items: flex-end;
-    height: 100%;
-    width: 33%;
+    height: 28%;
+    width: 100%;
+}
+
+.draggableBoxMiddleRow
+{
+    flex-direction: row;
+    justify-content: space-evenly;
+    display: flex;
+    height: 44%;
+    width: 100%;
+}
+
+.draggableBoxLowerRow
+{
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    display: flex;
+    align-items: flex-start;
+    height: 28%;
+    width: 100%;
 }
 
 .dragDraggableBoxButton
 {
-    background-image: url("../img/icons/danishTransportIcon.svg");
-    height: 7vh;
-    width: 7vh;
+    margin: 1vh;
+    visibility: hidden;
+    background-image: url("../img/icons/dragIcon.svg");
+    height: 4.5vh;
+    width: 4.5vh;
 }
 
 .deleteDraggableBoxButton
 {
-    background-image: url("../img/icons/recyclingIcon.svg");
-    height: 7vh;
-    width: 7vh;
+    margin: 1vh;
+    visibility: hidden;
+    background-image: url("../img/icons/exitIcon.svg");
+    height: 4.5vh;
+    width: 4.5vh;
+}
+
+.draggableBox:hover
+{
+    box-shadow: 5px 5px 20px;
+    z-index: 101;
+}
+
+.draggableBox:hover .dragDraggableBoxButton
+{
+    visibility: visible;
+}
+
+.draggableBox:hover .deleteDraggableBoxButton
+{
+    visibility: visible;
 }

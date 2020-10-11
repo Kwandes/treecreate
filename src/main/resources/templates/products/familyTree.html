@@ -35,13 +35,14 @@
     <!-- Draggable Box -->
     <div id="draggableBoxContainer">
         <div class="draggableBox">
-            <div class="draggableBoxLeftColumn"></div>
-            <div class="draggableBoxMiddleColumn">
-                <input type="text" placeholder="Your name here...">
+            <div class="draggableBoxUpperRow">
+                <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
             </div>
-            <div class="draggableBoxRightColumn">
-                <button class="deleteDraggableBoxButton" onclick="deleteBox(this)"></button>
-                <button class="dragDraggableBoxButton"></button>
+            <div class="draggableBoxMiddleRow">
+               <textarea type="text" placeholder="Your name here..." wrap="soft"></textarea>
+            </div>
+            <div class="draggableBoxLowerRow">
+                <div class="dragDraggableBoxButton"></div>
             </div>
 
         </div>

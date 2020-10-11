@@ -56,6 +56,7 @@ window.onload = function ()
 
                 // box style
                 clone.style.display = 'flex';
+                clone.style.flexWrap = 'wrap';
                 clone.style.position = 'absolute';
                 clone.style.width = boxWidth + 'px';
                 clone.style.height = boxHeight + 'px';
@@ -69,7 +70,6 @@ window.onload = function ()
                 boundaries.appendChild(clone);
                 clone.style.top = cursorY - offsetY + 'px';
                 clone.style.left = cursorX - offsetX + 'px';
-                //clone.style.backgroundImage = assignBoxBackground(images);
                 clone.style.background = assignBoxBackground(images);
                 clone.style.backgroundSize = '100% 100%';
 
