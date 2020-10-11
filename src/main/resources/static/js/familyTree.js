@@ -1,15 +1,40 @@
+function getRandomInt(min, max)
+{
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
 // triggered by deleteDraggableBoxButton
 function deleteBox(button)
 {
-    button.parentNode.parentNode.removeChild(button.parentNode);
+    button.parentNode.parentNode.parentNode.removeChild(button.parentNode.parentNode);
 }
 
-window.onload = function ()
+function getBoxImageSources(i, path)
 {
-    var boundaries = document.getElementById("draggableBoxContainer");
-    var boxes = document.getElementsByClassName("draggableBox");
-    var activeItem = null;
-    var active = false;
+    let imgArray = [];
+    for (let j = 1; j <= i; j++)
+    {
+        const imgSrc = path + "box" + j + ".svg";
+        imgArray.push(imgSrc);
+    }
+    return imgArray;
+}
+
+function assignBoxBackground(imgArray)
+{
+    let imageNumber = getRandomInt(0, imgArray.length - 1);
+    return 'url(' + imgArray[imageNumber] + ') 100% 100%';
+}
+
+window.onload = function () {
+    const imgPath = "../img/images/boxDesign/box01/";
+    const images = getBoxImageSources(9, imgPath);
+    const boundaries = document.getElementById("draggableBoxContainer");
+    const boxes = document.getElementsByClassName("draggableBox");
+    let activeItem = null;
+    let active = false;
 
     boundaries.addEventListener("mousedown", createBox);
     boundaries.addEventListener("mousemove", drag, false);
@@ -23,37 +48,39 @@ window.onload = function ()
             // cannot be interacted with
             if (boxes.length <= 26)
             {
-                clone = boxes[0].cloneNode(true);
+                let clone = boxes[0].cloneNode(true);
 
-                var boxWidth = 500;
-                var boxHeight = 250;
+                const boxWidth = 500;
+                const boxHeight = 250;
 
                 // box style
                 clone.style.display = 'flex';
+                clone.style.flexWrap = 'wrap';
                 clone.style.position = 'absolute';
                 clone.style.width = boxWidth + 'px';
                 clone.style.height = boxHeight + 'px';
 
-                var cursorX = e.clientX;
-                var cursorY = e.clientY;
-                var offsetX = boxWidth / 2;
-                var offsetY = boxHeight / 2;
+                let cursorX = e.clientX;
+                let cursorY = e.clientY;
+                let offsetX = boxWidth / 2;
+                let offsetY = boxHeight / 2;
 
                 // create the box at the cursor coordinates
                 boundaries.appendChild(clone);
                 clone.style.top = cursorY - offsetY + 'px';
                 clone.style.left = cursorX - offsetX + 'px';
+                clone.style.background = assignBoxBackground(images);
+                clone.style.backgroundSize = '100% 100%';
 
                 // add events listeners on the drag button
-                var button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
+                let button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
                 // touch input
                 button.addEventListener("touchstart", dragStart, false);
                 button.addEventListener("touchend", dragEnd, false);
                 // mouse input
                 button.addEventListener("mousedown", dragStart, false);
                 button.addEventListener("mouseup", dragEnd, false);
-            }
-            else
+            } else
             {
                 alert("Cannot exceed limit of 25 boxes.");
             }
@@ -65,7 +92,7 @@ window.onload = function ()
         active = true;
 
         // this is the item we are interacting with
-        activeItem = e.target.parentNode;
+        activeItem = e.target.parentNode.parentNode;
 
         if (activeItem !== null)
         {
@@ -83,8 +110,7 @@ window.onload = function ()
             {
                 activeItem.initialX = e.touches[0].clientX - activeItem.xOffset;
                 activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
-            }
-            else
+            } else
             {
                 activeItem.initialX = e.clientX - activeItem.xOffset;
                 activeItem.initialY = e.clientY - activeItem.yOffset;
@@ -114,8 +140,7 @@ window.onload = function ()
 
                 activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
                 activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
-            }
-            else
+            } else
             {
                 activeItem.currentX = e.clientX - activeItem.initialX;
                 activeItem.currentY = e.clientY - activeItem.initialY;

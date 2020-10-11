@@ -35,12 +35,16 @@
     <!-- Draggable Box -->
     <div id="draggableBoxContainer">
         <div class="draggableBox">
-            <input type="text">
-            <button class="deleteDraggableBoxButton" onclick="deleteBox(this)">
-                <img th:src="@{~/img/icons/deleteDraggableBoxIcon.png}" alt="delete box"
-                     class="deleteDraggableBoxIcon icon">
-            </button>
-            <button class="dragDraggableBoxButton"></button>
+            <div class="draggableBoxUpperRow">
+                <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
+            </div>
+            <div class="draggableBoxMiddleRow">
+                <span class="input" role="textbox" contenteditable></span>
+            </div>
+            <div class="draggableBoxLowerRow">
+                <div class="dragDraggableBoxButton"></div>
+            </div>
+
         </div>
     </div>
 
