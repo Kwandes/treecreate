@@ -5,34 +5,15 @@
     <title>Family Tree</title>
     <link th:href="@{/styles/index.css}" rel="stylesheet">
     <link th:href="@{/styles/products.css}" rel="stylesheet">
-    <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
+    <link th:href="@{/styles/draggableBox.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <script th:src="@{/js/familyTree.js}"></script>
 </head>
 <body>
-<section id="navigationContainer">
-    <nav id="navBar">
-        <div id="navBar-left">
-            <a href="/index"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}" alt="treecreate" id="treecreateLogo"
-                                  class="icon" style="width: 14vh;"></a>
-            <a href="/facebook" target="popup"
-               onclick="window.open('https://www.facebook.com/treecreate.dk', 'name', 'width=600,height=800')">
-                <img th:src="@{~/img/logos/facebookBlackIcon.svg}" alt="facebook" id="facebookIcon" class="icon"></a>
-            <a href="https://www.instagram.com/tree_create/" target="popup"
-               onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
-                <img th:src="@{~/img/logos/instagramBlackIcon.svg}" alt="instagram" id="instagramIcon" class="icon"></a>
-        </div>
-        <div id="navBar-right">
-            <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
-                                           id="shoppingBasketIcon" class="icon"> (0) Items</a>
-            <a href="/aboutUs">About Us</a>
-            <a href="/specialRequest">Special Request</a>
-            <a href="/login">Login</a>
-        </div>
-    </nav>
-</section>
+<section th:replace="products/productTemplate :: #navigationContainer"></section>
 <section id="contentContainer">
     <!-- Draggable Box -->
     <div id="draggableBoxContainer">
@@ -70,5 +51,6 @@
         </div>
     </div>
 </section>
+<section th:replace="products/productTemplate :: #footerContainer"></section>
 </body>
 </html>

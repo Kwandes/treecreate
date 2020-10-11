@@ -1,0 +1,125 @@
+#draggableBoxContainer
+{
+    position: absolute;
+    width: 100%;
+    height: 94vh;
+    z-index: 99;
+}
+
+.draggableBox
+{
+    display: none;
+    border: none;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    z-index: 100;
+    height: 0;
+    width: 0;
+}
+
+.draggableBoxUpperRow
+{
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    display: flex;
+    align-items: flex-end;
+    height: 28%;
+    width: 100%;
+}
+
+.draggableBoxMiddleRow
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 44%;
+    width: 100%;
+}
+
+.draggableBoxLowerRow
+{
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    display: flex;
+    align-items: flex-start;
+    height: 28%;
+    width: 100%;
+}
+
+.dragDraggableBoxButton
+{
+    margin: 1vh;
+    visibility: hidden;
+    background-image: url("../img/icons/dragIcon.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 4.5vh;
+    width: 4.5vh;
+}
+
+.deleteDraggableBoxButton
+{
+    margin: 1vh;
+    visibility: hidden;
+    background-image: url("../img/icons/exitIcon.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 4.5vh;
+    width: 4.5vh;
+}
+
+.draggableBox:hover
+{
+    box-shadow: 5px 5px 20px;
+    z-index: 101;
+}
+
+.draggableBox:hover .dragDraggableBoxButton
+{
+    visibility: visible;
+}
+
+.draggableBox:hover .deleteDraggableBoxButton
+{
+    visibility: visible;
+}
+
+.draggableBox .icon
+{
+    width: 4vh;
+    height: 4vh;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+}
+
+.draggableBox .input
+{
+    min-width: 100px;
+    max-width:310px;
+    max-height: 102px;
+    overflow: hidden;
+
+    font-family: Share Tech, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 27px;
+    color: black;
+    border: none;
+    padding: 0;
+}
+
+.draggableBox .input:empty::before
+{
+    content: "Type your name here...";
+    color: grey;
+}
+
+
+.draggableBox .input:empty:focus::before
+{
+    content: "";
+    color: black;
+}
