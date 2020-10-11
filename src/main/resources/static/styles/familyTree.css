@@ -53,6 +53,8 @@
     margin: 1vh;
     visibility: hidden;
     background-image: url("../img/icons/dragIcon.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
     height: 4.5vh;
     width: 4.5vh;
 }
@@ -62,6 +64,8 @@
     margin: 1vh;
     visibility: hidden;
     background-image: url("../img/icons/exitIcon.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
     height: 4.5vh;
     width: 4.5vh;
 }
