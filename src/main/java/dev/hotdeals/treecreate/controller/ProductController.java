@@ -21,4 +21,16 @@ public class ProductController
         return "products/familyTree";
     }
 
+    @GetMapping("/products/testProduct")
+    public String testProduct()
+    {
+        return "products/testProduct";
+    }
+
+    @GetMapping("/products/template")
+    public String productTemplate()
+    {
+        return "products/productTemplate";
+    }
+
 }
