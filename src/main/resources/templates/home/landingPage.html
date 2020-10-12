@@ -16,7 +16,7 @@
 <body>
 <section id="pageContainer">
     <div id="popupContainer">
-        <div id="popup"><p>Tak for at abonnerer!</p></div>
+        <div id="popup" th:text="#{landing_popup_valid}"><p></p></div>
     </div>
     <section id="contentContainer">
         <div id="content">
@@ -26,15 +26,13 @@
                         <img th:src="@{~/img/logos/treecreateLogo/TCFullLogoWhite.svg}" alt="Treecreate Logo"
                              id="treecreateLogo">
                     </div>
-                    <span id="comingSoon">Kommer snart</span>
+                    <span id="comingSoon" th:text="#{landing_comingSoon}"></span>
                     <br>
-                    <span id="subscribe">Abonner for at få åbningstilbud!</span>
+                    <span id="subscribe" th:text="#{landing_comingSoon_subscribe}"></span>
                     <div id="emailContainer">
                         <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Din email..."
                                required>
-                        <button id="emailSubmitBtn" type="button" onclick="submitPopup()">
-                            Abonner
-                        </button>
+                        <button id="emailSubmitBtn" type="button" onclick="submitPopup()" th:text="#{landing_submit}"></button>
                     </div>
                     <div class="icon-row-top">
                         <a href="/facebook" target="popup"
@@ -43,32 +41,24 @@
                                  class="icon"></a>
                         <a href="https://www.instagram.com/tree_create/" target="popup"
                            onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
-                            <img th:src="@{~/img/logos/instagramWhiteLogo.svg}" alt="instagram" id="instagramLogo" class="icon"></a>
+                            <img th:src="@{~/img/logos/instagramWhiteLogo.svg}" alt="instagram" id="instagramLogo"
+                                 class="icon"></a>
                     </div>
                 </div>
             </div>
             <div id="aboutUsContainer">
                 <div id="aboutUs">
                     <section id="generalInformation">
-                        <span class="title">Vil du lykkedes med den helt unikke julegave til hele familien?</span><br><br>
-                        <p>
-                            Få et personligt trædesign med din familie og få det laser skåret i smukt egetræ. Skab
-                            sammenværdet i familien med en gave alle kan sætte pris på. Bestil det nemt og hurtigt.
-                            Få løst alle julegaverne på en gang, og få det sendt lige til døren.
+                        <span class="title" th:text="#{landing_generalInfo_christmas_title}"></span><br><br>
+                        <p th:text="#{landing_generalInfo_christmas_text}">
+
                         </p>
 
-                        <span class="subTitle">Produkt</span><br>
-                        <p>
-                            Vælg et design. Skriv navnene ind som du ønsker på træet. Når du er tilfreds med træet trykker
-                            du bestil, så sørger vi for resten. Når du køber flere træer på en gang får du op til 30% rabat.
-                        </p>
+                        <span class="subTitle" th:text="#{landing_generalInfo_product_title}"></span><br>
+                        <p th:text="#{landing_generalInfo_product_text}"></p>
 
-                        <span class="subTitle">Nul Affald</span><br>
-                        <p>
-                            Når du betaler, planter du automatisk også et træ og du er dermed med til at styrke naturen.
-                            Sammen planter 250+ træer for hvert egetræ vi bruger på at lave produktet. Indpakningen er også
-                            lavet 100% af genbrugspapir med FSC certificering.
-                        </p>
+                        <span class="subTitle" th:text="#{landing_generalInfo_waste_title}"></span><br>
+                        <p th:text="#{landing_generalInfo_waste_text}"></p>
                     </section>
 
                     <!-- NEW SECTION -->
@@ -77,33 +67,24 @@
                             <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Peter</p>
-                                <p>
-                                    “Vildt detaljeret og noget mega lækkert træ. Så er der ordnet julegaver til
-                                    hele familien for i år. mange tak!”
-                                </p>
+                                <p class="title" th:text="#{landing_review_peter_title}"></p>
+                                <p th:text="#{landing_review_peter_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Amalie</p>
-                                <p>
-                                    “Ej hvor er den bare flot! og så holder med den kan stå på. Så fik vi også PDF så
-                                    kan vi printe den og klistre den på vores postkasse.”
-                                </p>
+                                <p class="title" th:text="#{landing_review_amalie_title}"></p>
+                                <p th:text="#{landing_review_amalie_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Emilie</p>
-                                <p>
-                                    “Så glad for mit familie træ. Mormor bliver så glad når hun ser det, det er jeg
-                                    sikker på! Mange tak til Treecreate :D”
-                                </p>
+                                <p class="title" th:text="#{landing_review_emilie_title}"></p>
+                                <p th:text="#{landing_review_emilie_text}"></p>
                             </div>
                         </div>
                     </section>
@@ -114,33 +95,24 @@
                             <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Cristian</p>
-                                <p>
-                                    “I love the tree! It is some great quality wood and the design is cut with such
-                                    detail its amazing!”
-                                </p>
+                                <p class="title" th:text="#{landing_review_desi_title}"></p>
+                                <p th:text="#{landing_review_desi_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Anna</p>
-                                <p>
-                                    “Det er SÅ flot. Jeg er vildt glad for mit familie træet og hvordan det kom til at
-                                    se ud. Har det stående midt i stuen og bliver så glad af at se det hver morgen.”
-                                </p>
+                                <p class="title" th:text="#{landing_review_anna_title}"></p>
+                                <p th:text="#{landing_review_anna_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Laura</p>
-                                <p>
-                                    “Jeg har købt det til mine forældres guldbryllup og de elskede det! Det er virkelig
-                                    smukt.”
-                                </p>
+                                <p class="title" th:text="#{landing_review_laura_title}"></p>
+                                <p th:text="#{landing_review_laura_text}"></p>
                             </div>
                         </div>
                     </section>
@@ -150,66 +122,48 @@
                             <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Peter</p>
-                                <p>
-                                    “Vildt detaljeret og noget mega lækkert træ. Så er der ordnet julegaver til
-                                    hele familien for i år. mange tak!”
-                                </p>
+                                <p class="title" th:text="#{landing_review_peter_title}"></p>
+                                <p th:text="#{landing_review_peter_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Amalie</p>
-                                <p>
-                                    “Ej hvor er den bare flot! og så holder med den kan stå på. Så fik vi også PDF så
-                                    kan vi printe den og klistre den på vores postkasse.”
-                                </p>
+                                <p class="title" th:text="#{landing_review_amalie_title}"></p>
+                                <p th:text="#{landing_review_amalie_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Emilie</p>
-                                <p>
-                                    “Så glad for mit familie træ. Mormor bliver så glad når hun ser det, det er jeg
-                                    sikker på! Mange tak til Treecreate :D”
-                                </p>
+                                <p class="title" th:text="#{landing_review_emilie_text}"></p>
+                                <p th:text="#{landing_review_emilie_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Cristian</p>
-                                <p>
-                                    “I love the tree! It is some great quality wood and the design is cut with such
-                                    detail its amazing!”
-                                </p>
+                                <p class="title" th:text="#{landing_review_desi_title}"></p>
+                                <p th:text="#{landing_review_desi_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Anna</p>
-                                <p>
-                                    “Det er SÅ flot. Jeg er vildt glad for mit familie træet og hvordan det kom til at
-                                    se ud. Har det stående midt i stuen og bliver så glad af at se det hver morgen.”
-                                </p>
+                                <p class="title" th:text="#{landing_review_anna_title}"></p>
+                                <p th:text="#{landing_review_anna_text}"></p>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Laura</p>
-                                <p>
-                                    “Jeg har købt det til mine forældres guldbryllup og de elskede det! Det er virkelig
-                                    smukt.”
-                                </p>
+                                <p class="title" th:text="#{landing_review_laura_title}"></p>
+                                <p th:text="#{landing_review_laura_text}"></p>
                             </div>
                         </div>
                     </div>
@@ -221,22 +175,17 @@
         <nav id="footer">
             <div class="footer-row">
                 <div class="section">
-                    <span class="title">Contact</span><br>
-                    <p>
-                        Email: info@treecreate.net
-                    </p>
+                    <span class="title" th:text="#{landing_footer_contact_title}"></span><br>
+                    <p th:text="#{landing_footer_contact_text}"></p>
                 </div>
                 <div class="section">
-                    <span class="title">Product</span><br><br>
-                    Når du bestiller planter du et træ<br>
-                    Indpakning af 100% genbrusmaterialer<br>
-                    Produceret i Danmark<br>
+                    <span class="title" th:text="#{landing_footer_product_title}"></span><br><br>
+                    <p th:text="#{landing_footer_product_text}"></p>
                 </div>
 
                 <div class="section">
-                    <span class="title">Adresse</span><br><br>
-                    Danmark<br>
-                    København
+                    <span class="title" th:text="#{landing_footer_address_title}"></span><br><br>
+                    <p th:text="#{landing_footer_address_text}"></p>
                 </div>
             </div>
             <div class="footer-row">
@@ -251,10 +200,8 @@
                     <hr id="footer-separator">
                 </div>
             </div>
-            <div class="footer-row" id="footer-bottom" >
-                <div class="section">
-                    Copyright © 2020 TreeCreate All Rights Reserved.
-                </div>
+            <div class="footer-row" id="footer-bottom">
+                <div class="section" th:text="#{landing_footer_copyright}"></div>
             </div>
         </nav>
     </section>
