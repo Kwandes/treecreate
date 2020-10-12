@@ -427,18 +427,18 @@ body, html
     background: white;
     border-radius: 7px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    height: calc(15px + 3vh);
-    width: calc(40px + 5vh);
+    height: 37px;
+    width: 85px;
     border: none;
     color: #AF6826;
 }
 
 #emailSubmitBtn:hover
 {
-    height: calc(18px + 2vh);
-    width: calc(56px + 2vh);
+    height: 35px;
+    width: 75px;
     margin: 1px 5px;
-    font-size: 10px;
+    font-size: 15px;
     box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
 }
 
@@ -498,7 +498,7 @@ Scale dependent
         border-radius: 7px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         height: 37px;
-        width: 70px;
+        width: 85px;
         border: none;
         color: #AF6826;
     }
@@ -506,7 +506,7 @@ Scale dependent
     #emailSubmitBtn:hover
     {
         height: 35px;
-        width: 60px;
+        width: 75px;
         margin: 1px 5px;
         font-size: 15px;
         box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
