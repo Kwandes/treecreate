@@ -19,5 +19,24 @@ html, body
 
 #product
 {
-    padding: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#familyTreeDesignContainer
+{
+    width: 50vw;
+    height: 80vh;
+    background-image: url("../img/images/treeDesign/tree1.svg");
+    background-repeat: no-repeat;
+    margin:0 1vw;
+}
+
+#familyTreeOptionsContainer
+{
+    width: 20vw;
+    height: 80vh;
+    background: bisque;
+    margin:0 1vw;
 }

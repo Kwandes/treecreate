@@ -16,38 +16,28 @@
 <body>
 <section th:replace="products/productTemplate :: #navigationContainer"></section>
 <section id="contentContainer">
-    <!-- Draggable Box -->
-    <div id="draggableBoxContainer">
-        <div class="draggableBox">
-            <div class="draggableBoxUpperRow">
-                <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
-            </div>
-            <div class="draggableBoxMiddleRow">
-                <span class="input" role="textbox" contenteditable></span>
-            </div>
-            <div class="draggableBoxLowerRow">
-                <div class="dragDraggableBoxButton"></div>
-            </div>
-
-        </div>
-    </div>
-
     <div id="content">
         <div id="productContainer">
             <div id="product">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet convallis nisi. Sed ac sem
-                    nec
-                    velit facilisis euismod. Phasellus ex ex, ultrices ut fermentum non, eleifend et nisl. Etiam nec dui
-                    felis. Duis a dui interdum tellus dapibus scelerisque. Donec euismod eu libero a fringilla. Quisque
-                    blandit a augue sit amet egestas. Fusce quis risus sit amet leo aliquet porta eget eu diam. In
-                    rhoncus
-                    tortor at mollis auctor. Ut in lacinia ipsum. Duis laoreet nisl nibh, ut iaculis leo sagittis ut.
-                    Proin
-                    enim sapien, mollis sed ligula a, suscipit convallis risus. Integer ullamcorper convallis enim
-                    scelerisque sollicitudin.
-                    Watashi wa Family Tree
-                </p>
+                <div id="familyTreeDesignContainer">
+                    <div id="draggableBoxContainer">
+                        <div class="draggableBox">
+                            <div class="draggableBoxUpperRow">
+                                <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
+                            </div>
+                            <div class="draggableBoxMiddleRow">
+                                <span class="input" role="textbox" contenteditable
+                                      onkeypress="return (this.innerText.length <= 20)"></span>
+                                <!--The length needs to adjust to the box size-->
+                            </div>
+                            <div class="draggableBoxLowerRow">
+                                <div class="dragDraggableBoxButton"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div id="familyTreeOptionsContainer">opt 1<br>op2<br>op3</div>
             </div>
         </div>
     </div>
