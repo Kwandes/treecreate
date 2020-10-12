@@ -13,7 +13,8 @@
     align-items: center;
 
     width: 100%;
-    height: 6vh;
+    min-height: 6vh;
+    height: fit-content;
     background-color: white;
     --navbarMainColor: #AF6826;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);

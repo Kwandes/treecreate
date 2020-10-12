@@ -14,6 +14,7 @@ html, body
     justify-content: center;
     align-items: center;
     min-height: 95vh; /* Account for the navbar height */
+    height: fit-content;
 }
 
 #product
