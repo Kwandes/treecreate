@@ -6,6 +6,10 @@ html, body
     color: white;
     line-height: normal;
 }
+span
+{
+    white-space: pre-line;
+}
 
 #pageContainer
 {

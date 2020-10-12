@@ -16,7 +16,7 @@
 <body>
 <section id="pageContainer">
     <div id="popupContainer">
-        <div id="popup" th:text="#{landing_popup_valid}"><p></p></div>
+        <div id="popup"><span th:text="#{landing_popup_valid}"></span></div>
     </div>
     <section id="contentContainer">
         <div id="content">
@@ -50,15 +50,13 @@
                 <div id="aboutUs">
                     <section id="generalInformation">
                         <span class="title" th:text="#{landing_generalInfo_christmas_title}"></span><br><br>
-                        <p th:text="#{landing_generalInfo_christmas_text}">
-
-                        </p>
-
+                        <span th:text="#{landing_generalInfo_christmas_text}"></span><br>
+                        <br>
                         <span class="subTitle" th:text="#{landing_generalInfo_product_title}"></span><br>
-                        <p th:text="#{landing_generalInfo_product_text}"></p>
-
+                        <span th:text="#{landing_generalInfo_product_text}"></span><br>
+                        <br>
                         <span class="subTitle" th:text="#{landing_generalInfo_waste_title}"></span><br>
-                        <p th:text="#{landing_generalInfo_waste_text}"></p>
+                        <span th:text="#{landing_generalInfo_waste_text}"></span><br>
                     </section>
 
                     <!-- NEW SECTION -->
@@ -67,24 +65,24 @@
                             <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_peter_title}"></p>
-                                <p th:text="#{landing_review_peter_text}"></p>
+                                <span class="title" th:text="#{landing_review_peter_title}"></span><br>
+                                <span th:text="#{landing_review_peter_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_amalie_title}"></p>
-                                <p th:text="#{landing_review_amalie_text}"></p>
+                                <span class="title" th:text="#{landing_review_amalie_title}"></span><br>
+                                <span th:text="#{landing_review_amalie_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_emilie_title}"></p>
-                                <p th:text="#{landing_review_emilie_text}"></p>
+                                <span class="title" th:text="#{landing_review_emilie_title}"></span><br>
+                                <span th:text="#{landing_review_emilie_text}"></span>
                             </div>
                         </div>
                     </section>
@@ -95,24 +93,24 @@
                             <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_desi_title}"></p>
-                                <p th:text="#{landing_review_desi_text}"></p>
+                                <span class="title" th:text="#{landing_review_desi_title}"></span><br>
+                                <span th:text="#{landing_review_desi_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_anna_title}"></p>
-                                <p th:text="#{landing_review_anna_text}"></p>
+                                <span class="title" th:text="#{landing_review_anna_title}"></span><br>
+                                <span th:text="#{landing_review_anna_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_laura_title}"></p>
-                                <p th:text="#{landing_review_laura_text}"></p>
+                                <span class="title" th:text="#{landing_review_laura_title}"></span><br>
+                                <span th:text="#{landing_review_laura_text}"></span>
                             </div>
                         </div>
                     </section>
@@ -122,48 +120,48 @@
                             <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_peter_title}"></p>
-                                <p th:text="#{landing_review_peter_text}"></p>
+                                <span class="title" th:text="#{landing_review_peter_title}"></span><br>
+                                <span th:text="#{landing_review_peter_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_amalie_title}"></p>
-                                <p th:text="#{landing_review_amalie_text}"></p>
+                                <span class="title" th:text="#{landing_review_amalie_title}"></span><br>
+                                <span th:text="#{landing_review_amalie_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_emilie_text}"></p>
-                                <p th:text="#{landing_review_emilie_text}"></p>
+                                <span class="title" th:text="#{landing_review_emilie_text}"></span><br>
+                                <span th:text="#{landing_review_emilie_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_desi_title}"></p>
-                                <p th:text="#{landing_review_desi_text}"></p>
+                                <span class="title" th:text="#{landing_review_desi_title}"></span><br>
+                                <span th:text="#{landing_review_desi_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_anna_title}"></p>
-                                <p th:text="#{landing_review_anna_text}"></p>
+                                <span class="title" th:text="#{landing_review_anna_title}"></span><br>
+                                <span th:text="#{landing_review_anna_text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title" th:text="#{landing_review_laura_title}"></p>
-                                <p th:text="#{landing_review_laura_text}"></p>
+                                <span class="title" th:text="#{landing_review_laura_title}"></span><br>
+                                <span th:text="#{landing_review_laura_text}"></span>
                             </div>
                         </div>
                     </div>
@@ -176,16 +174,16 @@
             <div class="footer-row">
                 <div class="section">
                     <span class="title" th:text="#{landing_footer_contact_title}"></span><br>
-                    <p th:text="#{landing_footer_contact_text}"></p>
+                    <span th:text="#{landing_footer_contact_text}"></span>
                 </div>
                 <div class="section">
-                    <span class="title" th:text="#{landing_footer_product_title}"></span><br><br>
-                    <p th:text="#{landing_footer_product_text}"></p>
+                    <span class="title" th:text="#{landing_footer_product_title}"></span><br>
+                    <span th:text="#{landing_footer_product_text}"></span>
                 </div>
 
                 <div class="section">
-                    <span class="title" th:text="#{landing_footer_address_title}"></span><br><br>
-                    <p th:text="#{landing_footer_address_text}"></p>
+                    <span class="title" th:text="#{landing_footer_address_title}"></span><br>
+                    <span th:text="#{landing_footer_address_text}"></span>
                 </div>
             </div>
             <div class="footer-row">

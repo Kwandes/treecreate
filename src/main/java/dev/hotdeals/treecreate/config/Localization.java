@@ -17,7 +17,7 @@ public class Localization implements WebMvcConfigurer
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.ENGLISH);
+        slr.setDefaultLocale(new Locale("dk"));
         return slr;
     }
 
