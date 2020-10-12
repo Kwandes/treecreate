@@ -10,6 +10,13 @@ body, html
     line-height: 27px;
     color: black;
     margin: 0;
+
+    --mainColor: #F4CBA2;
+    --navbarMainColor: #AF6826;
+    --backgroundColor: #FFFFFF;
+    --textColor: #000000;
+    --actionColor: #EBC6AB;
+    --inactiveColor: rgba(0, 0, 0, 0.4)
 }
 
 a
