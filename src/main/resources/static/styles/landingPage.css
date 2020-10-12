@@ -259,7 +259,7 @@ body, html
     color: white;
 }
 
-#aboutUs #reviews
+#aboutUs #reviews #reviews01
 {
     text-align: center;
     display: flex;
@@ -269,8 +269,8 @@ body, html
 
 #reviews .review
 {
-    width: 25%;
-
+    width: 30%;
+    margin: 0px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -285,6 +285,7 @@ body, html
 #reviews .title
 {
     font-family: Spectral, Helvetica, sans-serif;
+    margin: 0;
     font-style: normal;
     font-weight: normal;
     color: white;
@@ -292,12 +293,51 @@ body, html
 }
 #reviews span.title
 {
-    margin-bottom: 2vw;
+    margin-bottom: 1vw;
 }
 
 #reviews .review .text
 {
-    width: 100%;
+    width: 85%;
+    height: auto;
+    font-family: Spectral, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+/********** next insta review section **********/
+#reviews01 .review
+{
+    width: 30%;
+    margin: 0px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#reviews01 .review .image
+{
+    width: 90%;
+    height: auto;
+}
+
+#reviews01 .title
+{
+    font-family: Spectral, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 0;
+    color: white;
+    font-size: 36px;
+}
+#reviews01 span.title
+{
+    margin-bottom: 1vw;
+}
+
+#reviews01 .review .text
+{
+    width: 85%;
     height: auto;
     font-family: Spectral, Helvetica, sans-serif;
     font-style: normal;
@@ -470,6 +510,14 @@ Scale dependent
         margin: 1px 5px;
         font-size: 15px;
         box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
+    }
+
+    @-moz-document url-prefix()
+    {
+        #footerContainer
+        {
+            margin-top: 200px !important;
+        }
     }
 }
 
