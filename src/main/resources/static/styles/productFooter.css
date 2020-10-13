@@ -6,7 +6,7 @@
     align-items: center;
 
     width: 100%;
-    min-height: 20vh;
+    min-height: 30vh;
     height: fit-content;
 }
 
@@ -35,18 +35,18 @@
 
 #footer
 {
-    font-size: 18px;
+    font-size: var(--fontSmall);
     text-align: center;
 }
 
 #footer .title
 {
-    font-size: 30px;
+    font-size: var(--fontSubtitle);
 }
 
 #footer-bottom
 {
-    font-size: 14px;
+    font-size: var(--fontExtraSmall);
 }
 
 #footer-separator

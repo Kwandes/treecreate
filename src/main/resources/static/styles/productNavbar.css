@@ -31,7 +31,7 @@
 #navBar a
 {
     display: inline-block;
-    font-size: 17px;
+    font-size: var(--fontRegular);
     height: 4vh;
     width: fit-content;
     padding: 0.5vh 0.6vh;
