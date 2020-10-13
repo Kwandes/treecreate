@@ -34,7 +34,7 @@
                     <br>
                     <span id="subscribe" th:text="#{landing.comingSoon.subscribe}"></span>
                     <div id="emailContainer">
-                        <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Din email..."
+                        <input type="email" id="emailInput" name="newsletterEmail" th:placeholder="#{landing.comingSoon.subscribe.input}"
                                required>
                         <button id="emailSubmitBtn" type="button" onclick="submitPopup()"
                                 th:text="#{landing.submit}"></button>
