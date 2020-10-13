@@ -7,6 +7,7 @@
     <link th:href="@{/styles/landingPagePopup.css}" rel="stylesheet">
     <link th:href="@{/styles/landingPage.css}" rel="stylesheet">
     <script th:src="@{/js/landingPage.js}"></script>
+    <script th:src="@{/js/changeLanguage.js}"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <!-- browser icon -->
     <link rel="icon" href="/img/logos/treecreateLogo/browserLogo.svg">
@@ -17,6 +18,9 @@
 <section id="pageContainer">
     <div id="popupContainer">
         <div id="popup"><span th:text="#{landing_popup_valid}"></span></div>
+    </div>
+    <div id="changeLanguage" onclick="changeLanguage()">
+        <span th:text="#{landing_changeLanguage}"></span>
     </div>
     <section id="contentContainer">
         <div id="content">
@@ -32,7 +36,8 @@
                     <div id="emailContainer">
                         <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Din email..."
                                required>
-                        <button id="emailSubmitBtn" type="button" onclick="submitPopup()" th:text="#{landing_submit}"></button>
+                        <button id="emailSubmitBtn" type="button" onclick="submitPopup()"
+                                th:text="#{landing_submit}"></button>
                     </div>
                     <div class="icon-row-top">
                         <a href="/facebook" target="popup"
