@@ -227,9 +227,9 @@ span
 
 .icon-row-top img:hover
 {
-    padding: 16px 11px 1px 11px;
-    width: calc(18px + 3vh);
-    height: calc(18px + 3vh);
+    padding: 17px 13px 3px 13px;
+    width: 42px;
+    height: 42px;
     -webkit-filter: drop-shadow(1px 1px 3px rgba(255, 255, 255, .3));
     filter: drop-shadow(1px 1px 3px rgba(255, 255, 255, .3));
 }
