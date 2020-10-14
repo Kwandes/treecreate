@@ -32,12 +32,13 @@
         <div id="details">
             <span id="formTitle">ACCOUNT INFO</span>
             <form action="/account/updateInfo" method="post" id="formUpdateInfo">
-                <label for="inputPhone">Phone Number:</label><input type="number" name="inputPhone" id="inputPhone">
-                <label for="inputEmail">Email:</label><input type="email" name="inputEmail" id="inputEmail">
-                <label for="inputName">Name:</label><input type="text" name="inputName" id="inputName">
-                <label for="inputStreetName">Street Name:</label><input type="text" name="inputStreetName" id="inputStreetName">
-                <label for="inputCity">City:</label><input type="text" name="inputCity" id="inputCity">
-                <label for="inputPostcode">Postcode:</label><input type="text" name="inputPostcode" id="inputPostcode">
+                <input type="number" name="id" th:value="${user.id}" hidden>
+                <label for="inputPhoneNumber">Phone Number:</label><input type="number" name="inputPhoneNumber" id="inputPhoneNumber" th:value="${user.phoneNumber}" maxlength="15" required>
+                <label for="inputEmail">Email:</label><input type="email" name="inputEmail" id="inputEmail" th:value="${user.email}" maxlength="254" required>
+                <label for="inputName">Name:</label><input type="text" name="inputName" id="inputName" th:value="${user.name}" maxlength="80" required>
+                <label for="inputStreetAddress">Street Name:</label><input type="text" name="inputStreetAddress" id="inputStreetAddress" th:value="${user.streetAddress}" maxlength="99" required>
+                <label for="inputCity">City:</label><input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
+                <label for="inputPostcode">Postcode:</label><input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}" maxlength="15" required>
             </form>
             <button type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo">Update Info</button>
         </div>
