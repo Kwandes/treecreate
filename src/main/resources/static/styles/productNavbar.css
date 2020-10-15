@@ -1,4 +1,7 @@
-#navigationContainer
+@import "login.css";
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css");
+
+#navbarContainer
 {
     position: -webkit-sticky; /* Safari compatibility*/
     position: sticky;
@@ -37,6 +40,7 @@
     padding: 0.5vh 0.6vh;
     color: var(--navbarMainColor);
     position: relative; /* Used to align the hoverLine element properly */
+    text-decoration: none; /* Boostrap import for the login breaks the decoration and it has to be nullified again*/
 }
 
 #navBar a .hoverLine
