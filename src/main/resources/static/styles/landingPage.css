@@ -7,6 +7,11 @@ html, body
     line-height: normal;
 }
 
+span
+{
+    white-space: pre-line;
+}
+
 #pageContainer
 {
     min-height: 100vh;
@@ -216,17 +221,17 @@ html, body
 .icon-row-top img
 {
     padding: 15px 10px 0px 10px;
-    -webkit-filter: drop-shadow( 1px 3px 3px rgba(0, 0, 0, .2));
-            filter: drop-shadow( 1px 3px 3px rgba(0, 0, 0, .2));
+    -webkit-filter: drop-shadow(1px 3px 3px rgba(0, 0, 0, .2));
+    filter: drop-shadow(1px 3px 3px rgba(0, 0, 0, .2));
 }
 
 .icon-row-top img:hover
 {
-    padding: 16px 11px 1px 11px;
-    width: calc(18px + 3vh);
-    height: calc(18px + 3vh);
-    -webkit-filter: drop-shadow( 1px 1px 3px rgba(255, 255, 255, .3));
-            filter: drop-shadow( 1px 1px 3px rgba(255, 255, 255, .3));
+    padding: 17px 13px 3px 13px;
+    width: 42px;
+    height: 42px;
+    -webkit-filter: drop-shadow(1px 1px 3px rgba(255, 255, 255, .3));
+    filter: drop-shadow(1px 1px 3px rgba(255, 255, 255, .3));
 }
 
 /* This is the stuff that is actually different from the AboutUs css as of version 0.4.1 */
@@ -236,6 +241,7 @@ body, html
     color: white;
     font-size: 18px;
 }
+
 #pageContainer
 {
     color: white;
@@ -254,6 +260,7 @@ body, html
 {
     color: white;
 }
+
 #aboutUs .title
 {
     color: white;
@@ -291,6 +298,7 @@ body, html
     color: white;
     font-size: 36px;
 }
+
 #reviews span.title
 {
     margin-bottom: 1vw;
@@ -330,6 +338,7 @@ body, html
     color: white;
     font-size: 36px;
 }
+
 #reviews01 span.title
 {
     margin-bottom: 1vw;
@@ -371,13 +380,14 @@ body, html
     color: white;
     text-align: center;
 }
+
 #treecreateLogo
 {
     width: 26vw;
     height: auto;
     color: white;
-    -webkit-filter: drop-shadow( 3px 3px 10px rgba(0, 0, 0, .2));
-    filter: drop-shadow( 3px 3px 10px rgba(0, 0, 0, .2));
+    -webkit-filter: drop-shadow(3px 3px 10px rgba(0, 0, 0, .2));
+    filter: drop-shadow(3px 3px 10px rgba(0, 0, 0, .2));
 }
 
 #comingSoon
@@ -385,6 +395,7 @@ body, html
     font-size: 48px;
     line-height: 48px;
 }
+
 #subscribe
 {
     font-size: 18px;
@@ -439,7 +450,29 @@ body, html
     width: 75px;
     margin: 1px 5px;
     font-size: 15px;
-    box-shadow: 0px 0px 6px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+#changeLanguage
+{
+    position: absolute;
+    top: 1vh;
+    right: 1vw;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    height: 2vh;
+    padding: 0.5vh;
+    margin: 0.5vh;
+    border-radius: 5px;
+}
+
+#changeLanguage:hover
+{
+    -webkit-box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.5);
+    cursor: default;
 }
 
 /* * * * * * * * * * * * * * *
@@ -463,11 +496,12 @@ Browser specific
 Scale dependent
 * * * * * * * * * * * * * * */
 
-@media all and (min-width:200px) and (max-width: 1024px) {
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
 
     .scale-dependent-show
     {
-      display: block !important;
+        display: block !important;
     }
 
     .scale-dependent-removal
@@ -477,18 +511,18 @@ Scale dependent
 
     .mobile-review img
     {
-      width: 200px;
-      height: 200px;
+        width: 200px;
+        height: 200px;
     }
 
-    .mobile-review  p
+    .mobile-review p
     {
-      margin: 15px 50px;
+        margin: 15px 50px;
     }
 
     .review
     {
-      padding-bottom: 15px;
+        padding-bottom: 15px;
     }
 
     #emailSubmitBtn
