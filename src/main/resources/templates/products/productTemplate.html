@@ -9,6 +9,7 @@
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <script th:src="@{/js/login.js}"></script>
 
     <!-- modal test code -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -21,26 +22,31 @@
     <!-- Login modal -->
     <div class="modal fade" id="loginModal" role="dialog">
         <div class="modal-dialog loginForm">
-
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="header">
-                    <a type="button" class="close" data-dismiss="modal">&times;</a>
+                    <a type="button" class="close" id="loginModalCloseBtn" data-dismiss="modal">&times;</a>
                     <h1 class="modal-title">Log in</h1>
                 </div>
-                <form th:action="@{/login}" method="post">
-                    <p>Username</p>
-                    <input type="text" th:name="username" placeholder="Type your username . . .">
+                <form>
+                    <p>Email</p>
+                    <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
+                           maxlength="254" required>
                     <hr>
                     <p>Password</p>
-                    <input type="password" th:name="password" placeholder="Type your password . . .">
+                    <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
+                           maxlength="60" required>
                     <hr>
-                    <button type="submit" value="Login">login</button>
+                    <button type="button" onclick="submitLogin()">login</button>
                 </form>
             </div>
+        </div>
 
+        <div id="popupContainer">
+            <div id="popup"><p id="popupText">Welcome Back!</p></div>
         </div>
     </div>
+
     <section id="navbarContainer">
         <nav id="navBar">
             <div id="navBar-left">
