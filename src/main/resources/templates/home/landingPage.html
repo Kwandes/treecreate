@@ -7,13 +7,20 @@
     <link th:href="@{/styles/landingPagePopup.css}" rel="stylesheet">
     <link th:href="@{/styles/landingPage.css}" rel="stylesheet">
     <script th:src="@{/js/landingPage.js}"></script>
+    <script th:src="@{/js/changeLanguage.js}"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <!-- browser icon -->
+    <link rel="icon" href="/img/logos/treecreateLogo/browserLogo.svg">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Simonetta">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
 </head>
 <body>
 <section id="pageContainer">
     <div id="popupContainer">
-        <div id="popup"><p>Thanks for subscribing ! :D</p></div>
+        <div id="popup"><span th:text="#{landing.popup.valid}"></span></div>
+    </div>
+    <div id="changeLanguage" onclick="changeLanguage()">
+        <span th:text="#{landing.changeLanguage}"></span>
     </div>
     <section id="contentContainer">
         <div id="content">
@@ -23,15 +30,14 @@
                         <img th:src="@{~/img/logos/treecreateLogo/TCFullLogoWhite.svg}" alt="Treecreate Logo"
                              id="treecreateLogo">
                     </div>
-                    <span id="comingSoon">Coming Soon</span>
+                    <span id="comingSoon" th:text="#{landing.comingSoon}"></span>
                     <br>
-                    <span id="subscribe">Subscribe for starting offers</span>
+                    <span id="subscribe" th:text="#{landing.comingSoon.subscribe}"></span>
                     <div id="emailContainer">
-                        <input type="email" id="emailInput" name="newsletterEmail" placeholder=" Your email..."
+                        <input type="email" id="emailInput" name="newsletterEmail" th:placeholder="#{landing.comingSoon.subscribe.input}"
                                required>
-                        <button id="emailSubmitBtn" type="button" onclick="submitPopup()">
-                            Submit
-                        </button>
+                        <button id="emailSubmitBtn" type="button" onclick="submitPopup()"
+                                th:text="#{landing.submit}"></button>
                     </div>
                     <div class="icon-row-top">
                         <a href="/facebook" target="popup"
@@ -40,125 +46,127 @@
                                  class="icon"></a>
                         <a href="https://www.instagram.com/tree_create/" target="popup"
                            onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
-                            <img th:src="@{~/img/logos/instagramWhiteLogo.svg}" alt="instagram" id="instagramLogo" class="icon"></a>
+                            <img th:src="@{~/img/logos/instagramWhiteLogo.svg}" alt="instagram" id="instagramLogo"
+                                 class="icon"></a>
                     </div>
                 </div>
             </div>
             <div id="aboutUsContainer">
                 <div id="aboutUs">
                     <section id="generalInformation">
-                        <span class="title">About us</span><br>
-                        <span class="subTitle">Product</span><br>
-                        <p>
-                            Unique wood design. You get to pick the design and then create your own tree with the names
-                            and text
-                            you want. With several options of changing design, fonts and text, every product becomes
-                            unique and
-                            personal.
-                        </p>
-
-                        <span class="subTitle">Goal</span><br>
-                        <p>
-                            We aim to support wildlife and forests around the world by donating a percentage to
-                            foundations
-                            like
-                            #TeamTrees that focus on planting trees. when you purchase something you automatically also
-                            plant a
-                            tree. You also have the option plant several extra trees when you order.
-
-                            Our packaging is made of recycled plastic and paper and bio degradable paper tape. We focus
-                            on
-                            minimizing plastic production and try to have as much of the materials in the production be
-                            reuse of
-                            wood so no more trees are cut down.
-
-                            Last but not least, we want to give every customer a personal and unique tree design that
-                            they
-                            can
-                            use personally or as a great gift to friends and family. Our products are partially hand
-                            made
-                            and
-                            the rest is up to the laser that cuts in great detail to make an astonishing work of art for
-                            the
-                            customer.
-                        </p>
-
-                        <span class="subTitle">Company</span><br>
-                        <p>
-                            Founded in 2020 by a small team of students from KEA.
-                        </p>
+                        <span class="title" th:text="#{landing.generalInfo.christmas.title}"></span><br><br>
+                        <span th:text="#{landing.generalInfo.christmas.text}"></span><br>
+                        <br>
+                        <span class="subTitle" th:text="#{landing.generalInfo.product.title}"></span><br>
+                        <span th:text="#{landing.generalInfo.product.text}"></span><br>
+                        <br>
+                        <span class="subTitle" th:text="#{landing.generalInfo.waste.title}"></span><br>
+                        <span th:text="#{landing.generalInfo.waste.text}"></span><br>
                     </section>
+
+                    <!-- NEW SECTION -->
+                    <section id="reviews01" class="scale-dependent-removal">
+                        <div class="review">
+                            <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
+                                 class="image">
+                            <div class="text">
+                                <span class="title" th:text="#{landing.review.peter.title}"></span><br>
+                                <span th:text="#{landing.review.peter.text}"></span>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
+                                 class="image">
+                            <div class="text">
+                                <span class="title" th:text="#{landing.review.amalie.title}"></span><br>
+                                <span th:text="#{landing.review.amalie.text}"></span>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
+                                 class="image">
+                            <div class="text">
+                                <span class="title" th:text="#{landing.review.emilie.title}"></span><br>
+                                <span th:text="#{landing.review.emilie.text}"></span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- NEW SECTION -->
                     <section id="reviews" class="scale-dependent-removal">
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Cristian Valentin</p>
-                                <p>
-                                    “I love the tree! It is some great quality wood and the design is cut with such
-                                    detail
-                                    its amazing!”
-                                </p>
+                                <span class="title" th:text="#{landing.review.desi.title}"></span><br>
+                                <span th:text="#{landing.review.desi.text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Anna Krag-Sørensen</p>
-                                <p>
-                                    “Det er SÅ flot. Jeg er vildt glad for mit familie træet og hvordan det kom til at
-                                    se
-                                    ud. Har det stående midt i stuen og bliver så glad af at se det hver morgen.”
-                                </p>
+                                <span class="title" th:text="#{landing.review.anna.title}"></span><br>
+                                <span th:text="#{landing.review.anna.text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Laura Faurholt</p>
-                                <p>
-                                    “Jeg har købt det til mine forældres guldbryllup og de elskede det! Det er virkelig
-                                    smukt.”
-                                </p>
+                                <span class="title" th:text="#{landing.review.laura.title}"></span><br>
+                                <span th:text="#{landing.review.laura.text}"></span>
                             </div>
                         </div>
                     </section>
+
                     <div class="mobile-review scale-dependent-show" style="display: none;">
+                        <div class="review">
+                            <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
+                                 class="image">
+                            <div class="text">
+                                <span class="title" th:text="#{landing.review.peter.title}"></span><br>
+                                <span th:text="#{landing.review.peter.text}"></span>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
+                                 class="image">
+                            <div class="text">
+                                <span class="title" th:text="#{landing.review.amalie.title}"></span><br>
+                                <span th:text="#{landing.review.amalie.text}"></span>
+                            </div>
+                        </div>
+                        <div class="review">
+                            <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
+                                 class="image">
+                            <div class="text">
+                                <span class="title" th:text="#{landing.review.emilie.title}"></span><br>
+                                <span th:text="#{landing.review.emilie.text}"></span>
+                            </div>
+                        </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Cristian Valentin</p>
-                                <p>
-                                    “I love the tree! It is some great quality wood and the design is cut with such
-                                    detail
-                                    its amazing!”
-                                </p>
+                                <span class="title" th:text="#{landing.review.desi.title}"></span><br>
+                                <span th:text="#{landing.review.desi.text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Anna Krag-Sørensen</p>
-                                <p>
-                                    “Det er SÅ flot. Jeg er vildt glad for mit familie træet og hvordan det kom til at
-                                    se
-                                    ud. Har det stående midt i stuen og bliver så glad af at se det hver morgen.”
-                                </p>
+                                <span class="title" th:text="#{landing.review.anna.title}"></span><br>
+                                <span th:text="#{landing.review.anna.text}"></span>
                             </div>
                         </div>
                         <div class="review">
                             <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
                                  class="image">
                             <div class="text">
-                                <p class="title">Laura Faurholt</p>
-                                <p>
-                                    “Jeg har købt det til mine forældres guldbryllup og de elskede det! Det er virkelig
-                                    smukt.”
-                                </p>
+                                <span class="title" th:text="#{landing.review.laura.title}"></span><br>
+                                <span th:text="#{landing.review.laura.text}"></span>
                             </div>
                         </div>
                     </div>
@@ -170,22 +178,17 @@
         <nav id="footer">
             <div class="footer-row">
                 <div class="section">
-                    <span class="title">Contact</span><br>
-                    <p>
-                        Email: info@treecreate.net
-                    </p>
+                    <span class="title" th:text="#{landing.footer.contact.title}"></span><br>
+                    <span th:text="#{landing.footer.contact.text}"></span>
                 </div>
                 <div class="section">
-                    <span class="title">Product</span><br><br>
-                    Every purchase plants a tree<br>
-                    Eco Friendly packaging<br>
-                    Produced in Denmark<br>
+                    <span class="title" th:text="#{landing.footer.product.title}"></span><br>
+                    <span th:text="#{landing.footer.product.text}"></span>
                 </div>
 
                 <div class="section">
-                    <span class="title">Address</span><br><br>
-                    Denmark<br>
-                    Copenhagen
+                    <span class="title" th:text="#{landing.footer.address.title}"></span><br>
+                    <span th:text="#{landing.footer.address.text}"></span>
                 </div>
             </div>
             <div class="footer-row">
@@ -200,10 +203,8 @@
                     <hr id="footer-separator">
                 </div>
             </div>
-            <div class="footer-row" id="footer-bottom" >
-                <div class="section">
-                    Copyright © 2020 TreeCreate All Rights Reserved.
-                </div>
+            <div class="footer-row" id="footer-bottom">
+                <div class="section" th:text="#{landing.footer.copyright}"></div>
             </div>
         </nav>
     </section>

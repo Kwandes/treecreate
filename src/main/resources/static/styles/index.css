@@ -3,13 +3,28 @@
 body, html
 {
     background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Spectral, Helvetica, sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 27px;
     color: black;
     margin: 0;
+
+    --mainColor: #F4CBA2;
+    --mainSoftColor: rgba(244, 203, 162, 0.10);
+    --navbarMainColor: #AF6826;
+    --backgroundColor: #F5F2F2;
+    --textColor: #000000;
+    --actionColor: #EBC6AB;
+    --inactiveColor: rgba(0, 0, 0, 0.4);
+
+    --fontExtraSmall: 8px;
+    --fontSmall: 12px;
+    --fontRegular: 18px;
+    --fontSubtitle: 24px;
+    --fontTitle: 26px;
+    --fontYourMom: 48px;
 }
 
 a

@@ -5,6 +5,9 @@ FROM maven:3.6.3-jdk-11 AS MAVEN_BUILD
 COPY ./ ./
 ARG TREECREATE_JDBC_URL=url
 ENV TREECREATE_JDBC_URL=${TREECREATE_JDBC_URL}
+ARG TREECREATE_API_URL=apiUrl
+ENV TREECREATE_API_URL=${TREECREATE_API_URL}
+RUN sed -i "s|http://localhost:5000|$TREECREATE_API_URL|g" src/main/resources/static/js/landingPage.js
 RUN mvn clean package
 
 FROM openjdk:11-jre

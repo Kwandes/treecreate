@@ -1,0 +1,56 @@
+#footerContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    width: 100%;
+    min-height: 20vh;
+    height: fit-content;
+}
+
+.footer-row
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#footer .icon
+{
+    height: 4vh;
+    width: 4vh;
+}
+
+#footer .section
+{
+    margin: 0 2vw;
+}
+
+#footer .footer-row:first-child .section
+{
+    width: 25%;
+}
+
+#footer
+{
+    font-size: var(--fontSmall);
+    text-align: center;
+}
+
+#footer .title
+{
+    font-size: var(--fontSubtitle);
+}
+
+#footer-bottom
+{
+    font-size: var(--fontExtraSmall);
+}
+
+#footer-separator
+{
+    color: black;
+    width: 70vw;
+}

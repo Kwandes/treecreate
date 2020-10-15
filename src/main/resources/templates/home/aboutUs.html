@@ -5,33 +5,14 @@
     <title>About Us</title>
     <link th:href="@{/styles/index.css}" rel="stylesheet">
     <link th:href="@{/styles/aboutUs.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
 </head>
 <body>
 <section id="pageContainer">
-    <section id="navigationContainer">
-        <nav id="navBar">
-            <div id="navBar-left">
-                <a href="/index"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}" alt="treecreate"
-                                      id="treecreateLogo"
-                                      class="icon" style="width: 14vh;"></a>
-                <a href="/facebook" target="popup"
-                   onclick="window.open('https://www.facebook.com/treecreate.dk', 'name', 'width=600,height=800')">
-                    <img th:src="@{~/img/logos/facebookBlackIcon.svg}" alt="facebook" id="facebookIcon"
-                         class="icon"></a>
-                <a href="https://www.instagram.com/tree_create/" target="popup"
-                   onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
-                    <img th:src="@{~/img/logos/instagramBlackIcon.svg}" alt="instagram" id="instagramIcon" class="icon"></a>
-            </div>
-            <div id="navBar-right">
-                <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
-                                               id="shoppingBasketIcon" class="icon"> (0) Items</a>
-                <a href="/aboutUs">About Us</a>
-                <a href="/specialRequest">Special Request</a>
-                <a href="/login">Login</a>
-            </div>
-        </nav>
-    </section>
+    <section th:replace="products/productTemplate :: #navigationContainer"></section>
     <section id="contentContainer">
         <div id="content">
             <div id="aboutUsContainer">
@@ -140,42 +121,7 @@
             </div>
         </div>
     </section>
-    <section id="footerContainer">
-        <nav id="footer">
-            <div class="footer-row">
-                <div class="section">
-                    <span class="title">Contact</span><br>
-                    <p>
-                        Email: info@treecreate.net
-                    </p>
-                </div>
-                <div class="section">
-                    <span class="title">Product</span><br>
-                    Every purchase plants a tree<br>
-                    Eco Friendly packaging<br>
-                    Produced in Denmark<br>
-                    <img th:src="@{~/img/icons/danishTransportIcon.svg}" alt="Danish Transport" class="icon">
-                    <img th:src="@{~/img/icons/ecoPackageIcon.svg}" alt="Eco friendly packaging" class="icon">
-                    <img th:src="@{~/img/icons/recyclingIcon.svg}" alt="Recycled" class="icon">
-                </div>
-                <div class="section">
-                    <span class="title">Address</span><br>
-                    Denmark<br>
-                    Copenhagen
-                </div>
-            </div>
-            <div class="footer-row">
-                <div class="section">
-                    <hr id="footer-separator">
-                </div>
-            </div>
-            <div class="footer-row" id="footer-bottom">
-                <div class="section">
-                    Copyright © 2020 TreeCreate All Rights Reserved.
-                </div>
-            </div>
-        </nav>
-    </section>
+    <section th:replace="products/productTemplate :: #footerContainer"></section>
 </section>
 </body>
 </html>

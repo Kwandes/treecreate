@@ -1,0 +1,78 @@
+#navigationContainer
+{
+    position: -webkit-sticky; /* Safari compatibility*/
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+#navBar
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    min-height: 6vh;
+    height: fit-content;
+    background-color: white;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+#navBar img.filterColor
+{
+    /* Applies a specific color to any img(and is an svg) that is marked with a class .filterColor */
+    /* Hex-to-filter converter: https://codepen.io/sosuke/pen/Pjoqqp */
+    /* Current color: #AF6826 */
+    filter: invert(37%) sepia(58%) saturate(621%) hue-rotate(347deg) brightness(105%) contrast(87%);
+}
+
+#navBar a
+{
+    display: inline-block;
+    font-size: var(--fontRegular);
+    height: 4vh;
+    width: fit-content;
+    padding: 0.5vh 0.6vh;
+    color: var(--navbarMainColor);
+    position: relative; /* Used to align the hoverLine element properly */
+}
+
+#navBar a .hoverLine
+{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.5vh;
+    color: white;
+    border: none;
+    margin: 0
+}
+
+#navBar a:hover .hoverLine
+{
+    display: inline-block;
+    color: var(--navbarMainColor);
+    background-color: var(--navbarMainColor);
+}
+
+#navBar .icon
+{
+    width: 4vh;
+    vertical-align: middle;
+}
+
+#navBar-right .icon
+{
+    width: 2.7vh;
+}
+
+#treecreateLogo
+{
+    height: 100%;
+    width: 15vh;
+    vertical-align: middle;
+}
