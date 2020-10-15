@@ -37,9 +37,25 @@ public class ProfileController
     }
 
     @GetMapping("/account/info")
-    String accountInfo(Model model)
+    String accountInfo(Model model, HttpServletRequest request)
     {
-        int id = 2;
+        HttpSession session = request.getSession();
+        if (session.getAttribute("userId") == null)
+        {
+            LOGGER.info("Session " + session.getId() + " does not have a logged in user");
+            return "redirect:/aboutUs";
+        }
+
+        int id = 0;
+        try
+        {
+            System.out.println(session.getAttribute("userId"));
+            id = Integer.parseInt(session.getAttribute("userId").toString());
+        } catch (NumberFormatException | NullPointerException e)
+        {
+            LOGGER.error("Shit", e);
+        }
+
         User defaultUser = userRepo.findById(id).orElse(null);
         if (defaultUser == null)
         {
@@ -53,16 +69,24 @@ public class ProfileController
     }
 
     @PostMapping("/account/updateInfo")
-    String updateAccountInfo(WebRequest request)
+    String updateAccountInfo(WebRequest request, HttpServletRequest httpServletRequest)
     {
         LOGGER.info("Updated: ");
         request.getParameterMap().forEach((key, value) -> System.out.println((key + ":" + Arrays.toString(value))));
 
 
+        HttpSession session = httpServletRequest.getSession();
+        if (session.getAttribute("userId") == null)
+        {
+            LOGGER.info("Session " + session.getId() + " does not have a logged in user");
+            return "redirect:/aboutUS";
+        }
+
         int id = 0;
         try
         {
-            id = Integer.parseInt(Objects.requireNonNull(request.getParameter("id")));
+            System.out.println(session.getAttribute("userId"));
+            id = Integer.parseInt(session.getAttribute("userId").toString());
 
         } catch (NumberFormatException | NullPointerException e)
         {
@@ -117,8 +141,15 @@ public class ProfileController
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
+    @RequestMapping(value = {"/logout"}, method = {RequestMethod.GET, RequestMethod.POST})
+    String logout(HttpServletRequest request)
+    {
+        endSession(request);
+        return "redirect:/aboutUs";
+    }
+
     @ResponseBody
-    @RequestMapping(value = {"/logout", "/endSession"}, method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = {"/endSession"}, method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<Boolean> endSession(HttpServletRequest httpServletRequest)
     {
         LOGGER.info("Ending session " + httpServletRequest.getSession().getId());
