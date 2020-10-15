@@ -3,6 +3,19 @@ html, body
     background: var(--backgroundColor);
 }
 
+a
+{
+    color: var(--textColor);
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover
+{
+    color: var(--textColor);
+    text-decoration: none;
+    cursor: pointer;
+}
+
 #contentContainer
 {
     display: flex;
