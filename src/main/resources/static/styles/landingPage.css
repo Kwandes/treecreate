@@ -353,6 +353,13 @@ body, html
     font-weight: normal;
 }
 
+.review a
+{
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
 #footer
 {
     text-shadow: none;
