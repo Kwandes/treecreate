@@ -34,7 +34,8 @@
                     <br>
                     <span id="subscribe" th:text="#{landing.comingSoon.subscribe}"></span>
                     <div id="emailContainer">
-                        <input type="email" id="emailInput" name="newsletterEmail" th:placeholder="#{landing.comingSoon.subscribe.input}"
+                        <input type="email" id="emailInput" name="newsletterEmail"
+                               th:placeholder="#{landing.comingSoon.subscribe.input}"
                                required>
                         <button id="emailSubmitBtn" type="button" onclick="submitPopup()"
                                 th:text="#{landing.submit}"></button>
@@ -67,24 +68,30 @@
                     <!-- NEW SECTION -->
                     <section id="reviews01" class="scale-dependent-removal">
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CGHqe35l1Fr/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.peter.title}"></span><br>
                                 <span th:text="#{landing.review.peter.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CGO3oWXFnDP/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.amalie.title}"></span><br>
                                 <span th:text="#{landing.review.amalie.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CF7alOmlNga/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.emilie.title}"></span><br>
                                 <span th:text="#{landing.review.emilie.text}"></span>
@@ -95,24 +102,30 @@
                     <!-- NEW SECTION -->
                     <section id="reviews" class="scale-dependent-removal">
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CFMktxehcRX/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.desi.title}"></span><br>
                                 <span th:text="#{landing.review.desi.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CFCpT_1pUkc/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.anna.title}"></span><br>
                                 <span th:text="#{landing.review.anna.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CFj37k6BH5B/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.laura.title}"></span><br>
                                 <span th:text="#{landing.review.laura.text}"></span>
@@ -122,48 +135,60 @@
 
                     <div class="mobile-review scale-dependent-show" style="display: none;">
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CGHqe35l1Fr/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/insta6.png}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.peter.title}"></span><br>
                                 <span th:text="#{landing.review.peter.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CGO3oWXFnDP/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/insta4.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.amalie.title}"></span><br>
                                 <span th:text="#{landing.review.amalie.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CF7alOmlNga/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/insta5.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.emilie.title}"></span><br>
                                 <span th:text="#{landing.review.emilie.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CFMktxehcRX/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/instagramTree1.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.desi.title}"></span><br>
                                 <span th:text="#{landing.review.desi.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CFCpT_1pUkc/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/instagramTree2.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.anna.title}"></span><br>
                                 <span th:text="#{landing.review.anna.text}"></span>
                             </div>
                         </div>
                         <div class="review">
-                            <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
-                                 class="image">
+                            <a target="popup"
+                               onclick="window.open('https://www.instagram.com/p/CFj37k6BH5B/?utm_source=ig_web_copy_link', 'name', 'width=600,height=800')">
+                                <img th:src="@{~/img/images/landingPage/instagramTree3.jpg}" alt="Tree Design"
+                                     class="image"></a>
                             <div class="text">
                                 <span class="title" th:text="#{landing.review.laura.title}"></span><br>
                                 <span th:text="#{landing.review.laura.text}"></span>
