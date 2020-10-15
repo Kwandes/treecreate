@@ -19,7 +19,7 @@ body, html
     --actionColor: #EBC6AB;
     --inactiveColor: rgba(0, 0, 0, 0.4);
     --popupColor: #8FBC8F;
-    --popupErrorColor: #bc8f8f;
+    --popupErrorColor: salmon;
 
     --fontExtraSmall: 8px;
     --fontSmall: 12px;

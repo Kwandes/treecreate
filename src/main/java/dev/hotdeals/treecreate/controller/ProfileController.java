@@ -100,18 +100,13 @@ public class ProfileController
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        //String email = webRequest.getParameter("email");
-        //String password = webRequest.getParameter("password");
         String email = body.getEmail();
         String password = body.getPassword();
-        System.out.println("e:" + email + " P: " + password);
         if (email == null || password == null)
         {
-            LOGGER.info("Login denied - email is yikes");
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         User user = userRepo.findOneByEmail(email);
-        System.out.println(user);
         if (user != null && PasswordService.matches(password, user.getPassword()))
         {
             session.setAttribute("userId", user.getId());
@@ -119,7 +114,6 @@ public class ProfileController
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
-        LOGGER.info("Login denied");
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 

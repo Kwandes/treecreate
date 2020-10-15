@@ -1,35 +1,28 @@
 async function submitLogin()
 {
-    //const popup = document.getElementById("popupContainer");
     const loginEmail = document.getElementById("loginEmail").value.toString();
     const loginPassword = document.getElementById("loginPassword").value.toString();
 
-    console.log("Credentials: " + loginEmail + " / " + loginPassword);
-
     if (loginEmail === '')
     {
-        console.log("Email was empty");
         showPopup('Email is required to login', true);
         return;
     } else if (loginPassword === '')
     {
-        console.log("Password is empty");
         showPopup('Password is required to login', true);
         return;
     }
 
     let result = await validateCredentials(loginEmail, loginPassword);
-    console.log("Result: " + result)
 
     if (result)
     {
-        console.log("You're logged in");
-        showPopup('Welcome Back', false);
+        document.getElementById("loginModalCloseBtn").click();
+        showPopup('Welcome Back!', false);
 
     } else
     {
-        console.log("You have fucked up");
-        showPopup('You have fucked up your credentials', true);
+        showPopup('The credentials are invalid. Try again', true);
     }
 }
 
@@ -47,22 +40,32 @@ async function validateCredentials(email, password)
             body: JSON.stringify(parameters),
         }
     )
-    console.log("Fetching finished, status: " + response.status);
+    console.log("Credentials Validation fetching finished, status: " + response.status);
     return response.status === 200;
 }
 
 function showPopup(text, errorPopup)
 {
-    const popupContainer = document.getElementById("popupContainer");
-    const popup = document.getElementById("popup");
-    const popupText = document.getElementById("popupText");
-
-    popupText.innerText = text;
-
+    let popupContainer
+    let popup;
+    let popupText;
     if (errorPopup)
     {
+        popupContainer = document.getElementById("popupModalContainer");
+        popup = document.getElementById("popupModal");
+        popupText = document.getElementById("popupModalText");
+
         popup.style.backgroundColor = 'var(--popupErrorColor)';
-    } else popup.style.backgroundColor = 'var(--popupColor)';
+    } else
+    {
+        popupContainer = document.getElementById("popupContainer");
+        popup = document.getElementById("popup");
+        popupText = document.getElementById("popupText");
+
+        popup.style.backgroundColor = 'var(--popupColor)';
+    }
+
+    popupText.innerText = text;
 
     popupContainer.style.display = 'block';
     popupContainer.style.animation = 'fadeIn 1s';
