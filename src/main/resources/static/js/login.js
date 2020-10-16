@@ -33,7 +33,7 @@ async function validateCredentials(email, password)
             "email": email,
             "password": password
         };
-    const response = await fetch("http://localhost:5000/submitLogin",
+    const response = await fetch(location.origin + "/submitLogin",
         {
             method: "POST",
             headers: {'Content-type': 'application/json'},
@@ -82,20 +82,19 @@ function setLoginStatus(isLoggedIn)
 {
     if (isLoggedIn)
     {
-        document.getElementById("loginButton").style.display='none';
-        document.getElementById("profileButton").style.display='inline-block';
+        document.getElementById("loginButton").style.display = 'none';
+        document.getElementById("profileButton").style.display = 'inline-block';
 
-    }
-    else
+    } else
     {
-        document.getElementById("loginButton").style.display='inline-block';
-        document.getElementById("profileButton").style.display='none';
+        document.getElementById("loginButton").style.display = 'inline-block';
+        document.getElementById("profileButton").style.display = 'none';
     }
 }
 
 function isLoggedIn()
 {
-    fetch("http://localhost:5000/isLoggedIn")
+    fetch(location.origin + "/isLoggedIn")
         .then(response => {
             response.json().then(data => {
                 if (data.toString() === 'true')
