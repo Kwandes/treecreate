@@ -157,4 +157,10 @@ public class ProfileController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "isLoggedIn", method = {RequestMethod.GET, RequestMethod.POST})
+    ResponseEntity<Boolean> isLoggedIn(HttpServletRequest request)
+    {
+        return new ResponseEntity<>(request.getSession().getAttribute("userId") != null, HttpStatus.OK);
+    }
+
 }

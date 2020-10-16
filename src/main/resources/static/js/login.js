@@ -19,7 +19,7 @@ async function submitLogin()
     {
         document.getElementById("loginModalCloseBtn").click();
         showPopup('Welcome Back!', false);
-
+        setLoginStatus(true);
     } else
     {
         showPopup('The credentials are invalid. Try again', true);
@@ -76,4 +76,34 @@ function showPopup(text, errorPopup)
     setTimeout(() => {
         popupContainer.style.display = 'none'
     }, 4000);
+}
+
+function setLoginStatus(isLoggedIn)
+{
+    if (isLoggedIn)
+    {
+        document.getElementById("loginButton").style.display='none';
+        document.getElementById("profileButton").style.display='inline-block';
+
+    }
+    else
+    {
+        document.getElementById("loginButton").style.display='inline-block';
+        document.getElementById("profileButton").style.display='none';
+    }
+}
+
+function isLoggedIn()
+{
+    fetch("http://localhost:5000/isLoggedIn")
+        .then(response => {
+            response.json().then(data => {
+                if (data.toString() === 'true')
+                {
+                    console.log("User is already logged in - changing Login button to Profile")
+                }
+
+                setLoginStatus(data.toString() === 'true');
+            });
+        });
 }

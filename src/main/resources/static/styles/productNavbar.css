@@ -74,6 +74,12 @@
     width: 2.7vh;
 }
 
+#profileButton
+{
+    /* Controlled with login.js#setLoginStatus() */
+    display: none;
+}
+
 #treecreateLogo
 {
     height: 100%;
