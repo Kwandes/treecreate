@@ -48,11 +48,10 @@ public class ProfileController
         int id = 0;
         try
         {
-            System.out.println(session.getAttribute("userId"));
             id = Integer.parseInt(session.getAttribute("userId").toString());
         } catch (NumberFormatException | NullPointerException e)
         {
-            LOGGER.error("Shit", e);
+            LOGGER.error("Provided user ID is invalid, session " + request.getSession().getId(), e);
         }
 
         User defaultUser = userRepo.findById(id).orElse(null);
@@ -70,10 +69,6 @@ public class ProfileController
     @PostMapping("/account/updateInfo")
     String updateAccountInfo(WebRequest request, HttpServletRequest httpServletRequest)
     {
-        LOGGER.info("Updated: ");
-        request.getParameterMap().forEach((key, value) -> System.out.println((key + ":" + Arrays.toString(value))));
-
-
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("userId") == null)
         {
@@ -88,7 +83,8 @@ public class ProfileController
 
         } catch (NumberFormatException | NullPointerException e)
         {
-            LOGGER.error("Shit", e);
+            LOGGER.error("Provided user ID was invalid", e);
+            return "redirect:/aboutUs";
         }
 
         User user = userRepo.findById(id).orElse(null);
@@ -96,6 +92,8 @@ public class ProfileController
         if (user == null)
         {
             LOGGER.warn("User doesn't exist, going back");
+            return "redirect:/aboutUs";
+
         } else
         {
             user.setName(request.getParameter("inputName"));
@@ -105,10 +103,10 @@ public class ProfileController
             user.setCity(request.getParameter("inputCity"));
             user.setPostcode(request.getParameter("inputPostcode"));
 
+            LOGGER.info("User " + id + " information has been updated");
             userRepo.save(user);
+            return "redirect:account/info";
         }
-
-        return "redirect:/account/info";
     }
 
     @ResponseBody
