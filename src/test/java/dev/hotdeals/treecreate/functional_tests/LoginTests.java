@@ -147,6 +147,41 @@ public class LoginTests
         assertThat(inputPostcode.getAttribute("value")).isEqualTo("69");
     }
 
+    @Test
+    @Order(5)
+    @DisplayName("Login button is changed to the Profile button")
+    void getProfileButtonEnabledTest()
+    {
+        webDriver.get("http://localhost:" + port + "/aboutUs");
+        WebElement profileButton = webDriver.findElement(By.id("profileButton"));
+        assertThat(profileButton.getAttribute("style").contains("inline-block")).isTrue();
+
+    }
+
+    @Test
+    @Order(6)
+    @DisplayName("Can log out")
+    void logoutTest()
+    {
+        webDriver.get("http://localhost:" + port + "/account/info");
+        WebElement logoutButton = webDriver.findElement(By.id("logoutButton"));
+        logoutButton.click();
+        new WebDriverWait(webDriver, Duration.ofSeconds(10).getSeconds()).until(
+                webDriver1 -> webDriver.getTitle().equals("About Us")
+        );
+        assertThat(webDriver.getTitle()).isEqualTo("About Us");
+    }
+
+    @Test
+    @Order(7)
+    @DisplayName("Profile button is changed to Login button after logging out")
+    void profileButtonDisabledTest()
+    {
+        webDriver.get("http://localhost:" + port + "/aboutUs");
+        WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
+        assertThat(loginBtn.getAttribute("style").contains("block")).isTrue();
+    }
+    
     @AfterAll
     public static void cleanup()
     {
