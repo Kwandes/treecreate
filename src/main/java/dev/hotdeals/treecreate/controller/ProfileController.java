@@ -14,7 +14,6 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
-import java.util.Objects;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
@@ -79,13 +78,12 @@ public class ProfileController
         if (session.getAttribute("userId") == null)
         {
             LOGGER.info("Session " + session.getId() + " does not have a logged in user");
-            return "redirect:/aboutUS";
+            return "redirect:/aboutUs";
         }
 
         int id = 0;
         try
         {
-            System.out.println(session.getAttribute("userId"));
             id = Integer.parseInt(session.getAttribute("userId").toString());
 
         } catch (NumberFormatException | NullPointerException e)
@@ -130,6 +128,7 @@ public class ProfileController
         {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
+
         User user = userRepo.findOneByEmail(email);
         if (user != null && PasswordService.matches(password, user.getPassword()))
         {
@@ -137,7 +136,6 @@ public class ProfileController
             LOGGER.info("New login: " + session.getId() + " as user: " + user.getId());
             return new ResponseEntity<>(HttpStatus.OK);
         }
-
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
