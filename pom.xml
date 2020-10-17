@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.hotdeals</groupId>
     <artifactId>treecreate</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.1</version>
     <name>treecreate</name>
     <description>Springboot-based website for Treecreate project</description>
 
@@ -92,13 +92,20 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- JPA Model Mapping - NotNull -->
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>2.0.2</version>
         </dependency>
+
+        <!-- Retrieve pom.xml data dynamically during runtime -->
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-model</artifactId>
+            <version>3.6.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>

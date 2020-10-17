@@ -13,7 +13,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 

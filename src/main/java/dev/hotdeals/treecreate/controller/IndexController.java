@@ -1,8 +1,21 @@
 package dev.hotdeals.treecreate.controller;
 
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
 @Controller
 public class IndexController
@@ -18,5 +31,27 @@ public class IndexController
     public String aboutUs()
     {
         return "home/aboutUs";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/version", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<String> getVersion()
+    {
+        try
+        {
+            Model model;
+            InputStream stream;
+            if ((new File("pom.xml")).exists())
+                stream = new FileInputStream("pom.xml");
+            else
+                stream = IndexController.class.getResourceAsStream("/META-INF/maven/dev.hotdeals/treecreate/pom.xml");
+            model = new MavenXpp3Reader().read(stream);
+            stream.close();
+            return new ResponseEntity<>(model.getVersion(), HttpStatus.OK);
+        } catch (XmlPullParserException | IOException e)
+        {
+            LOGGER.error("Failed to retrieve the pom.xml", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
