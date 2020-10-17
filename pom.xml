@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.hotdeals</groupId>
     <artifactId>treecreate</artifactId>
-    <version>0.6.7</version>
+    <version>0.7.0</version>
     <name>treecreate</name>
     <description>Springboot-based website for Treecreate project</description>
 
@@ -82,6 +82,22 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>4.2.0</version>
+        </dependency>
+
+        <!-- H2 Database for in-memory testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <!-- JPA Model Mapping - NotNull -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>2.0.2</version>
         </dependency>
     </dependencies>
 

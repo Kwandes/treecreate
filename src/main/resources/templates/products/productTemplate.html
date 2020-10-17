@@ -9,52 +9,97 @@
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <script th:src="@{/js/login.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <section id="navigationContainer">
-    <nav id="navBar">
-        <div id="navBar-left">
-            <a href="/index"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
-                                  alt="treecreate" id="treecreateLogo" class="filterColor">
-                <hr class="hoverLine">
-            </a>
-            <a href="https://www.facebook.com/treecreate.dk" target="popup"
-               onclick="window.open('https://www.facebook.com/treecreate.dk', 'name', 'width=600,height=800')">
-                <img th:src="@{~/img/logos/facebookBlackLogo.svg}" alt="facebook" id="facebookIcon"
-                     class="icon filterColor">
-                <hr class="hoverLine">
-            </a>
-            <a href="https://www.instagram.com/tree_create/" target="popup"
-               onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
-                <img th:src="@{~/img/logos/instagramBlackLogo.svg}" alt="instagram" id="instagramIcon"
-                     class="icon filterColor">
-                <hr class="hoverLine">
-            </a>
+
+    <div id="popupContainer" class="popupContainer">
+        <div id="popup" class="popup"><p id="popupText">Welcome Back!</p></div>
+    </div>
+    <!-- Login modal -->
+    <div class="modal fade" id="loginModal" role="dialog">
+        <div class="modal-dialog loginForm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="header">
+                    <a type="button" class="close" id="loginModalCloseBtn" data-dismiss="modal">&times;</a>
+                    <h1 class="modal-title">Log in</h1>
+                </div>
+                <form>
+                    <p>Email</p>
+                    <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
+                           maxlength="254" required>
+                    <hr>
+                    <p>Password</p>
+                    <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
+                           maxlength="60" required>
+                    <hr>
+                    <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button>
+                </form>
+            </div>
         </div>
-        <div id="navBar-right">
-            <a href="/index">
-                <span>Home</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/aboutUs">
-                <span>About Us</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
-                                           id="shoppingBasketIcon" class="icon filterColor">
-                <span> (0) Items</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/login">
-                <span>Login</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/changeLanguage"><img th:src="@{~/img/icons/englishIcon.svg}" alt="change language"
-                                           id="changeLanguageIcon" class="icon">
-                <hr class="hoverLine">
-            </a>
+
+        <div id="popupModalContainer" class="popupContainer">
+            <div id="popupModal" class="popup"><p id="popupModalText">Welcome Back!</p></div>
         </div>
-    </nav>
+    </div>
+
+    <section id="navbarContainer">
+        <nav id="navBar">
+            <div id="navBar-left">
+                <a href="/index"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
+                                      alt="treecreate" id="treecreateLogo" class="filterColor">
+                    <hr class="hoverLine">
+                </a>
+                <a href="https://www.facebook.com/treecreate.dk" target="popup"
+                   onclick="window.open('https://www.facebook.com/treecreate.dk', 'name', 'width=600,height=800')">
+                    <img th:src="@{~/img/logos/facebookBlackLogo.svg}" alt="facebook" id="facebookIcon"
+                         class="icon filterColor">
+                    <hr class="hoverLine">
+                </a>
+                <a href="https://www.instagram.com/tree_create/" target="popup"
+                   onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
+                    <img th:src="@{~/img/logos/instagramBlackLogo.svg}" alt="instagram" id="instagramIcon"
+                         class="icon filterColor">
+                    <hr class="hoverLine">
+                </a>
+            </div>
+            <div id="navBar-right">
+                <a href="/index">
+                    <span>Home</span>
+                    <hr class="hoverLine">
+                </a>
+                <a href="/aboutUs">
+                    <span>About Us</span>
+                    <hr class="hoverLine">
+                </a>
+                <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
+                                               id="shoppingBasketIcon" class="icon filterColor">
+                    <span> (0) Items</span>
+                    <hr class="hoverLine">
+                </a>
+                <a id="loginButton" data-toggle="modal" data-target="#loginModal">
+                    <span>Login</span>
+                    <hr class="hoverLine">
+                </a>
+                <a id="profileButton" href="/profile">
+                    <span>Profile</span>
+                    <hr class="hoverLine">
+                </a>
+                <script>isLoggedIn()</script>
+                <a href="/changeLanguage"><img th:src="@{~/img/icons/englishIcon.svg}" alt="change language"
+                                               id="changeLanguageIcon" class="icon">
+                    <hr class="hoverLine">
+                </a>
+            </div>
+        </nav>
+
+    </section>
+
 </section>
 <section id="contentContainer">
     <div id="content">
@@ -116,5 +161,6 @@
         </div>
     </nav>
 </section>
+
 </body>
 </html>

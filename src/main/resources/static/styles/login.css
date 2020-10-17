@@ -1,0 +1,105 @@
+@import "popup.css";
+
+.loginForm
+{
+    position: absolute;
+    text-align: center;
+    font-size: 24px;
+    color: black;
+}
+
+.modal-dialog
+{
+    margin: 20vh auto !important;
+}
+
+.modal-content
+{
+    border-radius: 23px !important;
+    padding: 6vh;
+}
+
+.loginForm h1
+{
+    font-size: 48px;
+    padding: 3vh 0 6vh 0;
+}
+
+.loginForm p
+{
+    text-align: left;
+}
+
+.loginForm input
+{
+    padding: 0 0 3px 7px;
+    text-align: left;
+    border-style: hidden;
+    font-size: 24px;
+    width: 100%;
+    transition: color, 1s;
+}
+
+.loginForm hr
+{
+    border-top: 2px solid var(--inactiveColor);
+    margin-top: 3px;
+}
+
+.loginForm input:focus
+{
+    outline: none;
+    color: var(--mainColor);
+}
+
+.loginForm input:hover
+{
+    color: var(--mainColor);
+}
+
+::placeholder
+{
+    color: var(--inactiveColor);
+}
+
+.loginForm button
+{
+    margin-top: 25px;
+    background-color: var(--actionColor);
+    color: white;
+    border-radius: 7px;
+    width: 40%;
+    height: 40px;
+    font-size: 24px;
+    border: none;
+    transition: 1s;
+}
+
+.loginForm button:hover
+{
+    transform: scale(1.1);
+}
+
+.loginForm button:focus
+{
+    outline: none;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    .loginForm h1
+    {
+        font-size: 48px;
+        padding: 2vh 0 4vh 0;
+    }
+
+    .modal-content
+    {
+        padding: 4vh;
+    }
+
+    .modal-dialog
+    {
+        margin: 20vh auto !important;
+    }
+}

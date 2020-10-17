@@ -9,17 +9,20 @@ DROP SCHEMA IF EXISTS treecreate;
 CREATE SCHEMA IF NOT EXISTS treecreate;
 USE treecreate;
 
-
 -- Contains data for users that access the website
 CREATE TABLE IF NOT EXISTS treecreate.user
 (
-    id           INT AUTO_INCREMENT NOT NULL,
-    username     VARCHAR(30)        NOT NULL,
-    password     VARCHAR(60)        NOT NULL,
-    email        VARCHAR(50)        NOT NULL,
-    access_level INT DEFAULT 0,
+    id             INT AUTO_INCREMENT NOT NULL,
+    name           VARCHAR(80)        NOT NULL,
+    email          VARCHAR(254)       NOT NULL,
+    password       VARCHAR(60)        NOT NULL,
+    phone_number   VARCHAR(15)        NOT NULL,
+    street_address VARCHAR(99)        NOT NULL,
+    city           VARCHAR(50)        NOT NULL,
+    postcode       VARCHAR(15)        NOT NULL,
+    access_level   INT DEFAULT 0,
     CONSTRAINT pk_user PRIMARY KEY (id),
-    CONSTRAINT uc_username UNIQUE (username)
+    CONSTRAINT uc_email UNIQUE (email)
 );
 
 -- Contains data for email newsletters customers have submitted
