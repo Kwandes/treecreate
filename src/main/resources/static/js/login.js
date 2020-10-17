@@ -101,7 +101,6 @@ function isLoggedIn()
                 {
                     console.log("User is already logged in - changing Login button to Profile")
                 }
-
                 setLoginStatus(data.toString() === 'true');
             });
         });

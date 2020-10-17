@@ -22,7 +22,7 @@
 .loginForm h1
 {
     font-size: 48px;
-    padding: 3vh 0vh 6vh 0vh;
+    padding: 3vh 0 6vh 0;
 }
 
 .loginForm p
@@ -32,7 +32,7 @@
 
 .loginForm input
 {
-    padding: 0px 0px 3px 7px;
+    padding: 0 0 3px 7px;
     text-align: left;
     border-style: hidden;
     font-size: 24px;
@@ -90,7 +90,7 @@
     .loginForm h1
     {
         font-size: 48px;
-        padding: 2vh 0vh 4vh 0vh;
+        padding: 2vh 0 4vh 0;
     }
 
     .modal-content
