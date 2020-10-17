@@ -46,7 +46,7 @@ class UserTests
     @DisplayName("The database data is correct: Password")
     void dbPopulationPasswordTest()
     {
-        assertThat(userRepo.findById(1).get().getPassword()).isEqualTo("$2a$12$KwRGRqYeOKkHmMV/pT6i7ukzIwBImi3sbo.T21sow0ci0GKSnkTe.");
+        assertThat(userRepo.findById(1).get().getPassword()).isEqualTo("$2a$10$Ad/owORhm9WIA.hDSZ76juwvUuNLicDINElvqGw35uBp10m/ta3Um");
     }
 
     @Test
