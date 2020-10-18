@@ -25,7 +25,7 @@ function submitPopup()
 
 function uploadEmail(email)
 {
-    fetch("http://localhost:5000/submitNewsletterEmail",
+    fetch(location.origin + "/submitNewsletterEmail",
         {
             method: "POST",
             body: email,
