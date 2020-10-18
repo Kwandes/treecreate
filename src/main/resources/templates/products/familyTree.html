@@ -9,6 +9,7 @@
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
     <link th:href="@{/styles/draggableBox.css}" rel="stylesheet">
+    <link th:href="@{/styles/banner.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <script th:src="@{/js/familyTree.js}"></script>
@@ -33,11 +34,55 @@
                             <div class="draggableBoxLowerRow">
                                 <div class="dragDraggableBoxButton"></div>
                             </div>
-
                         </div>
                     </div>
+                    <div id="familyTreeBanner">
+                        <svg id="bannerText" viewBox="-450 -450 900 900">
+                            <path id="curve" d='M-445,-127
+           C-130,51 130,51 445,-127'/>
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle">
+                                <textPath xlink:href="#curve" id="bannerTextPath">
+                                    familietræ
+                                </textPath>
+                            </text>
+                        </svg>
+
+                    </div>
                 </div>
-                <div id="familyTreeOptionsContainer">opt 1<br>op2<br>op3</div>
+                <div id="familyTreeOptionsContainer">
+                    <div id="bannerInput">
+                        <label for="bannerTextInput">Banner Text</label><br>
+                        <input type="text" id="bannerTextInput" placeholder="familietræ" maxlength="20">
+                    </div>
+
+                    <div id="bannerDesign">
+                        <label for="bannerDesignInput">Banner Design</label><br>
+                        <div id="bannerDesignInputContainer">
+                            <button id="previousBannerDesign"></button>
+                            <input type="text" id="bannerDesignInput" value="Banner Style 1" readonly>
+                            <button id="nextBannerDesign"></button>
+                        </div>
+                    </div>
+
+                    <div id="font">
+                        <label for="fontInput">Font</label><br>
+                        <input type="text" id="fontInput" placeholder="jaguar">
+                    </div>
+
+                    <div id="boxSize">
+                        <label for="boxSizeInput">Box Size</label><br>
+                        <div id="boxSizeInputContainer">
+                            <button id="decreaseBoxButton"></button>
+                            <input type="number" id="boxSizeInput" value="10" readonly>
+                            <button id="increaseBoxButton"></button>
+                        </div>
+                    </div>
+
+                    <div id="fontSize">
+                        <label for="fontSizeInput">Font Size</label><br>
+                        <input type="checkbox" id="fontSizeInput">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

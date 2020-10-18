@@ -1,0 +1,41 @@
+#familyTreeDesignContainer
+{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    width: 50vw;
+    height: 80vh;
+    background-image: url("../img/images/treeDesign/tree1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin:0 1vw;
+}
+
+#familyTreeOptionsContainer
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 20vw;
+    height: 80vh;
+    background: bisque;
+    margin:0 1vw;
+}
+
+#bannerDesignInputContainer
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+#boxSizeInputContainer
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
