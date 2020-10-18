@@ -1,9 +1,15 @@
 package dev.hotdeals.treecreate.controller;
 
+import dev.hotdeals.treecreate.config.CustomProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
@@ -19,6 +25,7 @@ public class PaymentController
     @GetMapping("/payment_success")
     public String paymentSuccess(@RequestParam(value = "data") String value1, @RequestParam(value = "data2") String value2)
     {
+        LOGGER.info("Success");
         LOGGER.info("Data 1: " + value1);
         LOGGER.info("Data 2: " + value2);
         return "payment/success";
@@ -27,8 +34,43 @@ public class PaymentController
     @GetMapping("/payment_fail")
     public String paymentFail(@RequestParam(value = "data1") String value1, @RequestParam(value = "data2") String value2)
     {
+        LOGGER.info("Fail");
         LOGGER.info("val1: " + value1);
         LOGGER.info("val2: " + value2);
         return "payment/fail";
+    }
+
+    @Autowired
+    CustomProperties customProperties;
+
+    @ResponseBody
+    @PostMapping("/getPaymentHash")
+    public ResponseEntity<String> getPaymentHash(@RequestBody String data)
+    {
+        LOGGER.info("Data received: " + data);
+        String secret = customProperties.getNordeaSecret();
+        if (!secret.contains("$2a$12"))
+        {
+            LOGGER.warn("Nordea secret is not present, unable to create a payment hash");
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        LOGGER.info("Nordea secret: " + secret);
+        data += secret;
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(data.getBytes());
+            BigInteger no = new BigInteger(1, messageDigest);
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return new ResponseEntity<>(hashtext, HttpStatus.OK);
+
+        } catch (NoSuchAlgorithmException e)
+        {
+            LOGGER.error(e);
+        }
+        return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
     }
 }

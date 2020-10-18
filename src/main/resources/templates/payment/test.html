@@ -4,38 +4,43 @@
     <meta charset="UTF-8">
     <title>Payment</title>
     <link th:href="@{/styles/payment.css}" rel="stylesheet">
+    <script th:src="@{/js/payment.js}"></script>
 </head>
-<body>
+<body onload="updateHash()">
 <form action="https://pay.nordeaconnect.com/v1/form" method="post">
     <label>payment_ref
-        <input type="text" name="payment_ref" value="1">
+        <input type="text" id="payment_ref" name="payment_ref" value="1">
     </label><br>
     <label>customer_ref
-        <input type="text" name="customer_ref" value="1">
+        <input type="text" id="customer_ref" name="customer_ref" value="1">
     </label><br>
     <label>amount
-        <input type="text" name="amount" value="100.00">
+        <input type="text" id="amount" name="amount" value="100.00">
     </label><br>
     <label>currency
-        <input type="text" name="currency" value="sek">
+        <input type="text" id="currency" name="currency" value="sek">
     </label><br>
     <label>hash
-        <input type="text" name="hash" value="temp">
+        <input type="text" id="hash" name="hash" value="temp">
     </label><br>
     <label>merchant_id
-        <input type="text" name="merchant_id" value="temp">
+        <input type="text" id="merchant_id" name="merchant_id" value="temp">
     </label><br>
     <label>success_url
-        <input type="text" name="success_url" value="http://testing.treecreate.dk/payment_success?data=value&data2=value2">
+        <input type="text" id="success_url" name="success_url"
+               value="http://testing.treecreate.dk/payment_success?data=value&data2=value2">
     </label><br>
     <label>error_url
-        <input type="text" name="error_url" value="http://testing.treecreate.dk/payment_fail?data=value&data2=value2">
+        <input type="text" id="error_url" name="error_url"
+               value="http://testing.treecreate.dk/payment_fail?data=value&data2=value2">
     </label><br>
-    <input type="hidden" name="test" value="true">
+    <input type="hidden" id="test" name="test" value="true">
     <label>metadata
-        <input type="text" name="metadata" value='{"products":[{"id":"1","name":"Nice Shoe","price":"100.00","qty":"1","url":"http://localhost:5000/product/1"}],"user":{"email":"jd@email.com"}}'>
+        <input type="text" id="metadata" name="metadata"
+               value='{"products":[{"id":"1","name":"Nice Shoe","price":"100.00","qty":"1","url":"http://localhost:5000/product/1"}],"user":{"email":"jd@email.com"}}'>
     </label><br>
-    <input type="submit" value="Pay" class="btn">
+    <input type="button" value="Update Hash" class="btn" id="updateBtn" onclick="updateHash()">
+    <input type="submit" value="Pay" class="btn" id="paySubmitBtn">
 </form>
 </body>
 </html>
