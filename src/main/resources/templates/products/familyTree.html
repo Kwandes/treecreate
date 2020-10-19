@@ -9,8 +9,12 @@
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
     <link th:href="@{/styles/draggableBox.css}" rel="stylesheet">
+    <link th:href="@{/styles/banner.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="">
     <script th:src="@{/js/familyTree.js}"></script>
     <script th:src="@{/js/login.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -64,23 +68,69 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                                 <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
                             </div>
                             <div class="draggableBoxMiddleRow">
-                                <span class="input" role="textbox" contenteditable
-                                      onkeypress="return (this.innerText.length <= 20)"></span>
+                                <span class="input draggableBoxInput" role="textbox" contenteditable
+                                      onkeypress="return (this.innerText.length <= boxInputLimit)"></span>
                                 <!--The length needs to adjust to the box size-->
                             </div>
                             <div class="draggableBoxLowerRow">
                                 <div class="dragDraggableBoxButton"></div>
                             </div>
-
                         </div>
                     </div>
+                    <div id="familyTreeBanner">
+                        <svg id="bannerText" viewBox="-450 -450 900 900">
+                            <path id="curve" d='M-445,-127
+           C-130,51 130,51 445,-127'/>
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle">
+                                <textPath xlink:href="#curve" id="bannerTextPath">
+                                    familietræ
+                                </textPath>
+                            </text>
+                        </svg>
+
+                    </div>
                 </div>
-                <div id="familyTreeOptionsContainer">opt 1<br>op2<br>op3
-                <!-- Your share button code -->
-                <div class="fb-share-button" 
-					data-href="https://treecreate.dk/products/familyTree" 
-					data-layout="box_count">
-				</div>
+                <div id="familyTreeOptionsContainer">
+                    <div id="bannerInput">
+                        <label for="bannerTextInput">Banner Text</label><br>
+                        <input type="text" id="bannerTextInput" placeholder="familietræ" maxlength="20">
+                    </div>
+
+                    <div id="bannerDesign">
+                        <label for="bannerDesignInput">Banner Design</label><br>
+                        <div id="bannerDesignInputContainer">
+                            <button id="previousBannerDesign"></button>
+                            <input type="text" id="bannerDesignInput" value="Banner Style 1" readonly>
+                            <button id="nextBannerDesign"></button>
+                        </div>
+                    </div>
+
+                    <div id="font">
+                        <label for="fontInput">Font</label><br>
+                        <select id = "fontInput">
+                            <option value = "0">Spectral</option>
+                            <option value = "1">Sansita swashed</option>
+                            <option value = "2">Roboto slab</option>
+                        </select>
+                    </div>
+
+                    <div id="boxSize">
+                        <label for="boxSizeInput">Box Size</label><br>
+                        <div id="boxSizeInputContainer">
+                            <button id="decreaseBoxButton"></button>
+                            <input type="number" id="boxSizeInput" value="10" readonly>
+                            <button id="increaseBoxButton"></button>
+                        </div>
+                    </div>
+
+                    <div id="fontSize">
+                        <label for="fontSizeInput">Font Size</label><br>
+                        <input type="checkbox" id="fontSizeInput">
+                    </div>
+                    <div class="fb-share-button"
+                         data-href="https://treecreate.dk/products/familyTree"
+                         data-layout="box_count">
+                    </div>
                 </div>
             </div>
         </div>
