@@ -15,9 +15,44 @@
     <script th:src="@{/js/login.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+<!--  FACEBOOK HEADERS -->
+<!-- You can use Open Graph tags to customize link previews.
+Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+
+	<!--  Website URL "https://www.your-domain.com/your-page.html"-->
+	<meta property="og:url"           content="https://treecreate.dk/products/familyTree" />
+	<!--  Type of content -->
+	<meta property="og:type"          content="website" />
+	<!--  Title of the site -->
+	<meta property="og:title"         content="Tree Create" />
+	<!--  Description of the site to be linked -->
+	<meta property="og:description"   content="Create your family tree in engraved wood!" />
+	<!--  Image that will show up on the link on FaceBook -->
+	<meta property="og:image"         content="https://treecreate.dk/img/images/treeDesign/tree.png" />
+	<!--  End of FaceBook headers -->
+	
 </head>
 <body>
 <section th:replace="products/productTemplate :: #navigationContainer"></section>
+
+<!-- Start of Load FaceBook SDK for JavaScript -->
+
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) 
+	{
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+		fjs.parentNode.insertBefore(js, fjs);
+	}
+	(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- End of Load FaceBook SDK for JavaScript -->
+
 <section id="contentContainer">
     <div id="content">
         <div id="productContainer">
@@ -40,7 +75,13 @@
                         </div>
                     </div>
                 </div>
-                <div id="familyTreeOptionsContainer">opt 1<br>op2<br>op3</div>
+                <div id="familyTreeOptionsContainer">opt 1<br>op2<br>op3
+                <!-- Your share button code -->
+                <div class="fb-share-button" 
+					data-href="https://treecreate.dk/products/familyTree" 
+					data-layout="box_count">
+				</div>
+                </div>
             </div>
         </div>
     </div>
