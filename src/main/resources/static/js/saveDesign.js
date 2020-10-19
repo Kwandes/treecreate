@@ -16,6 +16,16 @@ function saveDesign()
     console.log("Big Font mode: " + isBigFont);
     console.log("Box size: " + boxSize)
 
+
+    let familyTreeDesign = JSON.parse(JSON.stringify({
+        id: 1,
+        bannerDesign: bannerDesign,
+        bannerText: bannerText,
+        fontStyle: fontStyle,
+        isBigFont: isBigFont,
+        boxSize: boxSize,
+        boxes: []
+    }));
     if (boxArray.length === 1)
     {
         console.log("Haven't found any boxes");
@@ -39,5 +49,17 @@ function saveDesign()
         const boxDesign = boxStyle.match(boxStylePattern)[1];
         console.log("Design: " + boxDesign);
         console.groupEnd();
+
+        let boxInfo = JSON.stringify({
+            boxId: i-1,
+            text: text,
+            positionX: positionX,
+            positionY: positionY,
+            boxDesign: boxDesign
+        });
+        familyTreeDesign.boxes.push(JSON.parse(boxInfo));
     }
+
+    console.log("Finished JSON: ");
+    console.dir(JSON.parse(JSON.stringify(familyTreeDesign)));
 }
