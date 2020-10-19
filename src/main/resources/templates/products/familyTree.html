@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="">
     <script th:src="@{/js/familyTree.js}"></script>
     <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/saveDesign.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
@@ -131,6 +132,12 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                          data-href="https://treecreate.dk/products/familyTree"
                          data-layout="box_count">
                     </div>
+
+                    <button id="saveDesignButton" style="margin: 1vh; padding: 0.5vh; background-color: var(--actionColor);
+                     border: none; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);"
+                            onclick="saveDesign()">
+                        Save Design
+                    </button>
                 </div>
             </div>
         </div>
