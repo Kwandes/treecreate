@@ -73,4 +73,10 @@ public class PaymentController
         }
         return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
     }
+
+    @GetMapping(value = {"/basket", "shoppingBasket"})
+    public String basket()
+    {
+        return "payment/basket";
+    }
 }
