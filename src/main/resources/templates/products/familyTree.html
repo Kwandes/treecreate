@@ -12,6 +12,9 @@
     <link th:href="@{/styles/banner.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="">
     <script th:src="@{/js/familyTree.js}"></script>
 </head>
 <body>
@@ -27,8 +30,8 @@
                                 <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
                             </div>
                             <div class="draggableBoxMiddleRow">
-                                <span class="input" role="textbox" contenteditable
-                                      onkeypress="return (this.innerText.length <= 20)"></span>
+                                <span class="input draggableBoxInput" role="textbox" contenteditable
+                                      onkeypress="return (this.innerText.length <= boxInputLimit)"></span>
                                 <!--The length needs to adjust to the box size-->
                             </div>
                             <div class="draggableBoxLowerRow">
@@ -66,7 +69,11 @@
 
                     <div id="font">
                         <label for="fontInput">Font</label><br>
-                        <input type="text" id="fontInput" placeholder="jaguar">
+                        <select id = "fontInput">
+                            <option value = "0">Spectral</option>
+                            <option value = "1">Sansita swashed</option>
+                            <option value = "2">Roboto slab</option>
+                        </select>
                     </div>
 
                     <div id="boxSize">

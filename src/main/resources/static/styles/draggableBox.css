@@ -34,6 +34,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    padding-left: 0.35vw;
     height: 44%;
     width: 100%;
 }
@@ -95,16 +96,18 @@
 
 .draggableBox .input
 {
-    min-width: 1vh; /*Needs to scale with parent size, or can probably be removed*/
-    max-width: 10vh; /*Needs to scale with parent size*/
-    max-height: 5vh; /*Needs to scale with parent size*/
+    display: flex;
+    height : 4vh;
+    width : 7vw;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     font-family: Spectral, sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 1.8vh; /*Needs to scale with parent size*/
-    line-height: 2vh; /*Needs to scale with parent size*/
+    font-size: 1.38vh; /*Needs to scale with parent size*/
+    line-height: 1.53vh; /*Needs to scale with parent size*/
     color: black;
     border: none;
     padding: 0;
@@ -112,7 +115,7 @@
 
 .draggableBox .input:empty::before
 {
-    content: "Type your name here...";
+    content: "Name...";
     color: grey;
 }
 

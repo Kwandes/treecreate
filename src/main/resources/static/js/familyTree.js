@@ -1,3 +1,5 @@
+let boxInputLimit = 29;
+
 function viewportToPixels(value) {
     var parts = value.match(/([0-9\.]+)(vh|vw)/)
     var q = Number(parts[1])
@@ -51,10 +53,24 @@ window.onload = function()
     const boxIncreaseButton = document.getElementById("increaseBoxButton");
     const boxDecreaseButton = document.getElementById("decreaseBoxButton");
     const boxSizeInput = document.getElementById("boxSizeInput");
+    const bigFontInput = document.getElementById("fontSizeInput");
+    const fontStyleSelect = document.getElementById("fontInput");
+    const fonts = ["Spectral, sans-serif", "'Sansita Swashed', cursive", "'Roboto Slab', serif"];
     let activeItem = null;
     let bannerSelector = 1;
     let bannerOptions = 1;
     let boxSize = 10;
+    let boxFontSize = 1.38;
+    let boxLineHeight = 1.53;
+    let boxInputHeight = 4;
+    let boxInputWidth = 7;
+    let boxMiddleRowPadding = 0.35;
+    let bigFont = false;
+    // size to font ratio 7.2;
+    // size to line height ratio 6.5;
+    // size to input height ratio 2.5;
+    // size to input width ratio 1.428;
+    // size to padding ratio 28.57;
     let active = false;
 
     boundaries.addEventListener("mousedown", createBox);
@@ -64,14 +80,57 @@ window.onload = function()
     bannerPreviousButton.addEventListener("click", previousBanner, false);
     boxIncreaseButton.addEventListener("click", increaseBox, false);
     boxDecreaseButton.addEventListener("click", decreaseBox, false);
+    bigFontInput.addEventListener("click", convertToBigFont, false);
+    fontStyleSelect.addEventListener("change", changeStyle, false);
+
+    function changeStyle()
+    {
+        banner.style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
+        for (let i = 0; i < boxes.length; i++) {
+            boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+                .getElementsByClassName("draggableBoxInput")[0]
+                .style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
+        }
+        console.log(fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
+    }
+
+    function convertToBigFont()
+    {
+        bigFont = bigFontInput.checked;
+        setBoxSize();
+    }
 
     function setBoxSize()
     {
+        boxInputHeight = boxSize / 2.5;
+        boxInputWidth = boxSize / 1.428;
+        boxLineHeight = boxSize / 6.5;
+        boxMiddleRowPadding = boxSize / 28.57;
+
+        if (bigFont)
+        {
+            boxFontSize = boxSize / 4.761;
+            boxInputLimit = 9;
+        } else
+        {
+            boxFontSize = boxSize / 7.2;
+            boxInputLimit = 29;
+        }
+
         for (let i = 0; i < boxes.length; i++) {
             boxes[i].style.width = boxSize + 'vw';
             boxes[i].style.height = boxSize + 'vh';
+            boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+                .getElementsByClassName("draggableBoxInput")[0].style.fontSize = boxFontSize + 'vh';
+            boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+                .getElementsByClassName("draggableBoxInput")[0].style.lineHeight = boxLineHeight + 'vh';
+            boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+                .getElementsByClassName("draggableBoxInput")[0].style.height = boxInputHeight + 'vh';
+            boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+                .getElementsByClassName("draggableBoxInput")[0].style.width = boxInputWidth + 'vw';
+            boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+                .style.paddingLeft = boxMiddleRowPadding + 'vw';
             boxSizeInput.value = boxSize;
-
         }
     }
 
