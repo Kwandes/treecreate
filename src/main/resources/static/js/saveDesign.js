@@ -51,7 +51,7 @@ function saveDesign()
         console.groupEnd();
 
         let boxInfo = JSON.stringify({
-            boxId: i-1,
+            boxId: i - 1,
             text: text,
             positionX: positionX,
             positionY: positionY,
@@ -61,5 +61,21 @@ function saveDesign()
     }
 
     console.log("Finished JSON: ");
+    console.log(JSON.stringify(familyTreeDesign));
     console.dir(JSON.parse(JSON.stringify(familyTreeDesign)));
+
+    sendDesign(JSON.stringify(familyTreeDesign))
+}
+
+function sendDesign(familyTreeDesign)
+{
+    fetch(location.origin + "/saveFamilyTreeDesign",
+        {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: familyTreeDesign,
+        }
+    ).then(response => {
+        console.log("%cSaving family tree design finished, status: " + response.status, "color:mediumpurple");
+    })
 }

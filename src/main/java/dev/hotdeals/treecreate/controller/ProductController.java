@@ -1,9 +1,12 @@
 package dev.hotdeals.treecreate.controller;
 
+import dev.hotdeals.treecreate.model.FamilyTreeDesign;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
 @Controller
 public class ProductController
@@ -31,6 +34,14 @@ public class ProductController
     public String productTemplate()
     {
         return "products/productTemplate";
+    }
+
+    @ResponseBody
+    @PostMapping("/saveFamilyTreeDesign")
+    public ResponseEntity<Boolean> saveFamilyTreeDesign(@RequestBody FamilyTreeDesign design)
+    {
+        LOGGER.info("Design received: " + design);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
