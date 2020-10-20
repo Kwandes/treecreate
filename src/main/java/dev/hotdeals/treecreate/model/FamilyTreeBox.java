@@ -76,4 +76,15 @@ public class FamilyTreeBox
                 ", boxDesign='" + boxDesign + '\'' +
                 '}';
     }
+
+    public String stringify()
+    {
+        return "{" +
+                "\"boxId\":" + boxId +
+                ",\"text\":\"" + text + "\"" +
+                ",\"positionY\":\"" + positionY + "\"" +
+                ",\"positionX\":\"" + positionX + "\"" +
+                ",\"boxDesign\":\"" + boxDesign + "\"" +
+                '}';
+    }
 }

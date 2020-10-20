@@ -104,4 +104,24 @@ public class FamilyTreeDesignJSON
                 ", boxes=" + Arrays.toString(boxes) +
                 '}';
     }
+
+    public String stringify()
+    {
+        String asf = "";
+        for (var box : boxes)
+        {
+            asf += box.stringify();
+            asf += ",";
+        }
+        asf = asf.substring(0, asf.length()-1); // strip the extra ,
+        return "{"+
+                "\"id\":" + id +
+                ",\"bannerDesign\":\"" + bannerDesign + "\"" +
+                ",\"bannerText\":\"" + bannerText + "\"" +
+                ",\"fontStyle\":" + fontStyle +
+                ",\"isBigFont\":" + isBigFont +
+                ",\"boxSize\":\"" + boxSize + "\"" +
+                ",\"boxes\":" + "[" + asf + "]" +
+                '}';
+    }
 }

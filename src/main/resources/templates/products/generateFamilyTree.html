@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Generated Family Tree</title>
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/products.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
+    <link th:href="@{/styles/draggableBox.css}" rel="stylesheet">
+    <link th:href="@{/styles/banner.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="">
+    <script th:src="@{/js/familyTree.js}"></script>
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/saveDesign.js}"></script>
+    <script th:src="@{/js/generateDesign.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!--  FACEBOOK HEADERS -->
+    <!-- You can use Open Graph tags to customize link previews.
+    Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+
+    <!--  Website URL "https://www.your-domain.com/your-page.html"-->
+    <meta property="og:url"           content="https://treecreate.dk/products/familyTree" />
+    <!--  Type of content -->
+    <meta property="og:type"          content="website" />
+    <!--  Title of the site -->
+    <meta property="og:title"         content="Tree Create" />
+    <!--  Description of the site to be linked -->
+    <meta property="og:description"   content="Create your family tree in engraved wood!" />
+    <!--  Image that will show up on the link on FaceBook -->
+    <meta property="og:image"         content="https://treecreate.dk/img/images/treeDesign/tree1.svg" />
+    <!--  End of FaceBook headers -->
+
+</head>
+<body>
+<section th:replace="products/productTemplate :: #navigationContainer"></section>
+
+<!-- Start of Load FaceBook SDK for JavaScript -->
+
+<div id="fb-root"></div>
+<script>
+    (function(d, s, id)
+    {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+    (document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- End of Load FaceBook SDK for JavaScript -->
+
+<section id="contentContainer">
+    <div id="content">
+        <div id="productContainer">
+            <div id="product">
+                <div id="familyTreeDesignContainer">
+                    <div id="draggableBoxContainer">
+                        <div class="draggableBox">
+                            <div class="draggableBoxUpperRow">
+                                <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
+                            </div>
+                            <div class="draggableBoxMiddleRow">
+                                <span class="input draggableBoxInput" role="textbox" contenteditable
+                                      onkeypress="return (this.innerText.length <= boxInputLimit)"></span>
+                                <!--The length needs to adjust to the box size-->
+                            </div>
+                            <div class="draggableBoxLowerRow">
+                                <div class="dragDraggableBoxButton"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="familyTreeBanner">
+                        <svg id="bannerText" viewBox="-450 -450 900 900">
+                            <path id="curve" d='M-445,-127
+           C-130,51 130,51 445,-127'/>
+                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle">
+                                <textPath xlink:href="#curve" id="bannerTextPath">
+                                    familietræ
+                                </textPath>
+                            </text>
+                        </svg>
+
+                    </div>
+                </div>
+                <div id="familyTreeOptionsContainer">
+                    <div id="bannerInput">
+                        <label for="bannerTextInput">Banner Text</label><br>
+                        <input type="text" id="bannerTextInput" placeholder="familietræ" maxlength="20">
+                    </div>
+
+                    <div id="bannerDesign">
+                        <label for="bannerDesignInput">Banner Design</label><br>
+                        <div id="bannerDesignInputContainer">
+                            <button id="previousBannerDesign"></button>
+                            <input type="text" id="bannerDesignInput" value="Banner Style 1" readonly>
+                            <button id="nextBannerDesign"></button>
+                        </div>
+                    </div>
+
+                    <div id="font">
+                        <label for="fontInput">Font</label><br>
+                        <select id = "fontInput">
+                            <option value = "0">Spectral</option>
+                            <option value = "1">Sansita swashed</option>
+                            <option value = "2">Roboto slab</option>
+                        </select>
+                    </div>
+
+                    <div id="boxSize">
+                        <label for="boxSizeInput">Box Size</label><br>
+                        <div id="boxSizeInputContainer">
+                            <button id="decreaseBoxButton"></button>
+                            <input type="number" id="boxSizeInput" value="10" readonly>
+                            <button id="increaseBoxButton"></button>
+                        </div>
+                    </div>
+
+                    <div id="fontSize">
+                        <label for="fontSizeInput">Font Size</label><br>
+                        <input type="checkbox" id="fontSizeInput">
+                    </div>
+                    <div class="fb-share-button"
+                         data-href="https://treecreate.dk/products/familyTree"
+                         data-layout="box_count">
+                    </div>
+
+                    <button id="saveDesignButton" style="margin: 1vh; padding: 0.5vh; background-color: var(--actionColor);
+                     border: none; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);"
+                            onclick="saveDesign()">
+                        Save Design
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section th:replace="products/productTemplate :: #footerContainer"></section>
+<script>generateDesign()</script>
+</body>
+</html>
