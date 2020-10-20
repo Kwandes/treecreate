@@ -2,7 +2,7 @@ package dev.hotdeals.treecreate.model;
 
 import java.util.Arrays;
 
-public class FamilyTreeDesign
+public class FamilyTreeDesignJSON
 {
     int id;
 
@@ -18,7 +18,7 @@ public class FamilyTreeDesign
 
     FamilyTreeBox[] boxes;
 
-    public FamilyTreeDesign()
+    public FamilyTreeDesignJSON()
     {
     }
 

@@ -10,8 +10,7 @@ CREATE SCHEMA IF NOT EXISTS treecreate;
 USE treecreate;
 
 -- Contains data for users that access the website
-CREATE TABLE IF NOT EXISTS treecreate.user
-(
+CREATE TABLE IF NOT EXISTS treecreate.user (
     id             INT AUTO_INCREMENT NOT NULL,
     name           VARCHAR(80)        NOT NULL,
     email          VARCHAR(254)       NOT NULL,
@@ -26,17 +25,24 @@ CREATE TABLE IF NOT EXISTS treecreate.user
 );
 
 -- Contains data for email newsletters customers have submitted
-CREATE TABLE IF NOT EXISTS treecreate.newsletterEmail
-(
+CREATE TABLE IF NOT EXISTS treecreate.newsletterEmail (
     id           INT AUTO_INCREMENT NOT NULL,
     timePlusDate VARCHAR(255)       NOT NULL,
-    email        VARCHAR(255)       NOT NULL,
+    email        VARCHAR(255),
     CONSTRAINT pk_user PRIMARY KEY (id)
 );
 
+-- Contains a family tree design and other metadata related to it
+CREATE TABLE IF NOT EXISTS treecreate.family_tree (
+    id             INT AUTO_INCREMENT NOT NULL,
+    time_plus_date VARCHAR(255)       NOT NULL,
+    owner_id       VARCHAR(25),
+    design         TEXT,
+    CONSTRAINT pk_familyTreeDesign PRIMARY KEY (id)
+);
+
 -- Contains changes done to the tables in this schema. Used by the triggers
-CREATE TABLE IF NOT EXISTS treecreate.log
-(
+CREATE TABLE IF NOT EXISTS treecreate.log (
     id         INT AUTO_INCREMENT NOT NULL,
     user_id    VARCHAR(64),
     action     VARCHAR(10),

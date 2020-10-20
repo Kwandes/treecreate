@@ -1,10 +1,16 @@
 package dev.hotdeals.treecreate.controller;
 
-import dev.hotdeals.treecreate.model.FamilyTreeDesign;
+import dev.hotdeals.treecreate.model.FamilyTree;
+import dev.hotdeals.treecreate.model.FamilyTreeDesignJSON;
+import dev.hotdeals.treecreate.repository.FamilyTreeRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
@@ -36,11 +42,23 @@ public class ProductController
         return "products/productTemplate";
     }
 
+    @Autowired
+    FamilyTreeRepo familyTreeRepo;
+
     @ResponseBody
     @PostMapping("/saveFamilyTreeDesign")
-    public ResponseEntity<Boolean> saveFamilyTreeDesign(@RequestBody FamilyTreeDesign design)
+    public ResponseEntity<Boolean> saveFamilyTreeDesign(@RequestBody FamilyTreeDesignJSON design, HttpServletRequest request)
     {
         LOGGER.info("Design received: " + design);
+        var familyTree = new FamilyTree();
+        familyTree.setDesign(design);
+        familyTree.setTimePLusDate(LocalDateTime.now().toString());
+        if (request.getSession().getAttribute("userId") != null)
+        {
+            familyTree.setOwnerId(request.getSession().getAttribute("userId").toString());
+        }
+        familyTreeRepo.save(familyTree);
+        LOGGER.info("Added a new design: " + familyTree);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
