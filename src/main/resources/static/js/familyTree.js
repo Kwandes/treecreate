@@ -1,10 +1,27 @@
 let boxInputLimit = 29;
 
+function setTranslate(xPos, yPos, element) // Uses viewport
+{
+    element.style.transform = "translate3d(" + xPos + "vw, "
+        + yPos + "vh, 0)";
+
+}
+
 function viewportToPixels(value) {
     var parts = value.match(/([0-9\.]+)(vh|vw)/)
     var q = Number(parts[1])
     var side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
     return side * (q/100)
+}
+
+function pixelsToViewportHeight(value)
+{
+    return (value * (100 / document.documentElement.clientHeight)).toFixed(3);
+}
+
+function pixelsToViewportWidth(value)
+{
+    return (value * (100 / document.documentElement.clientWidth)).toFixed(3);
 }
 
 function getRandomInt(min, max)
@@ -57,6 +74,8 @@ window.onload = function()
     const fontStyleSelect = document.getElementById("fontInput");
     const fonts = ["Spectral, sans-serif", "'Sansita Swashed', cursive", "'Roboto Slab', serif"];
     let activeItem = null;
+    let activeItemInitialX = null;
+    let activeItemInitialY = null;
     let bannerSelector = 1;
     let bannerOptions = 1;
     let boxSize = 10;
@@ -217,6 +236,8 @@ window.onload = function()
                 clone.style.position = 'absolute';
                 clone.style.width = boxSize + 'vw';
                 clone.style.height = boxSize + 'vh';
+                //clone.style.top = '0vh';
+                //clone.style.left = '0vw';
 
                 let cursorX = e.clientX;
                 let cursorY = e.clientY;
@@ -227,8 +248,12 @@ window.onload = function()
 
                 // create the box at the cursor coordinates
                 boundaries.appendChild(clone);
-                clone.style.left = cursorX - parentX - offsetX + 'px';
-                clone.style.top = cursorY - parentY - offsetY + 'px';
+                //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
+                //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
+                setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX), pixelsToViewportHeight(cursorY - parentY - offsetY), clone);
+                clone.xOffset = cursorX - parentX - offsetX;
+                clone.yOffset = cursorY - parentY - offsetY;
+
                 clone.style.background = assignBoxBackground(images);
                 clone.style.backgroundSize = '100% 100%';
 
@@ -249,6 +274,8 @@ window.onload = function()
 
         // this is the item we are interacting with
         activeItem = e.target.parentNode.parentNode;
+        activeItemInitialX = activeItem.offsetLeft;
+        activeItemInitialY = activeItem.offsetTop;
 
         if (activeItem !== null)
         {
@@ -280,6 +307,13 @@ window.onload = function()
         {
             activeItem.initialX = activeItem.currentX;
             activeItem.initialY = activeItem.currentY;
+            /*activeItem.style.left = pixelsToViewportWidth(parseFloat(
+                activeItem.style.left
+                            .replace(/,/g, "."))
+                            .toFixed(3) + activeItem.currentX) + 'vw';
+            activeItem.style.top = pixelsToViewportHeight(parseFloat(activeItem.style.top
+                            .replace(/,/g, "."))
+                            .toFixed(3) + activeItem.currentY)  + 'vh';*/
         }
 
         active = false;
@@ -305,12 +339,7 @@ window.onload = function()
             activeItem.xOffset = activeItem.currentX;
             activeItem.yOffset = activeItem.currentY;
 
-            setTranslate(activeItem.currentX, activeItem.currentY, activeItem);
+            setTranslate(pixelsToViewportWidth(activeItem.currentX), pixelsToViewportHeight(activeItem.currentY), activeItem);
         }
-    }
-
-    function setTranslate(xPos, yPos, element)
-    {
-        element.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
     }
 }
