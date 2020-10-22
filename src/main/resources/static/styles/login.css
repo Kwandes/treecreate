@@ -1,5 +1,3 @@
-@import "popup.css";
-
 .loginForm
 {
     position: absolute;
@@ -22,7 +20,7 @@
 .loginForm h1
 {
     font-size: 48px;
-    padding: 3vh 0 6vh 0;
+    padding: 3vh 0vh 6vh 0vh;
 }
 
 .loginForm p
@@ -32,7 +30,7 @@
 
 .loginForm input
 {
-    padding: 0 0 3px 7px;
+    padding: 0px 0px 3px 7px;
     text-align: left;
     border-style: hidden;
     font-size: 24px;
@@ -90,7 +88,7 @@
     .loginForm h1
     {
         font-size: 48px;
-        padding: 2vh 0 4vh 0;
+        padding: 2vh 0vh 4vh 0vh;
     }
 
     .modal-content

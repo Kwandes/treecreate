@@ -79,3 +79,8 @@ function sendDesign(familyTreeDesign)
         console.log("%cSaving family tree design finished, status: " + response.status, "color:mediumpurple");
     })
 }
+
+function addToBasket()
+{
+    console.log("%cI got triggered yay", "color: mediumpurple");
+}
