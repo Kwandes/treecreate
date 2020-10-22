@@ -29,7 +29,6 @@
                     <a type="button" class="close" id="loginModalCloseBtn" data-dismiss="modal">&times;</a>
                     <h1 class="modal-title">Log in</h1>
                 </div>
-                <form>
                     <p>Email</p>
                     <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
                            maxlength="254" required>
@@ -38,7 +37,22 @@
                     <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
                            maxlength="60" required>
                     <hr>
-                    <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button>
+                    <a type="button" name="forgotPassword" id="forgotPassword">Forgot password?</a><br>
+
+                    <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button><br><br>
+
+                    <a type="button" name="signUp" id="signUp">SIGN UP</a><br>
+                    <a type="button" id="justText">or log in with</a><br>
+
+                    <a href="https://www.facebook.com/treecreate.dk" target="popup"
+                       onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
+                        <img th:src="@{~/img/logos/facebookLogo.svg}" alt="facebook" id="facebookLogo"
+                             class="logo"></a>
+                    <a href="https://www.facebook.com/treecreate.dk" target="popup"
+                       onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
+                        <img th:src="@{~/img/logos/googleLogo.svg}" alt="facebook" id="googleLogo"
+                             class="logo"></a>
+
                 </form>
             </div>
         </div>
@@ -51,21 +65,19 @@
     <section id="navbarContainer">
         <nav id="navBar">
             <div id="navBar-left">
-                <a href="/index"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
+                <a href="/index">
+                    <img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
                                       alt="treecreate" id="treecreateLogo" class="filterColor">
-                    <hr class="hoverLine">
                 </a>
                 <a href="https://www.facebook.com/treecreate.dk" target="popup"
-                   onclick="window.open('https://www.facebook.com/treecreate.dk', 'name', 'width=600,height=800')">
+                   onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
                     <img th:src="@{~/img/logos/facebookBlackLogo.svg}" alt="facebook" id="facebookIcon"
                          class="icon filterColor">
-                    <hr class="hoverLine">
                 </a>
                 <a href="https://www.instagram.com/tree_create/" target="popup"
-                   onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
+                   onclick="window.open('https://www.instagram.com/tree_create/','name')">
                     <img th:src="@{~/img/logos/instagramBlackLogo.svg}" alt="instagram" id="instagramIcon"
                          class="icon filterColor">
-                    <hr class="hoverLine">
                 </a>
             </div>
             <div id="navBar-right">
