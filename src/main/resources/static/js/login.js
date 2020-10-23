@@ -105,3 +105,13 @@ function isLoggedIn()
             });
         });
 }
+
+function closeLoginModal()
+{
+    $('#loginModal').modal('hide');
+}
+
+function closeSignUpModal()
+{
+    $('#signUpModal').modal('hide');
+}

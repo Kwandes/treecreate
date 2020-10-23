@@ -19,6 +19,17 @@
     padding: 3vh 12vh;
 }
 
+.iconList
+{
+    display: flex;
+    margin: 0vw 9.2vw;
+}
+
+.iconList a
+{
+    margin: 0px 10px;
+}
+
 .loginForm h1
 {
     font-size: 48px;
@@ -35,13 +46,13 @@
     color: var(--inactiveColor);
 }
 
-#forgotPassword:hover, #signUp:hover
+#forgotPassword:hover, #signUpButton:hover
 {
     color: var(--mainColor);
     text-decoration: none;
 }
 
-#justText:hover
+.justText:hover
 {
     text-decoration: none;
     color: var(--inactiveColor);
