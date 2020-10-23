@@ -30,11 +30,10 @@ html, body
 
 #content
 {
-    margin: 5vh 15vw;
+    margin: 13vh 15vw;
     width: 70vw;
     font-size: var(--fontRegular);
     text-align: center;
-    text-shadow: 0 1px 3px #000000;
 }
 
 #aboutUs
