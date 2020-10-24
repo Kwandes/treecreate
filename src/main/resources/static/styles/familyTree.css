@@ -22,7 +22,6 @@
     flex-direction: column;
     width: 20vw;
     height: 80vh;
-    background: bisque;
     margin:0 1vw;
 }
 
@@ -41,3 +40,5 @@
     align-items: center;
     flex-direction: row;
 }
+
+
