@@ -32,11 +32,11 @@ public class TreeController
     TreeDesignRepo treeDesignRepo;
 
     @PostMapping("/addUser")
-    ResponseEntity addUser(@RequestBody User user)
+    ResponseEntity<String> addUser(@RequestBody User user)
     {
         LOGGER.info("Adding new user");
         userRepo.save(user);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/addTreeDesign")
@@ -74,52 +74,49 @@ public class TreeController
     ResponseEntity<List<User>> getUsers()
     {
         LOGGER.info("Getting all users");
-        List<User> userList = userRepo.findAll();
-        return new ResponseEntity<>(userList, HttpStatus.OK);
+        return new ResponseEntity<>(userRepo.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/getTreeDesigns")
     ResponseEntity<List<TreeDesign>> getTreeDesigns()
     {
         LOGGER.info("Getting all tree designs");
-        List<TreeDesign> treeDesignList = treeDesignRepo.findAll();
-        return new ResponseEntity<>(treeDesignList, HttpStatus.OK);
+        return new ResponseEntity<>(treeDesignRepo.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/getTreeOrders")
     ResponseEntity<List<TreeOrder>> getTreeOrder()
     {
         LOGGER.info("Getting all tree orders");
-        List<TreeOrder> orderList = treeOrderRepo.findAll();
-        return new ResponseEntity<>(orderList, HttpStatus.OK);
+        return new ResponseEntity<>(treeOrderRepo.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/getCurrentUser")
     ResponseEntity<String> getCurrentUser(HttpServletRequest request)
     {
         HttpSession session = request.getSession();
-        if (session.getAttribute("userId") == null)
+        if (session.getAttribute("userId") != null)
         {
-            User user = userRepo.findOneByEmail(request.getSession().getId());
-            if (user == null)
-            {
-                LOGGER.info("User not found, creating a new one");
-                user = new User();
-                user.setName("Temp session user");
-                user.setEmail(request.getSession().getId());
-                LOGGER.info("New user: " + user.toString());
-                user = userRepo.save(user);
-                LOGGER.info("Saved user: " + user.toString());
-                return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
-            } else
-            {
-                LOGGER.info("User found: " + user.toString());
-                return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
-            }
+            String userId = session.getAttribute("userId").toString();
+            LOGGER.info("User ID: " + userId);
+            return new ResponseEntity<>(userId, HttpStatus.OK);
         }
-        String userId = session.getAttribute("userId").toString();
-        LOGGER.info("User ID: " + userId);
-        return new ResponseEntity<>(userId, HttpStatus.OK);
+
+        User user = userRepo.findOneByEmail(request.getSession().getId());
+        if (user == null)
+        {
+            LOGGER.info("User not found, creating a new one");
+            user = new User();
+            user.setName("Temp session user");
+            user.setEmail(request.getSession().getId());
+            LOGGER.info("New user: " + user.toString());
+            user = userRepo.save(user);
+            LOGGER.info("Saved user: " + user.toString());
+        } else
+        {
+            LOGGER.info("User found: " + user.toString());
+        }
+        return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
     }
 
     @ResponseBody
