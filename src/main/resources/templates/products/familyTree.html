@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="">
     <script th:src="@{/js/familyTree.js}"></script>
     <script th:src="@{/js/login.js}"></script>
@@ -25,18 +26,18 @@
     <!-- You can use Open Graph tags to customize link previews.
 Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
-	<!--  Website URL "https://www.your-domain.com/your-page.html"-->
-	<meta property="og:url"           content="https://treecreate.dk/products/familyTree" />
-	<!--  Type of content -->
-	<meta property="og:type"          content="website" />
-	<!--  Title of the site -->
-	<meta property="og:title"         content="Tree Create" />
-	<!--  Description of the site to be linked -->
-	<meta property="og:description"   content="Create your family tree in engraved wood!" />
-	<!--  Image that will show up on the link on FaceBook -->
-	<meta property="og:image"         content="https://treecreate.dk/img/images/treeDesign/tree1.svg" />
-	<!--  End of FaceBook headers -->
-	
+    <!--  Website URL "https://www.your-domain.com/your-page.html"-->
+    <meta property="og:url" content="https://treecreate.dk/products/familyTree"/>
+    <!--  Type of content -->
+    <meta property="og:type" content="website"/>
+    <!--  Title of the site -->
+    <meta property="og:title" content="Tree Create"/>
+    <!--  Description of the site to be linked -->
+    <meta property="og:description" content="Create your family tree in engraved wood!"/>
+    <!--  Image that will show up on the link on FaceBook -->
+    <meta property="og:image" content="https://treecreate.dk/img/images/treeDesign/tree1.svg"/>
+    <!--  End of FaceBook headers -->
+
 </head>
 <body>
 <section th:replace="products/productTemplate :: #navigationContainer"></section>
@@ -45,14 +46,14 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
 <div id="fb-root"></div>
 <script>
-(function(d, s, id) 
-	{
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) return;
-		js = d.createElement(s); js.id = id;
-		js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-		fjs.parentNode.insertBefore(js, fjs);
-	}
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }
     (document, 'script', 'facebook-jssdk'));
 </script>
 
@@ -84,9 +85,11 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                                     <div id="amountInfoIcon" class="addToBasketInfoIcon"></div>
                                 </div>
                                 <div class="fancyContent">
-                                    <div class="arrowLeft" id="amountArrowLeft" alt="<" onclick="decreaseAmount()"></div>
+                                    <div class="arrowLeft" id="amountArrowLeft" alt="<"
+                                         onclick="decreaseAmount()"></div>
                                     <input type="text" id="amountInput" class="fancyInput" value="1" readonly>
-                                    <div class="arrowRight" id="amountArrowRight" alt=">" onclick="increaseAmount()"></div>
+                                    <div class="arrowRight" id="amountArrowRight" alt=">"
+                                         onclick="increaseAmount()"></div>
                                 </div>
                             </div>
                         </div>
@@ -110,20 +113,24 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                                     25x25 | up to 30 names <br>
                                     30x30 | up to 40 names <br>
                                 </p>
-                                <input type="button" id="addToBasketButton" value="ADD TO BASKET" onclick="addToBasket()" readonly>
+                                <input type="button" id="addToBasketButton" value="ADD TO BASKET"
+                                       onclick="addToBasket()" readonly>
                             </div>
                         </div>
                     </section>
                 </section>
                 <section id="addToBasketFooter">
                     <p>
-                        Note: When you purchase this tree you are automatically paying to plant a tree in the amazon forest.
+                        Note: When you purchase this tree you are automatically paying to plant a tree in the amazon
+                        forest.
                     </p>
                     <p>
-                        Note: Packaging is made of recycled materials that are eco friendly and the paper is FSC certified
+                        Note: Packaging is made of recycled materials that are eco friendly and the paper is FSC
+                        certified
                     </p>
                     <p>
-                        Note: The wood that is used for the design is a high quality hard oak and is produced here in denmark.
+                        Note: The wood that is used for the design is a high quality hard oak and is produced here in
+                        denmark.
                     </p>
                 </section>
             </div>
@@ -171,7 +178,8 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                             <div id="bannerTextInfoIcon" class="addToBasketInfoIcon"></div>
                         </div>
                         <div class="fancyContent">
-                            <input type="text" class="fancyInput" id="bannerTextInput" placeholder="familietræ" maxlength="20">
+                            <input type="text" class="fancyInput" id="bannerTextInput" placeholder="familietræ"
+                                   maxlength="20">
                         </div>
                     </div>
 
@@ -182,7 +190,8 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         </div>
                         <div class="fancyContent" id="bannerDesignInputContainer">
                             <div class="arrowLeft" id="previousBannerDesign" alt="<"></div>
-                            <input type="text" class="fancyInput" id="bannerDesignInput" value="Banner Style 1" readonly>
+                            <input type="text" class="fancyInput" id="bannerDesignInput" value="Banner Style 1"
+                                   readonly>
                             <div class="arrowRight" id="nextBannerDesign" alt=">"></div>
                         </div>
                     </div>
@@ -193,10 +202,10 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                             <div id="fontStyleInfoIcon" class="addToBasketInfoIcon"></div>
                         </div>
                         <div class="fancyContent" id="fontStyleInputContainer">
-                            <select class="fancyInput" id = "fontInput">
-                                <option value = "0">Spectral</option>
-                                <option value = "1">Sansita swashed</option>
-                                <option value = "2">Roboto slab</option>
+                            <select class="fancyInput" id="fontInput">
+                                <option value="0">Spectral</option>
+                                <option value="1">Sansita swashed</option>
+                                <option value="2">Roboto slab</option>
                             </select>
                         </div>
                     </div>
