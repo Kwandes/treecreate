@@ -13,7 +13,7 @@ public class TreeDesign
     private int id;
 
     @Basic
-    @Column(name = "designJson")
+    @Column(name = "design_json", columnDefinition = "TEXT")
     private String designJson;
 
     @Basic
@@ -23,7 +23,6 @@ public class TreeDesign
     public TreeDesign()
     {
     }
-
 
     public int getId()
     {

@@ -10,7 +10,7 @@ public class TreeOrder
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private long orderId;
+    private int orderId;
 
     @Basic
     @Column(name = "amount")
@@ -28,12 +28,12 @@ public class TreeOrder
     {
     }
 
-    public long getOrderId()
+    public int getOrderId()
     {
         return orderId;
     }
 
-    public void setOrderId(long orderId)
+    public void setOrderId(int orderId)
     {
         this.orderId = orderId;
     }
