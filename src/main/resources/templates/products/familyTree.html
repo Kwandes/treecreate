@@ -166,42 +166,65 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
                 </div>
                 <div id="familyTreeOptionsContainer">
-                    <div id="bannerInput">
-                        <label for="bannerTextInput">Banner Text</label><br>
-                        <input type="text" id="bannerTextInput" placeholder="familietræ" maxlength="20">
-                    </div>
-
-                    <div id="bannerDesign">
-                        <label for="bannerDesignInput">Banner Design</label><br>
-                        <div id="bannerDesignInputContainer">
-                            <button id="previousBannerDesign"></button>
-                            <input type="text" id="bannerDesignInput" value="Banner Style 1" readonly>
-                            <button id="nextBannerDesign"></button>
+                    <div class="fancySelection" id="bannerInput">
+                        <div class="fancyHeader">
+                            <span>Banner Text</span>
+                            <div id="bannerTextInfoIcon" class="addToBasketInfoIcon"></div>
+                        </div>
+                        <div class="fancyContent">
+                            <input type="text" class="fancyInput" id="bannerTextInput" placeholder="familietræ" maxlength="20">
                         </div>
                     </div>
 
-                    <div id="font">
-                        <label for="fontInput">Font</label><br>
-                        <select id = "fontInput">
-                            <option value = "0">Spectral</option>
-                            <option value = "1">Sansita swashed</option>
-                            <option value = "2">Roboto slab</option>
-                        </select>
-                    </div>
-
-                    <div id="boxSize">
-                        <label for="boxSizeInput">Box Size</label><br>
-                        <div id="boxSizeInputContainer">
-                            <button id="decreaseBoxButton"></button>
-                            <input type="number" id="boxSizeInput" value="10" readonly>
-                            <button id="increaseBoxButton"></button>
+                    <div class="fancySelection" id="bannerDesign">
+                        <div class="fancyHeader">
+                            <span>Banner Design</span>
+                            <div id="bannerDesignInfoIcon" class="addToBasketInfoIcon"></div>
+                        </div>
+                        <div class="fancyContent" id="bannerDesignInputContainer">
+                            <div class="arrowLeft" id="previousBannerDesign" alt="<"></div>
+                            <input type="text" class="fancyInput" id="bannerDesignInput" value="Banner Style 1" readonly>
+                            <div class="arrowRight" id="nextBannerDesign" alt=">"></div>
                         </div>
                     </div>
 
-                    <div id="fontSize">
-                        <label for="fontSizeInput">Font Size</label><br>
-                        <input type="checkbox" id="fontSizeInput">
+                    <div class="fancySelection" id="font">
+                        <div class="fancyHeader">
+                            <span>Font Style</span>
+                            <div id="fontStyleInfoIcon" class="addToBasketInfoIcon"></div>
+                        </div>
+                        <div class="fancyContent" id="fontStyleInputContainer">
+                            <select class="fancyInput" id = "fontInput">
+                                <option value = "0">Spectral</option>
+                                <option value = "1">Sansita swashed</option>
+                                <option value = "2">Roboto slab</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <div class="fancySelection" id="boxSize">
+                        <div class="fancyHeader">
+                            <span>Box Size</span>
+                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon"></div>
+                        </div>
+                        <div class="fancyContent" id="boxSizeInputContainer">
+                            <div class="arrowLeft" id="decreaseBoxButton" alt="<"></div>
+                            <input type="number" class="fancyInput" id="boxSizeInput" value="10" readonly>
+                            <div class="arrowRight" id="increaseBoxButton" alt=">"></div>
+                        </div>
+                    </div>
+
+                    <div class="fancySelection" id="fontSize">
+                        <div class="fancyHeader">
+                            <span>Big Font Size</span>
+                            <div id="bigFontSizeInfoIcon" class="addToBasketInfoIcon"></div>
+                        </div>
+                        <div class="fancyContent" id="bigFontSizeInputContainer">
+                            <input type="checkbox" class="switch-input" id="fontSizeInput">
+                        </div>
+
+                    </div>
+
                     <div class="fb-share-button"
                          data-href="https://treecreate.dk/products/familyTree"
                          data-layout="box_count">
