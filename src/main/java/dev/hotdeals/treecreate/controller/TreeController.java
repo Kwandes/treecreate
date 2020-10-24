@@ -10,15 +10,14 @@ import dev.hotdeals.treecreate.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
 @RestController
 public class TreeController
@@ -121,5 +120,25 @@ public class TreeController
         String userId = session.getAttribute("userId").toString();
         System.out.println("User ID: " + userId);
         return new ResponseEntity<>(userId, HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping(value = {"/products/getFamilyTree", "/products/getFamilyTree", "/products/getFamilyTreeDesign"})
+    public ResponseEntity<String> generateFamilyTree(@RequestParam Integer designId)
+    {
+        if (designId == null)
+        {
+            LOGGER.warn("Bitch the ID is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        System.out.println("ID :" + designId);
+        var design = treeDesignRepo.findById(designId).orElse(null);
+        if (design == null)
+        {
+            LOGGER.warn("The design was null, 400");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        LOGGER.info("Design: " + design.getDesignJson());
+        return new ResponseEntity<>(design.getDesignJson(), HttpStatus.OK);
     }
 }
