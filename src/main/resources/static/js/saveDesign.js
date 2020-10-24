@@ -39,7 +39,7 @@ function saveDesign()
         const text = boxArray[i].getElementsByClassName("draggableBoxInput").item(0).innerHTML.toString();
         console.log("Box text: " + text)
 
-        const positionPattern = 'left:\\s(\\d+\\.\\d+)px;\\stop:\\s(\\d+\\.\\d+)px';
+        const positionPattern = 'translate3d\\((-?\\d+\\.\\d+)vw,\\s(-?\\d+\\.\\d+)vh';
         let positionMatch = boxStyle.match(positionPattern)
         const positionX = positionMatch[1];
         const positionY = positionMatch[2];

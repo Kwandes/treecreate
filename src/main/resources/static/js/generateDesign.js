@@ -20,9 +20,10 @@ async function generateDesign()
 
     let boxes = design["boxes"];
     console.log("Generating boxes...")
-    for(let box of boxes)
+    for (let box of boxes)
     {
         console.log("Managing box id: " + box["boxId"]);
+        console.log("box text: " + box["text"]);
         // Copy over the variables from familyTree.js because they are not global/accessible...
         const boundaries = document.getElementById("draggableBoxContainer");
         let activeItem = null;
@@ -46,17 +47,26 @@ async function generateDesign()
         clone.style.width = boxSize + 'vw';
         clone.style.height = boxSize + 'vh';
 
-        let cursorX = box["positionX"];
-        let cursorY = box["positionY"];
-        let parentX = boundaries.offsetLeft - 500;
-        let parentY = boundaries.offsetTop - 250;
+        console.log("Assigning position");
+        //let cursorX = box["positionX"];
+        //let cursorY = box["positionY"];
+
+        let cursorX = viewportToPixels(box["positionX"] + 'vw');
+        let cursorY = viewportToPixels(box["positionY"] + 'vh');
+        let parentX = boundaries.offsetLeft;
+        let parentY = boundaries.offsetTop;
         let offsetX = viewportToPixels(boxSize + 'vw') / 2;
         let offsetY = viewportToPixels(boxSize + 'vh') / 2;
 
         // create the box at the cursor coordinates
         boundaries.appendChild(clone);
-        clone.style.left = cursorX - parentX - offsetX + 'px';
-        clone.style.top = cursorY - parentY - offsetY + 'px';
+        console.log("Cursor: " + cursorX + " / " + cursorY);
+        console.log("Parent: " + parentX + " / " + parentY);
+        console.log("Offset: " + offsetX + " / " + offsetY);
+        setTranslate(box["positionX"], box["positionY"], clone);
+        clone.xOffset = cursorX - parentX - offsetX;
+        clone.yOffset = cursorY - parentY - offsetY;
+
         clone.style.background = boxDesignBackground;
         clone.style.backgroundSize = '100% 100%';
 
@@ -73,9 +83,6 @@ async function generateDesign()
         boundaries.addEventListener("mousemove", drag, false);
 
         console.log("Listeners have been added");
-        console.log("Adjusting the size of the boxes");
-        //setBoxSize(boxSize, isBigFont);
-        //fam
 
         // Family Tree copy because I need it because fuck GRASP and single responsibility
         function dragStart(e)
@@ -84,6 +91,8 @@ async function generateDesign()
 
             // this is the item we are interacting with
             activeItem = e.target.parentNode.parentNode;
+            activeItemInitialX = activeItem.offsetLeft;
+            activeItemInitialY = activeItem.offsetTop;
 
             if (activeItem !== null)
             {
@@ -140,17 +149,14 @@ async function generateDesign()
                 activeItem.xOffset = activeItem.currentX;
                 activeItem.yOffset = activeItem.currentY;
 
-                setTranslate(activeItem.currentX, activeItem.currentY, activeItem);
+                setTranslate(pixelsToViewportWidth(activeItem.currentX),
+                    pixelsToViewportHeight(activeItem.currentY), activeItem);
             }
-        }
-
-        function setTranslate(xPos, yPos, element)
-        {
-            element.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
         }
     }
 
     // Fix for the familyTree.js overriding the sizing and setting it to 10
+    console.log("Assigning box size")
     let boxSize = design["boxSize"];
     for (let i = 10; i != boxSize; i++)
     {
@@ -158,13 +164,13 @@ async function generateDesign()
         {
             console.log("Increasing size");
             document.getElementById("increaseBoxButton").click();
-        }
-        else
+        } else
         {
             console.log("Decreasing size")
             document.getElementById("decreaseBoxButton").click();
         }
     }
+    console.log("%c generation finished", "color:mediumpurple")
 }
 
 async function fetchDesign()
