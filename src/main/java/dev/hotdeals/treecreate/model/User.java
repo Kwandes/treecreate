@@ -2,55 +2,48 @@ package dev.hotdeals.treecreate.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.GenericGenerator;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user")
 public class User
 {
     @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
 
-    @NotNull
+    @Basic
     @Column(name = "name", length = 80)
     private String name;
 
-    @NotNull
+    @Basic
     @Column(name = "email", length = 254)
     private String email;
 
-    @NotNull
+    @Basic
     @Column(name = "password", length = 60)
     private String password;
 
-    @NotNull
+    @Basic
     @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
-    @NotNull
+    @Basic
     @Column(name = "street_address", length = 99)
     private String streetAddress;
 
-    @NotNull
+    @Basic
     @Column(name = "city", length = 50)
     private String city;
 
-    @NotNull
+    @Basic
     @Column(name = "postcode", length = 15)
     private String postcode;
 
-    @NotNull
+    @Basic
     @Column(name = "access_level")
     private int accessLevel;
-
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
 
     public User()
     {
@@ -85,10 +78,14 @@ public class User
                 '}';
     }
 
-    @Id
-    public Integer getId()
+    public int getId()
     {
         return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     public String getName()
@@ -169,5 +166,28 @@ public class User
     public void setAccessLevel(int accessLevel)
     {
         this.accessLevel = accessLevel;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                accessLevel == user.accessLevel &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(phoneNumber, user.phoneNumber) &&
+                Objects.equals(streetAddress, user.streetAddress) &&
+                Objects.equals(city, user.city) &&
+                Objects.equals(postcode, user.postcode);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, name, email, password, phoneNumber, streetAddress, city, postcode, accessLevel);
     }
 }
