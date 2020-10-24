@@ -85,10 +85,21 @@ public class TreeController
     }
 
     @GetMapping("/getTreeOrders")
-    ResponseEntity<List<TreeOrder>> getTreeOrder()
+    ResponseEntity<List<TreeOrder>> getTreeOrder(HttpServletRequest request)
     {
-        LOGGER.info("Getting all tree orders");
-        return new ResponseEntity<>(treeOrderRepo.findAll(), HttpStatus.OK);
+        LOGGER.info("Getting Tree orders");
+        int userId = 0;
+        try
+        {
+            LOGGER.info("Returned body: " + getCurrentUser(request).getBody());
+            userId = Integer.parseInt(getCurrentUser(request).getBody());
+        } catch (NumberFormatException | NullPointerException e)
+        {
+            LOGGER.error("Failed to parse userId", e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        var orderList = treeOrderRepo.findAllByUserId(userId);
+        return new ResponseEntity<>(orderList, HttpStatus.OK);
     }
 
     @GetMapping("/getCurrentUser")

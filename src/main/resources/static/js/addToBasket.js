@@ -30,6 +30,8 @@ async function addToBasket()
     console.dir(JSON.parse((orderInfo)));
     let orderId = await saveOrder(orderInfo);
     console.log("Order added, Order id: " + orderId)
+    console.log("Updating the basket item count");
+    updateBasket();
 }
 
 function getDesign()
