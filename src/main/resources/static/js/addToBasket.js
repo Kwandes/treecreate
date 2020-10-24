@@ -1,8 +1,6 @@
 async function addToBasket()
 {
     console.log("%cI got triggered yay", "color: mediumpurple");
-    // TODo - merge with saving of a design
-    // ToDo Actually add it to the basket that is persistent per session/user
     const designJson = await getDesign();
     if (designJson == null)
     {
@@ -32,6 +30,58 @@ async function addToBasket()
     console.dir(JSON.parse((orderInfo)));
     let orderId = await saveOrder(orderInfo);
     console.log("Order added, Order id: " + orderId)
+}
+
+function getDesign()
+{
+    console.log("%cThanks for saving me, I appreciate it", "color:mediumpurple");
+
+    let boxArray = document.getElementsByClassName("draggableBox");
+
+    const bannerDesign = document.getElementById("bannerDesignInput").getAttribute("value").toString();
+    const bannerText = document.getElementById("bannerTextPath").innerHTML.toString().trim();
+    const fontStyle = document.getElementById("fontInput").selectedIndex;
+    const isBigFont = document.getElementById("fontSizeInput").checked
+    const boxSize = document.getElementById("boxSizeInput").value;
+
+    let familyTreeDesign = JSON.parse(JSON.stringify({
+        id: 1,
+        bannerDesign: bannerDesign,
+        bannerText: bannerText,
+        fontStyle: fontStyle,
+        isBigFont: isBigFont,
+        boxSize: boxSize,
+        boxes: []
+    }));
+    if (boxArray.length === 1)
+    {
+        return;
+    }
+
+    for (let i = 1; i < boxArray.length; i++)
+    {
+        const boxStyle = boxArray[i].getAttribute("style").toString();
+        const text = boxArray[i].getElementsByClassName("draggableBoxInput").item(0).innerHTML.toString();
+
+        const positionPattern = 'translate3d\\((-?\\d+\\.\\d+)vw,\\s(-?\\d+\\.\\d+)vh';
+        let positionMatch = boxStyle.match(positionPattern)
+        const positionX = positionMatch[1];
+        const positionY = positionMatch[2];
+
+        const boxStylePattern = '(box\\d+)\\.svg';
+        const boxDesign = boxStyle.match(boxStylePattern)[1];
+
+        let boxInfo = JSON.stringify({
+            boxId: i - 1,
+            text: text,
+            positionX: positionX,
+            positionY: positionY,
+            boxDesign: boxDesign
+        });
+        familyTreeDesign.boxes.push(JSON.parse(boxInfo));
+    }
+
+    return JSON.stringify(familyTreeDesign);
 }
 
 async function getCurrentUser()
@@ -64,6 +114,7 @@ async function saveOrder(orderInfo)
     console.log("%cSaving tree order has finished, status: " + response.status, "color:mediumpurple");
     return await response.text();
 }
+
 
 function increaseAmount()
 {
