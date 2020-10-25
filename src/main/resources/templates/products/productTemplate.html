@@ -23,38 +23,42 @@
     <!-- Login modal -->
     <div class="modal fade" id="loginModal" role="dialog">
         <div class="modal-dialog loginForm">
+            <!-- FACEBOOK SDK -->
+            <script th:src="@{/js/facebook.js}"></script>
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="header">
                     <a type="button" class="close" id="loginModalCloseBtn" data-dismiss="modal">&times;</a>
                     <h1 class="modal-title">Log in</h1>
                 </div>
-                    <p>Email</p>
-                    <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
-                           maxlength="254" required>
-                    <hr>
-                    <p>Password</p>
-                    <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
-                           maxlength="60" required>
-                    <hr>
-                    <a type="button" name="forgotPassword" id="forgotPassword">Forgot password?</a><br>
 
-                    <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button><br><br>
+                <p>Email</p>
+                <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
+                       maxlength="254" required>
+                <hr>
+                <p>Password</p>
+                <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
+                       maxlength="60" required>
+                <hr>
+                <a type="button" name="forgotPassword" id="forgotPassword">Forgot password?</a><br>
 
-                    <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();">SIGN UP</a><br>
+                <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button><br><br>
 
-                    <a type="text" class="justText">or log in with</a><br>
+                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();">SIGN UP</a><br>
 
-                    <div class="iconList">
-                        <a href="https://www.facebook.com/treecreate.dk" target="popup"
-                           onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
-                            <img th:src="@{~/img/logos/facebookLogo.svg}" alt="facebook" id="facebookLogo"
-                                 class="logo"></a>
-                        <a href="https://www.facebook.com/treecreate.dk" target="popup"
-                           onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
-                            <img th:src="@{~/img/logos/googleLogo.svg}" alt="facebook" id="googleLogo"
-                                 class="logo"></a>
-                    </div>
+                <a type="text" class="justText">or log in with</a><br>
+
+                <div class="iconList">
+                    <a target="popup" onclick="loginWithFacebook();">
+                        <img th:src="@{~/img/logos/facebookLogo.svg}" alt="facebook" id="facebookLogo"
+                             class="logo">
+                    </a>
+                    <a href="https://www.facebook.com/treecreate.dk" target="popup"
+                       onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
+                        <img th:src="@{~/img/logos/googleLogo.svg}" alt="facebook" id="googleLogo"
+                             class="logo">
+                    </a>
+                </div>
 
                 </form>
             </div>
