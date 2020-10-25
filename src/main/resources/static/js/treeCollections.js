@@ -47,6 +47,9 @@ async function generateCollections()
         dateCreated = dateCreated.split('.')[0];
         collectionItem.getElementsByClassName("dateCreated")[0].innerText = "Boxes: " + dateCreated;
 
+        console.log("Order id: " + order['orderId']);
+        collectionItem.getElementsByClassName("orderId")[0].innerText = order['orderId'];
+
         detailsPage.append(collectionItem)
     }
 }
@@ -56,4 +59,14 @@ async function fetchOrders()
     const response = await fetch(location.origin + "/getTreeOrders");
     console.log("%cFetching basket items has finished, status: " + response.status, "color:mediumpurple");
     return await response.text();
+}
+
+async function editDesign(button)
+{
+    console.log("%cI got called to edit stuff", "color:mediumpurple");
+    console.log("Editing element with text: " + button.innerText)
+    const orderId = button.parentElement.getElementsByClassName("orderId")[0].innerText;
+    console.log("Scraped order id: " + orderId)
+    console.log("Going to " + location.origin + "/products/generate?designId=" + orderId);
+    window.location.assign(location.origin + "/products/generate?designId=" + orderId);
 }

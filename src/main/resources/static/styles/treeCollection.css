@@ -9,6 +9,7 @@
     width: 90%;
     min-height: 30vh;
     height: fit-content;
+    font-size: var(--fontRegular);
 }
 
 .designImage
