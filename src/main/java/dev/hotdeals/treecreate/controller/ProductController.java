@@ -1,18 +1,39 @@
 package dev.hotdeals.treecreate.controller;
 
 import dev.hotdeals.treecreate.model.FamilyTree;
+
+
 import dev.hotdeals.treecreate.model.FamilyTreeDesignJSON;
 import dev.hotdeals.treecreate.repository.FamilyTreeRepo;
+
+import org.hibernate.internal.build.AllowSysOut;
+import org.openqa.selenium.remote.ScreenshotException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;	
+import org.springframework.web.multipart.MultipartFile;
 
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+
+
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
@@ -62,6 +83,8 @@ public class ProductController
         familyTreeRepo.save(familyTree);
         LOGGER.info("Added a new design: " + familyTree);
         LOGGER.info("Stringified version: " + design.stringify());
+
+        
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -92,4 +115,72 @@ public class ProductController
 
         return new ResponseEntity<>(design.getDesign(), HttpStatus.OK);
     }
+    
+    @ResponseBody
+    @RequestMapping(path = "/products/familyTree/saveScreenshot", method = RequestMethod.POST)
+    public void saveScreenshot(@RequestBody MultipartFile file)
+    {
+    	System.out.println(file);
+    	
+    	try {
+    		Path dirLocation = Paths.get("/").toAbsolutePath().normalize();
+            String fileName = file.getOriginalFilename();
+            
+            Path dfile = dirLocation.resolve(fileName);
+            Files.copy(file.getInputStream(), dfile,StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("Jan SUXX: " + fileName);;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    	
+    }
+    	
+    	
+    	
+    	
+    	/*
+    }
+    	//System.out.println("pre File 'creation'");
+    	File pngImage = new File("screenshotException.png");
+    	System.out.println("post File 'creation?'");
+    	
+    	BufferedImage image = (BufferedImage) imageQuestionmark; // your image
+    	OutputStream stream;
+		try
+		{
+			System.out.println("WE GOT IN THE MAIN TRY CATCH");
+			stream = new FileOutputStream(pngImage);
+			ImageIO.write(image, "png", stream);
+		} catch (FileNotFoundException e1)	
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			System.out.println("OH OH WE GOT A FUCKY WUKY");
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+    	
+    	return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    	
+    }
+    
+    
+          
+		try {
+
+        File file = imageService.getImage(imageId);
+
+        Path path = Paths.get(file.getAbsolutePath());
+        ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+
+        return ResponseEntity.ok().contentLength(file.length()).contentType(MediaType.IMAGE_JPEG).body(resource);
+	    } catch (Exception e) {
+	        throw new InternalServerException("Unable to generate image");
+	    }
+     
+     */
+    
 }
