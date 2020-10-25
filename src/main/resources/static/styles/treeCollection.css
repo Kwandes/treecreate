@@ -1,0 +1,88 @@
+.collectionContainer
+{
+    display: none;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+    min-width: 250px;
+    width: 90%;
+    min-height: 30vh;
+    height: fit-content;
+}
+
+.designImage
+{
+    min-width: 100px;
+    width: 20vw;
+    height: 20vw;
+    border: 2px black solid;
+    border-radius: 12px;
+    margin-top: 2vw;
+    background-image: url("../img/images/backgrounds/addToBasketDesignTree.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.designInfo
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-width: 200px;
+    width: 30vw;
+    margin: 2vw;
+}
+
+.infoHeader span
+{
+    margin: 1vw;
+}
+
+.infoContent span
+{
+    margin-left: 1vw;
+}
+
+.infoHeader
+{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 2px black solid;
+}
+
+.infoContent
+{
+    display: flex;
+    margin: 1vh 0;
+    flex-direction: column;
+    width: 100%;
+}
+
+.infoFooter
+{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: fit-content;
+    margin: 1vh 0;
+}
+
+.collectionInfoBtn
+{
+    width: fit-content;
+    padding: 5px 2vw;
+    border-radius: 12px;
+    border: none;
+    background-color: var(--actionColor);
+    color: white;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+}
+
+.collectionInfoBtn:hover
+{
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1));
+}

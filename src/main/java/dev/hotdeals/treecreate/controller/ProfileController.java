@@ -108,6 +108,12 @@ public class ProfileController
         }
     }
 
+    @GetMapping("/account/collections")
+    String treeCollections()
+    {
+        return "profile/treeCollections";
+    }
+
     @ResponseBody
     @PostMapping("/submitLogin")
     ResponseEntity<Boolean> validateCredentials(HttpServletRequest httpServletRequest, @RequestBody User body)
