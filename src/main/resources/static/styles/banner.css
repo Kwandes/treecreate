@@ -1,5 +1,6 @@
 #familyTreeBanner
 {
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,9 +39,9 @@
 
 #familyTreeBanner #bannerText
 {
-    margin-top: 2vw;
-    height: 20vw;
-    width: 20vw;
+    margin-top: 0.7vw;
+    height: 16vw;
+    width: 16vw;
 }
 
 #familyTreeBanner path

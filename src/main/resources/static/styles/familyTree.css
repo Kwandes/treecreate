@@ -1,14 +1,22 @@
 @import "familyTreeAddToBasket.css";
 
+#product
+{
+    align-items: center;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
 #familyTreeDesignContainer
 {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     flex-direction: column;
-    width: 50vw;
-    height: 80vh;
-    margin:0 1vw;
+    min-width: 600px;
+    width: 60vw;
+    min-height: 600px;
+    height: 60vw;
 }
 
 #familyTreeOptionsContainer
@@ -17,8 +25,9 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    min-width: 175px;
     width: 20vw;
-    height: 80vh;
+    height: fit-content;
     margin:0 1vw;
 }
 
