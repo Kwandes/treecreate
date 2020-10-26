@@ -249,16 +249,21 @@ window.onload = function()
 
                 let cursorX = e.clientX;
                 let cursorY = e.clientY;
+                const scrollOffsetX = window.scrollX;
+                const scrollOffsetY = window.scrollY;
                 let parentX = boundaries.offsetLeft;
                 let parentY = boundaries.offsetTop;
                 let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
                 let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
+                console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
+                console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
 
                 // create the box at the cursor coordinates
                 boundaries.appendChild(clone);
                 //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
                 //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
-                setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX), pixelsToViewportWidth(cursorY - parentY - offsetY), clone);
+                setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
+                    pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
                 clone.xOffset = cursorX - parentX - offsetX;
                 clone.yOffset = cursorY - parentY - offsetY;
 
