@@ -4,14 +4,13 @@ function setTranslate(xPos, yPos, element) // Uses viewport
 {
     element.style.transform = "translate3d(" + xPos + "vw, "
         + yPos + "vw, 0)";
-
 }
 
 function viewportToPixels(value)
 {
-    var parts = value.match(/([0-9\.]+)(vh|vw)/)
-    var q = Number(parts[1])
-    var side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
+    let parts = value.match(/([0-9\.]+)(vh|vw)/)
+    let q = Number(parts[1])
+    let side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
     return side * (q / 100)
 }
 
@@ -114,7 +113,7 @@ window.onload = function ()
                 .getElementsByClassName("draggableBoxInput")[0]
                 .style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
         }
-        console.log(fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
+        console.log("Selected font index: " + fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
     }
 
     function convertToBigFont()
