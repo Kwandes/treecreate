@@ -7,11 +7,12 @@ function setTranslate(xPos, yPos, element) // Uses viewport
 
 }
 
-function viewportToPixels(value) {
+function viewportToPixels(value)
+{
     var parts = value.match(/([0-9\.]+)(vh|vw)/)
     var q = Number(parts[1])
     var side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
-    return side * (q/100)
+    return side * (q / 100)
 }
 
 function pixelsToViewportHeight(value)
@@ -54,7 +55,7 @@ function assignBoxBackground(imgArray)
     return 'url(' + imgArray[imageNumber] + ') 100% 100%';
 }
 
-window.onload = function()
+window.onload = function ()
 {
     const imgPath = "../img/images/boxDesign/box01/";
     const bannerPath = "../img/images/banner/banner";
@@ -78,8 +79,8 @@ window.onload = function()
     let activeItemInitialY = null;
     let bannerSelector = 1;
     let bannerOptions = 1;
-    let boxSizeX = 40/4;
-    let boxSizeY = 40/3;
+    let boxSizeX = 40 / 4;
+    let boxSizeY = 40 / 3;
     let boxSize = 40; //size 1  = 4:3 idk whatever mate, like who the fuck even knows at this point, am I right ?
     let boxFontSize = 1.38;
     let boxLineHeight = 1.53;
@@ -107,7 +108,8 @@ window.onload = function()
     function changeStyle()
     {
         banner.style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
-        for (let i = 0; i < boxes.length; i++) {
+        for (let i = 0; i < boxes.length; i++)
+        {
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
                 .getElementsByClassName("draggableBoxInput")[0]
                 .style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
@@ -121,7 +123,8 @@ window.onload = function()
         setBoxSizeButActualSize();
     }
 
-    function setBoxSizeButActualSize() {
+    function setBoxSizeButActualSize()
+    {
         boxSizeX = boxSize / 4;
         boxSizeY = boxSize / 3;
         setBoxSize();
@@ -144,7 +147,8 @@ window.onload = function()
             boxInputLimit = 29;
         }
 
-        for (let i = 0; i < boxes.length; i++) {
+        for (let i = 0; i < boxes.length; i++)
+        {
             boxes[i].style.width = boxSizeY + 'vw';
             boxes[i].style.height = boxSizeX + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
@@ -179,7 +183,7 @@ window.onload = function()
         }
     }
 
-    function selectBanner (selector)
+    function selectBanner(selector)
     {
         switch (selector)
         {
@@ -236,48 +240,48 @@ window.onload = function()
         if (e.target === boundaries)
         {
 
-                let clone = boxes[0].cloneNode(true);
+            let clone = boxes[0].cloneNode(true);
 
-                // box style
-                clone.style.display = 'flex';
-                clone.style.flexWrap = 'wrap';
-                clone.style.position = 'absolute';
-                clone.style.width = boxSizeX + 'vw';
-                clone.style.height = boxSizeY + 'vw';
-                //clone.style.top = '0vh';
-                //clone.style.left = '0vw';
+            // box style
+            clone.style.display = 'flex';
+            clone.style.flexWrap = 'wrap';
+            clone.style.position = 'absolute';
+            clone.style.width = boxSizeX + 'vw';
+            clone.style.height = boxSizeY + 'vw';
+            //clone.style.top = '0vh';
+            //clone.style.left = '0vw';
 
-                let cursorX = e.clientX;
-                let cursorY = e.clientY;
-                const scrollOffsetX = window.scrollX;
-                const scrollOffsetY = window.scrollY;
-                let parentX = boundaries.offsetLeft;
-                let parentY = boundaries.offsetTop;
-                let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
-                let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
-                console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
-                console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
+            let cursorX = e.clientX;
+            let cursorY = e.clientY;
+            const scrollOffsetX = window.scrollX;
+            const scrollOffsetY = window.scrollY;
+            let parentX = boundaries.offsetLeft;
+            let parentY = boundaries.offsetTop;
+            let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
+            let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
+            console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
+            console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
 
-                // create the box at the cursor coordinates
-                boundaries.appendChild(clone);
-                //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
-                //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
-                setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
-                    pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
-                clone.xOffset = cursorX - parentX - offsetX;
-                clone.yOffset = cursorY - parentY - offsetY;
+            // create the box at the cursor coordinates
+            boundaries.appendChild(clone);
+            //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
+            //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
+            setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
+                pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
+            clone.xOffset = cursorX - parentX - offsetX;
+            clone.yOffset = cursorY - parentY - offsetY;
 
-                clone.style.background = assignBoxBackground(images);
-                clone.style.backgroundSize = '100% 100%';
+            clone.style.background = assignBoxBackground(images);
+            clone.style.backgroundSize = '100% 100%';
 
-                // add events listeners on the drag button
-                let button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
-                // touch input
-                button.addEventListener("touchstart", dragStart, false);
-                button.addEventListener("touchend", dragEnd, false);
-                // mouse input
-                button.addEventListener("mousedown", dragStart, false);
-                button.addEventListener("mouseup", dragEnd, false);
+            // add events listeners on the drag button
+            let button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
+            // touch input
+            button.addEventListener("touchstart", dragStart, false);
+            button.addEventListener("touchend", dragEnd, false);
+            // mouse input
+            button.addEventListener("mousedown", dragStart, false);
+            button.addEventListener("mouseup", dragEnd, false);
         }
     }
 
