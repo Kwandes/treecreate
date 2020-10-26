@@ -74,8 +74,6 @@ window.onload = function ()
     const fontStyleSelect = document.getElementById("fontInput");
     const fonts = ["Spectral, sans-serif", "'Sansita Swashed', cursive", "'Roboto Slab', serif"];
     let activeItem = null;
-    let activeItemInitialX = null;
-    let activeItemInitialY = null;
     let bannerSelector = 1;
     let bannerOptions = 1;
     let boxSizeX = 40 / 4;
@@ -290,8 +288,6 @@ window.onload = function ()
 
         // this is the item we are interacting with
         activeItem = e.target.parentNode.parentNode;
-        activeItemInitialX = activeItem.offsetLeft;
-        activeItemInitialY = activeItem.offsetTop;
 
         if (activeItem !== null)
         {
@@ -311,7 +307,7 @@ window.onload = function ()
                 activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
             } else
             {
-                activeItem.initialX = e.clientX - activeItem.xOffset;
+                activeItem.initialX = e.clientX - activeItem.xOffset
                 activeItem.initialY = e.clientY - activeItem.yOffset;
             }
         }
@@ -348,14 +344,15 @@ window.onload = function ()
                 activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
             } else
             {
-                activeItem.currentX = e.clientX - activeItem.initialX + window.scrollX;
-                activeItem.currentY = e.clientY - activeItem.initialY + window.scrollY;
+                activeItem.currentX = e.clientX - activeItem.initialX;
+                activeItem.currentY = e.clientY - activeItem.initialY;
             }
 
             activeItem.xOffset = activeItem.currentX;
             activeItem.yOffset = activeItem.currentY;
 
-            setTranslate(pixelsToViewportWidth(activeItem.currentX), pixelsToViewportWidth(activeItem.currentY), activeItem);
+            setTranslate(pixelsToViewportWidth(activeItem.currentX + window.scrollX),
+                pixelsToViewportWidth(activeItem.currentY + window.scrollY), activeItem);
         }
     }
 }
