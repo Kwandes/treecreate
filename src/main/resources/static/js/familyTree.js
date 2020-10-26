@@ -259,6 +259,7 @@ window.onload = function ()
             let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
             console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
             console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
+            /*
             let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop)) + parseInt(boxSizeY)/2;
             let bottom = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) -  parseInt(boxSizeY)/2;
             let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX)/2;
@@ -277,6 +278,12 @@ window.onload = function ()
                 console.log("Top: " + top)
                 console.log("Bottom: " + bottom)
                 return ;
+            }*/
+
+            if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
+            {
+                console.log("Outside of bouncries")
+                return;
             }
 
             // create the box at the cursor coordinates
@@ -371,8 +378,63 @@ window.onload = function ()
             activeItem.xOffset = activeItem.currentX;
             activeItem.yOffset = activeItem.currentY;
 
-            setTranslate(pixelsToViewportWidth(activeItem.currentX + window.scrollX),
-                pixelsToViewportWidth(activeItem.currentY + window.scrollY), activeItem);
+            console.log("Initials: " + activeItem.initialX + ' ' + activeItem.initialY)
+            console.log("Current: " + activeItem.currentX + ' ' + activeItem.currentY)
+            console.log("CLick: " + e.clientX + ' ' + e.clientY)
+
+            //console.log("Offset Left: " + activeItem.currentX)
+            //console.log("Offset Top: " + activeItem.currentY)
+            //console.log("Offset Left: " + pixelsToViewportWidth(activeItem.currentX))
+            //console.log("Offset Top: " + pixelsToViewportWidth(activeItem.currentY))
+
+            if (!isWithinOuterBoundaries(boundaries, activeItem.currentX, activeItem.currentY, boxSizeX, boxSizeY))
+            {
+                console.log("Outside of drag bouncries")
+                return;
+            }
+
+                setTranslate(pixelsToViewportWidth(activeItem.currentX + window.scrollX),
+                    pixelsToViewportWidth(activeItem.currentY + window.scrollY), activeItem);
         }
     }
 }
+
+function isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY)
+{
+    const scrollOffsetX = window.scrollX;
+    const scrollOffsetY = window.scrollY;
+    let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop)) + parseInt(boxSizeY) / 2;
+    let bottom = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) - parseInt(boxSizeY) / 2;
+    let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX) / 2;
+    let right = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) - parseInt(boxSizeX) / 2;
+
+    return !(!(pixelsToViewportWidth(cursorY + scrollOffsetY) > top &&
+            pixelsToViewportWidth(cursorY + scrollOffsetY) < bottom)
+        ||
+        !(pixelsToViewportWidth(cursorX + scrollOffsetX) > left &&
+            pixelsToViewportWidth(cursorX + scrollOffsetX) < right)
+    )
+}
+
+function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSizeY)
+{
+    const scrollOffsetX = window.scrollX;
+    const scrollOffsetY = window.scrollY;
+    //let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop));
+    let top = 0;
+    let bottom = parseInt('60') - parseInt(boxSizeY);
+    //let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft));
+    let left = 0;
+    let right = parseInt('60') - parseInt(boxSizeX);
+
+    console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
+    //console.log("Right: " + right);
+
+    return ((pixelsToViewportWidth(currentY + scrollOffsetY) > top &&
+            pixelsToViewportWidth(currentY + scrollOffsetY) < bottom)
+        &&
+        (pixelsToViewportWidth(currentX + scrollOffsetX) > left &&
+            pixelsToViewportWidth(currentX + scrollOffsetX) < right)
+    )
+}
+
