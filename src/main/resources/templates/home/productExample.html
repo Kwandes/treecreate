@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product page</title>
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/productExample.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <script th:src="@{/js/login.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<section id="pageContainer">
+    <section th:replace="products/productTemplate :: #navigationContainer"></section>
+    <section id="contentContainer">
+        <div id="content">
+            <div id="aboutUsContainer">
+                <div id="aboutUs">
+                    <section id="generalInformation">
+                        <span class="title">Product</span><br>
+                        <img th:src="@{~/img/productPage/Artboard 3.png}" alt="Tree Design" class="">
+                        <p>
+                            Unique wood design. With several options of changing design, fonts and text, every product becomes
+                            unique and personal. In just a few minutes you can create your own family tree and get it laser-cut
+                            into a beautiful piece of oak wood.
+                        </p>
+                    </section>
+                    <section id="development">
+                        <img th:src="@{~/img/productPage/Artboard 4.png}" alt="Tree Design" class="image">
+                        <div class="text">
+                            <span class="title">Sizes</span>
+                            <p>
+                                After creating the design for your family tree, you are able to select the size you wish to
+                                purchase the tree in. We have a selection of sizes that include:<br>
+                                20 x 20 cm - 495kr<br>
+                                25 x 25 cm - 695kr<br>
+                                30 x 30 cm - 995kr<br>
+                                In case you wish to purchase a different size, you can always request it by sending us an email.
+                                We will respond as quickly as possible and give you the best price we can offer depending on
+                                your request.
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="familytrees">
+                        <div class="text">
+                            <span class="title">Package</span>
+                            <p>
+                                When you purchase a tree desing you are automatically planting a tree through TeamTrees.org.
+                                The packaging is made with a zero procent waste agenda. 0% plastic and 100% reused FSC certified paper.
+                                You also receive a treecreate keychain as well as a wooden stand that matches your family tree.
+                            </p>
+                        </div>
+                        <img th:src="@{~/img/productPage/Artboard 1.png}" alt="Tree Design" class="image" style="margin:0!important">
+                    </section>
+
+                    <section id="goal">
+                        <img th:src="@{~/img/productPage/Artboard 2.png}" alt="Tree Design" class="image" style="margin-top:4vh;">
+                        <div class="text">
+                            <span class="title">Team</span>
+                            <p>
+                                Treecreate was started in September 2020 by a group of students from KEA: <br>
+                                <strong>Teodor Jonasson Founder/CEO<br> Jan Bogoryja-Zakrzewski CTO<br> Gustav Kelkjær CPO<br>
+                                    Cristian-Valentin Webdeveloper<br>Alex Maccagnan Webdeveloper<br></strong>
+                                Our goal is to create a sustainable company that produces specialized
+                                and unique wood design for every customer. We aim to have as little waste in production as
+                                possible and to rebuild the forest we donate a part of the money made from each purchase to
+                                plant a tree.
+                            </p>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section th:replace="products/productTemplate :: #footerContainer"></section>
+</section>
+</body>

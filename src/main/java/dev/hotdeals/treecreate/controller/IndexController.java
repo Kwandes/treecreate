@@ -27,10 +27,10 @@ public class IndexController
         return "redirect:/landingPage";
     }
 
-    @RequestMapping(value = "/aboutUs", method = {RequestMethod.GET, RequestMethod.POST})
-    public String aboutUs()
+    @RequestMapping(value = "/productExample", method = {RequestMethod.GET, RequestMethod.POST})
+    public String productExample()
     {
-        return "home/aboutUs";
+        return "home/productExample";
     }
 
     @ResponseBody

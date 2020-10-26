@@ -2,6 +2,7 @@ html, body
 {
     /* document-wide styling */
     align-items: center;
+    font-family: Spectral, Helvetica, sans-serif!important;
     height: 100%;
 }
 
@@ -12,7 +13,7 @@ html, body
     flex-direction: column;
     justify-content: space-between;
 
-    background-image: url('../img/images/backgrounds/forestDarkImage.jpg');
+    background-color: white;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: 120% 120%;
@@ -25,7 +26,6 @@ html, body
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
 }
 
 #content
@@ -34,7 +34,6 @@ html, body
     width: 70vw;
     font-size: var(--fontRegular);
     text-align: center;
-    text-shadow: 0 1px 3px #000000;
 }
 
 #aboutUs
@@ -65,7 +64,6 @@ html, body
 {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-between;
     width: 34vw;
     margin: 1vh 1vw;
@@ -73,16 +71,8 @@ html, body
 
 #aboutUs section img
 {
-    width: 34vw;
-    height: 34vh;
+    height: 300px;
     margin: 1vh 1vw;
-}
-
-#aboutUs section .imageCollection .image
-{
-    height: 30%;
-    width: 30%;
-    margin: 5%;
 }
 
 #aboutUs section .text
@@ -96,24 +86,3 @@ html, body
     display: inline-block;
 }
 
-#aboutUs #development
-{
-    text-align: left;
-}
-
-#aboutUs #familytrees
-{
-    text-align: right;
-}
-
-#aboutUs #specialRequests
-{
-    text-align: left;
-}
-
-#footer
-{
-    /* Override the template footer to adjust for the dark background */
-    color: white;
-    text-shadow: 0 1px 3px #000000;
-}
