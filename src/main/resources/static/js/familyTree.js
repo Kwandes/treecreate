@@ -248,6 +248,7 @@ window.onload = function ()
             //clone.style.top = '0vh';
             //clone.style.left = '0vw';
 
+
             let cursorX = e.clientX;
             let cursorY = e.clientY;
             const scrollOffsetX = window.scrollX;
@@ -258,6 +259,25 @@ window.onload = function ()
             let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
             console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
             console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
+            let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop)) + parseInt(boxSizeY)/2;
+            let bottom = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) -  parseInt(boxSizeY)/2;
+            let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX)/2;
+            let right = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) -  parseInt(boxSizeX)/2;
+
+            if (!(pixelsToViewportWidth(cursorY + scrollOffsetY) > top &&
+                pixelsToViewportWidth(cursorY + scrollOffsetY) < bottom)
+                ||
+                !(pixelsToViewportWidth(cursorX + scrollOffsetX) > left &&
+                    pixelsToViewportWidth(cursorX + scrollOffsetX) < right)
+            )
+            {
+                console.log("Outside of bouncries")
+                console.log("BoxSizeY: " + boxSizeY)
+                console.log("CursorY: " + pixelsToViewportWidth(cursorY))
+                console.log("Top: " + top)
+                console.log("Bottom: " + bottom)
+                return ;
+            }
 
             // create the box at the cursor coordinates
             boundaries.appendChild(clone);
