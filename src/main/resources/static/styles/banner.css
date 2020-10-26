@@ -10,7 +10,7 @@
     margin-bottom: 3vw;
     height: 9.3vw;
     width: 21.5vw;
-    z-index: 98;
+    z-index: 97;
 }
 
 #familyTreeBanner .curvyText {
@@ -34,7 +34,7 @@
     color: black;
     border: none;
     padding: 0;
-    z-index: 98;
+    z-index: 97;
 }
 
 #familyTreeBanner #bannerText

@@ -17,6 +17,10 @@
     width: 60vw;
     min-height: 600px;
     height: 60vw;
+
+    background-image: url("../img/images/treeDesign/tree1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 #familyTreeOptionsContainer

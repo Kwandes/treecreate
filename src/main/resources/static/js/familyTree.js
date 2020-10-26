@@ -348,8 +348,8 @@ window.onload = function ()
                 activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
             } else
             {
-                activeItem.currentX = e.clientX - activeItem.initialX;
-                activeItem.currentY = e.clientY - activeItem.initialY;
+                activeItem.currentX = e.clientX - activeItem.initialX + window.scrollX;
+                activeItem.currentY = e.clientY - activeItem.initialY + window.scrollY;
             }
 
             activeItem.xOffset = activeItem.currentX;
