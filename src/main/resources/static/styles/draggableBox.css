@@ -1,8 +1,11 @@
 #draggableBoxContainer
 {
     position: absolute;
-    width: 50vw;
-    height: 80vh;
+    background-image: url("../img/images/treeDesign/tree1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 60vw;
+    height: 60vw;
     z-index: 97;
 }
 

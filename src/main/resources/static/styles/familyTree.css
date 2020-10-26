@@ -8,9 +8,6 @@
     flex-direction: column;
     width: 50vw;
     height: 80vh;
-    background-image: url("../img/images/treeDesign/tree1.svg");
-    background-repeat: no-repeat;
-    background-position: center;
     margin:0 1vw;
 }
 

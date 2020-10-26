@@ -3,7 +3,7 @@ let boxInputLimit = 29;
 function setTranslate(xPos, yPos, element) // Uses viewport
 {
     element.style.transform = "translate3d(" + xPos + "vw, "
-        + yPos + "vh, 0)";
+        + yPos + "vw, 0)";
 
 }
 
@@ -78,11 +78,13 @@ window.onload = function()
     let activeItemInitialY = null;
     let bannerSelector = 1;
     let bannerOptions = 1;
-    let boxSize = 10;
+    let boxSizeX = 40/4;
+    let boxSizeY = 40/3;
+    let boxSize = 40; //size 1  = 4:3 idk whatever mate, like who the fuck even knows at this point, am I right ?
     let boxFontSize = 1.38;
     let boxLineHeight = 1.53;
-    let boxInputHeight = 4;
-    let boxInputWidth = 7;
+    let boxInputX = 2.801;
+    let boxInputY = 1.2;
     let boxMiddleRowPadding = 0.35;
     let bigFont = false;
     // size to font ratio 7.2;
@@ -116,13 +118,19 @@ window.onload = function()
     function convertToBigFont()
     {
         bigFont = bigFontInput.checked;
+        setBoxSizeButActualSize();
+    }
+
+    function setBoxSizeButActualSize() {
+        boxSizeX = boxSize / 4;
+        boxSizeY = boxSize / 3;
         setBoxSize();
     }
 
     function setBoxSize()
     {
-        boxInputHeight = boxSize / 2.5;
-        boxInputWidth = boxSize / 1.428;
+        boxInputY = boxSize / 2.5;
+        boxInputX = boxSize / 1.428;
         boxLineHeight = boxSize / 6.5;
         boxMiddleRowPadding = boxSize / 28.57;
 
@@ -137,16 +145,16 @@ window.onload = function()
         }
 
         for (let i = 0; i < boxes.length; i++) {
-            boxes[i].style.width = boxSize + 'vw';
-            boxes[i].style.height = boxSize + 'vh';
+            boxes[i].style.width = boxSizeY + 'vw';
+            boxes[i].style.height = boxSizeX + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.fontSize = boxFontSize + 'vh';
+                .getElementsByClassName("draggableBoxInput")[0].style.fontSize = boxFontSize + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.lineHeight = boxLineHeight + 'vh';
+                .getElementsByClassName("draggableBoxInput")[0].style.lineHeight = boxLineHeight + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.height = boxInputHeight + 'vh';
+                .getElementsByClassName("draggableBoxInput")[0].style.height = boxInputY + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.width = boxInputWidth + 'vw';
+                .getElementsByClassName("draggableBoxInput")[0].style.width = boxInputX + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
                 .style.paddingLeft = boxMiddleRowPadding + 'vw';
             boxSizeInput.value = boxSize;
@@ -155,19 +163,19 @@ window.onload = function()
 
     function increaseBox()
     {
-        if (boxSize < 25)
+        if (boxSize < 50)
         {
             boxSize++;
-            setBoxSize();
+            setBoxSizeButActualSize();
         }
     }
 
     function decreaseBox()
     {
-        if (boxSize > 6)
+        if (boxSize > 30)
         {
             boxSize--;
-            setBoxSize();
+            setBoxSizeButActualSize();
         }
     }
 
@@ -234,8 +242,8 @@ window.onload = function()
                 clone.style.display = 'flex';
                 clone.style.flexWrap = 'wrap';
                 clone.style.position = 'absolute';
-                clone.style.width = boxSize + 'vw';
-                clone.style.height = boxSize + 'vh';
+                clone.style.width = boxSizeX + 'vw';
+                clone.style.height = boxSizeY + 'vw';
                 //clone.style.top = '0vh';
                 //clone.style.left = '0vw';
 
@@ -243,14 +251,14 @@ window.onload = function()
                 let cursorY = e.clientY;
                 let parentX = boundaries.offsetLeft;
                 let parentY = boundaries.offsetTop;
-                let offsetX = viewportToPixels(boxSize + 'vw') / 2;
-                let offsetY = viewportToPixels(boxSize + 'vh') / 2;
+                let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
+                let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
 
                 // create the box at the cursor coordinates
                 boundaries.appendChild(clone);
                 //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
                 //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
-                setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX), pixelsToViewportHeight(cursorY - parentY - offsetY), clone);
+                setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX), pixelsToViewportWidth(cursorY - parentY - offsetY), clone);
                 clone.xOffset = cursorX - parentX - offsetX;
                 clone.yOffset = cursorY - parentY - offsetY;
 
@@ -339,7 +347,7 @@ window.onload = function()
             activeItem.xOffset = activeItem.currentX;
             activeItem.yOffset = activeItem.currentY;
 
-            setTranslate(pixelsToViewportWidth(activeItem.currentX), pixelsToViewportHeight(activeItem.currentY), activeItem);
+            setTranslate(pixelsToViewportWidth(activeItem.currentX), pixelsToViewportWidth(activeItem.currentY), activeItem);
         }
     }
 }
