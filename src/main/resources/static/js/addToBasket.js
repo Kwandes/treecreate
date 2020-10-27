@@ -123,6 +123,7 @@ function increaseAmount()
     let amountInput = document.getElementById("amountInput");
     let amount = amountInput.value;
     amountInput.value = ++amount;
+    updatePrice()
 }
 
 function decreaseAmount()
@@ -133,10 +134,13 @@ function decreaseAmount()
     if (amount > 1)
     {
         amountInput.value = --amount;
+        updatePrice()
     }
 }
 
+//TODO - combine the sizes and prices into a map
 const sizeOptions = ["20x20 cm", "25x25 cm", "30x30 cm"];
+const sizePrices = ["495", "695", "995"]
 
 function increaseSize()
 {
@@ -154,6 +158,8 @@ function increaseSize()
         {
             sizeInput.value = sizeOptions[++currentSizeIndex];
         }
+
+        updatePrice()
     }
 }
 
@@ -173,6 +179,19 @@ function decreaseSize()
         {
             sizeInput.value = sizeOptions[--currentSizeIndex];
         }
+
+        updatePrice()
     }
 }
 
+//TODO - apply discounts on the Nth amount
+function updatePrice()
+{
+    const priceInput = document.getElementById("priceInput");
+    const sizeInput = document.getElementById("sizeInput");
+    const currentSizeIndex = sizeOptions.indexOf(sizeInput.value)
+    const sizePrice = sizePrices[currentSizeIndex];
+    const amount = document.getElementById("amountInput").value;
+    let price = amount * sizePrice;
+    priceInput.value = price + 'kr';
+}
