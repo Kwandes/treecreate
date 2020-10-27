@@ -1,6 +1,8 @@
 package dev.hotdeals.treecreate.controller;
 
+import dev.hotdeals.treecreate.model.TreeOrder;
 import dev.hotdeals.treecreate.model.User;
+import dev.hotdeals.treecreate.repository.TreeOrderRepo;
 import dev.hotdeals.treecreate.repository.UserRepo;
 import dev.hotdeals.treecreate.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.List;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
@@ -114,6 +119,9 @@ public class ProfileController
         return "profile/treeCollections";
     }
 
+    @Autowired
+    TreeOrderRepo treeOrderRepo;
+
     @ResponseBody
     @PostMapping("/submitLogin")
     ResponseEntity<Boolean> validateCredentials(HttpServletRequest httpServletRequest, @RequestBody User body)
@@ -135,6 +143,21 @@ public class ProfileController
         User user = userRepo.findOneByEmail(email);
         if (user != null && PasswordService.matches(password, user.getPassword()))
         {
+            LOGGER.info("User is logging in, searching for ID: " + session.getId());
+            User sessionUser = userRepo.findOneByEmail(session.getId());
+            LOGGER.info("Found user: " + sessionUser);
+            List<TreeOrder> orderList = treeOrderRepo.findAllByUserId(sessionUser.getId());
+            LOGGER.info("Found all orders for the user. Orders: " + orderList.size());
+
+            for (TreeOrder order : orderList)
+            {
+                LOGGER.info("Order " + order.getOrderId() + " is being assigned to " + user);
+                order.setUserByUserId(user);
+                treeOrderRepo.save(order);
+            }
+            LOGGER.info("All orders have been remapped, deleting the temp user");
+            userRepo.delete(sessionUser);
+
             session.setAttribute("userId", user.getId());
             LOGGER.info("New login: " + session.getId() + " as user: " + user.getId());
             return new ResponseEntity<>(HttpStatus.OK);
