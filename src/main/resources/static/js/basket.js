@@ -24,19 +24,15 @@ const sizes = new Map([
 
 async function loadOrders()
 {
-    console.log("Loading basket orders")
     const defaultRow = document.getElementsByClassName("orderRow")[0];
     const orderTable = document.getElementById("orderTable");
-    console.log("Default row: " + defaultRow)
     const ordersJson = await fetchBasketItems();
 
     if (ordersJson === '[]')
     {
-        console.log("%cThe response body was empty", "color: red");
         return;
     }
     let orders = JSON.parse(ordersJson);
-    console.log("Order count: " + (orders.length + 1))
     let totalPrice = 0;
     let totalSaved = 0;
     for (let i = 0; i < orders.length; i++)
@@ -44,10 +40,6 @@ async function loadOrders()
         let orderRow = defaultRow.cloneNode(true);
         orderRow.style.display = 'table-row'
         let order = orders[i];
-        console.log("Order: " + i);
-        console.log("Id: " + order["orderId"]);
-        const design = JSON.parse(order['treeDesignById']['designJson']);
-        //console.dir(design);
         orderRow.getElementsByClassName("orderAmount")[0].innerText = order['amount'];
         orderRow.getElementsByClassName("orderProduct")[0].innerText = 'Family Tree - ' + order['size'];
         let itemPrice = sizes.get(order['size']);
@@ -75,7 +67,6 @@ async function pay()
     const orders = await fetchBasketItems();
     if (JSON.parse(orders).length === 0)
     {
-        console.log("No orders")
         showBasketPopup("There are no orders to purchase", true)
         return;
     }
