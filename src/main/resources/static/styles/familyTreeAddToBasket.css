@@ -276,7 +276,7 @@
 }
 
 /* Modal stuff */
-.modal-dialog
+#addToBasketModal .modal-dialog
 {
     margin: 10vh 15vw 0 15vw !important;
 }
