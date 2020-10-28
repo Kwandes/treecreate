@@ -68,3 +68,93 @@ async function loadOrders()
     document.getElementById("totalSaved").innerText = totalSaved + 'kr';
     document.getElementById("totalTax").innerText = (totalPrice * 0.3) + 'kr';
 }
+
+async function pay()
+{
+    console.log("Validating Delivery information")
+    const orders = await fetchBasketItems();
+    if (JSON.parse(orders).length === 0)
+    {
+        console.log("No orders")
+        showBasketPopup("There are no orders to purchase", true)
+        return;
+    }
+    const inputName = document.getElementById('inputName');
+    const inputPhoneNumber = document.getElementById('inputPhoneNumber');
+    const inputEmail = document.getElementById('inputEmail');
+    const inputStreetAddress = document.getElementById('inputStreetAddress');
+    const inputCity = document.getElementById('inputCity');
+    const inputPostcode = document.getElementById('inputPostcode');
+
+    if (inputName.value === '')
+    {
+        showBasketPopup("The name is required", true);
+        return
+    }
+    if (inputPhoneNumber.value === '')
+    {
+        showBasketPopup("The phone number is required", true);
+        return
+    }
+    if (inputEmail.value === '')
+    {
+        showBasketPopup("The email is required", true);
+        return
+    }
+    if (inputStreetAddress.value === '')
+    {
+        showBasketPopup("The street address is required", true);
+        return
+    }
+    if (inputCity.value === '')
+    {
+        showBasketPopup("The city is required", true);
+        return
+    }
+    if (inputPostcode.value === '')
+    {
+        showBasketPopup("The postcode is required", true);
+        return
+    }
+
+    const termsCheckbox = document.getElementById('termsAndConditionsCheckbox');
+
+    if (termsCheckbox.checked === false)
+    {
+
+        showBasketPopup("You have to accept our terms and conditions", true)
+        return;
+    }
+    console.log("The basket information is correct, proceeding to payment")
+    window.open("/payment_temp");
+}
+
+// pretty much a copy of the basket.js#showPopup but only uses the normal popup
+function showBasketPopup(text, errorPopup)
+{
+    let popupContainer = document.getElementById("popupContainer");
+    let popup = document.getElementById("popup");
+    let popupText = document.getElementById("popupText");
+
+    if (errorPopup)
+    {
+        popup.style.backgroundColor = 'var(--popupErrorColor)';
+    } else
+    {
+        popup.style.backgroundColor = 'var(--popupColor)';
+    }
+
+    popupText.innerText = text;
+
+    popupContainer.style.display = 'block';
+    popupContainer.style.animation = 'fadeIn 1s';
+    setTimeout(() =>
+    {
+        popupContainer.style.animation = 'fadeOut 1s';
+    }, 3000);
+
+    setTimeout(() =>
+    {
+        popupContainer.style.display = 'none'
+    }, 4000);
+}
