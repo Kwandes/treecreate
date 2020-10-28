@@ -21,6 +21,11 @@ public class PaymentController
     {
         return "payment/test";
     }
+    @GetMapping("/payment_temp")
+    String payment_temp()
+    {
+        return "payment/netstatExample";
+    }
 
     @GetMapping("/payment_success")
     public String paymentSuccess(@RequestParam(value = "data") String value1, @RequestParam(value = "data2") String value2)
