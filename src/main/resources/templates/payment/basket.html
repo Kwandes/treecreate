@@ -71,14 +71,14 @@
                             <td>Total Price</td>
                             <td></td>
                             <td></td>
-                            <td id="totalPrice">3500kr</td>
-                            <td id="totalSaved">500kr</td>
+                            <td id="totalPrice">0</td>
+                            <td id="totalSaved">0</td>
                         </tr>
                         <tr>
                             <td>Tax</td>
                             <td></td>
                             <td></td>
-                            <td id="totalTax">375kr</td>
+                            <td id="totalTax">0</td>
                             <td></td>
                         </tr>
                         <script>loadOrders()</script>
@@ -88,8 +88,8 @@
             <section class="basketSection">
                 <div id="acceptOrder" class="border">
                     <label for="termsAndConditionsCheckbox">
-                        <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox">
-                        I have read the Terms and Conditions bullshit
+                        <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
+                        I have read the <a href="/termsAndConditions" target="_blank">Terms and Conditions</a>
                     </label>
                     <button>Accept Order & Pay</button>
                 </div>
