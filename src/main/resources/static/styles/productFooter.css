@@ -47,10 +47,17 @@
 #footer-bottom
 {
     font-size: var(--fontExtraSmall);
+    margin-bottom: 1vh;
 }
 
 #footer-separator
 {
     color: black;
     width: 70vw;
+}
+
+#footer-bottom section
+{
+    display: flex;
+    flex-direction: column;
 }
