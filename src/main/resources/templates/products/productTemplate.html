@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -77,9 +78,10 @@
                     <span>Product</span>
                     <hr class="hoverLine">
                 </a>
+                <script>updateBasket()</script>
                 <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
                                                id="shoppingBasketIcon" class="icon filterColor">
-                    <span> (0) Items</span>
+                    <span id="basketNavbarText"> (0) Items</span>
                     <hr class="hoverLine">
                 </a>
                 <a id="loginButton" data-toggle="modal" data-target="#loginModal">

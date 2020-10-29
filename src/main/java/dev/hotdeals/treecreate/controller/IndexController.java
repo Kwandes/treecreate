@@ -33,6 +33,12 @@ public class IndexController
         return "home/productExample";
     }
 
+    @RequestMapping(value = "/termsAndConditions", method = {RequestMethod.GET, RequestMethod.POST})
+    public String termsAndConditions()
+    {
+        return "home/termsAndConditions";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/version", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<String> getVersion()

@@ -9,6 +9,8 @@
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link th:href="@{/styles/basket.css}" rel="stylesheet">
     <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/addToBasket.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
@@ -19,16 +21,16 @@
         <div id="basketContainer">
             <section class="basketSection">
                 <section id="customerInformation" class="informationSection border">
-                    <span id="formTitle" class="title">ACCOUNT INFO</span>
+                    <span id="formTitle" class="title">Delivery Information</span>
                     <input type="number" name="id" value="1" hidden>
+                    <label for="inputName">Name:</label>
+                    <input type="text" name="inputName" id="inputName" value="Name" maxlength="80" required>
                     <label for="inputPhoneNumber">Phone Number:</label>
                     <input type="number" name="inputPhoneNumber" id="inputPhoneNumber" value="1234567"
                            maxlength="15" required>
                     <label for="inputEmail">Email:</label>
                     <input type="email" name="inputEmail" id="inputEmail" value="test@treecreate.dk" maxlength="254"
                            required>
-                    <label for="inputName">Name:</label>
-                    <input type="text" name="inputName" id="inputName" value="Name" maxlength="80" required>
                     <label for="inputStreetAddress">Street Name:</label>
                     <input type="text" name="inputStreetAddress" id="inputStreetAddress" value="Nordgade 11/a"
                            maxlength="99" required>
@@ -38,11 +40,12 @@
                     <input type="text" name="inputPostcode" id="inputPostcode" value="2100" maxlength="15"
                            required>
                     <label for="checkboxNewsletter">
-                        <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter">  subscribe to newsletter
+                        <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter"> subscribe to the
+                        newsletter
                     </label>
                 </section>
                 <section id="orderInformation" class="informationSection border">
-                    <table>
+                    <table id="orderTable">
                         <tr>
                             <th>Amount</th>
                             <th>Product</th>
@@ -50,44 +53,38 @@
                             <th>Total</th>
                             <th>Save</th>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Family Tree - Large</td>
-                            <td>1000kr</td>
-                            <td>2000kr</td>
-                            <td>0kr</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Friend Tree - Small</td>
-                            <td>500kr</td>
-                            <td>1500kr</td>
-                            <td>500kr</td>
+                        <tr class="orderRow" style="display: none">
+                            <td class="orderAmount">N/A</td>
+                            <td class="orderProduct">Family Tree - N/A</td>
+                            <td class="orderPrice">N/A</td>
+                            <td class="orderTotal">N/A</td>
+                            <td class="orderSaved">N/A</td>
                         </tr>
                         <tr style="border-top: 1px solid var(--mainColor); margin-top: 1vh;">
                             <td>Total Price</td>
                             <td></td>
                             <td></td>
-                            <td>3500kr</td>
-                            <td>500kr</td>
+                            <td id="totalPrice">0</td>
+                            <td id="totalSaved">0</td>
                         </tr>
                         <tr>
                             <td>Tax</td>
                             <td></td>
                             <td></td>
-                            <td>375kr</td>
+                            <td id="totalTax">0</td>
                             <td></td>
                         </tr>
+                        <script>loadOrders()</script>
                     </table>
                 </section>
             </section>
             <section class="basketSection">
                 <div id="acceptOrder" class="border">
                     <label for="termsAndConditionsCheckbox">
-                        <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox">
-                        I have read the Terms and Conditions bullshit
-                        </label>
-                    <button>Accept Order & Pay</button>
+                        <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
+                        I have read the <a href="/termsAndConditions" target="_blank">Terms and Conditions</a>
+                    </label>
+                    <button onclick='pay()'>Accept Order & Pay</button>
                 </div>
             </section>
         </div>
