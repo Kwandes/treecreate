@@ -2,7 +2,6 @@ html, body
 {
     /* document-wide styling */
     align-items: center;
-    font-family: Spectral, Helvetica, sans-serif!important;
     height: 100%;
 }
 
@@ -84,5 +83,15 @@ html, body
 #aboutUs #generalInformation
 {
     display: inline-block;
+    width: 90%;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    #content
+    {
+        margin: 0vh 5vw;
+        width: 90%;
+    }
 }
 
