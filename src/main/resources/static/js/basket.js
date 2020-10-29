@@ -43,9 +43,14 @@ async function loadOrders()
         orderRow.getElementsByClassName("orderAmount")[0].innerText = order['amount'];
         orderRow.getElementsByClassName("orderProduct")[0].innerText = 'Family Tree - ' + order['size'];
         let itemPrice = sizes.get(order['size']);
-        let itemTotal = (itemPrice * parseInt(order['amount']));
-        let itemSaved = 500;
-        orderRow.getElementsByClassName("orderPrice")[0].innerText = itemPrice + itemTotal + 'kr';
+        let amount = parseInt(order['amount']);
+        let itemTotal = (itemPrice * amount);
+        let itemSaved = 0;
+        if (amount > 3)
+        {
+            itemSaved = itemTotal * 0.25;
+            itemTotal *= 0.75;
+        }
         orderRow.getElementsByClassName("orderTotal")[0].innerText = itemTotal + 'kr';
         orderRow.getElementsByClassName("orderSaved")[0].innerText = itemSaved + 'kr';
 
@@ -58,7 +63,7 @@ async function loadOrders()
 
     document.getElementById("totalPrice").innerText = totalPrice + 'kr';
     document.getElementById("totalSaved").innerText = totalSaved + 'kr';
-    document.getElementById("totalTax").innerText = (totalPrice * 0.3) + 'kr';
+    document.getElementById("totalTax").innerText = (totalPrice * 0.2) + 'kr';
 }
 
 async function pay()

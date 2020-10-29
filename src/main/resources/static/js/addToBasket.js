@@ -198,5 +198,9 @@ function updatePrice()
     const sizePrice = sizePrices[currentSizeIndex];
     const amount = document.getElementById("amountInput").value;
     let price = amount * sizePrice;
+    if (amount > 3)
+    {
+        price *= 0.75;
+    }
     priceInput.value = price + 'kr';
 }
