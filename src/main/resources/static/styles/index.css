@@ -3,7 +3,7 @@
 body, html
 {
     background-color: white;
-    font-family: Spectral, Helvetica, sans-serif;
+    font-family: Spectral, Helvetica, sans-serif!important;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
