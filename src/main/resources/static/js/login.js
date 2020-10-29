@@ -20,6 +20,7 @@ async function submitLogin()
         document.getElementById("loginModalCloseBtn").click();
         showPopup('Welcome Back!', false);
         setLoginStatus(true);
+        updateBasket();
     } else
     {
         showPopup('The credentials are invalid. Try again', true);
