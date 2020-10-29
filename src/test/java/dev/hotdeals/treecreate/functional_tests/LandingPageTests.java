@@ -48,10 +48,10 @@ public class LandingPageTests
     }
 
     @Test
-    public void getAboutUsTitleTest()
+    public void getProductExampleTitleTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
-        assertThat(webDriver.getTitle()).isEqualTo("About Us");
+        webDriver.get("http://localhost:" + port + "/productExample");
+        assertThat(webDriver.getTitle()).isEqualTo("Product page");
     }
 
     @Test
@@ -65,23 +65,15 @@ public class LandingPageTests
     @DisplayName("Contains a navigation bar")
     public void getNavbarTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
+        webDriver.get("http://localhost:" + port + "/productExample");
         WebElement navbar = webDriver.findElement(By.id("navBar"));
-    }
-
-    @Test
-    @DisplayName("Contains an About Us section")
-    public void getAboutUsTest()
-    {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
-        WebElement aboutUs = webDriver.findElement(By.id("aboutUs"));
     }
 
     @Test
     @DisplayName("Contains a footer")
     public void getFooterTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
+        webDriver.get("http://localhost:" + port + "/productExample");
         WebElement footer = webDriver.findElement(By.id("footer"));
     }
 

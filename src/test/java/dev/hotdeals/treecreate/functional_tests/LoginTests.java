@@ -39,7 +39,7 @@ public class LoginTests
     @DisplayName("Login screen shows after clicking on the loginBtn")
     public void getLoginScreenTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
+        webDriver.get("http://localhost:" + port + "/productExample");
         WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
         WebElement loginScreen = webDriver.findElement(By.id("loginModal"));
         loginBtn.click();
@@ -55,7 +55,7 @@ public class LoginTests
     @DisplayName("Login button is visible")
     public void getLoginButtonTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
+        webDriver.get("http://localhost:" + port + "/productExample");
         WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
         assertThat(loginBtn.getAttribute("style").contains("block")).isTrue();
     }
@@ -65,7 +65,7 @@ public class LoginTests
     @DisplayName("Account info page is shown after logging in")
     void SuccessfulLoginTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
+        webDriver.get("http://localhost:" + port + "/productExample");
         WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
         WebElement loginEmail = webDriver.findElement(By.id("loginEmail"));
         WebElement loginPassword = webDriver.findElement(By.id("loginPassword"));
@@ -152,7 +152,7 @@ public class LoginTests
     @DisplayName("Login button is changed to the Profile button")
     void getProfileButtonEnabledTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
+        webDriver.get("http://localhost:" + port + "/productExample");
         WebElement profileButton = webDriver.findElement(By.id("profileButton"));
         assertThat(profileButton.getAttribute("style").contains("inline-block")).isTrue();
 
@@ -167,9 +167,9 @@ public class LoginTests
         WebElement logoutButton = webDriver.findElement(By.id("logoutButton"));
         logoutButton.click();
         new WebDriverWait(webDriver, Duration.ofSeconds(10).getSeconds()).until(
-                webDriver1 -> webDriver.getTitle().equals("About Us")
+                webDriver1 -> webDriver.getTitle().equals("Product page")
         );
-        assertThat(webDriver.getTitle()).isEqualTo("About Us");
+        assertThat(webDriver.getTitle()).isEqualTo("Product page");
     }
 
     @Test
@@ -177,7 +177,7 @@ public class LoginTests
     @DisplayName("Profile button is changed to Login button after logging out")
     void profileButtonDisabledTest()
     {
-        webDriver.get("http://localhost:" + port + "/aboutUs");
+        webDriver.get("http://localhost:" + port + "/productExample");
         WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
         assertThat(loginBtn.getAttribute("style").contains("block")).isTrue();
     }
