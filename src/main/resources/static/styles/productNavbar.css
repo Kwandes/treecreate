@@ -27,8 +27,8 @@
 {
     /* Applies a specific color to any img(and is an svg) that is marked with a class .filterColor */
     /* Hex-to-filter converter: https://codepen.io/sosuke/pen/Pjoqqp */
-    /* Current color: #AF6826 */
-    filter: black;
+    /* Current color: #000000 */
+    filter: invert(0%) sepia(13%) saturate(7499%) hue-rotate(305deg) brightness(97%) contrast(102%);
 }
 
 #navBar a
@@ -38,7 +38,7 @@
     height: 4vh;
     width: fit-content;
     padding: 0.5vh 0.6vh;
-    color: black;
+    color: var(--navbarMainColor);
     position: relative; /* Used to align the hoverLine element properly */
     text-decoration: none; /* Boostrap import for the login breaks the decoration and it has to be nullified again*/
 }
@@ -59,8 +59,8 @@
 #navBar a:hover .hoverLine
 {
     display: inline-block;
-    color: black;
-    background-color: black;
+    color: var(--navbarMainColor);
+    background-color: var(--navbarMainColor);
 }
 
 #navBar .icon
