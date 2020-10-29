@@ -5,6 +5,8 @@ async function addToBasket()
     if (designJson == null)
     {
         console.log("No design available, returning");
+        document.getElementById("addToBasketBackBtn").click();
+        showBasketPopup("There is no design to add to the basket", true);
         return;
     }
     const amount = document.getElementById("amountInput").value;
@@ -32,6 +34,9 @@ async function addToBasket()
     console.log("Order added, Order id: " + orderId)
     console.log("Updating the basket item count");
     updateBasket();
+    document.getElementById("addToBasketBackBtn").click();
+    showBasketPopup("The order has been added to the basket", false);
+
 }
 
 function getDesign()
