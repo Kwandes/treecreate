@@ -140,7 +140,7 @@ public class ProfileController
     String logout(HttpServletRequest request)
     {
         endSession(request);
-        return "redirect:/aboutUs";
+        return "redirect:/productExample";
     }
 
     @ResponseBody
