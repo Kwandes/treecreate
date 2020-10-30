@@ -224,7 +224,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
 
                     <div class="fancySelection" id="fontSize">
-                        <div class="fancyHeader">
+                        <div class="fancyHeader" style="margin-right: 1vh;">
                             <span>Big Font Size</span>
                             <div id="bigFontSizeInfoIcon" class="addToBasketInfoIcon"></div>
                         </div>
@@ -234,22 +234,26 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
                     </div>
 
+                    <div class="loadSave">
+                        <button id="saveDesignButton" onclick="saveDesign()">
+                            Save
+                        </button>
+
+                        <button id="loadDesignButton" onclick="">
+                            Load
+                        </button>
+                    </div>
+
+                    <button id="addToBasket" class="largeButton" data-toggle="modal" data-target="#addToBasketModal" onclick="updatePrice()">
+                        Add To Basket
+                    </button>
+
+                    <!-- AD SHARE FUNC LATER
                     <div class="fb-share-button"
                          data-href="https://treecreate.dk/products/familyTree"
                          data-layout="box_count">
                     </div>
-
-                    <button id="saveDesignButton" style="margin: 1vh; padding: 0.5vh; background-color: var(--actionColor);
-                     border: none; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);"
-                            onclick="saveDesign()">
-                        Save Design
-                    </button>
-
-                    <button id="addToBasket" style="margin: 1vh; padding: 0.5vh; background-color: var(--actionColor);
-                     border: none; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);"
-                            data-toggle="modal" data-target="#addToBasketModal" onclick="updatePrice()">
-                        Add To Basket
-                    </button>
+                    -->
                 </div>
             </div>
         </div>

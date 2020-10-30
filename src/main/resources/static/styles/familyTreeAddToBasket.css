@@ -124,7 +124,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    margin-top: 2vh;
     font-size: var(--fontRegular);
 }
 
@@ -154,7 +154,8 @@
 {
     border-radius: 50%;
     border: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+    box-shadow: none;
+    transform: scale(1.15);
 }
 
 .fancyContent
@@ -167,7 +168,7 @@
 .fancyInput
 {
     min-width: 100px;
-    width: 10vw;
+    width: 15vw;
     height: 4vh;
     margin: 0 0.5vw;
     border: 3px var(--actionColor) solid;
@@ -193,7 +194,8 @@
 {
     border-radius: 25%;
     border: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+    transform:scale(0.9);
+    box-shadow: none;
 }
 
 .arrowRight
@@ -214,7 +216,8 @@
 {
     border-radius: 25%;
     border: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.75);
+    transform:scale(0.9);
+    box-shadow: none;
 }
 
 #recommendedSizes
