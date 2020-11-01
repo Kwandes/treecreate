@@ -70,3 +70,19 @@ async function editDesign(button)
     console.log("Going to " + location.origin + "/products/generate?designId=" + orderId);
     window.location.assign(location.origin + "/products/generate?designId=" + orderId);
 }
+
+async function deleteDesign(e)
+{
+    const id = e.parentElement.getElementsByClassName("orderId")[0].innerText;
+    console.log("Removing an order with an id of " + id);
+    fetch(location.origin + "/removeTreeOrder/" + id)
+        .then(response =>
+        {
+            console.log("%cOrder removal finished, status: " + response.status, "color:mediumpurple");
+            if (response.status === 200)
+            {
+                console.log("Removing the order from the displayed list");
+                e.parentElement.parentElement.parentElement.remove();
+            }
+        });
+}

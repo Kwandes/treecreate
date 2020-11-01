@@ -91,7 +91,7 @@ public class TreeController
         int userId = 0;
         try
         {
-            LOGGER.info("Returned body: " + getCurrentUser(request).getBody());
+            LOGGER.info("Current User Returned body: " + getCurrentUser(request).getBody());
             userId = Integer.parseInt(getCurrentUser(request).getBody());
         } catch (NumberFormatException | NullPointerException e)
         {
@@ -113,7 +113,7 @@ public class TreeController
         if (session.getAttribute("userId") != null)
         {
             String userId = session.getAttribute("userId").toString();
-            LOGGER.info("User ID: " + userId);
+            LOGGER.info("Current User ID: " + userId);
             return new ResponseEntity<>(userId, HttpStatus.OK);
         }
 
@@ -152,5 +152,29 @@ public class TreeController
         }
         LOGGER.info("Design: " + design.getDesignJson());
         return new ResponseEntity<>(design.getDesignJson(), HttpStatus.OK);
+    }
+
+    @GetMapping("/removeTreeOrder/{id}")
+    ResponseEntity<String> removeTreeOrder(@PathVariable int id, HttpServletRequest request)
+    {
+        LOGGER.info("Removing a Tree Order " + id);
+        var orderList = getTreeOrder(request, null).getBody();
+        if (orderList == null || orderList.size() == 0)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else
+        {
+            LOGGER.info("Removing a Tree Order with an id of " + id);
+            for (TreeOrder order : orderList)
+            {
+                if (order.getOrderId() == id)
+                {
+                    LOGGER.info("Order found, changing status to canceled");
+                    order.setStatus("cancelled");
+                    treeOrderRepo.save(order);
+                }
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
