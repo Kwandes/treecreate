@@ -20,6 +20,11 @@ public class TreeOrder
     @Column(name = "size")
     private String size;
 
+    @Basic
+    @Column(name = "status")
+    private String status;
+
+
     @ManyToOne
     @JoinColumn(name = "tree_design", referencedColumnName = "id", nullable = false)
     private TreeDesign treeDesign;
@@ -62,6 +67,16 @@ public class TreeOrder
         this.size = size;
     }
 
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
     public TreeDesign getTreeDesignById()
     {
         return treeDesign;
@@ -91,6 +106,7 @@ public class TreeOrder
         return orderId == order.orderId &&
                 amount == order.amount &&
                 size.equals(order.size) &&
+                status.equals(order.status) &&
                 Objects.equals(treeDesign, order.treeDesign) &&
                 user.equals(order.user);
     }

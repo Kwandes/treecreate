@@ -11,7 +11,7 @@ async function updateBasket()
 
 async function fetchBasketItems()
 {
-    const response = await fetch(location.origin + "/getTreeOrders");
+    const response = await fetch(location.origin + "/getTreeOrders?status=active");
     console.log("%cFetching basket items has finished, status: " + response.status, "color:mediumpurple");
     return await response.text();
 }

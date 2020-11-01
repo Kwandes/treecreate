@@ -26,6 +26,7 @@ async function addToBasket()
     let orderInfo = JSON.stringify({
         "amount": amount,
         "size": treeSize,
+        "status": "active",
         "treeDesignById": {"id": designId},
         "userByUserId": {"id": userId}
     });

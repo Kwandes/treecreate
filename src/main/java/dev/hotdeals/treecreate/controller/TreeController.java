@@ -85,7 +85,7 @@ public class TreeController
     }
 
     @GetMapping("/getTreeOrders")
-    ResponseEntity<List<TreeOrder>> getTreeOrder(HttpServletRequest request)
+    ResponseEntity<List<TreeOrder>> getTreeOrder(HttpServletRequest request, @RequestParam(required = false, name = "status") String orderStatus)
     {
         LOGGER.info("Getting Tree orders");
         int userId = 0;
@@ -98,7 +98,11 @@ public class TreeController
             LOGGER.error("Failed to parse userId", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        var orderList = treeOrderRepo.findAllByUserId(userId);
+        List<TreeOrder> orderList = treeOrderRepo.findAllByUserId(userId);
+        if (orderStatus != null && !orderStatus.equals(""))
+        {
+            orderList.removeIf(order -> !order.getStatus().equals(orderStatus));
+        }
         return new ResponseEntity<>(orderList, HttpStatus.OK);
     }
 
