@@ -31,14 +31,6 @@ public class TreeController
     @Autowired
     TreeDesignRepo treeDesignRepo;
 
-    @PostMapping("/addUser")
-    ResponseEntity<String> addUser(@RequestBody User user)
-    {
-        LOGGER.info("Adding new user");
-        userRepo.save(user);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @PostMapping("/addTreeDesign")
     ResponseEntity<String> addTreeDesign(@RequestBody FamilyTreeDesignJSON design)
     {

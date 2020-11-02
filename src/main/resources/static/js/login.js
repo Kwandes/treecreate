@@ -70,11 +70,13 @@ function showPopup(text, errorPopup)
 
     popupContainer.style.display = 'block';
     popupContainer.style.animation = 'fadeIn 1s';
-    setTimeout(() => {
+    setTimeout(() =>
+    {
         popupContainer.style.animation = 'fadeOut 1s';
     }, 3000);
 
-    setTimeout(() => {
+    setTimeout(() =>
+    {
         popupContainer.style.display = 'none'
     }, 4000);
 }
@@ -96,8 +98,10 @@ function setLoginStatus(isLoggedIn)
 function isLoggedIn()
 {
     fetch(location.origin + "/isLoggedIn")
-        .then(response => {
-            response.json().then(data => {
+        .then(response =>
+        {
+            response.json().then(data =>
+            {
                 if (data.toString() === 'true')
                 {
                     console.log("User is already logged in - changing Login button to Profile")
@@ -115,4 +119,90 @@ function closeLoginModal()
 function closeSignUpModal()
 {
     $('#signUpModal').modal('hide');
+}
+
+async function registerUser()
+{
+    console.log("Registration of a new user started");
+    const signUpEmail = document.getElementById("signUpEmail").value.toString();
+    const signUpPassword = document.getElementById("signUpPassword").value.toString();
+
+    if (signUpEmail === '')
+    {
+        console.log('yeet')
+        showSignupPopup('Email is required to register a new account', true);
+        return;
+    } else if (signUpPassword === '')
+    {
+        showSignupPopup('Password is required to register a new account', true);
+        return;
+    }
+
+    let result = await submitNewUser(signUpEmail, signUpPassword);
+
+    if (result)
+    {
+        console.log("Registration successful, you're logged in");
+        document.getElementById("signUpModalCloseBtn").click();
+        showSignupPopup('Thanks for joining Treecreate!', false);
+        setLoginStatus(true);
+        updateBasket();
+    } else
+    {
+        showSignupPopup('An account with this email already exists. Try again', true);
+    }
+}
+
+async function submitNewUser(loginEmail, loginPassword)
+{
+    let parameters =
+        {
+            "email": loginEmail,
+            "password": loginPassword
+        };
+    const response = await fetch(location.origin + "/addUser",
+        {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(parameters),
+        }
+    )
+    console.log("%cRegistration submission finished, status: " + response.status, "color:mediumpurple");
+    return response.status === 200;
+}
+
+function showSignupPopup(text, errorPopup)
+{
+    let popupContainer
+    let popup;
+    let popupText;
+    if (errorPopup)
+    {
+        popupContainer = document.getElementById("signupPopupModalContainer");
+        popup = document.getElementById("signupPopupModal");
+        popupText = document.getElementById("signupPopupModalText");
+
+        popup.style.backgroundColor = 'var(--popupErrorColor)';
+    } else
+    {
+        popupContainer = document.getElementById("popupContainer");
+        popup = document.getElementById("popup");
+        popupText = document.getElementById("popupText");
+
+        popup.style.backgroundColor = 'var(--popupColor)';
+    }
+
+    popupText.innerText = text;
+
+    popupContainer.style.display = 'block';
+    popupContainer.style.animation = 'fadeIn 1s';
+    setTimeout(() =>
+    {
+        popupContainer.style.animation = 'fadeOut 1s';
+    }, 3000);
+
+    setTimeout(() =>
+    {
+        popupContainer.style.display = 'none'
+    }, 4000);
 }

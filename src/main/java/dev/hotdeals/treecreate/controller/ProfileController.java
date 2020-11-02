@@ -122,10 +122,30 @@ public class ProfileController
     @Autowired
     TreeOrderRepo treeOrderRepo;
 
+    @PostMapping("/addUser")
+    ResponseEntity<Boolean> addUser(HttpServletRequest request, @RequestBody User user)
+    {
+        LOGGER.info("Adding new user, email: " + user.getEmail());
+        if (userRepo.findOneByEmail(user.getEmail()) != null)
+        {
+            LOGGER.info("Submitted new user already exists");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        String oldPassword = user.getPassword();
+        user.setPassword(PasswordService.encodePassword(user.getPassword()));
+        userRepo.save(user);
+        System.out.println(user);
+        User dummyUser = new User(); // Used to bypass JPA's cache allowing modification of the password
+        dummyUser.setEmail(user.getEmail());
+        dummyUser.setPassword(oldPassword);
+        return validateCredentials(request, dummyUser);
+    }
+
     @ResponseBody
     @PostMapping("/submitLogin")
     ResponseEntity<Boolean> validateCredentials(HttpServletRequest httpServletRequest, @RequestBody User body)
     {
+        LOGGER.info("Validating a login submission");
         HttpSession session = httpServletRequest.getSession();
         if (session.getAttribute("userId") != null)
         {
@@ -137,10 +157,12 @@ public class ProfileController
         String password = body.getPassword();
         if (email == null || password == null)
         {
+            LOGGER.info("Submitted login contained null email/password");
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
         User user = userRepo.findOneByEmail(email);
+        LOGGER.info("Login submission: Found user: " + user);
         if (user != null && PasswordService.matches(password, user.getPassword()))
         {
             LOGGER.info("User is logging in, searching for ID: " + session.getId());
@@ -164,11 +186,11 @@ public class ProfileController
                 LOGGER.info("No session user found, moving on");
             }
 
-
             session.setAttribute("userId", user.getId());
             LOGGER.info("New login: " + session.getId() + " as user: " + user.getId());
             return new ResponseEntity<>(HttpStatus.OK);
         }
+        LOGGER.info("Login failed, probably due to an invalid password");
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 

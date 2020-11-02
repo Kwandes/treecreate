@@ -43,9 +43,11 @@
                 <hr>
                 <a type="button" name="forgotPassword" id="forgotPassword">Forgot password?</a><br>
 
-                <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button><br><br>
+                <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button>
+                <br><br>
 
-                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();">SIGN UP</a><br>
+                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();">SIGN
+                    UP</a><br>
             </div>
         </div>
 
@@ -68,15 +70,21 @@
                        maxlength="254" required>
                 <hr>
                 <p>Password</p>
-                <input type="password" th:name="password" id="newPassword" placeholder="Type your password . . ."
+                <input type="password" th:name="password" id="signUpPassword" placeholder="Type your password . . ."
                        maxlength="60" required>
                 <hr>
 
-                <button type="button" onclick="submitLogin()" id="craeteAccountButton">Create account</button><br>
+                <button type="button" onclick="registerUser()" id="createAccountButton">Create account</button>
+                <br>
 
                 <button type="button" onclick="closeSignUpModal();"
-                        data-toggle="modal" data-target="#loginModal" id="backToLoginButton">login</button><br><br>
+                        data-toggle="modal" data-target="#loginModal" id="backToLoginButton">login
+                </button>
+                <br><br>
             </div>
+        </div>
+        <div id="signupPopupModalContainer" class="popupContainer">
+            <div id="signupPopupModal" class="popup"><p id="signupPopupModalText">Welcome Back!</p></div>
         </div>
     </div>
 
@@ -84,7 +92,7 @@
         <div id="navBar">
             <div id="navBar-left">
                 <a href="/productExample"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
-                                      alt="treecreate" id="treecreateLogo" class="filterColor">
+                                               alt="treecreate" id="treecreateLogo" class="filterColor">
                 </a>
                 <a href="https://www.facebook.com/treecreate.dk" target="popup"
                    onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
