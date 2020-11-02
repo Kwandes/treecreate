@@ -396,20 +396,22 @@ function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSi
     const scrollOffsetX = window.scrollX;
     const scrollOffsetY = window.scrollY;
     //let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop));
+    //console.log(parseInt(boxSizeY));
     let top = 0;
     let bottom = parseInt('50') - parseInt(boxSizeY);
     //let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft));
     let left = 0;
     let right = parseInt('50') - parseInt(boxSizeX);
 
+    //console.log("Current Y: " + pixelsToViewportWidth(currentY));
     //console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
     //console.log("Right: " + right);
 
-    return ((pixelsToViewportWidth(currentY + scrollOffsetY) > top &&
-            pixelsToViewportWidth(currentY + scrollOffsetY) < bottom)
+    return ((pixelsToViewportWidth(currentY) > top &&
+            pixelsToViewportWidth(currentY) < bottom)
         &&
-        (pixelsToViewportWidth(currentX + scrollOffsetX) > left &&
-            pixelsToViewportWidth(currentX + scrollOffsetX) < right)
+        (pixelsToViewportWidth(currentX) > left &&
+            pixelsToViewportWidth(currentX) < right)
     )
 }
 
