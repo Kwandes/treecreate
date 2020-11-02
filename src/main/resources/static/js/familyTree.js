@@ -78,18 +78,18 @@ window.onload = function ()
     let bannerSelector = 1;
     let bannerOptions = 1;
     let boxSizeX = 40 / 4;
-    let boxSizeY = 40 / 3;
+    let boxSizeY = 40 /8;
     let boxSize = 40; //size 1  = 4:3
-    let boxFontSize = 1.38;
-    let boxLineHeight = 1.53;
-    let boxInputX = 2.801;
-    let boxInputY = 1.2;
+    let boxFontSize = 0.9;
+    let boxLineHeight = 1.1;
+    let boxInputX = 7;
+    let boxInputY = 2.5;
     let boxMiddleRowPadding = 0.35;
     let bigFont = false;
-    // size to font ratio 7.2;
-    // size to line height ratio 6.5;
-    // size to input height ratio 2.5;
-    // size to input width ratio 1.428;
+    // size to font ratio 44.444;
+    // size to line height ratio 36.363;
+    // size to input height ratio 16;
+    // size to input width ratio 5.714;
     // size to padding ratio 28.57;
     let active = false;
 
@@ -124,31 +124,31 @@ window.onload = function ()
     function setBoxSizeButActualSize()
     {
         boxSizeX = boxSize / 4;
-        boxSizeY = boxSize / 3;
+        boxSizeY = boxSize / 8;
         setBoxSize();
     }
 
     function setBoxSize()
     {
-        boxInputY = boxSize / 2.5;
-        boxInputX = boxSize / 1.428;
-        boxLineHeight = boxSize / 6.5;
+        boxInputY = boxSize / 16;
+        boxInputX = boxSize / 5.714;
+        boxLineHeight = boxSize / 36.363;
         boxMiddleRowPadding = boxSize / 28.57;
 
         if (bigFont)
         {
-            boxFontSize = boxSize / 4.761;
+            boxFontSize = boxSize / 31.333;
             boxInputLimit = 9;
         } else
         {
-            boxFontSize = boxSize / 7.2;
+            boxFontSize = boxSize / 44.444;
             boxInputLimit = 29;
         }
 
         for (let i = 0; i < boxes.length; i++)
         {
-            boxes[i].style.width = boxSizeY + 'vw';
-            boxes[i].style.height = boxSizeX + 'vw';
+            boxes[i].style.width = boxSizeX + 'vw';
+            boxes[i].style.height = boxSizeY + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
                 .getElementsByClassName("draggableBoxInput")[0].style.fontSize = boxFontSize + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
@@ -157,9 +157,9 @@ window.onload = function ()
                 .getElementsByClassName("draggableBoxInput")[0].style.height = boxInputY + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
                 .getElementsByClassName("draggableBoxInput")[0].style.width = boxInputX + 'vw';
-            boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .style.paddingLeft = boxMiddleRowPadding + 'vw';
-            boxSizeInput.value = boxSize;
+            // boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+            //     .style.paddingLeft = boxMiddleRowPadding + 'vw';
+            boxSizeInput.value = boxSize - 30;
         }
     }
 

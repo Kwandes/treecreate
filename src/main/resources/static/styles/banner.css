@@ -7,9 +7,10 @@
     background-image: url("../img/images/banner/banner1.svg");
     background-repeat: no-repeat;
     background-position: center;
+    margin-left: 0.6vw;
     margin-bottom: 0;
     height: 9.3vw;
-    width: 21.5vw;
+    width: 23.5vw;
     z-index: 97;
 }
 
@@ -51,6 +52,6 @@
 
 #familyTreeBanner text
 {
-    font-size: 80px;
+    font-size: 65px;
     fill: black;
 }

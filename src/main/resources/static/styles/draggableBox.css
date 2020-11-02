@@ -10,7 +10,8 @@
 {
     display: none;
     border: none;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     position: absolute;
     z-index: 99;
@@ -26,7 +27,7 @@
     justify-content: space-between;
     display: flex;
     align-items: flex-end;
-    height: 28%;
+    height: 10%;
     width: 100%;
 }
 
@@ -37,7 +38,7 @@
     align-items: center;
     justify-content: center;
     padding-left: 0.35vw;
-    height: 44%;
+    height: 20%;
     width: 100%;
 }
 
@@ -47,7 +48,7 @@
     justify-content: space-between;
     display: flex;
     align-items: flex-start;
-    height: 28%;
+    height: 10%;
     width: 100%;
 }
 
@@ -57,8 +58,8 @@
     background-image: url("../img/icons/dragIcon.svg");
     background-repeat: no-repeat;
     background-size: 100%;
-    height: 4vh; /*Needs to scale with parent size*/
-    width: 4vh; /*Needs to scale with parent size*/
+    height: 3vw; /*Needs to scale with parent size*/
+    width: 3vw; /*Needs to scale with parent size*/
     filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.25));
 }
 
@@ -68,8 +69,8 @@
     background-image: url("../img/icons/exitIcon.svg");
     background-repeat: no-repeat;
     background-size: 100%;
-    height: 4vh; /*Needs to scale with parent size*/
-    width: 4vh; /*Needs to scale with parent size*/
+    height: 3vw; /*Needs to scale with parent size*/
+    width: 3vw; /*Needs to scale with parent size*/
     filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.25));
 }
 
@@ -90,8 +91,8 @@
 
 .draggableBox .icon
 {
-    width: 4vh;
-    height: 4vh;
+    width: 3vw;
+    height: 3vw;
     vertical-align: middle;
     background-repeat: no-repeat;
 }
@@ -99,7 +100,7 @@
 .draggableBox .input
 {
     display: flex;
-    height : 4vh;
+    height : 2.5vw;
     width : 7vw;
     overflow: hidden;
     justify-content: center;
@@ -108,8 +109,8 @@
     font-family: Spectral, sans-serif;
     font-style: normal;
     font-weight: normal;
-    font-size: 1.38vh; /*Needs to scale with parent size*/
-    line-height: 1.53vh; /*Needs to scale with parent size*/
+    font-size: 0.9vw; /*Needs to scale with parent size*/
+    line-height: 1.1vw; /*Needs to scale with parent size*/
     color: black;
     border: none;
     padding: 0;
