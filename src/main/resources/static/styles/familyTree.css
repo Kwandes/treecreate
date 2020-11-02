@@ -1,5 +1,12 @@
 @import "familyTreeAddToBasket.css";
 
+#product
+{
+    align-items: center;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
 #familyTreeDesignContainer
 {
     display: flex;
@@ -7,11 +14,11 @@
     align-items: center;
     flex-direction: column;
     width: 50vw;
-    height: 80vh;
+    height: 50vw;
+
     background-image: url("../img/images/treeDesign/tree1.svg");
     background-repeat: no-repeat;
     background-position: center;
-    margin:0 1vw;
 }
 
 #familyTreeOptionsContainer
@@ -20,8 +27,9 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    width: 22vw;
-    height: 80vh;
+    min-width: 175px;
+    width: 20vw;
+    height: fit-content;
     margin:0 1vw;
     transform: translateY(15%);
 }

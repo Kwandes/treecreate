@@ -2,16 +2,17 @@ let boxInputLimit = 29;
 
 function setTranslate(xPos, yPos, element) // Uses viewport
 {
+    //console.log("Translate: " + xPos + 'vw, ' + yPos + 'vw, 0');
     element.style.transform = "translate3d(" + xPos + "vw, "
-        + yPos + "vh, 0)";
-
+        + yPos + "vw, 0)";
 }
 
-function viewportToPixels(value) {
-    var parts = value.match(/([0-9\.]+)(vh|vw)/)
-    var q = Number(parts[1])
-    var side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
-    return side * (q/100)
+function viewportToPixels(value)
+{
+    let parts = value.match(/([0-9\.]+)(vh|vw)/)
+    let q = Number(parts[1])
+    let side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
+    return side * (q / 100)
 }
 
 function pixelsToViewportHeight(value)
@@ -54,7 +55,7 @@ function assignBoxBackground(imgArray)
     return 'url(' + imgArray[imageNumber] + ') 100% 100%';
 }
 
-window.onload = function()
+window.onload = function ()
 {
     const imgPath = "../img/images/boxDesign/box01/";
     const bannerPath = "../img/images/banner/banner";
@@ -74,15 +75,15 @@ window.onload = function()
     const fontStyleSelect = document.getElementById("fontInput");
     const fonts = ["Spectral, sans-serif", "'Sansita Swashed', cursive", "'Roboto Slab', serif"];
     let activeItem = null;
-    let activeItemInitialX = null;
-    let activeItemInitialY = null;
     let bannerSelector = 1;
     let bannerOptions = 1;
-    let boxSize = 10;
+    let boxSizeX = 40 / 4;
+    let boxSizeY = 40 / 3;
+    let boxSize = 40; //size 1  = 4:3 idk whatever mate, like who the fuck even knows at this point, am I right ?
     let boxFontSize = 1.38;
     let boxLineHeight = 1.53;
-    let boxInputHeight = 4;
-    let boxInputWidth = 7;
+    let boxInputX = 2.801;
+    let boxInputY = 1.2;
     let boxMiddleRowPadding = 0.35;
     let bigFont = false;
     // size to font ratio 7.2;
@@ -105,24 +106,32 @@ window.onload = function()
     function changeStyle()
     {
         banner.style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
-        for (let i = 0; i < boxes.length; i++) {
+        for (let i = 0; i < boxes.length; i++)
+        {
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
                 .getElementsByClassName("draggableBoxInput")[0]
                 .style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
         }
-        console.log(fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
+        console.log("Selected font index: " + fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
     }
 
     function convertToBigFont()
     {
         bigFont = bigFontInput.checked;
+        setBoxSizeButActualSize();
+    }
+
+    function setBoxSizeButActualSize()
+    {
+        boxSizeX = boxSize / 4;
+        boxSizeY = boxSize / 3;
         setBoxSize();
     }
 
     function setBoxSize()
     {
-        boxInputHeight = boxSize / 2.5;
-        boxInputWidth = boxSize / 1.428;
+        boxInputY = boxSize / 2.5;
+        boxInputX = boxSize / 1.428;
         boxLineHeight = boxSize / 6.5;
         boxMiddleRowPadding = boxSize / 28.57;
 
@@ -136,17 +145,18 @@ window.onload = function()
             boxInputLimit = 29;
         }
 
-        for (let i = 0; i < boxes.length; i++) {
-            boxes[i].style.width = boxSize + 'vw';
-            boxes[i].style.height = boxSize + 'vh';
+        for (let i = 0; i < boxes.length; i++)
+        {
+            boxes[i].style.width = boxSizeY + 'vw';
+            boxes[i].style.height = boxSizeX + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.fontSize = boxFontSize + 'vh';
+                .getElementsByClassName("draggableBoxInput")[0].style.fontSize = boxFontSize + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.lineHeight = boxLineHeight + 'vh';
+                .getElementsByClassName("draggableBoxInput")[0].style.lineHeight = boxLineHeight + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.height = boxInputHeight + 'vh';
+                .getElementsByClassName("draggableBoxInput")[0].style.height = boxInputY + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
-                .getElementsByClassName("draggableBoxInput")[0].style.width = boxInputWidth + 'vw';
+                .getElementsByClassName("draggableBoxInput")[0].style.width = boxInputX + 'vw';
             boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
                 .style.paddingLeft = boxMiddleRowPadding + 'vw';
             boxSizeInput.value = boxSize;
@@ -155,23 +165,23 @@ window.onload = function()
 
     function increaseBox()
     {
-        if (boxSize < 25)
+        if (boxSize < 50)
         {
             boxSize++;
-            setBoxSize();
+            setBoxSizeButActualSize();
         }
     }
 
     function decreaseBox()
     {
-        if (boxSize > 6)
+        if (boxSize > 30)
         {
             boxSize--;
-            setBoxSize();
+            setBoxSizeButActualSize();
         }
     }
 
-    function selectBanner (selector)
+    function selectBanner(selector)
     {
         switch (selector)
         {
@@ -228,43 +238,55 @@ window.onload = function()
         if (e.target === boundaries)
         {
 
-                let clone = boxes[0].cloneNode(true);
+            let clone = boxes[0].cloneNode(true);
 
-                // box style
-                clone.style.display = 'flex';
-                clone.style.flexWrap = 'wrap';
-                clone.style.position = 'absolute';
-                clone.style.width = boxSize + 'vw';
-                clone.style.height = boxSize + 'vh';
-                //clone.style.top = '0vh';
-                //clone.style.left = '0vw';
+            // box style
+            clone.style.display = 'flex';
+            clone.style.flexWrap = 'wrap';
+            clone.style.position = 'absolute';
+            clone.style.width = boxSizeX + 'vw';
+            clone.style.height = boxSizeY + 'vw';
+            //clone.style.top = '0vh';
+            //clone.style.left = '0vw';
 
-                let cursorX = e.clientX;
-                let cursorY = e.clientY;
-                let parentX = boundaries.offsetLeft;
-                let parentY = boundaries.offsetTop;
-                let offsetX = viewportToPixels(boxSize + 'vw') / 2;
-                let offsetY = viewportToPixels(boxSize + 'vh') / 2;
 
-                // create the box at the cursor coordinates
-                boundaries.appendChild(clone);
-                //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
-                //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
-                setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX), pixelsToViewportHeight(cursorY - parentY - offsetY), clone);
-                clone.xOffset = cursorX - parentX - offsetX;
-                clone.yOffset = cursorY - parentY - offsetY;
+            let cursorX = e.clientX;
+            let cursorY = e.clientY;
+            const scrollOffsetX = window.scrollX;
+            const scrollOffsetY = window.scrollY;
+            let parentX = boundaries.offsetLeft;
+            let parentY = boundaries.offsetTop;
+            let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
+            let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
+            //console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
+            //console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
 
-                clone.style.background = assignBoxBackground(images);
-                clone.style.backgroundSize = '100% 100%';
+            if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
+            {
+                //console.log("Outside of bouncries")
+                return;
+            }
 
-                // add events listeners on the drag button
-                let button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
-                // touch input
-                button.addEventListener("touchstart", dragStart, false);
-                button.addEventListener("touchend", dragEnd, false);
-                // mouse input
-                button.addEventListener("mousedown", dragStart, false);
-                button.addEventListener("mouseup", dragEnd, false);
+            // create the box at the cursor coordinates
+            boundaries.appendChild(clone);
+            //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
+            //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
+            setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
+                pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
+            clone.xOffset = cursorX - parentX - offsetX + scrollOffsetX;
+            clone.yOffset = cursorY - parentY - offsetY  + scrollOffsetY;
+
+            clone.style.background = assignBoxBackground(images);
+            clone.style.backgroundSize = '100% 100%';
+
+            // add events listeners on the drag button
+            let button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
+            // touch input
+            button.addEventListener("touchstart", dragStart, false);
+            button.addEventListener("touchend", dragEnd, false);
+            // mouse input
+            button.addEventListener("mousedown", dragStart, false);
+            button.addEventListener("mouseup", dragEnd, false);
         }
     }
 
@@ -274,8 +296,6 @@ window.onload = function()
 
         // this is the item we are interacting with
         activeItem = e.target.parentNode.parentNode;
-        activeItemInitialX = activeItem.offsetLeft;
-        activeItemInitialY = activeItem.offsetTop;
 
         if (activeItem !== null)
         {
@@ -295,7 +315,7 @@ window.onload = function()
                 activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
             } else
             {
-                activeItem.initialX = e.clientX - activeItem.xOffset;
+                activeItem.initialX = e.clientX - activeItem.xOffset
                 activeItem.initialY = e.clientY - activeItem.yOffset;
             }
         }
@@ -307,13 +327,6 @@ window.onload = function()
         {
             activeItem.initialX = activeItem.currentX;
             activeItem.initialY = activeItem.currentY;
-            /*activeItem.style.left = pixelsToViewportWidth(parseFloat(
-                activeItem.style.left
-                            .replace(/,/g, "."))
-                            .toFixed(3) + activeItem.currentX) + 'vw';
-            activeItem.style.top = pixelsToViewportHeight(parseFloat(activeItem.style.top
-                            .replace(/,/g, "."))
-                            .toFixed(3) + activeItem.currentY)  + 'vh';*/
         }
 
         active = false;
@@ -328,10 +341,11 @@ window.onload = function()
             {
                 e.preventDefault();
 
-                activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
-                activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
+                activeItem.currentX = e.touches[0].clientX - activeItem.initialX + window.scrollX;
+                activeItem.currentY = e.touches[0].clientY - activeItem.initialY + window.scrollY;
             } else
             {
+                //console.log("Initials: " + activeItem.initialX + window.scrollX + ', ' + activeItem.initialY);
                 activeItem.currentX = e.clientX - activeItem.initialX;
                 activeItem.currentY = e.clientY - activeItem.initialY;
             }
@@ -339,7 +353,63 @@ window.onload = function()
             activeItem.xOffset = activeItem.currentX;
             activeItem.yOffset = activeItem.currentY;
 
-            setTranslate(pixelsToViewportWidth(activeItem.currentX), pixelsToViewportHeight(activeItem.currentY), activeItem);
+            //console.log("Current: " + activeItem.currentX + ', ' + activeItem.currentY)
+            //console.log("Window Scroll: " + window.scrollX + ', ' + window.scrollY)
+            //console.log("CLick: " + e.clientX + ' ' + e.clientY)
+
+            //console.log("Offset Left: " + activeItem.currentX)
+            //console.log("Offset Top: " + activeItem.currentY)
+            //console.log("Offset Left: " + pixelsToViewportWidth(activeItem.currentX))
+            //console.log("Offset Top: " + pixelsToViewportWidth(activeItem.currentY))
+
+            if (!isWithinOuterBoundaries(boundaries, activeItem.currentX, activeItem.currentY, boxSizeX, boxSizeY))
+            {
+                //console.log("Outside of drag bouncries")
+                return;
+            }
+
+                setTranslate(pixelsToViewportWidth(activeItem.currentX),
+                    pixelsToViewportWidth(activeItem.currentY), activeItem);
         }
     }
 }
+
+function isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY)
+{
+    const scrollOffsetX = window.scrollX;
+    const scrollOffsetY = window.scrollY;
+    let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop)) + parseInt(boxSizeY) / 2;
+    let bottom = parseInt('50') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) - parseInt(boxSizeY) / 2;
+    let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX) / 2;
+    let right = parseInt('50') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) - parseInt(boxSizeX) / 2;
+
+    return !(!(pixelsToViewportWidth(cursorY + scrollOffsetY) > top &&
+            pixelsToViewportWidth(cursorY + scrollOffsetY) < bottom)
+        ||
+        !(pixelsToViewportWidth(cursorX + scrollOffsetX) > left &&
+            pixelsToViewportWidth(cursorX + scrollOffsetX) < right)
+    )
+}
+
+function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSizeY)
+{
+    const scrollOffsetX = window.scrollX;
+    const scrollOffsetY = window.scrollY;
+    //let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop));
+    let top = 0;
+    let bottom = parseInt('50') - parseInt(boxSizeY);
+    //let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft));
+    let left = 0;
+    let right = parseInt('50') - parseInt(boxSizeX);
+
+    //console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
+    //console.log("Right: " + right);
+
+    return ((pixelsToViewportWidth(currentY + scrollOffsetY) > top &&
+            pixelsToViewportWidth(currentY + scrollOffsetY) < bottom)
+        &&
+        (pixelsToViewportWidth(currentX + scrollOffsetX) > left &&
+            pixelsToViewportWidth(currentX + scrollOffsetX) < right)
+    )
+}
+
