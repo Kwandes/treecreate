@@ -25,7 +25,9 @@ a:hover
     height: fit-content;
     min-height: 64vh;
     width: 80vw;
-    margin: 5vh 10vw;
+    margin: 0 10vw;
+    padding-top: 10vh;
+    padding-bottom: 6vh;
 }
 
 #profileNavContainer
