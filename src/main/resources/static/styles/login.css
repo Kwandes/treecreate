@@ -10,7 +10,7 @@
 
 .modal-dialog
 {
-    margin: 20vh auto !important;
+    margin: 6vh auto !important;
 }
 
 .modal-content
@@ -145,6 +145,6 @@
 
     .modal-dialog
     {
-        margin: 20vh auto !important;
+        margin: 6vh auto !important;
     }
 }

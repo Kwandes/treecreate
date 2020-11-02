@@ -13,7 +13,8 @@ html, body
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 95vh; /* Account for the navbar height */
+    min-height: 94vh; /* Account for the navbar height */
+    padding-top: 6vh;
     height: fit-content;
 }
 

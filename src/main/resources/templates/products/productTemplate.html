@@ -46,22 +46,6 @@
                 <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button><br><br>
 
                 <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();">SIGN UP</a><br>
-
-                <a type="text" class="justText">or log in with</a><br>
-
-                <div class="iconList">
-                    <a target="popup" onclick="loginWithFacebook();">
-                        <img th:src="@{~/img/logos/facebookLogo.svg}" alt="facebook" id="facebookLogo"
-                             class="logo">
-                    </a>
-                    <a href="https://www.facebook.com/treecreate.dk" target="popup"
-                       onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
-                        <img th:src="@{~/img/logos/googleLogo.svg}" alt="facebook" id="googleLogo"
-                             class="logo">
-                    </a>
-                </div>
-
-                </form>
             </div>
         </div>
 
@@ -92,21 +76,6 @@
 
                 <button type="button" onclick="closeSignUpModal();"
                         data-toggle="modal" data-target="#loginModal" id="backToLoginButton">login</button><br><br>
-
-                <a type="button" class="justText">or log in with</a><br>
-
-                <div class="iconList">
-                    <a href="https://www.facebook.com/treecreate.dk" target="popup"
-                       onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
-                        <img th:src="@{~/img/logos/facebookLogo.svg}" alt="facebook" id="facebookLogo2"
-                             class="logo"></a>
-                    <a href="https://www.facebook.com/treecreate.dk" target="popup"
-                       onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
-                        <img th:src="@{~/img/logos/googleLogo.svg}" alt="facebook" id="googleLogo2"
-                             class="logo"></a>
-                </div>
-
-                </form>
             </div>
         </div>
     </div>
