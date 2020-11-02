@@ -13,10 +13,8 @@
     justify-content: flex-end;
     align-items: center;
     flex-direction: column;
-    min-width: 600px;
-    width: 60vw;
-    min-height: 600px;
-    height: 60vw;
+    width: 50vw;
+    height: 50vw;
 
     background-image: url("../img/images/treeDesign/tree1.svg");
     background-repeat: no-repeat;

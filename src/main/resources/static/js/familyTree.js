@@ -379,9 +379,9 @@ function isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSize
     const scrollOffsetX = window.scrollX;
     const scrollOffsetY = window.scrollY;
     let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop)) + parseInt(boxSizeY) / 2;
-    let bottom = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) - parseInt(boxSizeY) / 2;
+    let bottom = parseInt('50') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) - parseInt(boxSizeY) / 2;
     let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX) / 2;
-    let right = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) - parseInt(boxSizeX) / 2;
+    let right = parseInt('50') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) - parseInt(boxSizeX) / 2;
 
     return !(!(pixelsToViewportWidth(cursorY + scrollOffsetY) > top &&
             pixelsToViewportWidth(cursorY + scrollOffsetY) < bottom)
@@ -397,10 +397,10 @@ function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSi
     const scrollOffsetY = window.scrollY;
     //let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop));
     let top = 0;
-    let bottom = parseInt('60') - parseInt(boxSizeY);
+    let bottom = parseInt('50') - parseInt(boxSizeY);
     //let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft));
     let left = 0;
-    let right = parseInt('60') - parseInt(boxSizeX);
+    let right = parseInt('50') - parseInt(boxSizeX);
 
     //console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
     //console.log("Right: " + right);
