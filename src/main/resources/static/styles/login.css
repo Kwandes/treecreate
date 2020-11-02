@@ -16,7 +16,18 @@
 .modal-content
 {
     border-radius: 23px !important;
-    padding: 6vh;
+    padding: 3vh 12vh;
+}
+
+.iconList
+{
+    display: flex;
+    margin: 0vw 9.2vw;
+}
+
+.iconList a
+{
+    margin: 0px 10px;
 }
 
 .loginForm h1
@@ -30,12 +41,39 @@
     text-align: left;
 }
 
+.loginForm a
+{
+    color: var(--inactiveColor);
+}
+
+#forgotPassword:hover, #signUpButton:hover
+{
+    color: var(--mainColor);
+    text-decoration: none;
+}
+
+.justText:hover
+{
+    text-decoration: none;
+    color: var(--inactiveColor);
+}
+
+.logo
+{
+    margin:2vh 0.5vh;
+    width: 5vh;
+}
+
+.logo:hover
+{
+    transform: scale(1.1);
+}
+
 .loginForm input
 {
     padding: 0px 0px 3px 7px;
     text-align: left;
     border-style: hidden;
-    font-size: 24px;
     width: 100%;
     transition: color, 1s;
 }
@@ -65,10 +103,11 @@
 .loginForm button
 {
     margin-top: 25px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
     background-color: var(--actionColor);
     color: white;
     border-radius: 7px;
-    width: 40%;
+    width: 90%;
     height: 40px;
     font-size: 24px;
     border: none;
@@ -87,6 +126,12 @@
 
 @media all and (min-width: 200px) and (max-width: 1024px)
 {
+    .modal-content
+    {
+        border-radius: 23px !important;
+        padding: 3vh 6vh;
+    }
+
     .loginForm h1
     {
         font-size: 48px;
