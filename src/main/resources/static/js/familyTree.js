@@ -2,7 +2,7 @@ let boxInputLimit = 29;
 
 function setTranslate(xPos, yPos, element) // Uses viewport
 {
-    console.log("Translate: " + xPos + 'vw, ' + yPos + 'vw, 0');
+    //console.log("Translate: " + xPos + 'vw, ' + yPos + 'vw, 0');
     element.style.transform = "translate3d(" + xPos + "vw, "
         + yPos + "vw, 0)";
 }
@@ -258,12 +258,12 @@ window.onload = function ()
             let parentY = boundaries.offsetTop;
             let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
             let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
-            console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
-            console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
+            //console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
+            //console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
 
             if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
             {
-                console.log("Outside of bouncries")
+                //console.log("Outside of bouncries")
                 return;
             }
 
@@ -345,7 +345,7 @@ window.onload = function ()
                 activeItem.currentY = e.touches[0].clientY - activeItem.initialY + window.scrollY;
             } else
             {
-                console.log("Initials: " + activeItem.initialX + window.scrollX + ', ' + activeItem.initialY);
+                //console.log("Initials: " + activeItem.initialX + window.scrollX + ', ' + activeItem.initialY);
                 activeItem.currentX = e.clientX - activeItem.initialX;
                 activeItem.currentY = e.clientY - activeItem.initialY;
             }
@@ -353,8 +353,8 @@ window.onload = function ()
             activeItem.xOffset = activeItem.currentX;
             activeItem.yOffset = activeItem.currentY;
 
-            console.log("Current: " + activeItem.currentX + ', ' + activeItem.currentY)
-            console.log("Window Scroll: " + window.scrollX + ', ' + window.scrollY)
+            //console.log("Current: " + activeItem.currentX + ', ' + activeItem.currentY)
+            //console.log("Window Scroll: " + window.scrollX + ', ' + window.scrollY)
             //console.log("CLick: " + e.clientX + ' ' + e.clientY)
 
             //console.log("Offset Left: " + activeItem.currentX)
@@ -364,7 +364,7 @@ window.onload = function ()
 
             if (!isWithinOuterBoundaries(boundaries, activeItem.currentX, activeItem.currentY, boxSizeX, boxSizeY))
             {
-                console.log("Outside of drag bouncries")
+                //console.log("Outside of drag bouncries")
                 return;
             }
 
