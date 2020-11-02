@@ -79,7 +79,7 @@ window.onload = function ()
     let bannerOptions = 1;
     let boxSizeX = 40 / 4;
     let boxSizeY = 40 / 3;
-    let boxSize = 40; //size 1  = 4:3 idk whatever mate, like who the fuck even knows at this point, am I right ?
+    let boxSize = 40; //size 1  = 4:3
     let boxFontSize = 1.38;
     let boxLineHeight = 1.53;
     let boxInputX = 2.801;
@@ -193,6 +193,8 @@ window.onload = function ()
 
             case 1:
                 bannerContainer.style.background = 'url(' + bannerPath + selector + '.svg)';
+                bannerContainer.style.backgroundPosition = 'center';
+                bannerContainer.style.backgroundRepeat = 'no-repeat';
                 bannerContainer.style.display = 'flex';
                 banner.style.visibility = 'visible';
                 bannerDesignInput.value = 'Banner Style ' + selector;
