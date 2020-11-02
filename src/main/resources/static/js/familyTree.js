@@ -2,6 +2,7 @@ let boxInputLimit = 29;
 
 function setTranslate(xPos, yPos, element) // Uses viewport
 {
+    console.log("Translate: " + xPos + 'vw, ' + yPos + 'vw, 0');
     element.style.transform = "translate3d(" + xPos + "vw, "
         + yPos + "vw, 0)";
 }
@@ -259,26 +260,6 @@ window.onload = function ()
             let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
             console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
             console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
-            /*
-            let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop)) + parseInt(boxSizeY)/2;
-            let bottom = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) -  parseInt(boxSizeY)/2;
-            let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX)/2;
-            let right = parseInt('60') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) -  parseInt(boxSizeX)/2;
-
-            if (!(pixelsToViewportWidth(cursorY + scrollOffsetY) > top &&
-                pixelsToViewportWidth(cursorY + scrollOffsetY) < bottom)
-                ||
-                !(pixelsToViewportWidth(cursorX + scrollOffsetX) > left &&
-                    pixelsToViewportWidth(cursorX + scrollOffsetX) < right)
-            )
-            {
-                console.log("Outside of bouncries")
-                console.log("BoxSizeY: " + boxSizeY)
-                console.log("CursorY: " + pixelsToViewportWidth(cursorY))
-                console.log("Top: " + top)
-                console.log("Bottom: " + bottom)
-                return ;
-            }*/
 
             if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
             {
@@ -292,8 +273,8 @@ window.onload = function ()
             //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
             setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
                 pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
-            clone.xOffset = cursorX - parentX - offsetX;
-            clone.yOffset = cursorY - parentY - offsetY;
+            clone.xOffset = cursorX - parentX - offsetX + scrollOffsetX;
+            clone.yOffset = cursorY - parentY - offsetY  + scrollOffsetY;
 
             clone.style.background = assignBoxBackground(images);
             clone.style.backgroundSize = '100% 100%';
@@ -346,13 +327,6 @@ window.onload = function ()
         {
             activeItem.initialX = activeItem.currentX;
             activeItem.initialY = activeItem.currentY;
-            /*activeItem.style.left = pixelsToViewportWidth(parseFloat(
-                activeItem.style.left
-                            .replace(/,/g, "."))
-                            .toFixed(3) + activeItem.currentX) + 'vw';
-            activeItem.style.top = pixelsToViewportHeight(parseFloat(activeItem.style.top
-                            .replace(/,/g, "."))
-                            .toFixed(3) + activeItem.currentY)  + 'vh';*/
         }
 
         active = false;
@@ -367,10 +341,11 @@ window.onload = function ()
             {
                 e.preventDefault();
 
-                activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
-                activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
+                activeItem.currentX = e.touches[0].clientX - activeItem.initialX + window.scrollX;
+                activeItem.currentY = e.touches[0].clientY - activeItem.initialY + window.scrollY;
             } else
             {
+                console.log("Initials: " + activeItem.initialX + window.scrollX + ', ' + activeItem.initialY);
                 activeItem.currentX = e.clientX - activeItem.initialX;
                 activeItem.currentY = e.clientY - activeItem.initialY;
             }
@@ -378,9 +353,9 @@ window.onload = function ()
             activeItem.xOffset = activeItem.currentX;
             activeItem.yOffset = activeItem.currentY;
 
-            console.log("Initials: " + activeItem.initialX + ' ' + activeItem.initialY)
-            console.log("Current: " + activeItem.currentX + ' ' + activeItem.currentY)
-            console.log("CLick: " + e.clientX + ' ' + e.clientY)
+            console.log("Current: " + activeItem.currentX + ', ' + activeItem.currentY)
+            console.log("Window Scroll: " + window.scrollX + ', ' + window.scrollY)
+            //console.log("CLick: " + e.clientX + ' ' + e.clientY)
 
             //console.log("Offset Left: " + activeItem.currentX)
             //console.log("Offset Top: " + activeItem.currentY)
@@ -393,8 +368,8 @@ window.onload = function ()
                 return;
             }
 
-                setTranslate(pixelsToViewportWidth(activeItem.currentX + window.scrollX),
-                    pixelsToViewportWidth(activeItem.currentY + window.scrollY), activeItem);
+                setTranslate(pixelsToViewportWidth(activeItem.currentX),
+                    pixelsToViewportWidth(activeItem.currentY), activeItem);
         }
     }
 }
@@ -427,7 +402,7 @@ function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSi
     let left = 0;
     let right = parseInt('60') - parseInt(boxSizeX);
 
-    console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
+    //console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
     //console.log("Right: " + right);
 
     return ((pixelsToViewportWidth(currentY + scrollOffsetY) > top &&
