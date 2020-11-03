@@ -97,4 +97,11 @@ class PasswordServiceTests
     {
         assertThat(PasswordService.decrypt(encrypted).equals(data)).isEqualTo(isMatch);
     }
+
+    @Test
+    @DisplayName("Can generate a verification token")
+    void generateVerificationTokenTest()
+    {
+        assertThat(PasswordService.generateVerificationToken(10).length()).isEqualTo(10);
+    }
 }

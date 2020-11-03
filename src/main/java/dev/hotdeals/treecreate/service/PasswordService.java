@@ -5,6 +5,7 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class PasswordService
@@ -27,6 +28,7 @@ public class PasswordService
 
     /**
      * Runs the password against a Bcrypt-regex for validating whether or not a given string has been encoded
+     *
      * @param password String to be validated
      * @return whether or not a string has been encoded with BCrypt
      */
@@ -64,5 +66,23 @@ public class PasswordService
         String salt = text.substring(0, saltLength);
         TextEncryptor encryptor = Encryptors.text(ENCRYPTION_KEY, salt);
         return encryptor.decrypt(actualData);
+    }
+
+    public static String generateVerificationToken(int length)
+    {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        Random random = new Random();
+
+        return random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(length)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
+
+    public static String generateVerificationToken()
+    {
+        return generateVerificationToken(7);
     }
 }

@@ -45,6 +45,10 @@ public class User
     @Column(name = "access_level")
     private int accessLevel;
 
+    @Basic
+    @Column(name = "verification", length = 8)
+    private String verification;
+
     public User()
     {
     }
@@ -168,6 +172,16 @@ public class User
         this.accessLevel = accessLevel;
     }
 
+    public String getVerification()
+    {
+        return verification;
+    }
+
+    public void setVerification(String verification)
+    {
+        this.verification = verification;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -182,7 +196,8 @@ public class User
                 Objects.equals(phoneNumber, user.phoneNumber) &&
                 Objects.equals(streetAddress, user.streetAddress) &&
                 Objects.equals(city, user.city) &&
-                Objects.equals(postcode, user.postcode);
+                Objects.equals(postcode, user.postcode) &&
+                Objects.equals(verification, user.verification);
     }
 
     @Override

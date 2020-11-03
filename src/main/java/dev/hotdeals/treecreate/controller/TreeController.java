@@ -116,6 +116,7 @@ public class TreeController
             user = new User();
             user.setName("Temp session user");
             user.setEmail(request.getSession().getId());
+            user.setVerification("temp");
             LOGGER.info("New user: " + user.toString());
             user = userRepo.save(user);
             LOGGER.info("Saved user: " + user.toString());

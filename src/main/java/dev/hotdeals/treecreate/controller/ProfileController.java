@@ -4,6 +4,7 @@ import dev.hotdeals.treecreate.model.TreeOrder;
 import dev.hotdeals.treecreate.model.User;
 import dev.hotdeals.treecreate.repository.TreeOrderRepo;
 import dev.hotdeals.treecreate.repository.UserRepo;
+import dev.hotdeals.treecreate.service.MailService;
 import dev.hotdeals.treecreate.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -122,6 +122,9 @@ public class ProfileController
     @Autowired
     TreeOrderRepo treeOrderRepo;
 
+    @Autowired
+    MailService mailService;
+
     @PostMapping("/addUser")
     ResponseEntity<Boolean> addUser(HttpServletRequest request, @RequestBody User user)
     {
@@ -133,12 +136,24 @@ public class ProfileController
         }
         String oldPassword = user.getPassword();
         user.setPassword(PasswordService.encodePassword(user.getPassword()));
+        user.setVerification(PasswordService.generateVerificationToken(8));
         userRepo.save(user);
         System.out.println(user);
         User dummyUser = new User(); // Used to bypass JPA's cache allowing modification of the password
         dummyUser.setEmail(user.getEmail());
         dummyUser.setPassword(oldPassword);
-        return validateCredentials(request, dummyUser);
+        var result = validateCredentials(request, dummyUser);
+        if (result.getStatusCode() != HttpStatus.OK)
+        {
+            return result;
+        }
+        LOGGER.info("Sending a verification email to the user");
+        // Verification link won't work on localhost since it is hardcoded to treecreate.dk.
+        mailService.sendInfoMail("Thank you for signing up at Treecreate\n" +
+                        "\nPlease click on the link in order to verify: https://treecreate.dk/verify?id=" + user.getId() + "&token=" + user.getVerification() +
+                        "\n\nThis is an automated email. Please do not reply to this email.",
+                "Confirm your e-mail", user.getEmail());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @ResponseBody
@@ -214,6 +229,21 @@ public class ProfileController
     ResponseEntity<Boolean> isLoggedIn(HttpServletRequest request)
     {
         return new ResponseEntity<>(request.getSession().getAttribute("userId") != null, HttpStatus.OK);
+    }
+
+    @GetMapping("/verify")
+    String verifyUser(@RequestParam(name = "id") int id, @RequestParam(name = "token") String token)
+    {
+        LOGGER.info("Verification request received for user id: " + id);
+        User user = userRepo.findById(id).orElse(null);
+        if (user != null && user.getVerification().equals(token))
+        {
+            LOGGER.info("Verification successful, changing the status to verified");
+            user.setVerification("verified");
+            userRepo.save(user);
+            return "home/verificationSuccess";
+        }
+        return "home/verificationFail";
     }
 
 }
