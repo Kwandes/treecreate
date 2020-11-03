@@ -1,11 +1,15 @@
 package dev.hotdeals.treecreate.controller;
 
+import dev.hotdeals.treecreate.service.MailService;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,5 +63,40 @@ public class IndexController
             LOGGER.error("Failed to retrieve the pom.xml", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Autowired
+    MailService mailService;
+
+    @GetMapping("/sendMail")
+    ResponseEntity<String> sendMail()
+    {
+        LOGGER.info("Sending an email");
+        try
+        {
+            mailService.sendInfoMail("Example Info Message", "Example Info Subject", "orders@treecreate.dk");
+        } catch (MailException e)
+        {
+            LOGGER.error("Unable to send an email", e);
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        LOGGER.info("Email sending finished question mark?");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/sendOrderMail")
+    ResponseEntity<String> sendOrderMail()
+    {
+        LOGGER.info("Sending an email");
+        try
+        {
+            mailService.sendOrderMail("Example Order Message", "Example Order Subject", "info@treecreate.dk");
+        } catch (MailException e)
+        {
+            LOGGER.error("Unable to send an email", e);
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        LOGGER.info("Email sending finished");
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
