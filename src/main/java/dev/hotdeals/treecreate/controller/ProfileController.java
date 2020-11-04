@@ -27,6 +27,9 @@ public class ProfileController
     @Autowired
     UserRepo userRepo;
 
+    @Autowired
+    TreeController treeController;
+
     @GetMapping(value = {"/profile", "/login"})
     String profileIndex()
     {
@@ -246,4 +249,27 @@ public class ProfileController
         return "home/verificationFail";
     }
 
+    @GetMapping("/cookiesValidation")
+    ResponseEntity<Boolean> hasAcceptedCookies(HttpServletRequest request)
+    {
+        String userID = treeController.getCurrentUser(request).getBody();
+        User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
+        if (currentUser != null) {
+            return new ResponseEntity<>(currentUser.getAcceptedCookies(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/acceptCookies")
+    ResponseEntity<String> acceptCookies(HttpServletRequest request)
+    {
+        String userID = treeController.getCurrentUser(request).getBody();
+        User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
+        if (currentUser != null) {
+            currentUser.setAcceptedCookies(true);
+            userRepo.save(currentUser);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

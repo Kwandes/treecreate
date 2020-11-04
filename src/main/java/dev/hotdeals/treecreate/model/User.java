@@ -49,13 +49,17 @@ public class User
     @Column(name = "verification", length = 8)
     private String verification;
 
+    @Basic
+    @Column(name = "accepted_cookies", columnDefinition = "boolean default false")
+    private boolean acceptedCookies;
+
     public User()
     {
     }
 
     public User(@NotNull int id, @NotNull String name, @NotNull String email, @NotNull String password,
                 @NotNull String phoneNumber, @NotNull String streetAddress, @NotNull String city,
-                @NotNull String postcode, @NotNull int accessLevel)
+                @NotNull String postcode, @NotNull int accessLevel, @NotNull boolean acceptedCookies)
     {
         this.id = id;
         this.name = name;
@@ -66,6 +70,7 @@ public class User
         this.city = city;
         this.postcode = postcode;
         this.accessLevel = accessLevel;
+        this.acceptedCookies = acceptedCookies;
     }
 
     public String toString()
@@ -78,7 +83,8 @@ public class User
                 ", streetAddress='" + streetAddress + '\'' +
                 ", city='" + city + '\'' +
                 ", postcode='" + postcode + '\'' +
-                ", accessLevel=" + accessLevel +
+                ", accessLevel=" + accessLevel + '\'' +
+                ", acceptedCookies=" + acceptedCookies +
                 '}';
     }
 
@@ -182,6 +188,14 @@ public class User
         this.verification = verification;
     }
 
+    public boolean getAcceptedCookies() {
+        return acceptedCookies;
+    }
+
+    public void setAcceptedCookies(boolean acceptedCookies) {
+        this.acceptedCookies = acceptedCookies;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -197,12 +211,13 @@ public class User
                 Objects.equals(streetAddress, user.streetAddress) &&
                 Objects.equals(city, user.city) &&
                 Objects.equals(postcode, user.postcode) &&
-                Objects.equals(verification, user.verification);
+                Objects.equals(verification, user.verification) &&
+                Objects.equals(acceptedCookies, user.acceptedCookies);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, name, email, password, phoneNumber, streetAddress, city, postcode, accessLevel);
+        return Objects.hash(id, name, email, password, phoneNumber, streetAddress, city, postcode, accessLevel, acceptedCookies);
     }
 }

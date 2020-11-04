@@ -97,7 +97,7 @@ class UserTests
     void userFullConstructorTest()
     {
         User user = new User(3, "name", "test@treecreate.dk", "test",
-                "123", "Yeetgade 69", "Cph", "420", 0);
+                "123", "Yeetgade 69", "Cph", "420", 0, false);
         assertThat(user.toString().length() > 10).isTrue();
     }
 

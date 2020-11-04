@@ -10,6 +10,7 @@
     <script th:src="@{/js/landingPage.js}"></script>
     <script th:src="@{/js/cookiePrompt.js}"></script>
     <script th:src="@{/js/changeLanguage.js}"></script>
+    <script th:src="@{/js/cookiePrompt.js}"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <!-- browser icon -->
     <link rel="icon" href="/img/logos/treecreateLogo/browserLogo.svg">
@@ -24,25 +25,6 @@
 </head>
 <body>
 <section id="pageContainer">
-
-    <!-- cookie prompt modal -->
-    <div id="cookiePromptModalContainer">
-        <div class="modal fade" id="cookiePromptModal" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="header">
-                        <h2 class="modal-title">Cookies information</h2>
-                        <p>Lorem ipsum thing <a href="">terms and conditions.</a></p>
-                    </div>
-                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton" >I ACCEPT</button>
-                </div>
-            </div>
-        </div>
-        <div id="cookieCover"></div>
-        <script>$('#cookiePromptModal').modal()</script>
-    </div>
-
     <div id="popupContainer">
         <div id="popup"><span th:text="#{landing.popup.valid}"></span></div>
     </div>
