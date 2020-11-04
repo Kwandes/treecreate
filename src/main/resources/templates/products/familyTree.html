@@ -10,6 +10,7 @@
     <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
     <link th:href="@{/styles/draggableBox.css}" rel="stylesheet">
     <link th:href="@{/styles/banner.css}" rel="stylesheet">
+    <link th:href="@{/styles/popup.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
@@ -83,7 +84,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <div id="addToBasketAmount" class="addToBasketDetail">
                             <div class="fancySelection">
                                 <div class="fancyHeader"><span>Amount</span>
-                                    <div id="amountInfoIcon" class="addToBasketInfoIcon"></div>
+                                    <div id="amountInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                        <span class="infoPopupText">Wow, much text</span>
+                                    </div>
                                 </div>
                                 <div class="fancyContent">
                                     <div class="arrowLeft" id="amountArrowLeft" alt="<"
@@ -97,7 +100,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <div id="addToBasketSize" class="addToBasketDetail">
                             <div class="fancySelection">
                                 <div class="fancyHeader"><span>Product Size</span>
-                                    <div id="productSizeInfoIcon" class="addToBasketInfoIcon"></div>
+                                    <div id="productSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                        <span class="infoPopupText">Wow, much text</span>
+                                    </div>
                                 </div>
                                 <div class="fancyContent">
                                     <div class="arrowLeft" id="sizeArrowLeft" alt="<" onclick="decreaseSize()"></div>
@@ -176,7 +181,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     <div class="fancySelection" id="bannerInput">
                         <div class="fancyHeader">
                             <span>Banner Text</span>
-                            <div id="bannerTextInfoIcon" class="addToBasketInfoIcon"></div>
+                            <div id="bannerTextInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
                         </div>
                         <div class="fancyContent">
                             <input type="text" class="fancyInput" id="bannerTextInput" placeholder="familietræ"
@@ -187,7 +194,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     <div class="fancySelection" id="bannerDesign">
                         <div class="fancyHeader">
                             <span>Banner Design</span>
-                            <div id="bannerDesignInfoIcon" class="addToBasketInfoIcon"></div>
+                            <div id="bannerDesignInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
                         </div>
                         <div class="fancyContent" id="bannerDesignInputContainer">
                             <div class="arrowLeft" id="previousBannerDesign" alt="<"></div>
@@ -200,7 +209,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     <div class="fancySelection" id="font">
                         <div class="fancyHeader">
                             <span>Font Style</span>
-                            <div id="fontStyleInfoIcon" class="addToBasketInfoIcon"></div>
+                            <div id="fontStyleInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
                         </div>
                         <div class="fancyContent" id="fontStyleInputContainer">
                             <select class="fancyInput" id="fontInput">
@@ -214,7 +225,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     <div class="fancySelection" id="boxSize">
                         <div class="fancyHeader">
                             <span>Box Size</span>
-                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon"></div>
+                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
                         </div>
                         <div class="fancyContent" id="boxSizeInputContainer">
                             <div class="arrowLeft" id="decreaseBoxButton" alt="<"></div>
@@ -226,7 +239,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     <div class="fancySelection" id="fontSize">
                         <div class="fancyHeader" style="margin-right: 1vh;">
                             <span>Big Font Size</span>
-                            <div id="bigFontSizeInfoIcon" class="addToBasketInfoIcon"></div>
+                            <div id="bigFontSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
                         </div>
                         <div class="fancyContent" id="bigFontSizeInputContainer">
                             <input type="checkbox" class="switch-input" id="fontSizeInput">

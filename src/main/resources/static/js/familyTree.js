@@ -82,14 +82,14 @@ window.onload = function ()
     let boxSize = 40; //size 1  = 4:3
     let boxFontSize = 0.9;
     let boxLineHeight = 1.1;
-    let boxInputX = 7;
+    let boxInputX = 6;
     let boxInputY = 2.5;
     let boxMiddleRowPadding = 0.35;
     let bigFont = false;
     // size to font ratio 44.444;
     // size to line height ratio 36.363;
     // size to input height ratio 16;
-    // size to input width ratio 5.714;
+    // size to input width ratio 6.666;
     // size to padding ratio 28.57;
     let active = false;
 
@@ -131,7 +131,7 @@ window.onload = function ()
     function setBoxSize()
     {
         boxInputY = boxSize / 16;
-        boxInputX = boxSize / 5.714;
+        boxInputX = boxSize / 6.666;
         boxLineHeight = boxSize / 36.363;
         boxMiddleRowPadding = boxSize / 28.57;
 
