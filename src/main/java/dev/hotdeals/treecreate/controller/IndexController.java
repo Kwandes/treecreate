@@ -99,4 +99,10 @@ public class IndexController
         LOGGER.info("Email sending finished");
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value = {"mobile", "/mobile", "/mobile.html"}, method = {RequestMethod.GET, RequestMethod.POST})
+    public String mobile()
+    {
+        return "products/mobile";
+    }
 }
