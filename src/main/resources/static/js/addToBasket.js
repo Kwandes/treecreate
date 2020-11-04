@@ -42,7 +42,7 @@ async function addToBasket()
 
 function getDesign()
 {
-    console.log("%cThanks for saving me, I appreciate it", "color:mediumpurple");
+    console.log("%cThanks for saving me, I appreciate it", "color:blue");
 
     let boxArray = document.getElementsByClassName("draggableBox");
 
@@ -71,7 +71,7 @@ function getDesign()
         const boxStyle = boxArray[i].getAttribute("style").toString();
         const text = boxArray[i].getElementsByClassName("draggableBoxInput").item(0).innerHTML.toString();
 
-        const positionPattern = 'translate3d\\((-?\\d+\\.\\d+)vw,\\s(-?\\d+\\.\\d+)vh';
+        const positionPattern = 'translate3d\\((-?\\d+\\.\\d+)vw,\\s(-?\\d+\\.\\d+)vw';
         let positionMatch = boxStyle.match(positionPattern)
         const positionX = positionMatch[1];
         const positionY = positionMatch[2];
@@ -144,7 +144,12 @@ function decreaseAmount()
     }
 }
 
-//TODO - combine the sizes and prices into a map
+//TODO - DONE (combine the sizes and prices into a map) -> Implement the map
+let sizeAndPrice = new Map();
+sizeAndPrice.set("20x20 cm", "495");
+sizeAndPrice.set("25x25 cm", "695");
+sizeAndPrice.set("30x30 cm","995");
+
 const sizeOptions = ["20x20 cm", "25x25 cm", "30x30 cm"];
 const sizePrices = ["495", "695", "995"]
 
