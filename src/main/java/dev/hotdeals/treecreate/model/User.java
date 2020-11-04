@@ -53,6 +53,10 @@ public class User
     @Column(name = "accepted_cookies", columnDefinition = "boolean default false")
     private boolean acceptedCookies;
 
+    @ManyToOne
+    @JoinColumn(name = "transaction", referencedColumnName = "id", nullable = true)
+    private Transaction transaction;
+
     public User()
     {
     }
@@ -194,6 +198,16 @@ public class User
 
     public void setAcceptedCookies(boolean acceptedCookies) {
         this.acceptedCookies = acceptedCookies;
+    }
+
+    public Transaction getTransaction()
+    {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction)
+    {
+        this.transaction = transaction;
     }
 
     @Override

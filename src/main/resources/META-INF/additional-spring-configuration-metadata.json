@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "custom.property.quickpay-secret",
+      "type": "java.lang.String",
+      "description": "API key used for quickpay authentication."
+  }
+] }

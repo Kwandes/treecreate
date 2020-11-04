@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("custom.property")
 public class CustomProperties
 {
-    private String nordeaSecret;
+    private String quickpaySecret;
 
-    public String getNordeaSecret()
+    public String getQuickpaySecret()
     {
-        return nordeaSecret;
+        return quickpaySecret;
     }
 
-    public void setNordeaSecret(String nordeaSecret)
+    public void setQuickpaySecret(String quickpaySecret)
     {
-        this.nordeaSecret = nordeaSecret;
+        this.quickpaySecret = quickpaySecret;
     }
 }
