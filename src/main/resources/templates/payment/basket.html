@@ -23,23 +23,30 @@
             <section class="basketSection">
                 <section id="customerInformation" class="informationSection border">
                     <span id="formTitle" class="title">Delivery Information</span>
-                    <input type="number" name="id" value="1" hidden>
+                    <input type="number" name="id" th:value="${user.id}" hidden>
+
                     <label for="inputName">Name:</label>
-                    <input type="text" name="inputName" id="inputName" value="Name" maxlength="80" required>
+                    <input type="text" name="inputName" id="inputName" th:value="${user.name}" maxlength="80" required>
+
                     <label for="inputPhoneNumber">Phone Number:</label>
-                    <input type="number" name="inputPhoneNumber" id="inputPhoneNumber" value="1234567"
+                    <input type="number" name="inputPhoneNumber" id="inputPhoneNumber" th:value="${user.phoneNumber}"
                            maxlength="15" required>
+
                     <label for="inputEmail">Email:</label>
-                    <input type="email" name="inputEmail" id="inputEmail" value="test@treecreate.dk" maxlength="254"
+                    <input type="email" name="inputEmail" id="inputEmail" th:value="${user.email}" maxlength="254"
                            required>
+
                     <label for="inputStreetAddress">Street Name:</label>
-                    <input type="text" name="inputStreetAddress" id="inputStreetAddress" value="Nordgade 11/a"
+                    <input type="text" name="inputStreetAddress" id="inputStreetAddress" th:value="${user.streetAddress}"
                            maxlength="99" required>
+
                     <label for="inputCity">City:</label>
-                    <input type="text" name="inputCity" id="inputCity" value="Copenhagen" maxlength="50" required>
+                    <input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
+
                     <label for="inputPostcode">Postcode:</label>
-                    <input type="text" name="inputPostcode" id="inputPostcode" value="2100" maxlength="15"
+                    <input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}" maxlength="15"
                            required>
+
                     <label for="checkboxNewsletter">
                         <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter"> subscribe to the
                         newsletter

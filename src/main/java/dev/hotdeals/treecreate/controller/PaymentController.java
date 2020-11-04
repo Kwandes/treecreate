@@ -1,12 +1,16 @@
 package dev.hotdeals.treecreate.controller;
 
 import dev.hotdeals.treecreate.config.CustomProperties;
+import dev.hotdeals.treecreate.model.User;
+import dev.hotdeals.treecreate.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,6 +20,12 @@ import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 @Controller
 public class PaymentController
 {
+    @Autowired
+    TreeController treeController;
+
+    @Autowired
+    UserRepo userRepo;
+
     @GetMapping("/payment")
     String payment()
     {
@@ -80,8 +90,14 @@ public class PaymentController
     }
 
     @GetMapping(value = {"/basket", "shoppingBasket"})
-    public String basket()
+    public String basket(Model model, HttpServletRequest request)
     {
+        String userID = treeController.getCurrentUser(request).getBody();
+        User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
+        if (currentUser != null) {
+            model.addAttribute("user", currentUser);
+        }
+
         return "payment/basket";
     }
 }
