@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Generated Family Tree</title>
+    <title>Generate Family Tree</title>
     <link th:href="@{/styles/index.css}" rel="stylesheet">
     <link th:href="@{/styles/products.css}" rel="stylesheet">
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
@@ -10,6 +10,7 @@
     <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
     <link th:href="@{/styles/draggableBox.css}" rel="stylesheet">
     <link th:href="@{/styles/banner.css}" rel="stylesheet">
+    <link th:href="@{/styles/popup.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
@@ -17,10 +18,11 @@
           rel="stylesheet">
     <link rel="stylesheet" href="">
     <script th:src="@{/js/familyTree.js}"></script>
-    <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/generateDesign.js}"></script>
+    <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/basket.js}"></script>
     <script th:src="@{/js/addToBasket.js}"></script>
+    <script th:src="@{/js/mobileRedirect.js}"></script>
     <script th:src="@{/js/cookiePrompt.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -60,6 +62,8 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
     (document, 'script', 'facebook-jssdk'));
 </script>
 
+<script>isMobile()</script>
+
 <!-- End of Load FaceBook SDK for JavaScript -->
 
 <section id="contentContainer">
@@ -85,7 +89,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <div id="addToBasketAmount" class="addToBasketDetail">
                             <div class="fancySelection">
                                 <div class="fancyHeader"><span>Amount</span>
-                                    <div id="amountInfoIcon" class="addToBasketInfoIcon"></div>
+                                    <div id="amountInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                        <span class="infoPopupText">Wow, much text</span>
+                                    </div>
                                 </div>
                                 <div class="fancyContent">
                                     <div class="arrowLeft" id="amountArrowLeft" alt="<"
@@ -99,7 +105,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <div id="addToBasketSize" class="addToBasketDetail">
                             <div class="fancySelection">
                                 <div class="fancyHeader"><span>Product Size</span>
-                                    <div id="productSizeInfoIcon" class="addToBasketInfoIcon"></div>
+                                    <div id="productSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                        <span class="infoPopupText">Wow, much text</span>
+                                    </div>
                                 </div>
                                 <div class="fancyContent">
                                     <div class="arrowLeft" id="sizeArrowLeft" alt="<" onclick="decreaseSize()"></div>
@@ -163,9 +171,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
                     <div id="familyTreeBanner">
                         <svg id="bannerText" viewBox="-450 -450 900 900">
-                            <path id="curve" d='M-445,-127
-           C-130,51 130,51 445,-127'/>
-                            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle">
+                            <path id="curve" d='M-420,-137
+                            C-130,46 120,46 420,-137'/>
+                            <text x="50%" y="0%" dominant-baseline="middle" text-anchor="middle">
                                 <textPath xlink:href="#curve" id="bannerTextPath">
                                     familietræ
                                 </textPath>
@@ -175,64 +183,103 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
                 </div>
                 <div id="familyTreeOptionsContainer">
-                    <div id="bannerInput">
-                        <label for="bannerTextInput">Banner Text</label><br>
-                        <input type="text" id="bannerTextInput" placeholder="familietræ" maxlength="20">
-                    </div>
-
-                    <div id="bannerDesign">
-                        <label for="bannerDesignInput">Banner Design</label><br>
-                        <div id="bannerDesignInputContainer">
-                            <button id="previousBannerDesign"></button>
-                            <input type="text" id="bannerDesignInput" value="Banner Style 1" readonly>
-                            <button id="nextBannerDesign"></button>
+                    <div class="fancySelection" id="bannerInput">
+                        <div class="fancyHeader">
+                            <span>Banner Text</span>
+                            <div id="bannerTextInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
+                        </div>
+                        <div class="fancyContent">
+                            <input type="text" class="fancyInput" id="bannerTextInput" placeholder="familietræ"
+                                   maxlength="15">
                         </div>
                     </div>
 
-                    <div id="font">
-                        <label for="fontInput">Font</label><br>
-                        <select id="fontInput">
-                            <option value="0">Spectral</option>
-                            <option value="1">Sansita swashed</option>
-                            <option value="2">Roboto slab</option>
-                        </select>
-                    </div>
-
-                    <div id="boxSize">
-                        <label for="boxSizeInput">Box Size</label><br>
-                        <div id="boxSizeInputContainer">
-                            <button id="decreaseBoxButton"></button>
-                            <input type="number" id="boxSizeInput" value="10" readonly>
-                            <button id="increaseBoxButton"></button>
+                    <div class="fancySelection" id="bannerDesign">
+                        <div class="fancyHeader">
+                            <span>Banner Design</span>
+                            <div id="bannerDesignInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="bannerDesignInputContainer">
+                            <div class="arrowLeft" id="previousBannerDesign" alt="<"></div>
+                            <input type="text" class="fancyInput" id="bannerDesignInput" value="Banner Style 1"
+                                   readonly>
+                            <div class="arrowRight" id="nextBannerDesign" alt=">"></div>
                         </div>
                     </div>
 
-                    <div id="fontSize">
-                        <label for="fontSizeInput">Font Size</label><br>
-                        <input type="checkbox" id="fontSizeInput">
+                    <div class="fancySelection" id="font">
+                        <div class="fancyHeader">
+                            <span>Font Style</span>
+                            <div id="fontStyleInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="fontStyleInputContainer">
+                            <select class="fancyInput" id="fontInput">
+                                <option value="0">Spectral</option>
+                                <option value="1">Sansita swashed</option>
+                                <option value="2">Roboto slab</option>
+                            </select>
+                        </div>
                     </div>
+
+                    <div class="fancySelection" id="boxSize">
+                        <div class="fancyHeader">
+                            <span>Box Size</span>
+                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="boxSizeInputContainer">
+                            <div class="arrowLeft" id="decreaseBoxButton" alt="<"></div>
+                            <input type="number" class="fancyInput" id="boxSizeInput" value="10" readonly>
+                            <div class="arrowRight" id="increaseBoxButton" alt=">"></div>
+                        </div>
+                    </div>
+
+                    <div class="fancySelection" id="fontSize">
+                        <div class="fancyHeader" style="margin-right: 1vh;">
+                            <span>Big Font Size</span>
+                            <div id="bigFontSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText">Wow, much text</span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="bigFontSizeInputContainer">
+                            <input type="checkbox" class="switch-input" id="fontSizeInput">
+                        </div>
+
+                    </div>
+
+                    <div class="loadSave">
+                        <button id="saveDesignButton" onclick="saveDesign()">
+                            Save
+                        </button>
+
+                        <button id="loadDesignButton" onclick="">
+                            Load
+                        </button>
+                    </div>
+
+                    <button id="addToBasket" class="largeButton" data-toggle="modal" data-target="#addToBasketModal" onclick="updatePrice()">
+                        Add To Basket
+                    </button>
+
+                    <!-- AD SHARE FUNC LATER
                     <div class="fb-share-button"
                          data-href="https://treecreate.dk/products/familyTree"
                          data-layout="box_count">
                     </div>
-
-                    <button id="saveDesignButton" style="margin: 1vh; padding: 0.5vh; background-color: var(--actionColor);
-                     border: none; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);"
-                            onclick="saveDesign()">
-                        Save Design
-                    </button>
-
-                    <button id="addToBasket" style="margin: 1vh; padding: 0.5vh; background-color: var(--actionColor);
-                     border: none; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);"
-                            data-toggle="modal" data-target="#addToBasketModal">
-                        Add To Basket
-                    </button>
+                    -->
                 </div>
             </div>
         </div>
     </div>
+    <script>generateDesign()</script>
 </section>
 <section th:replace="products/productTemplate :: #footerContainer"></section>
-<script>generateDesign()</script>
 </body>
 </html>

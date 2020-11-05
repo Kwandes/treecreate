@@ -1,3 +1,11 @@
+function viewportToPixels(value)
+{
+    let parts = value.match(/([0-9\.]+)(vh|vw)/)
+    let q = Number(parts[1])
+    let side = window[['innerHeight', 'innerWidth'][['vh', 'vw'].indexOf(parts[2])]]
+    return side * (q / 100)
+}
+
 async function generateDesign()
 {
     let design = await fetchDesign();
@@ -28,7 +36,9 @@ async function generateDesign()
         const boundaries = document.getElementById("draggableBoxContainer");
         let activeItem = null;
         let active = false;
-        let boxSize = 10;
+        let boxSizeX = 40 / 4;
+        let boxSizeY = 40 / 8;
+        let boxSize = 40;
         let boxDesignBackground = 'url(' + '../img/images/boxDesign/box01/' + box["boxDesign"] + '.svg' + ') 100% 100%';
 
         let displayedBoxes = document.getElementsByClassName("draggableBox"); // It corresponds to the 'boxes' variable from the familyTree.js
@@ -45,27 +55,37 @@ async function generateDesign()
         clone.style.flexWrap = 'wrap';
         clone.style.position = 'absolute';
         clone.style.width = boxSize + 'vw';
-        clone.style.height = boxSize + 'vh';
+        clone.style.height = boxSize + 'vw';
 
         console.log("Assigning position");
         //let cursorX = box["positionX"];
         //let cursorY = box["positionY"];
 
-        let cursorX = viewportToPixels(box["positionX"] + 'vw');
-        let cursorY = viewportToPixels(box["positionY"] + 'vh');
+        console.log("PositionX, vw: " + box["positionX"]);
+        console.log("PositionY, vw: " + box["positionY"]);
+        console.log("PositionX, px: " + viewportToPixels(box["positionX"] + 'vw'));
+        console.log("PositionY, px: " + viewportToPixels(box["positionY"] + 'vw'));
+        const scrollOffsetX = window.scrollX;
+        const scrollOffsetY = window.scrollY;
+        let boxPositionX = parseInt(box["positionX"]);
+        let boxPositionY = parseInt(box["positionY"]);
+        let cursorX = viewportToPixels( boxPositionX + 'vw') + boundaries.offsetLeft + boundaries.parentElement.offsetLeft;
+        console.log("Cursor X:" + cursorX);
+        let cursorY = viewportToPixels( boxPositionY + 'vw') + boundaries.offsetTop + boundaries.parentElement.offsetTop;
         let parentX = boundaries.offsetLeft;
         let parentY = boundaries.offsetTop;
-        let offsetX = viewportToPixels(boxSize + 'vw') / 2;
-        let offsetY = viewportToPixels(boxSize + 'vh') / 2;
-
+        let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
+        let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
         // create the box at the cursor coordinates
         boundaries.appendChild(clone);
-        console.log("Cursor: " + cursorX + " / " + cursorY);
-        console.log("Parent: " + parentX + " / " + parentY);
-        console.log("Offset: " + offsetX + " / " + offsetY);
+        //console.log("Cursor: " + cursorX + " / " + cursorY);
+        //console.log("Parent: " + parentX + " / " + parentY);
+        //console.log("Offset: " + offsetX + " / " + offsetY);
         setTranslate(box["positionX"], box["positionY"], clone);
-        clone.xOffset = cursorX - parentX - offsetX;
-        clone.yOffset = cursorY - parentY - offsetY;
+        clone.xOffset = cursorX - parentX - offsetX + scrollOffsetX;
+        console.log("xOffset : " + clone.xOffset + " CursorX : " + cursorX + " ParentX : " + parentX + " OffsetX : " + offsetX)
+        clone.yOffset = cursorY - parentY - offsetY + scrollOffsetY;
+        console.log("yOffset : " + clone.yOffset + " CursorY : " + cursorY + " ParentY : " + parentY + " OffsetY : " + offsetY)
 
         clone.style.background = boxDesignBackground;
         clone.style.backgroundSize = '100% 100%';
@@ -83,7 +103,7 @@ async function generateDesign()
         boundaries.addEventListener("mousemove", drag, false);
 
         console.log("Listeners have been added");
-
+        console.log("Set initial X and Y to 0");
         // Family Tree copy because I need it because fuck GRASP and single responsibility
         function dragStart(e)
         {
@@ -91,8 +111,6 @@ async function generateDesign()
 
             // this is the item we are interacting with
             activeItem = e.target.parentNode.parentNode;
-            activeItemInitialX = activeItem.offsetLeft;
-            activeItemInitialY = activeItem.offsetTop;
 
             if (activeItem !== null)
             {
@@ -112,8 +130,12 @@ async function generateDesign()
                     activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
                 } else
                 {
-                    activeItem.initialX = e.clientX - activeItem.xOffset;
+                    console.log("Drag start: xOffset: " + activeItem.xOffset);
+                    console.log("Drag start: yOffset: " + activeItem.yOffset);
+                    activeItem.initialX = e.clientX - activeItem.xOffset
                     activeItem.initialY = e.clientY - activeItem.yOffset;
+                    console.log("Drag start: initialX: " + activeItem.initialX);
+                    console.log("Drag start: initialY: " + activeItem.initialY);
                 }
             }
         }
@@ -132,25 +154,42 @@ async function generateDesign()
 
         function drag(e)
         {
+
             if (active)
             {
                 if (e.type === "touchmove")
                 {
                     e.preventDefault();
 
-                    activeItem.currentX = e.touches[0].clientX - activeItem.initialX;
-                    activeItem.currentY = e.touches[0].clientY - activeItem.initialY;
+                    activeItem.currentX = e.touches[0].clientX - activeItem.initialX + window.scrollX;
+                    activeItem.currentY = e.touches[0].clientY - activeItem.initialY + window.scrollY;
                 } else
                 {
+                    //console.log("Initials: " + activeItem.initialX + window.scrollX + ', ' + activeItem.initialY);
                     activeItem.currentX = e.clientX - activeItem.initialX;
                     activeItem.currentY = e.clientY - activeItem.initialY;
                 }
-
+                console.log("I got triggered")
                 activeItem.xOffset = activeItem.currentX;
                 activeItem.yOffset = activeItem.currentY;
 
+                //console.log("Current: " + activeItem.currentX + ', ' + activeItem.currentY)
+                //console.log("Window Scroll: " + window.scrollX + ', ' + window.scrollY)
+                //console.log("CLick: " + e.clientX + ' ' + e.clientY)
+
+                //console.log("Offset Left: " + activeItem.currentX)
+                //console.log("Offset Top: " + activeItem.currentY)
+                //console.log("Offset Left: " + pixelsToViewportWidth(activeItem.currentX))
+                //console.log("Offset Top: " + pixelsToViewportWidth(activeItem.currentY))
+
+                if (!isWithinOuterBoundaries(boundaries, activeItem.currentX, activeItem.currentY, boxSizeX, boxSizeY))
+                {
+                    console.log("Outside of drag bouncries")
+                    return;
+                }
+
                 setTranslate(pixelsToViewportWidth(activeItem.currentX),
-                    pixelsToViewportHeight(activeItem.currentY), activeItem);
+                    pixelsToViewportWidth(activeItem.currentY), activeItem);
             }
         }
     }
@@ -158,18 +197,39 @@ async function generateDesign()
     // Fix for the familyTree.js overriding the sizing and setting it to 10
     console.log("Assigning box size")
     let boxSize = design["boxSize"];
-    for (let i = 10; i != boxSize; i++)
+    boxSizeY = boxSize / 4;
+    boxSizeX = boxSize / 8;
+    let i = 10;
+    while (i != boxSize)
     {
         if (i < boxSize)
         {
             console.log("Increasing size");
             document.getElementById("increaseBoxButton").click();
+            i++;
         } else
         {
             console.log("Decreasing size")
             document.getElementById("decreaseBoxButton").click();
+            i--;
         }
     }
+
+    console.log("Apply the font in a very clean fashion")
+
+    const banner = document.getElementById("bannerTextPath");
+    const fonts = ["Spectral, sans-serif", "'Sansita Swashed', cursive", "'Roboto Slab', serif"];
+    const fontStyleSelect = document.getElementById("fontInput");
+    boxes = document.getElementsByClassName("draggableBox");
+    banner.style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
+    for (let i = 0; i < boxes.length; i++)
+    {
+        boxes[i].getElementsByClassName("draggableBoxMiddleRow")[0]
+            .getElementsByClassName("draggableBoxInput")[0]
+            .style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
+    }
+    console.log("Selected font index: " + fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
+
     console.log("%c generation finished", "color:mediumpurple")
 }
 

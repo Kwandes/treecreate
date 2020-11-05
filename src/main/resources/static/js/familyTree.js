@@ -276,7 +276,9 @@ window.onload = function ()
             setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
                 pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
             clone.xOffset = cursorX - parentX - offsetX + scrollOffsetX;
+            console.log("xOffset : " + clone.xOffset + " CursorX : " + cursorX + " ParentX : " + parentX + " OffsetX : " + offsetX);
             clone.yOffset = cursorY - parentY - offsetY  + scrollOffsetY;
+            console.log("yOffset : " + clone.yOffset + " CursorY : " + cursorY + " ParentY : " + parentY + " OffsetY : " + offsetY);
 
             clone.style.background = assignBoxBackground(images);
             clone.style.backgroundSize = '100% 100%';
@@ -317,8 +319,13 @@ window.onload = function ()
                 activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
             } else
             {
+                console.log("Drag start: xOffset: " + activeItem.xOffset);
+                console.log("Drag start: yOffset: " + activeItem.yOffset);
+
                 activeItem.initialX = e.clientX - activeItem.xOffset
                 activeItem.initialY = e.clientY - activeItem.yOffset;
+                console.log("Drag start: initialX: " + activeItem.initialX);
+                console.log("Drag start: initialY: " + activeItem.initialY);
             }
         }
     }
@@ -405,8 +412,9 @@ function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSi
     let left = 0;
     let right = parseInt('50') - parseInt(boxSizeX);
 
-    //console.log("Current Y: " + pixelsToViewportWidth(currentY));
-    //console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
+    console.log("Current Y: " + pixelsToViewportWidth(currentY));
+    console.log("Current Z: " + pixelsToViewportWidth(currentX));
+    console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
     //console.log("Right: " + right);
 
     return ((pixelsToViewportWidth(currentY) > top &&
