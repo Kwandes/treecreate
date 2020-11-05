@@ -1,4 +1,4 @@
-window.onload = function ()
+function isMobile()
 {
     if (screen.width <= 699)
         {
