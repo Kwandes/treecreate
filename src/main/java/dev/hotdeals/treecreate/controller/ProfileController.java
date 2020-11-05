@@ -112,7 +112,7 @@ public class ProfileController
 
             LOGGER.info("User " + id + " information has been updated");
             userRepo.save(user);
-            return "redirect:account/info";
+            return "redirect:/account/info";
         }
     }
 
