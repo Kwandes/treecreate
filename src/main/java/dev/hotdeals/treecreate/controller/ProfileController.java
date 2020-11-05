@@ -49,7 +49,7 @@ public class ProfileController
         if (session.getAttribute("userId") == null)
         {
             LOGGER.info("Session " + session.getId() + " does not have a logged in user");
-            return "redirect:/aboutUs";
+            return "redirect:/productExample";
         }
 
         int id = 0;
@@ -64,8 +64,8 @@ public class ProfileController
         User defaultUser = userRepo.findById(id).orElse(null);
         if (defaultUser == null)
         {
-            LOGGER.warn("User doesn't exist, going to aboutUs");
-            return "redirect:/aboutUs";
+            LOGGER.warn("User doesn't exist, going to productExample");
+            return "redirect:/productExample";
         } else
         {
             model.addAttribute(defaultUser);
@@ -80,7 +80,7 @@ public class ProfileController
         if (session.getAttribute("userId") == null)
         {
             LOGGER.info("Session " + session.getId() + " does not have a logged in user");
-            return "redirect:/aboutUs";
+            return "redirect:/productExample";
         }
 
         int id = 0;
@@ -91,7 +91,7 @@ public class ProfileController
         } catch (NumberFormatException | NullPointerException e)
         {
             LOGGER.error("Provided user ID was invalid", e);
-            return "redirect:/aboutUs";
+            return "redirect:/productExample";
         }
 
         User user = userRepo.findById(id).orElse(null);
@@ -99,7 +99,7 @@ public class ProfileController
         if (user == null)
         {
             LOGGER.warn("User doesn't exist, going back");
-            return "redirect:/aboutUs";
+            return "redirect:/productExample";
 
         } else
         {
