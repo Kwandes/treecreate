@@ -9,6 +9,7 @@ import dev.hotdeals.treecreate.service.PasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 
@@ -254,7 +257,8 @@ public class ProfileController
     {
         String userID = treeController.getCurrentUser(request).getBody();
         User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
-        if (currentUser != null) {
+        if (currentUser != null)
+        {
             return new ResponseEntity<>(currentUser.getAcceptedCookies(), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -265,11 +269,76 @@ public class ProfileController
     {
         String userID = treeController.getCurrentUser(request).getBody();
         User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
-        if (currentUser != null) {
+        if (currentUser != null)
+        {
             currentUser.setAcceptedCookies(true);
             userRepo.save(currentUser);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/forgotPassword")
+    String forgotPasswordPage(Model model, @RequestParam(required = false, name = "id") String id,
+                              @RequestParam(required = false, name = "token") String token)
+    {
+        LOGGER.info("Opening the forgot password page");
+        if (id == null || token == null)
+        {
+            return "profile/forgotPassword";
+        } else
+        {
+            LOGGER.info("Opening the resetPassword page for id: " + id + " - token: " + token);
+            model.addAttribute("resetId", id);
+            model.addAttribute("resetToken", token);
+            return "profile/resetPassword";
+        }
+    }
+
+    @GetMapping("/forgotPassword/{email}")
+    ResponseEntity<String> submitForgotPassword(@PathVariable(name = "email") String email)
+    {
+        LOGGER.info("Sending a forgot password email to " + email);
+        String token = PasswordService.generateVerificationToken();
+        try
+        {
+            mailService.sendInfoMail("A request has been made to reset your password on Treecreate.dk" +
+                            "\nIf this was not you, you can ignore it" +
+                            "\n\nIn order to reset your password you can go to http://localhost:5000/forgotPassword?token=" + token,
+                    "Treecreate reset password request", email);
+            LOGGER.info("A request has been sent out, token " + token);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (MailException e)
+        {
+            LOGGER.error("An error occurred while sending a forgot password email for " + email, e);
+            return new ResponseEntity<>("An error occurred while sending a forgot password email for " + email, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/updatePassword")
+    ResponseEntity<String> updatePassword(@RequestBody String newPasswordInfo, Model model)
+    {
+        LOGGER.info("Received data: " + newPasswordInfo.toString());
+        String infoPattern = ":\"(\\w+)\".+:\"(\\w+)\".+:\"(\\w+)\"";
+        Pattern pattern = Pattern.compile(infoPattern);
+        Matcher matcher = pattern.matcher(newPasswordInfo.toString());
+        if (matcher.find())
+        {
+            if (matcher.groupCount() < 3)
+            {
+                LOGGER.info("Pattern failed to find all password info, found groups: " + matcher.groupCount());
+                return new ResponseEntity<>("Failed to find all necessary parameters", HttpStatus.BAD_REQUEST);
+            }
+        }
+        else
+        {
+            LOGGER.warn("Failed to find any new password information");
+            return new ResponseEntity<>("Failed to find any new password information", HttpStatus.BAD_REQUEST);
+        }
+
+        LOGGER.info("Updating the password for token id: " + matcher.group(1));
+        LOGGER.info("resetToken: " + matcher.group(2));
+        LOGGER.info("new password: " + matcher.group(3));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
