@@ -53,7 +53,7 @@ public class PaymentController
         } catch (NullPointerException e)
         {
             LOGGER.error("Cannot start a payment - user id obtained from the session is null");
-            return new ResponseEntity<>("Failed to obtain the user from the session. Please do report this to the developers",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to obtain the user from the session. Please do report this to the developers", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         LOGGER.info("Payment - User Id: " + id);
         User user = userRepo.findById(id).orElse(null);
@@ -101,7 +101,7 @@ public class PaymentController
         transaction.setPrice(totalPrice);
         transaction.setUser(user);
         transaction.setOrders(orderIdList);
-        transaction.setStatus("fetching"); // fallback for if the creation of the payment fails etc. It is set to "pending" once a link is created
+        transaction.setStatus("creating"); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
         transactionRepo.save(transaction);
         LOGGER.info("Transaction ID: " + transaction.getId());
         LOGGER.info("Transaction " + transaction.getId() + " - Creating a payment");
@@ -149,7 +149,7 @@ public class PaymentController
         } catch (IOException | InterruptedException e)
         {
             LOGGER.error("Transaction " + transaction.getId() + " - Payment request (getting the payment id) made a fucky wucky", e);
-            return new ResponseEntity<>("A request for obtaining a payment id has failed",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("A request for obtaining a payment id has failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         String orderIdPattern = "\\[\\{\"id\":(\\d+)";
         Pattern pattern = Pattern.compile(orderIdPattern);
@@ -183,7 +183,7 @@ public class PaymentController
         }
 
         LOGGER.info("Setting transaction " + transaction.getId() + " status to 'initial'");
-        transaction.setStatus("pending");
+        transaction.setStatus("initial");
         transactionRepo.save(transaction);
 
         LOGGER.info("Transaction " + transaction.getId() + " - Changing the status of orders to pending");
@@ -250,31 +250,102 @@ public class PaymentController
         return "payment/fail";
     }
 
-    /*
-    private static HttpRequest.BodyPublisher buildFormDataFromMap(Map<Object, Object> data) {
-        var builder = new StringBuilder();
-        for (Map.Entry<Object, Object> entry : data.entrySet()) {
-            if (builder.length() > 0) {
-                builder.append("&");
-            }
-            builder.append(URLEncoder.encode(entry.getKey().toString(), StandardCharsets.UTF_8));
-            builder.append("=");
-            builder.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8));
-        }
-        System.out.println(builder.toString());
-        return HttpRequest.BodyPublishers.ofString(builder.toString());
-    }
-    */
-
     @GetMapping(value = {"/basket", "shoppingBasket"})
     public String basket(Model model, HttpServletRequest request)
     {
         String userID = treeController.getCurrentUser(request).getBody();
         User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
-        if (currentUser != null) {
+        if (currentUser != null)
+        {
             model.addAttribute("user", currentUser);
         }
 
         return "payment/basket";
+    }
+
+    @GetMapping("/updateOrderStatuses")
+    ResponseEntity<String> updateOrderStatuses()
+    {
+        LOGGER.info("Updating order statuses");
+        var client = HttpClient.newBuilder().build();
+
+        var transactionList = transactionRepo.findAllByStatus("initial");
+        for (Transaction transaction : transactionList)
+        {
+            HttpResponse<String> response = null;
+            try
+            {
+                response = getPaymentByTransactionId(transaction.getId(), client);
+
+                if (response.statusCode() != 200)
+                {
+                    LOGGER.warn("Failed to find a payment with transaction id: " + transaction.getId());
+                    continue;
+                }
+            } catch (IOException | InterruptedException e)
+            {
+                LOGGER.error("An error occurred while trying to update orders for transaction " + transaction.getId(), e);
+                continue;
+            }
+
+            var paymentStatus = getPaymentStatus(response.body());
+            if (paymentStatus.equals(""))
+            {
+                LOGGER.warn("Failed to find the status for transaction " + transaction.getId());
+                continue;
+            }
+            if (paymentStatus.equals("initial") || paymentStatus.equals("creating"))
+            {
+                continue;
+            }
+            LOGGER.info("Found a transaction with a status other than initial: " + paymentStatus);
+
+            var orderIdList = transaction.getOrders().split(",");
+            for (String orderId : orderIdList)
+            {
+                TreeOrder order = treeOrderRepo.findById(Integer.parseInt(orderId)).orElse(null);
+                if (order == null)
+                {
+                    LOGGER.warn("Updating order statuses - Transaction " + transaction.getId() +
+                            " - failed to find an order with an id: " + orderId);
+                    continue;
+                }
+                order.setStatus(paymentStatus);
+                treeOrderRepo.save(order);
+            }
+            transaction.setStatus(paymentStatus);
+            transactionRepo.save(transaction);
+            LOGGER.info("Finished setting status for transaction " + transaction.getId() + " and its orders. New status: " + paymentStatus);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public HttpResponse<String> getPaymentByTransactionId(int id, HttpClient client) throws IOException, InterruptedException
+    {
+        String apiKey = customProperties.getQuickpaySecret();
+
+        var httpRequest = HttpRequest.newBuilder(
+                URI.create("https://api.quickpay.net/payments/?order_id=" + createPaymentOrderId(id)))
+                .header("accept", "application/json")
+                .header("Content-Type", "multipart/form-data")
+                .header("Accept-Version", "v10")
+                .header("Authorization", basicAuth("", apiKey))
+                .build();
+
+        return client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+    }
+
+    public String getPaymentStatus(String payment)
+    {
+        String statePattern = "state\":\"(\\w+)\"";
+        Pattern pattern = Pattern.compile(statePattern);
+        Matcher matcher = pattern.matcher(payment);
+        if (matcher.find())
+        {
+            return matcher.group(1);
+        } else
+        {
+            return "";
+        }
     }
 }
