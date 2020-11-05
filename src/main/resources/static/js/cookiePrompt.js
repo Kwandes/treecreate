@@ -18,7 +18,7 @@ async function getCookiesValidation()
 async function acceptCookies()
 {
     const response = await fetch(location.origin + "/acceptCookies");
-    hidePopup();
+    hideCookiePopup();
     return await response.text();
 }
 
