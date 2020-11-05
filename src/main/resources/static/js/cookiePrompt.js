@@ -1,10 +1,10 @@
-function hidePopup()
+function hideCookiePopup()
 {
     document.getElementById("cookieCover").style.display = "none";
     $('#cookiePromptModal').modal('hide');
 }
 
-function showPopup()
+function showCookiePopup()
 {
     $('#cookiePromptModal').modal();
 }
@@ -25,12 +25,14 @@ async function acceptCookies()
 async function validateCookies()
 {
     const response = await getCookiesValidation();
-    if (response === "true")
+    if (response === "false")
     {
-        hidePopup();
+        console.log("Showing Popup");
+        showCookiePopup();
     }
     else
     {
-        showPopup();
+        console.log("Hiding Popup");
+        hideCookiePopup();
     }
 }
