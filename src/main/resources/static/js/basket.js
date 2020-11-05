@@ -66,14 +66,14 @@ async function loadOrders()
     document.getElementById("totalTax").innerText = (totalPrice * 0.2) + 'kr';
 }
 
-async function pay()
+async function validateBasket()
 {
     console.log("Validating Delivery information")
     const orders = await fetchBasketItems();
     if (JSON.parse(orders).length === 0)
     {
         showBasketPopup("There are no orders to purchase", true)
-        return;
+        return false;
     }
     const inputName = document.getElementById('inputName');
     const inputPhoneNumber = document.getElementById('inputPhoneNumber');
@@ -85,32 +85,32 @@ async function pay()
     if (inputName.value === '')
     {
         showBasketPopup("The name is required", true);
-        return
+        return false;
     }
     if (inputPhoneNumber.value === '')
     {
         showBasketPopup("The phone number is required", true);
-        return
+        return false;
     }
     if (inputEmail.value === '')
     {
         showBasketPopup("The email is required", true);
-        return
+        return false;
     }
     if (inputStreetAddress.value === '')
     {
         showBasketPopup("The street address is required", true);
-        return
+        return false;
     }
     if (inputCity.value === '')
     {
         showBasketPopup("The city is required", true);
-        return
+        return false;
     }
     if (inputPostcode.value === '')
     {
         showBasketPopup("The postcode is required", true);
-        return
+        return false;
     }
 
     const termsCheckbox = document.getElementById('termsAndConditionsCheckbox');
@@ -119,10 +119,10 @@ async function pay()
     {
 
         showBasketPopup("You have to accept our terms and conditions", true)
-        return;
+        return false;
     }
-    console.log("The basket information is correct, proceeding to payment")
-    window.open("/payment_temp");
+    console.log("The basket information is correct")
+    return true;
 }
 
 // pretty much a copy of the basket.js#showPopup but only uses the normal popup
@@ -153,4 +153,37 @@ function showBasketPopup(text, errorPopup)
     {
         popupContainer.style.display = 'none'
     }, 4000);
+}
+
+async function goToPayment()
+{
+    const isValid = await validateBasket();
+    if (!isValid)
+    {
+        return;
+    }
+
+    console.log("Going to payment or smth");
+    fetch(location.origin + "/startPayment",
+    ).then(response =>
+    {
+        console.log("Starting a new payment has finished, status: " + response.status);
+        if (response.status === 200)
+        {
+            response.text().then(data =>
+            {
+                console.log("Returned data: " + data)
+                const paymentUrl = JSON.parse(data)['url'];
+                window.open(paymentUrl);
+            })
+        }
+        else
+        {
+            response.text().then(data =>
+            {
+                console.log("Returned data: " + data)
+                showBasketPopup(data, true)
+            })
+        }
+    })
 }

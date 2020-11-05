@@ -29,6 +29,10 @@ public class Transaction
     @Column(name = "currency", length = 3)
     private String currency;
 
+    @Basic
+    @Column(name = "status", length = 25)
+    private String status;
+
     public int getId()
     {
         return id;
@@ -79,6 +83,16 @@ public class Transaction
         this.orders = orders;
     }
 
+    public String getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -89,12 +103,13 @@ public class Transaction
                 price == that.price &&
                 Objects.equals(user, that.user) &&
                 Objects.equals(orders, that.orders) &&
-                Objects.equals(currency, that.currency);
+                Objects.equals(currency, that.currency) &&
+                Objects.equals(status, that.status);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, user, orders, price, currency);
+        return Objects.hash(id, user, orders, price, currency, status);
     }
 }

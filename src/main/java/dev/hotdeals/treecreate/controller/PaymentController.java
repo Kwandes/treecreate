@@ -20,9 +20,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.*;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
@@ -48,20 +46,28 @@ public class PaymentController
     ResponseEntity<String> startPayment(HttpServletRequest request)
     {
         LOGGER.info("Starting a new payment");
-        int id = Integer.parseInt(treeController.getCurrentUser(request).getBody());
+        int id;
+        try
+        {
+            id = Integer.parseInt(Objects.requireNonNull(treeController.getCurrentUser(request).getBody()));
+        } catch (NullPointerException e)
+        {
+            LOGGER.error("Cannot start a payment - user id obtained from the session is null");
+            return new ResponseEntity<>("Failed to obtain the user from the session. Please do report this to the developers",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         LOGGER.info("Payment - User Id: " + id);
         User user = userRepo.findById(id).orElse(null);
         if (user == null)
         {
             LOGGER.info("The user is yikes");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Failed to find a user with an ID of " + id, HttpStatus.NOT_FOUND);
         }
 
         LOGGER.info("Verifying verification");
         if (!user.getVerification().equals("verified"))
         {
             LOGGER.info("User " + user.getId() + " is not verified");
-            return new ResponseEntity<>("Not verified", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("User is not verified", HttpStatus.FORBIDDEN);
         }
         LOGGER.info("Everything looks okay, creating a new transaction for user " + user.getId());
         LOGGER.info("Getting all orders for user " + user.getId());
@@ -75,15 +81,19 @@ public class PaymentController
         sizeToPriceMap.put("30x30 cm", 995);
         for (TreeOrder order : orderList)
         {
-            totalAmountOfOrders += order.getAmount();
-            orderIdList += order.getOrderId() + ",";
-            int price = sizeToPriceMap.get(order.getSize());
-            totalPrice += price * order.getAmount();
+            if (order.getStatus().equals("active"))
+            {
+                totalAmountOfOrders += order.getAmount();
+                orderIdList += order.getOrderId() + ",";
+                int price = sizeToPriceMap.get(order.getSize());
+                totalPrice += price * order.getAmount();
+            }
         }
         orderIdList = orderIdList.substring(0, orderIdList.length() - 1);
         LOGGER.info("Order Id list: " + orderIdList);
         if (totalAmountOfOrders > 3)
             totalPrice = (int) (totalPrice * 0.75);
+        totalPrice *= 100; // Quickpay takes 2 digits as decimal places, so 1000 becomes 10,00
         LOGGER.info("Price: " + totalPrice);
         LOGGER.info("Creating a new transaction");
         Transaction transaction = new Transaction();
@@ -91,11 +101,12 @@ public class PaymentController
         transaction.setPrice(totalPrice);
         transaction.setUser(user);
         transaction.setOrders(orderIdList);
+        transaction.setStatus("fetching"); // fallback for if the creation of the payment fails etc. It is set to "pending" once a link is created
         transactionRepo.save(transaction);
         LOGGER.info("Transaction ID: " + transaction.getId());
-        LOGGER.info("Creating a payment");
+        LOGGER.info("Transaction " + transaction.getId() + " - Creating a payment");
 
-        LOGGER.info("Creating a payment with an id: " + createPaymentOrderId(transaction.getId()));
+        LOGGER.info("Transaction " + transaction.getId() + " - Creating a payment with an order id: " + createPaymentOrderId(transaction.getId()));
 
         String apiKey = customProperties.getQuickpaySecret();
         var client = HttpClient.newBuilder().build();
@@ -116,8 +127,8 @@ public class PaymentController
             client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e)
         {
-            LOGGER.error("Payment creation made a fucky wucky", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            LOGGER.error("Transaction " + transaction.getId() + " - Payment creation made a fucky wucky", e);
+            return new ResponseEntity<>("A request for creating a payment has failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         LOGGER.info("Getting the payment via the transaction id: " + createPaymentOrderId(transaction.getId()));
@@ -137,16 +148,16 @@ public class PaymentController
             //System.out.println(response.body());
         } catch (IOException | InterruptedException e)
         {
-            LOGGER.error("Payment request (getting the payment id) made a fucky wucky", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            LOGGER.error("Transaction " + transaction.getId() + " - Payment request (getting the payment id) made a fucky wucky", e);
+            return new ResponseEntity<>("A request for obtaining a payment id has failed",HttpStatus.INTERNAL_SERVER_ERROR);
         }
         String orderIdPattern = "\\[\\{\"id\":(\\d+)";
         Pattern pattern = Pattern.compile(orderIdPattern);
         Matcher matcher = pattern.matcher(response.body());
         if (!matcher.find())
         {
-            LOGGER.info("Failed to find the payment ID in the response body");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            LOGGER.info("Transaction " + transaction.getId() + " - Failed to find the payment ID in the response body");
+            return new ResponseEntity<>("Failed to extract the payment id from the payment order", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         String paymentId = matcher.group(1);
@@ -167,11 +178,30 @@ public class PaymentController
             response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e)
         {
-            LOGGER.error("Payment Link request made a fucky wucky", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            LOGGER.error("Transaction " + transaction.getId() + " - Payment Link request made a fucky wucky", e);
+            return new ResponseEntity<>("A request for obtaining a payment link has failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        LOGGER.info("Returning a link");
+        LOGGER.info("Setting transaction " + transaction.getId() + " status to 'initial'");
+        transaction.setStatus("pending");
+        transactionRepo.save(transaction);
+
+        LOGGER.info("Transaction " + transaction.getId() + " - Changing the status of orders to pending");
+        String[] idList = orderIdList.split(",");
+        for (String orderId : idList)
+        {
+            LOGGER.info("Transaction " + transaction.getId() + " - Handling order with an id: " + orderId);
+            TreeOrder order = treeOrderRepo.findById(Integer.parseInt(orderId)).orElse(null);
+            if (order == null)
+            {
+                LOGGER.warn("Failed to find order id: " + orderId + " in transaction id: " + transaction.getId() + ". The order might have incorrect status now");
+                break;
+            }
+            order.setStatus("pending");
+            treeOrderRepo.save(order);
+        }
+
+        LOGGER.info("Transaction " + transaction.getId() + " - Returning a link");
         return new ResponseEntity<>(response.body(), HttpStatus.OK);
     }
 
