@@ -1,7 +1,9 @@
 package dev.hotdeals.treecreate.controller;
 
+import dev.hotdeals.treecreate.model.ResetToken;
 import dev.hotdeals.treecreate.model.TreeOrder;
 import dev.hotdeals.treecreate.model.User;
+import dev.hotdeals.treecreate.repository.ResetTokenRepo;
 import dev.hotdeals.treecreate.repository.TreeOrderRepo;
 import dev.hotdeals.treecreate.repository.UserRepo;
 import dev.hotdeals.treecreate.service.MailService;
@@ -18,6 +20,7 @@ import org.springframework.web.context.request.WebRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -289,24 +292,58 @@ public class ProfileController
         } else
         {
             LOGGER.info("Opening the resetPassword page for id: " + id + " - token: " + token);
-            model.addAttribute("resetId", id);
-            model.addAttribute("resetToken", token);
+            ResetToken resetToken;
+            try
+            {
+                resetToken = resetTokenRepo.findById(Integer.parseInt(id)).orElse(null);
+            } catch (NumberFormatException e)
+            {
+                LOGGER.warn("Received token id was not an in");
+                return "profile/invalidResetLink";
+            }
+            if (resetToken == null)
+            {
+                LOGGER.warn("Received token id did not seem to match a real resetToken");
+                return "profile/invalidResetLink";
+            }
+            if (!resetToken.getToken().equals(token))
+            {
+                LOGGER.warn("Received token does not match a the token for id: " + resetToken.getId());
+                return "profile/invalidResetLink";
+            }
+            if (!resetToken.getIsActive())
+            {
+                LOGGER.warn("Received token is no not active");
+                return "profile/invalidResetLink";
+            }
+
+            model.addAttribute("resetId", resetToken.getId());
+            model.addAttribute("resetToken", resetToken.getToken());
             return "profile/resetPassword";
         }
     }
+
+    @Autowired
+    ResetTokenRepo resetTokenRepo;
 
     @GetMapping("/forgotPassword/{email}")
     ResponseEntity<String> submitForgotPassword(@PathVariable(name = "email") String email)
     {
         LOGGER.info("Sending a forgot password email to " + email);
-        String token = PasswordService.generateVerificationToken();
+        ResetToken resetToken = new ResetToken();
+        resetToken.setEmail(email);
+        resetToken.setToken(PasswordService.generateVerificationToken());
+        resetToken.setIsActive(true);
+        resetToken.setDateCreated(LocalDateTime.now().toString());
+        resetTokenRepo.save(resetToken);
         try
         {
             mailService.sendInfoMail("A request has been made to reset your password on Treecreate.dk" +
                             "\nIf this was not you, you can ignore it" +
-                            "\n\nIn order to reset your password you can go to http://localhost:5000/forgotPassword?token=" + token,
+                            "\n\nIn order to reset your password you can go to https://treecreate.dk/forgotPassword?id=" +
+                            resetToken.getId() + "&token=" + resetToken.getToken(),
                     "Treecreate reset password request", email);
-            LOGGER.info("A request has been sent out, token " + token);
+            LOGGER.info("A request has been sent out, token " + resetToken.getToken());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (MailException e)
         {
@@ -316,12 +353,12 @@ public class ProfileController
     }
 
     @PostMapping("/updatePassword")
-    ResponseEntity<String> updatePassword(@RequestBody String newPasswordInfo, Model model)
+    ResponseEntity<String> updatePassword(@RequestBody String newPasswordInfo)
     {
-        LOGGER.info("Received data: " + newPasswordInfo.toString());
+        LOGGER.info("Received data: " + newPasswordInfo);
         String infoPattern = ":\"(\\w+)\".+:\"(\\w+)\".+:\"(\\w+)\"";
         Pattern pattern = Pattern.compile(infoPattern);
-        Matcher matcher = pattern.matcher(newPasswordInfo.toString());
+        Matcher matcher = pattern.matcher(newPasswordInfo);
         if (matcher.find())
         {
             if (matcher.groupCount() < 3)
@@ -329,8 +366,7 @@ public class ProfileController
                 LOGGER.info("Pattern failed to find all password info, found groups: " + matcher.groupCount());
                 return new ResponseEntity<>("Failed to find all necessary parameters", HttpStatus.BAD_REQUEST);
             }
-        }
-        else
+        } else
         {
             LOGGER.warn("Failed to find any new password information");
             return new ResponseEntity<>("Failed to find any new password information", HttpStatus.BAD_REQUEST);
@@ -339,6 +375,43 @@ public class ProfileController
         LOGGER.info("Updating the password for token id: " + matcher.group(1));
         LOGGER.info("resetToken: " + matcher.group(2));
         LOGGER.info("new password: " + matcher.group(3));
+        int tokenId;
+        try
+        {
+            tokenId = Integer.parseInt(matcher.group(1));
+        } catch (NumberFormatException e)
+        {
+            LOGGER.warn("Failed to parse the tokenId from " + matcher.group(1) + " to an int");
+            return new ResponseEntity<>("Failed to parse the token Id", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        String resetToken = matcher.group(2);
+        String newPassword = PasswordService.encodePassword(matcher.group(3));
+        var foundToken = resetTokenRepo.findById(tokenId).orElse(null);
+        if (foundToken == null)
+        {
+            LOGGER.warn("Failed to find a reset token with an id: " + tokenId);
+            return new ResponseEntity<>("Failed to find a matching reset token", HttpStatus.NOT_FOUND);
+        }
+
+        if (!foundToken.getToken().equals(resetToken))
+        {
+            LOGGER.warn("Provided reset token does not match the required reset token");
+            return new ResponseEntity<>("Provided token does not match the required token", HttpStatus.FORBIDDEN);
+        }
+
+        String email = foundToken.getEmail();
+        var user = userRepo.findOneByEmail(email);
+        if (user == null)
+        {
+            LOGGER.warn("Failed to find a user with an email: " + email);
+            return new ResponseEntity<>("Failed to find a user", HttpStatus.NOT_FOUND);
+        }
+        LOGGER.info("Saving a new password for user " + user.getId());
+        user.setPassword(newPassword);
+        userRepo.save(user);
+        LOGGER.info("Setting the token status to inactive for token id: " + foundToken.getId());
+        foundToken.setIsActive(false);
+        resetTokenRepo.save(foundToken);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
