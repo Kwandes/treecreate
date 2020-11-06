@@ -37,10 +37,16 @@ public class IndexController
         return "home/productExample";
     }
 
-    @RequestMapping(value = "/termsAndConditions", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/orderTermsAndConditionsDanish", method = {RequestMethod.GET, RequestMethod.POST})
     public String termsAndConditions()
     {
-        return "home/termsAndConditions";
+        return "home/orderTermsAndConditionsDanish";
+    }
+
+    @RequestMapping(value = "/cookieTermsAndConditionsDanish", method = {RequestMethod.GET, RequestMethod.POST})
+    public String cookieTermsAndConditions()
+    {
+        return "home/cookieTermsAndConditionsDanish";
     }
 
     @ResponseBody

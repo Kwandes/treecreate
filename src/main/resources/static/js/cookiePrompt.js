@@ -6,7 +6,7 @@ function hideCookiePopup()
 
 function showCookiePopup()
 {
-    $('#cookiePromptModal').modal();
+    $('#cookiePromptModal').modal({backdrop: 'static', keyboard: false});
 }
 
 async function getCookiesValidation()
