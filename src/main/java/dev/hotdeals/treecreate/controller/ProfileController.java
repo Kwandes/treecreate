@@ -128,6 +128,12 @@ public class ProfileController
         return "profile/treeCollections";
     }
 
+    @GetMapping("/account/orders")
+    String orders()
+    {
+        return "profile/orders";
+    }
+
     @Autowired
     TreeOrderRepo treeOrderRepo;
 

@@ -1,0 +1,50 @@
+.orderContainer
+{
+    display: none;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+    min-width: 250px;
+    width: 90%;
+    min-height: 110px;
+    height: fit-content;
+    font-size: var(--fontRegular);
+    border: 2px var(--mainColor) solid;
+    border-radius: 10px;
+    margin: 1vh 0;
+}
+
+.orderInfo
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: fit-content;
+    min-height: 30px;
+    width: 40%;
+    min-width: 200px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.orderTitle
+{
+    font-size: var(--fontSubtitle);
+}
+
+.orderTransactionId
+{
+    font-size: var(--fontSmall);
+    margin: 0.5vw;
+    opacity: 0.8;
+}
+
+#orderInfoDisclaimer
+{
+    font-size: var(--fontSmall);
+    margin: 1vw;
+    opacity: 0.8;
+
+    order: 99;
+}

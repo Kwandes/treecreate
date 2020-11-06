@@ -348,4 +348,36 @@ public class PaymentController
             return "";
         }
     }
+
+    @GetMapping("/getTransaction")
+    ResponseEntity<List<Transaction>> getPayment(HttpServletRequest request)
+    {
+        LOGGER.info("Fetching transactions");
+        int id;
+        try
+        {
+            id = Integer.parseInt(Objects.requireNonNull(treeController.getCurrentUser(request).getBody()));
+        } catch (NullPointerException e)
+        {
+            LOGGER.error("Cannot fetch a transaction - user id obtained from the session is null");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        LOGGER.info("Get Transaction - User Id: " + id);
+        User user = userRepo.findById(id).orElse(null);
+        if (user == null)
+        {
+            LOGGER.info("The user is yikes");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        var transactionList = transactionRepo.findAllByUserId(user.getId());
+        if (transactionList.size() == 0)
+        {
+            LOGGER.info("Found 0 transactions for user " + user.getId());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        LOGGER.info("Found " + transactionList.size() + " transactions for user " + user.getId());
+        return new ResponseEntity<>(transactionList, HttpStatus.OK);
+    }
 }

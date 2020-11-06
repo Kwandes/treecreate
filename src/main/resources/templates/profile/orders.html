@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link th:href="@{/img/logos/treecreateLogo/browserLogo.svg}" rel="icon">
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link th:href="@{/styles/profile.css}" rel="stylesheet">
+    <link th:href="@{/styles/orders.css}" rel="stylesheet">
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/orders.js}"></script>
+    <script th:src="@{/js/cookiePrompt.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<section id="pageContainer">
+    <section th:replace="products/productTemplate :: #navigationContainer"></section>
+    <section id="contentContainer">
+        <div id="profileNavContainer">
+            <a href="/account/info">
+                <div class="profileNav" id="accountInfoButton">
+                    <span>Account info</span>
+                </div>
+            </a>
+            <a href="/account/collections" id="collectionsButton">
+                <div class="profileNav">
+                    <span>Tree collection</span>
+                </div>
+            </a>
+            <a href="/account/orders" id="ordersButton">
+                <div class="profileNav active">
+                    <span>Orders</span>
+                </div>
+            </a>
+            <a href="/logout" id="logoutButton">
+                <div class="profileNav">
+                    <span>Log out</span>
+                </div>
+            </a>
+        </div>
+        <div id="details">
+            <section class="orderContainer">
+                <span class="orderStatus orderInfo">Status: N/A</span>
+                <span class="orderDateCreate orderInfo">Delivered on: N/A</span>
+                <div class="orderShipmentInfo orderInfo">
+                    <span class="orderTitle">Design:</span>
+                    <span class="orderOrdersDesign">name: N/A</span>
+                    <span class="orderOrdersSize">Size: N/A</span>
+                    <span class="orderOrdersAmount">Amount: N/A</span>
+                </div>
+                <div class="orderShipmentInfo orderInfo">
+                    <span class="orderTitle">Delivery Address:</span>
+                    <span class="orderAddressStreetName">Street: N/A</span>
+                    <span class="orderAddressCity">City: YN/A</span>
+                    <span class="orderAddressPostcode">Postcode: N/A</span>
+                </div>
+                <span class="orderTotalPrice orderInfo">Total Price: N/A dkk</span>
+                <span class="orderTransactionId orderInfo">Order Id: N/A</span>
+            </section>
+            <span id="orderInfoDisclaimer">If you have any questions or issues with an order, you can contact us at info@treecreate.dk</span>
+            <script>generateOrders()</script>
+        </div>
+    </section>
+    <section th:replace="products/productTemplate :: #footerContainer"></section>
+</section>
+</body>
+</html>
