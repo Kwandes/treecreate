@@ -10,8 +10,8 @@
 - TREECREATE_JDBC_URL - an url pointing to the endpoint of your database, with the username and password included\
 *Example:* `jdbc:mysql://username:password@minecraft.net:3306/schemaName?serverTimezone=UTC`
 
-- TREECREATE_API_URL - an url you use to access the API to fetch data to/from. IN our case it is the website itself.\
-*Example:* `https://treecreate.dk`
+- TREECREATE_QUICKPAY_SECRET - we use quickpay for handling payments. This variable refers to te API key used to authenticate with their API\
+- TREECREATE_MAIL_PASS - we use one.com as our mail provider. This the is password used to authenticate with the email account\
 
 *Make sure to you have the environment variables setup with exactly matching names, otherwise the build/run will fail.*
 
@@ -19,11 +19,11 @@
 
 Navigate over to the project directory and run:
 ```
-docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_API_URL .
+docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS .
 ```
 For raspberry Pi and ARM architecture compatibility use **Dockerfile-arm** file
 ```
-docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_API_URL -f Dockerfile-arm .
+docker build -t treecreate-X.X.X --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
 ```
 
 This will compile the project and create an image.
@@ -32,7 +32,7 @@ The `--build-arg ARG` is used to add an environment variable during building of 
 
 After that you can start the image with:
  ```
- docker run --name treecreate-X.X.X -e TREECREATE_JDBC_URL --restart unless-stopped -dp 80:5000 treecreate-X.X.X
+ docker run --name treecreate-X.X.X -e TREECREATE_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp 80:5000 treecreate-X.X.X
 ```
 The port 80 can be changed to whichever port you use to access the website/webserver.\
 `--restart unless-stopped` will make sure the container automatically starts after a reboot of the host.

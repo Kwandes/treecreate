@@ -11,7 +11,8 @@ echo ""
 echo "Pre-run checks:"
 echo "Environment variables:"
 JDBC_URL=${TREECREATE_JDBC_URL}
-NORDEA_SECRET=${TREECREATE_NORDEA_SECRET}
+QUICKPAY_SECRET=${TREECREATE_QUICKPAY_SECRET}
+MAIL_PASS=${TREECREATE_MAIL_PASS}
 
 checkStatus="true"
 
@@ -22,11 +23,18 @@ else
   echo "JDBC URL is okay"
 fi
 
-if [[ -z $NORDEA_SECRET ]]; then
-  echo "! NORDEA_SECRET is missing!"
+if [[ -z $QUICKPAY_SECRET ]]; then
+  echo "! QUICKPAY_SECRET is missing!"
   checkStatus="false"
 else
-  echo "NORDEA_SECRET is okay"
+  echo "QUICKPAY_SECRET is okay"
+fi
+
+if [[ -z $MAIL_PASS ]]; then
+  echo "! MAIL_PASS is missing!"
+  checkStatus="false"
+else
+  echo "MAIL_PASS is okay"
 fi
 
 if [[ "$checkStatus" == "true" ]]; then
@@ -87,12 +95,12 @@ echo "Variable check successful"
 echo ""
 echo "Building an image $dockerName"
 echo ""
-docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_NORDEA_SECRET -f Dockerfile-arm .
+docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
 echo ""
 echo "Building finished"
 echo "Running the image $dockerName on ports $dockerPort"
 echo ""
-docker run --name $dockerName -e TREECREATE_JDBC_URL -e TREECREATE_NORDEA_SECRET --restart unless-stopped -dp $dockerPort $dockerName
+docker run --name $dockerName -e TREECREATE_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
 
 echo "The image has been run"
 echo "You can check its status with"
