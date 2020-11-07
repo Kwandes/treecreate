@@ -3,7 +3,7 @@
     position: fixed;
     left: 50%;
     top: 85vh;
-
+    z-index: 101;
     display: none;
 }
 
