@@ -17,6 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class LoginTests
 {
+    /*
     private static WebDriver webDriver;
     private final static int port = 5000;
 
@@ -196,4 +197,5 @@ public class LoginTests
             webDriver.quit();
         }
     }
+    */
 }
