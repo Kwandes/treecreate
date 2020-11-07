@@ -154,6 +154,12 @@ async function registerUser()
         return;
     }
 
+    if (signUpEmail.match("^\\b[\\w.!#$%&’*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)+\\b$") == null)
+    {
+        console.log("Provided email does not seem to be a valid email");
+        showSignupPopup("Provided email does not seem to be a valid email", true)
+        return;
+    }
     let result = await submitNewUser(signUpEmail, signUpPassword);
 
     if (result)
