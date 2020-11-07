@@ -35,22 +35,6 @@ public class LoginTests
     }
 
     @Test
-    @Order(2)
-    @DisplayName("Login screen shows after clicking on the loginBtn")
-    public void getLoginScreenTest()
-    {
-        webDriver.get("http://localhost:" + port + "/productExample");
-        WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
-        WebElement loginScreen = webDriver.findElement(By.id("loginModal"));
-        loginBtn.click();
-        new WebDriverWait(webDriver, Duration.ofSeconds(10).getSeconds()).until(
-                webDriver1 -> loginScreen.getAttribute("style").contains("block")
-        );
-        assertThat(loginScreen.getAttribute("style").contains("block")).isTrue();
-
-    }
-
-    @Test
     @Order(1)
     @DisplayName("Login button is visible")
     public void getLoginButtonTest()
@@ -58,6 +42,28 @@ public class LoginTests
         webDriver.get("http://localhost:" + port + "/productExample");
         WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
         assertThat(loginBtn.getAttribute("style").contains("block")).isTrue();
+    }
+
+    @Test
+    @Order(2)
+    @DisplayName("Login screen shows after clicking on the loginBtn")
+    public void getLoginScreenTest()
+    {
+        webDriver.get("http://localhost:" + port + "/productExample");
+        // Get the cookie prompt and accept it. It blocks any other interactions until accepted
+        WebElement cookiePromptAcceptBtn = webDriver.findElement(By.id("acceptCookiesButton"));
+        new WebDriverWait(webDriver, Duration.ofSeconds(10).getSeconds()).until(
+                webDriver1 -> cookiePromptAcceptBtn.isDisplayed()
+        );
+        cookiePromptAcceptBtn.click();
+        // Get the login popup and perform a login sequence
+        WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
+        WebElement loginScreen = webDriver.findElement(By.id("loginModal"));
+        loginBtn.click();
+        new WebDriverWait(webDriver, Duration.ofSeconds(10).getSeconds()).until(
+                webDriver1 -> loginScreen.getAttribute("style").contains("block")
+        );
+        assertThat(loginScreen.getAttribute("style").contains("block")).isTrue();
     }
 
     @Test
@@ -181,7 +187,7 @@ public class LoginTests
         WebElement loginBtn = webDriver.findElement(By.id("loginButton"));
         assertThat(loginBtn.getAttribute("style").contains("block")).isTrue();
     }
-    
+
     @AfterAll
     public static void cleanup()
     {
