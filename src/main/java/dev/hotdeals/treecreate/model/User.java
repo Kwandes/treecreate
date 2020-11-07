@@ -42,6 +42,10 @@ public class User
     private String postcode;
 
     @Basic
+    @Column(name = "country", length = 50)
+    private String country;
+
+    @Basic
     @Column(name = "access_level")
     private int accessLevel;
 
@@ -160,6 +164,16 @@ public class User
     public void setCity(String city)
     {
         this.city = city;
+    }
+
+    public String getCountry()
+    {
+        return country;
+    }
+
+    public void setCountry(String country)
+    {
+        this.country = country;
     }
 
     public String getPostcode()

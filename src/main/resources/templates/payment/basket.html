@@ -36,7 +36,7 @@
                     <input type="email" name="inputEmail" id="inputEmail" th:value="${user.email}" maxlength="254"
                            required>
 
-                    <label for="inputStreetAddress">Street Name:</label>
+                    <label for="inputStreetAddress">Street Address:</label>
                     <input type="text" name="inputStreetAddress" id="inputStreetAddress" th:value="${user.streetAddress}"
                            maxlength="99" required>
 
@@ -46,6 +46,12 @@
                     <label for="inputPostcode">Postcode:</label>
                     <input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}" maxlength="15"
                            required>
+
+                    <label for="inputCountry">Country:</label>
+                    <select name="inputCountry" id="inputCountry" th:field="${user.country}">
+                        <option value="Denmark">Denmark</option>
+                        <option value="Other">Other</option>
+                    </select>
 
                     <label for="checkboxNewsletter">
                         <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter"> subscribe to the

@@ -20,6 +20,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.*;
 
@@ -42,8 +44,8 @@ public class PaymentController
     @Autowired
     CustomProperties customProperties;
 
-    @GetMapping("/startPayment")
-    ResponseEntity<String> startPayment(HttpServletRequest request)
+    @PostMapping("/startPayment")
+    ResponseEntity<String> startPayment(HttpServletRequest request, @RequestBody Transaction transaction)
     {
         LOGGER.info("Starting a new payment");
         int id;
@@ -96,11 +98,24 @@ public class PaymentController
         totalPrice *= 100; // Quickpay takes 2 digits as decimal places, so 1000 becomes 10,00
         LOGGER.info("Price: " + totalPrice);
         LOGGER.info("Creating a new transaction");
-        Transaction transaction = new Transaction();
+        LOGGER.info("Transaction shipment info: " + transaction);
+        //Transaction transaction = new Transaction();
         transaction.setCurrency("dkk");
         transaction.setPrice(totalPrice);
         transaction.setUser(user);
         transaction.setOrders(orderIdList);
+        transaction.setStatus("creating"); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
+        transaction.setCreatedOn(LocalDateTime.now().toString()); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
+        var expectedDeliveryDate = LocalDateTime.now().plusWeeks(2);
+        if (expectedDeliveryDate.getDayOfWeek() == DayOfWeek.SATURDAY)
+        {
+            expectedDeliveryDate = expectedDeliveryDate.plusDays(2);
+        }
+        if (expectedDeliveryDate.getDayOfWeek() == DayOfWeek.SUNDAY)
+        {
+            expectedDeliveryDate = expectedDeliveryDate.plusDays(1);
+        }
+        transaction.setExpectedDeliveryDate(expectedDeliveryDate.toLocalDate().toString()); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
         transaction.setStatus("creating"); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
         transactionRepo.save(transaction);
         LOGGER.info("Transaction ID: " + transaction.getId());

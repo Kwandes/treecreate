@@ -163,8 +163,31 @@ async function goToPayment()
         return;
     }
 
+    const inputName = document.getElementById("inputName").value;
+    const inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
+    const inputEmail = document.getElementById("inputEmail").value;
+    const inputStreetAddress = document.getElementById("inputStreetAddress").value;
+    const inputCity = document.getElementById("inputCity").value;
+    const inputPostcode = document.getElementById("inputPostcode").value;
+    const inputCountry = document.getElementById("inputCountry").value;
+
+    let paymentParameters = {
+        name: inputName,
+        phoneNumber: inputPhoneNumber,
+        email: inputEmail,
+        streetAddress: inputStreetAddress,
+        city: inputCity,
+        postcode: inputPostcode,
+        country: inputCountry
+    };
+
     console.log("Going to payment or smth");
     fetch(location.origin + "/startPayment",
+        {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(paymentParameters)
+        }
     ).then(response =>
     {
         console.log("Starting a new payment has finished, status: " + response.status);
@@ -175,9 +198,10 @@ async function goToPayment()
                 console.log("Returned data: " + data)
                 const paymentUrl = JSON.parse(data)['url'];
                 window.open(paymentUrl);
+                // Redirect to the orders tab
+                window.location.replace(window.origin + "/account/orders");
             })
-        }
-        else
+        } else
         {
             response.text().then(data =>
             {

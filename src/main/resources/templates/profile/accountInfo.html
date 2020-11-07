@@ -59,6 +59,12 @@
                 <label for="inputPostcode">Postcode:</label>
                 <input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}" maxlength="15"
                        required>
+                <label for="inputCountry">Country:
+                    <select name="inputCountry" id="inputCountry" th:field="${user.country}">
+                        <option value="Denmark">Denmark</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
             </form>
             <button type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo">Update Info</button>
         </div>
