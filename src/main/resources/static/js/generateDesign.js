@@ -69,9 +69,8 @@ async function generateDesign()
         const scrollOffsetY = window.scrollY;
         let boxPositionX = parseInt(box["positionX"]);
         let boxPositionY = parseInt(box["positionY"]);
-        let cursorX = viewportToPixels( boxPositionX + 'vw') + boundaries.offsetLeft + boundaries.parentElement.offsetLeft;
-        console.log("Cursor X:" + cursorX);
-        let cursorY = viewportToPixels( boxPositionY + 'vw') + boundaries.offsetTop + boundaries.parentElement.offsetTop;
+        let cursorX = viewportToPixels(box['creationCursorX'] + 'vw');
+        let cursorY = viewportToPixels(box['creationCursorY'] + 'vw');
         let parentX = boundaries.offsetLeft;
         let parentY = boundaries.offsetTop;
         let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
@@ -200,6 +199,13 @@ async function generateDesign()
     boxSizeY = boxSize / 4;
     boxSizeX = boxSize / 8;
     let i = 10;
+    if (i == boxSize)
+    {
+        console.log("The sizes are the same")
+        document.getElementById("decreaseBoxButton").click();
+        document.getElementById("increaseBoxButton").click();
+    }
+
     while (i != boxSize)
     {
         if (i < boxSize)

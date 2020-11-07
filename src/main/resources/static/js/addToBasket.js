@@ -15,6 +15,7 @@ async function addToBasket()
     console.log("Amount: " + amount);
     console.log("Size: " + treeSize);
     console.log("Design: " + designJson);
+    console.dir(designJson)
 
     console.log("-")
 
@@ -70,11 +71,16 @@ function getDesign()
     {
         const boxStyle = boxArray[i].getAttribute("style").toString();
         const text = boxArray[i].getElementsByClassName("draggableBoxInput").item(0).innerHTML.toString();
+        const creationCursorX = boxArray[i].getElementsByClassName("creationCursorX")[0].value;
+        const creationCursorY = boxArray[i].getElementsByClassName("creationCursorY")[0].value;
 
+        console.log("Creation cursor X: " + creationCursorX)
+        console.log("Creation cursor Y: " + creationCursorY)
         const positionPattern = 'translate3d\\((-?\\d+\\.\\d+)vw,\\s(-?\\d+\\.\\d+)vw';
         let positionMatch = boxStyle.match(positionPattern)
         const positionX = positionMatch[1];
         const positionY = positionMatch[2];
+
 
         const boxStylePattern = '(box\\d+)\\.svg';
         const boxDesign = boxStyle.match(boxStylePattern)[1];
@@ -84,6 +90,8 @@ function getDesign()
             text: text,
             positionX: positionX,
             positionY: positionY,
+            creationCursorX: creationCursorX,
+            creationCursorY: creationCursorY,
             boxDesign: boxDesign
         });
         familyTreeDesign.boxes.push(JSON.parse(boxInfo));

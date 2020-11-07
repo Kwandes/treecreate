@@ -10,6 +10,10 @@ public class FamilyTreeBox
 
     String positionX;
 
+    String creationCursorX;
+
+    String creationCursorY;
+
     String boxDesign;
 
     public FamilyTreeBox()
@@ -56,6 +60,26 @@ public class FamilyTreeBox
         this.positionX = positionX;
     }
 
+    public String getCreationCursorX()
+    {
+        return creationCursorX;
+    }
+
+    public void setCreationCursorX(String creationCursorX)
+    {
+        this.creationCursorX = creationCursorX;
+    }
+
+    public String getCreationCursorY()
+    {
+        return creationCursorY;
+    }
+
+    public void setCreationCursorY(String creationCursorY)
+    {
+        this.creationCursorY = creationCursorY;
+    }
+
     public String getBoxDesign()
     {
         return boxDesign;
@@ -73,6 +97,8 @@ public class FamilyTreeBox
                 ", text='" + text + '\'' +
                 ", positionY='" + positionY + '\'' +
                 ", positionX='" + positionX + '\'' +
+                ", creationCursorX='" + creationCursorX + '\'' +
+                ", creationCursorY='" + creationCursorY + '\'' +
                 ", boxDesign='" + boxDesign + '\'' +
                 '}';
     }
@@ -84,6 +110,8 @@ public class FamilyTreeBox
                 ",\"text\":\"" + text + "\"" +
                 ",\"positionY\":\"" + positionY + "\"" +
                 ",\"positionX\":\"" + positionX + "\"" +
+                ",\"creationCursorX\":\"" + creationCursorX + "\"" +
+                ",\"creationCursorY\":\"" + creationCursorY + "\"" +
                 ",\"boxDesign\":\"" + boxDesign + "\"" +
                 '}';
     }

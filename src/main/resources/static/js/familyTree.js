@@ -254,6 +254,9 @@ window.onload = function ()
 
             let cursorX = e.clientX;
             let cursorY = e.clientY;
+            clone.getElementsByClassName("creationCursorX")[0].value = pixelsToViewportWidth(cursorX);
+            clone.getElementsByClassName("creationCursorY")[0].value = pixelsToViewportWidth(cursorY);
+
             const scrollOffsetX = window.scrollX;
             const scrollOffsetY = window.scrollY;
             let parentX = boundaries.offsetLeft;
