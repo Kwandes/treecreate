@@ -1,6 +1,6 @@
 #addToBasketContainer
 {
-    width: 70vw;
+    width: 40vw;
     min-height: 50vh;
     height: fit-content;
     display: flex;
@@ -21,7 +21,7 @@
 
     height: 5vh;
     margin: 2vh;
-    width: 68vw;
+    width: 90%;
 }
 
 #addToBasketBackBtn
@@ -49,28 +49,6 @@
     flex-direction: row;
     flex-flow: row wrap;
     justify-content: space-around;
-}
-
-#addToBasketTreeDesign
-{
-    min-width: 450px;
-    width: 42vw;
-    margin: 1vw;
-    min-height: 30vh;
-    height: fit-content;
-    border: 1px var(--mainColor) solid;
-}
-
-#addToBasketTreeImage
-{
-    background-image: url("../img/images/backgrounds/addToBasketDesignTree.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    min-width: 450px;
-    min-height: 450px;
-    width: 42vw;
-    height: 27vw;
 }
 
 #addToBasketDetails
@@ -264,7 +242,7 @@
     flex-flow: row wrap;
     justify-content: space-around;
 
-    width: 60vw;
+    width: 100%;
     min-height: 10vh;
     height: fit-content;
     margin: 2vh;
@@ -272,8 +250,9 @@
 
 #addToBasketFooter p
 {
-    font-size: var(--fontRegular);
-    width: 30%;
+    font-size: var(--fontSmall);
+    min-width: 200px;
+    width: 40%;
     height: fit-content;
     opacity: 0.75;
 }
@@ -292,7 +271,7 @@
 /* Modal stuff */
 #addToBasketModal .modal-dialog
 {
-    margin: 10vh 15vw 0 15vw !important;
+    margin: 10vh auto 0 auto !important;
 }
 
 ::placeholder
