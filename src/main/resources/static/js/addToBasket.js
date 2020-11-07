@@ -52,9 +52,11 @@ function getDesign()
     const fontStyle = document.getElementById("fontInput").selectedIndex;
     const isBigFont = document.getElementById("fontSizeInput").checked
     const boxSize = document.getElementById("boxSizeInput").value;
+    const nameInput = document.getElementById("nameInput").value;
 
     let familyTreeDesign = JSON.parse(JSON.stringify({
         id: 1,
+        name: nameInput,
         bannerDesign: bannerDesign,
         bannerText: bannerText,
         fontStyle: fontStyle,

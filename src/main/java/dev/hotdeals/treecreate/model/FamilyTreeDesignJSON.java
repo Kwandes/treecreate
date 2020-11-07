@@ -6,6 +6,8 @@ public class FamilyTreeDesignJSON
 {
     int id;
 
+    String name;
+
     String bannerDesign;
 
     String bannerText;
@@ -30,6 +32,16 @@ public class FamilyTreeDesignJSON
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     public String getBannerDesign()
@@ -96,6 +108,7 @@ public class FamilyTreeDesignJSON
     {
         return "FamilyTreeDesign{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
                 ", bannerDesign='" + bannerDesign + '\'' +
                 ", bannerText='" + bannerText + '\'' +
                 ", fontStyle='" + fontStyle + '\'' +
@@ -116,6 +129,7 @@ public class FamilyTreeDesignJSON
         asf = asf.substring(0, asf.length()-1); // strip the extra ,
         return "{"+
                 "\"id\":" + id +
+                ",\"name\":\"" + name + "\"" +
                 ",\"bannerDesign\":\"" + bannerDesign + "\"" +
                 ",\"bannerText\":\"" + bannerText + "\"" +
                 ",\"fontStyle\":" + fontStyle +

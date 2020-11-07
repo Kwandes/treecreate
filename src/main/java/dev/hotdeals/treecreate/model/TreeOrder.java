@@ -105,15 +105,15 @@ public class TreeOrder
         TreeOrder order = (TreeOrder) o;
         return orderId == order.orderId &&
                 amount == order.amount &&
-                size.equals(order.size) &&
-                status.equals(order.status) &&
+                Objects.equals(size, order.size) &&
+                Objects.equals(status, order.status) &&
                 Objects.equals(treeDesign, order.treeDesign) &&
-                user.equals(order.user);
+                Objects.equals(user, order.user);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(orderId, treeDesign, amount, user);
+        return Objects.hash(orderId, amount, size, status, treeDesign, user);
     }
 }

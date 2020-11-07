@@ -98,24 +98,35 @@
     height: fit-content;
     padding: 1vh 0;
     width: 100%;
-    margin: 1vh 0;
 }
 
-#addToBasketPrice
+#addToBasketName, #addToBasketPrice
 {
     flex-direction: row;
 }
 
-#priceLabel
+#nameLabel, #priceLabel
 {
     font-size: var(--fontSubtitle);
+}
+
+#nameInput, #priceInput
+{
+    font-size: var(--fontSubtitle);
+    min-width: 100px;
+    width: 10vw;
+}
+
+#priceLabel
+{
+    width: 10vw;
+    text-align: right;
 }
 
 #priceInput
 {
     font-size: var(--fontSubtitle);
-    min-width: 100px;
-    width: 10vw;
+    border: none;
 }
 
 .fancySelection
