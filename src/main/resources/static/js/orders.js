@@ -21,10 +21,37 @@ async function generateOrders()
         let orderItem = orderBaseline.cloneNode(true);
         orderItem.style.display = "flex";
 
-        orderItem.getElementsByClassName('orderStatus')[0].innerText = "Status: " + order['status'];
+        let status = order['status'];
+        if (status === "initial")
+        {
+            status = "Waiting for payment";
+        }
+        if (status === "new")
+        {
+            status = "Payment Successful";
+        }
+
+        orderItem.getElementsByClassName('orderStatus')[0].innerText = "Status: " + status;
         orderItem.getElementsByClassName('orderTotalPrice')[0].innerText = "Total Price: " + (order['price']/100) + " dkk";
         console.log("Order id: " + order['id']);
         orderItem.getElementsByClassName("orderTransactionId")[0].innerText = "Order ID: " + order['id'];
+
+        let createdOn = order['createdOn'];
+        try
+        {
+            createdOn = createdOn.split(".")[0];
+            createdOn = createdOn.replace("T", " ");
+        } catch (e)
+        {
+            console.log("%cFailed to handle createdOn properly: " + e, "color:red");
+            createdOn = "N/A";
+        }
+        orderItem.getElementsByClassName("orderDateCreated")[0].innerText = "Created on: " + createdOn;
+        orderItem.getElementsByClassName("orderExpectedDelivery")[0].innerText = "Expected Delivery Date: " + order['expectedDeliveryDate'];
+
+        orderItem.getElementsByClassName("orderAddressStreetName")[0].innerText = "Street: " + order['streetAddress'];
+        orderItem.getElementsByClassName("orderAddressCity")[0].innerText = "City: " + order['city'];
+        orderItem.getElementsByClassName("orderAddressPostcode")[0].innerText = "Postcode: " + order['postcode'];
 
         detailsPage.append(orderItem)
     }

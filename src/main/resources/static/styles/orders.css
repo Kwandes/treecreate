@@ -28,6 +28,27 @@
     margin: 5px;
 }
 
+.orderHeader
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-flow: row wrap;
+    text-align: center;
+    border-bottom: 2px var(--mainColor) solid;
+    word-wrap: normal;
+}
+
+.orderHeader .orderInfo
+{
+    font-size: var(--fontRegular);
+    width: 30%;
+    min-width: 100px;
+    height: fit-content;
+    min-height: 30px;
+}
+
 .orderTitle
 {
     font-size: var(--fontSubtitle);
