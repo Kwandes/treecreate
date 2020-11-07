@@ -353,6 +353,10 @@ public class PaymentController
     ResponseEntity<List<Transaction>> getPayment(HttpServletRequest request)
     {
         LOGGER.info("Fetching transactions");
+        LOGGER.info("First, update the existing orders etc");
+        updateOrderStatuses();
+
+        LOGGER.info("Actual fetching transactions");
         int id;
         try
         {

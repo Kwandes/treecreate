@@ -97,9 +97,11 @@ function setLoginStatus(isLoggedIn)
 
 function isLoggedIn()
 {
+    console.log("Checking login status...");
     fetch(location.origin + "/isLoggedIn")
-        .then(response =>
+        .then(async response =>
         {
+            console.log("%cFetching login info finished, status: " + response.status, "color:mediumpurple");
             response.json().then(data =>
             {
                 if (data.toString() === 'true')
@@ -108,6 +110,12 @@ function isLoggedIn()
                 }
                 setLoginStatus(data.toString() === 'true');
             });
+
+            // Only trigger once isLoggedIN fetch has finished
+            console.log("Validating cookies...");
+            await validateCookies();
+            console.log("Updating the basket...");
+            await updateBasket();
         });
 }
 

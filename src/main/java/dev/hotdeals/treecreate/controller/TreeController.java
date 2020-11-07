@@ -79,7 +79,7 @@ public class TreeController
     @GetMapping("/getTreeOrders")
     ResponseEntity<List<TreeOrder>> getTreeOrder(HttpServletRequest request, @RequestParam(required = false, name = "status") String orderStatus)
     {
-        LOGGER.info("Getting Tree orders");
+        LOGGER.info("Getting Tree orders for session " + request.getSession().getId());
         int userId = 0;
         try
         {

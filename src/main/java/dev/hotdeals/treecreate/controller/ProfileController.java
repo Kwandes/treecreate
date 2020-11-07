@@ -243,6 +243,8 @@ public class ProfileController
     @RequestMapping(value = "isLoggedIn", method = {RequestMethod.GET, RequestMethod.POST})
     ResponseEntity<Boolean> isLoggedIn(HttpServletRequest request)
     {
+        LOGGER.info("Validating login for session " + request.getSession().getId() + " - status: " +
+                (request.getSession().getAttribute("userId") != null));
         return new ResponseEntity<>(request.getSession().getAttribute("userId") != null, HttpStatus.OK);
     }
 
@@ -276,12 +278,14 @@ public class ProfileController
     @GetMapping("/acceptCookies")
     ResponseEntity<String> acceptCookies(HttpServletRequest request)
     {
+        LOGGER.info("Cookies accept request has been received for session " + request.getSession().getId());
         String userID = treeController.getCurrentUser(request).getBody();
         User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
         if (currentUser != null)
         {
             currentUser.setAcceptedCookies(true);
             userRepo.save(currentUser);
+            LOGGER.info("Cookies have been accepted by user " + currentUser.getId());
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
