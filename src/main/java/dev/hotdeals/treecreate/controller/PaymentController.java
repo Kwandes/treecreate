@@ -399,4 +399,11 @@ public class PaymentController
         LOGGER.info("Found " + transactionList.size() + " transactions for user " + user.getId());
         return new ResponseEntity<>(transactionList, HttpStatus.OK);
     }
+
+    @PostMapping("/paymentCallback")
+    ResponseEntity<String> paymentCallback(@RequestBody String body)
+    {
+        LOGGER.info("Recieved a callback from quickpay:\n" + body);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
