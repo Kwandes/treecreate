@@ -134,6 +134,7 @@ async function registerUser()
     console.log("Registration of a new user started");
     const signUpEmail = document.getElementById("signUpEmail").value.toString();
     const signUpPassword = document.getElementById("signUpPassword").value.toString();
+    const signupConfirmPassword = document.getElementById("signupConfirmPassword").value.toString();
 
     if (signUpEmail === '')
     {
@@ -143,6 +144,13 @@ async function registerUser()
     } else if (signUpPassword === '')
     {
         showSignupPopup('Password is required to register a new account', true);
+        return;
+    }
+
+    if (signUpPassword !== signupConfirmPassword)
+    {
+        console.log("The passwords don't match");
+        showSignupPopup("The passwords don't match", true);
         return;
     }
 
