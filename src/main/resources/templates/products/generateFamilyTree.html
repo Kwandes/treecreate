@@ -17,8 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="">
-    <script th:src="@{/js/familyTree.js}"></script>
-    <script th:src="@{/js/generateDesign.js}"></script>
     <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/basket.js}"></script>
     <script th:src="@{/js/addToBasket.js}"></script>
@@ -272,8 +270,11 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
             </div>
         </div>
     </div>
-    <script>generateDesign()</script>
+
 </section>
 <section th:replace="products/productTemplate :: #footerContainer"></section>
+<script th:src="@{/js/familyTree.js}"></script>
+<script th:src="@{/js/generateDesign.js}"></script>
+<script>generateDesign()</script>
 </body>
 </html>

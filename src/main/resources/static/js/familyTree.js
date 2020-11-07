@@ -55,13 +55,12 @@ function assignBoxBackground(imgArray)
     return 'url(' + imgArray[imageNumber] + ') 100% 100%';
 }
 
-window.onload = function ()
-{
+
     const imgPath = "../img/images/boxDesign/box01/";
     const bannerPath = "../img/images/banner/banner";
     const images = getBoxImageSources(9, imgPath);
-    const boundaries = document.getElementById("draggableBoxContainer");
     const boxes = document.getElementsByClassName("draggableBox");
+    const boundaries = document.getElementById("draggableBoxContainer");
     const bannerInput = document.getElementById("bannerTextInput");
     const banner = document.getElementById("bannerTextPath");
     const bannerContainer = document.getElementById("familyTreeBanner");
@@ -241,61 +240,68 @@ window.onload = function ()
         {
 
             let clone = boxes[0].cloneNode(true);
-
-            // box style
-            clone.style.display = 'flex';
-            clone.style.flexWrap = 'wrap';
-            clone.style.position = 'absolute';
-            clone.style.width = boxSizeX + 'vw';
-            clone.style.height = boxSizeY + 'vw';
-            //clone.style.top = '0vh';
-            //clone.style.left = '0vw';
-
-
             let cursorX = e.clientX;
             let cursorY = e.clientY;
-            clone.getElementsByClassName("creationCursorX")[0].value = pixelsToViewportWidth(cursorX);
-            clone.getElementsByClassName("creationCursorY")[0].value = pixelsToViewportWidth(cursorY);
 
-            const scrollOffsetX = window.scrollX;
-            const scrollOffsetY = window.scrollY;
-            let parentX = boundaries.offsetLeft;
-            let parentY = boundaries.offsetTop;
-            let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
-            let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
-            //console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
-            //console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
-
-            if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
-            {
-                //console.log("Outside of bouncries")
-                return;
-            }
-
-            // create the box at the cursor coordinates
-            boundaries.appendChild(clone);
-            //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
-            //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
-            setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
-                pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
-            clone.xOffset = cursorX - parentX - offsetX + scrollOffsetX;
-            console.log("xOffset : " + clone.xOffset + " CursorX : " + cursorX + " ParentX : " + parentX + " OffsetX : " + offsetX);
-            clone.yOffset = cursorY - parentY - offsetY  + scrollOffsetY;
-            console.log("yOffset : " + clone.yOffset + " CursorY : " + cursorY + " ParentY : " + parentY + " OffsetY : " + offsetY);
-
-            clone.style.background = assignBoxBackground(images);
-            clone.style.backgroundSize = '100% 100%';
-
-            // add events listeners on the drag button
-            let button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
-            // touch input
-            button.addEventListener("touchstart", dragStart, false);
-            button.addEventListener("touchend", dragEnd, false);
-            // mouse input
-            button.addEventListener("mousedown", dragStart, false);
-            button.addEventListener("mouseup", dragEnd, false);
+            constructBox(clone, cursorX, cursorY);
         }
     }
+
+    function constructBox(clone, cursorX, cursorY)
+    {
+        // box style
+        clone.style.display = 'flex';
+        clone.style.flexWrap = 'wrap';
+        clone.style.position = 'absolute';
+        clone.style.width = boxSizeX + 'vw';
+        clone.style.height = boxSizeY + 'vw';
+        //clone.style.top = '0vh';
+        //clone.style.left = '0vw';
+
+
+
+        clone.getElementsByClassName("creationCursorX")[0].value = pixelsToViewportWidth(cursorX);
+        clone.getElementsByClassName("creationCursorY")[0].value = pixelsToViewportWidth(cursorY);
+
+        const scrollOffsetX = window.scrollX;
+        const scrollOffsetY = window.scrollY;
+        let parentX = boundaries.offsetLeft;
+        let parentY = boundaries.offsetTop;
+        let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
+        let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
+        //console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
+        //console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
+
+        if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
+        {
+            //console.log("Outside of bouncries")
+            return;
+        }
+
+        // create the box at the cursor coordinates
+        boundaries.appendChild(clone);
+        //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
+        //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
+        setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
+            pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
+        clone.xOffset = cursorX - parentX - offsetX + scrollOffsetX;
+        console.log("xOffset : " + clone.xOffset + " CursorX : " + cursorX + " ParentX : " + parentX + " OffsetX : " + offsetX);
+        clone.yOffset = cursorY - parentY - offsetY  + scrollOffsetY;
+        console.log("yOffset : " + clone.yOffset + " CursorY : " + cursorY + " ParentY : " + parentY + " OffsetY : " + offsetY);
+
+        clone.style.background = assignBoxBackground(images);
+        clone.style.backgroundSize = '100% 100%';
+
+        // add events listeners on the drag button
+        let button = clone.getElementsByClassName("dragDraggableBoxButton")[0];
+        // touch input
+        button.addEventListener("touchstart", dragStart, false);
+        button.addEventListener("touchend", dragEnd, false);
+        // mouse input
+        button.addEventListener("mousedown", dragStart, false);
+        button.addEventListener("mouseup", dragEnd, false);
+    }
+
 
     function dragStart(e)
     {
@@ -384,7 +390,7 @@ window.onload = function ()
                     pixelsToViewportWidth(activeItem.currentY), activeItem);
         }
     }
-}
+
 
 function isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY)
 {
