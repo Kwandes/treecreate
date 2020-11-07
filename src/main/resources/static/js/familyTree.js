@@ -2,7 +2,7 @@ let boxInputLimit = 29;
 
 function setTranslate(xPos, yPos, element) // Uses viewport
 {
-    //console.log("Translate: " + xPos + 'vw, ' + yPos + 'vw, 0');
+    console.log("Translate: " + xPos + 'vw, ' + yPos + 'vw, 0');
     element.style.transform = "translate3d(" + xPos + "vw, "
         + yPos + "vw, 0)";
 }
@@ -240,8 +240,8 @@ function assignBoxBackground(imgArray)
         {
 
             let clone = boxes[0].cloneNode(true);
-            let cursorX = e.clientX;
-            let cursorY = e.clientY;
+            let cursorX = pixelsToViewportWidth(e.clientX);
+            let cursorY = pixelsToViewportWidth(e.clientY);
 
             constructBox(clone, cursorX, cursorY);
         }
@@ -260,21 +260,21 @@ function assignBoxBackground(imgArray)
 
 
 
-        clone.getElementsByClassName("creationCursorX")[0].value = pixelsToViewportWidth(cursorX);
-        clone.getElementsByClassName("creationCursorY")[0].value = pixelsToViewportWidth(cursorY);
+        clone.getElementsByClassName("creationCursorX")[0].value = cursorX;
+        clone.getElementsByClassName("creationCursorY")[0].value = cursorY;
 
-        const scrollOffsetX = window.scrollX;
-        const scrollOffsetY = window.scrollY;
-        let parentX = boundaries.offsetLeft;
-        let parentY = boundaries.offsetTop;
-        let offsetX = viewportToPixels(boxSizeX + 'vw') / 2;
-        let offsetY = viewportToPixels(boxSizeY + 'vw') / 2;
-        //console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
-        //console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
+        const scrollOffsetX = pixelsToViewportWidth(window.scrollX);
+        const scrollOffsetY = pixelsToViewportWidth(window.scrollY);
+        let parentX = pixelsToViewportWidth(boundaries.offsetLeft);
+        let parentY = pixelsToViewportWidth(boundaries.offsetTop);
+        let offsetX = boxSizeX / 2;
+        let offsetY = boxSizeY / 2;
+        console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
+        console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
 
         if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
         {
-            //console.log("Outside of bouncries")
+            console.log("Outside of bouncries")
             return;
         }
 
@@ -282,11 +282,11 @@ function assignBoxBackground(imgArray)
         boundaries.appendChild(clone);
         //clone.style.left = pixelsToViewportWidth(cursorX - parentX - offsetX) + 'vw';
         //clone.style.top = pixelsToViewportHeight(cursorY - parentY - offsetY)  + 'vh';
-        setTranslate(pixelsToViewportWidth(cursorX - parentX - offsetX + scrollOffsetX),
-            pixelsToViewportWidth(cursorY - parentY - offsetY + scrollOffsetY), clone);
-        clone.xOffset = cursorX - parentX - offsetX + scrollOffsetX;
+        setTranslate(cursorX - parentX - offsetX + parseInt(scrollOffsetX),
+            cursorY - parentY - offsetY + parseInt(scrollOffsetY), clone);
+        clone.xOffset = cursorX - parentX - offsetX + parseInt(scrollOffsetX);
         console.log("xOffset : " + clone.xOffset + " CursorX : " + cursorX + " ParentX : " + parentX + " OffsetX : " + offsetX);
-        clone.yOffset = cursorY - parentY - offsetY  + scrollOffsetY;
+        clone.yOffset = cursorY - parentY - offsetY  + parseInt(scrollOffsetY);
         console.log("yOffset : " + clone.yOffset + " CursorY : " + cursorY + " ParentY : " + parentY + " OffsetY : " + offsetY);
 
         clone.style.background = assignBoxBackground(images);
@@ -331,8 +331,10 @@ function assignBoxBackground(imgArray)
                 console.log("Drag start: xOffset: " + activeItem.xOffset);
                 console.log("Drag start: yOffset: " + activeItem.yOffset);
 
-                activeItem.initialX = e.clientX - activeItem.xOffset
-                activeItem.initialY = e.clientY - activeItem.yOffset;
+                activeItem.initialX = pixelsToViewportWidth(e.clientX) - activeItem.xOffset
+                activeItem.initialY = pixelsToViewportWidth(e.clientY) - activeItem.yOffset;
+                console.log("Drag start: clientX: " + pixelsToViewportWidth(e.clientX));
+                console.log("Drag start: clientY: " + pixelsToViewportWidth(e.clientY));
                 console.log("Drag start: initialX: " + activeItem.initialX);
                 console.log("Drag start: initialY: " + activeItem.initialY);
             }
@@ -364,8 +366,8 @@ function assignBoxBackground(imgArray)
             } else
             {
                 //console.log("Initials: " + activeItem.initialX + window.scrollX + ', ' + activeItem.initialY);
-                activeItem.currentX = e.clientX - activeItem.initialX;
-                activeItem.currentY = e.clientY - activeItem.initialY;
+                activeItem.currentX = pixelsToViewportWidth(e.clientX) - activeItem.initialX;
+                activeItem.currentY = pixelsToViewportWidth(e.clientY) - activeItem.initialY;
             }
 
             activeItem.xOffset = activeItem.currentX;
@@ -386,33 +388,37 @@ function assignBoxBackground(imgArray)
                 return;
             }
 
-                setTranslate(pixelsToViewportWidth(activeItem.currentX),
-                    pixelsToViewportWidth(activeItem.currentY), activeItem);
+                setTranslate(activeItem.currentX,
+                    activeItem.currentY, activeItem);
         }
     }
 
 
 function isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY)
 {
-    const scrollOffsetX = window.scrollX;
-    const scrollOffsetY = window.scrollY;
+    const scrollOffsetX = pixelsToViewportWidth(window.scrollX);
+    const scrollOffsetY = pixelsToViewportWidth(window.scrollY);
     let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop)) + parseInt(boxSizeY) / 2;
     let bottom = parseInt('50') + parseInt(pixelsToViewportWidth(boundaries.offsetTop)) - parseInt(boxSizeY) / 2;
     let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX) / 2;
     let right = parseInt('50') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) - parseInt(boxSizeX) / 2;
 
-    return !(!(pixelsToViewportWidth(cursorY + scrollOffsetY) > top &&
-            pixelsToViewportWidth(cursorY + scrollOffsetY) < bottom)
+    // console.log ("CursorY + scrollOffset " + cursorY + scrollOffsetY);
+    // console.log ("CursorX + scrollOffset " + cursorX + scrollOffsetX);
+    // console.log ("Boundaries : Top = " + top + ", Bottom = " + bottom + ", Left = " + left + ", Right = " + right);
+
+    return !(!(parseInt(cursorY) + parseInt(scrollOffsetY) > top &&
+            parseInt(cursorY) + parseInt(scrollOffsetY) < bottom)
         ||
-        !(pixelsToViewportWidth(cursorX + scrollOffsetX) > left &&
-            pixelsToViewportWidth(cursorX + scrollOffsetX) < right)
+        !(parseInt(cursorX) + parseInt(scrollOffsetX) > left &&
+            parseInt(cursorX) + parseInt(scrollOffsetX) < right)
     )
 }
 
 function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSizeY)
 {
-    const scrollOffsetX = window.scrollX;
-    const scrollOffsetY = window.scrollY;
+    const scrollOffsetX = pixelsToViewportWidth(window.scrollX);
+    const scrollOffsetY = pixelsToViewportWidth(window.scrollY);
     //let top = parseInt(pixelsToViewportWidth(boundaries.offsetTop));
     //console.log(parseInt(boxSizeY));
     let top = 0;
@@ -426,11 +432,11 @@ function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSi
     console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
     //console.log("Right: " + right);
 
-    return ((pixelsToViewportWidth(currentY) > top &&
-            pixelsToViewportWidth(currentY) < bottom)
+    return ((currentY > top &&
+            currentY < bottom)
         &&
-        (pixelsToViewportWidth(currentX) > left &&
-            pixelsToViewportWidth(currentX) < right)
+        (currentX > left &&
+            currentX < right)
     )
 }
 
