@@ -22,6 +22,8 @@ async function generateDesign()
     console.log("Generating boxes...")
     for (let box of boxes)
     {
+        console.log(" ");
+        console.log(" ");
         console.log("Managing box id: " + box["boxId"]);
         console.log("box text: " + box["text"]);
 
@@ -31,22 +33,53 @@ async function generateDesign()
 
         let clone = displayedBoxes[0].cloneNode(true);
         let boxText = clone.getElementsByClassName("input")[0];
+        console.log("Box text field : " + boxText);
         boxText.innerHTML = box["text"];
 
         console.log("Doing styling stuff");
 
         console.log("Assigning position");
 
-        let cursorX = viewportToPixels(box['creationCursorX'] + 'vw');
-        let cursorY = viewportToPixels(box['creationCursorY'] + 'vw');
+        let cursorX = box['creationCursorX'];
+        let cursorY = box['creationCursorY'];
+        let positionX = box['positionX'];
+        let positionY = box['positionY'];
 
-        constructBox(clone, cursorX, cursorY);
+        console.log("Constructing box at these coords : " + cursorX + "," + cursorY);
+        constructBox(clone, cursorX, cursorY, true);
+        console.log("Created box with these coords : " + positionX + "," + positionY);
+        if (!clone.initialX)
+        {
+            clone.currentX = positionX;
+            console.log("Current X : " + parseInt(clone.currentX));
+            clone.xOffset = clone.currentX;
+            clone.initialX = clone.currentX;
+        }
+
+        if (!clone.initialY)
+        {
+            clone.currentY = positionY;
+            console.log("Current Y : " + parseInt(clone.currentY));
+            clone.yOffset = clone.currentY;
+            clone.initialY = clone.currentY;
+        }
+
+        //console.log("Cursor X : " + parseInt(cursorX) + ", Box Size X : " + parseInt(boxSizeX) + ", Offset X :" + parseInt(clone.xOffset));
+        //console.log("Cursor Y : " + parseInt(cursorY) + ", Box Size Y : " + parseInt(boxSizeY) + ", Offset Y :" + parseInt(clone.yOffset));
+        // console.log("Initial X : " + clone.initialX);
+        // console.log("Initial Y : " + clone.initialY);
+
+
+        setTranslate(positionX,
+            positionY, clone);
 
         clone.style.background = boxDesignBackground;
         clone.style.backgroundSize = '100% 100%';
+        console.log("Finished creating box");
     }
 
     // Fix for the familyTree.js overriding the sizing and setting it to 10
+    console.log(" ")
     console.log("Assigning box size")
     let boxSize = design["boxSize"];
     boxSizeY = boxSize / 4;

@@ -111,7 +111,7 @@ function assignBoxBackground(imgArray)
                 .getElementsByClassName("draggableBoxInput")[0]
                 .style.fontFamily = fonts[fontStyleSelect.options[fontStyleSelect.selectedIndex].value];
         }
-        console.log("Selected font index: " + fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
+        //console.log("Selected font index: " + fontStyleSelect.options[fontStyleSelect.selectedIndex].value);
     }
 
     function convertToBigFont()
@@ -242,12 +242,17 @@ function assignBoxBackground(imgArray)
             let clone = boxes[0].cloneNode(true);
             let cursorX = pixelsToViewportWidth(e.clientX);
             let cursorY = pixelsToViewportWidth(e.clientY);
+            const scrollOffsetX = pixelsToViewportWidth(window.scrollX);
+            const scrollOffsetY = pixelsToViewportWidth(window.scrollY);
+            clone.getElementsByClassName("creationCursorX")[0].value = parseInt(cursorX) + parseInt(scrollOffsetX);
+            clone.getElementsByClassName("creationCursorY")[0].value = parseInt(cursorY) + parseInt(scrollOffsetY);
 
-            constructBox(clone, cursorX, cursorY);
+
+            constructBox(clone, cursorX, cursorY, false);
         }
     }
 
-    function constructBox(clone, cursorX, cursorY)
+    function constructBox(clone, cursorX, cursorY, isGenerated)
     {
         // box style
         clone.style.display = 'flex';
@@ -258,25 +263,23 @@ function assignBoxBackground(imgArray)
         //clone.style.top = '0vh';
         //clone.style.left = '0vw';
 
-
-
-        clone.getElementsByClassName("creationCursorX")[0].value = cursorX;
-        clone.getElementsByClassName("creationCursorY")[0].value = cursorY;
-
         const scrollOffsetX = pixelsToViewportWidth(window.scrollX);
         const scrollOffsetY = pixelsToViewportWidth(window.scrollY);
         let parentX = pixelsToViewportWidth(boundaries.offsetLeft);
         let parentY = pixelsToViewportWidth(boundaries.offsetTop);
         let offsetX = boxSizeX / 2;
         let offsetY = boxSizeY / 2;
-        console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
-        console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
-
-        if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
+        // console.log("%cScroll Offset Left: " + scrollOffsetX, "color:mediumpurple");
+        // console.log("%cScroll Offset Top: " + scrollOffsetY, "color:mediumpurple");
+        if (!isGenerated)
         {
-            console.log("Outside of bouncries")
-            return;
+            if (!isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSizeY))
+            {
+                console.log("Outside of bouncries")
+                return;
+            }
         }
+
 
         // create the box at the cursor coordinates
         boundaries.appendChild(clone);
@@ -328,15 +331,15 @@ function assignBoxBackground(imgArray)
                 activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
             } else
             {
-                console.log("Drag start: xOffset: " + activeItem.xOffset);
-                console.log("Drag start: yOffset: " + activeItem.yOffset);
+                // console.log("Drag start: xOffset: " + activeItem.xOffset);
+                // console.log("Drag start: yOffset: " + activeItem.yOffset);
 
                 activeItem.initialX = pixelsToViewportWidth(e.clientX) - activeItem.xOffset
                 activeItem.initialY = pixelsToViewportWidth(e.clientY) - activeItem.yOffset;
-                console.log("Drag start: clientX: " + pixelsToViewportWidth(e.clientX));
-                console.log("Drag start: clientY: " + pixelsToViewportWidth(e.clientY));
-                console.log("Drag start: initialX: " + activeItem.initialX);
-                console.log("Drag start: initialY: " + activeItem.initialY);
+                // console.log("Drag start: clientX: " + pixelsToViewportWidth(e.clientX));
+                // console.log("Drag start: clientY: " + pixelsToViewportWidth(e.clientY));
+                // console.log("Drag start: initialX: " + activeItem.initialX);
+                // console.log("Drag start: initialY: " + activeItem.initialY);
             }
         }
     }
@@ -403,9 +406,9 @@ function isWithinInnerBoundaries(boundaries, cursorX, cursorY, boxSizeX, boxSize
     let left = parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) + parseInt(boxSizeX) / 2;
     let right = parseInt('50') + parseInt(pixelsToViewportWidth(boundaries.offsetLeft)) - parseInt(boxSizeX) / 2;
 
-    // console.log ("CursorY + scrollOffset " + cursorY + scrollOffsetY);
-    // console.log ("CursorX + scrollOffset " + cursorX + scrollOffsetX);
-    // console.log ("Boundaries : Top = " + top + ", Bottom = " + bottom + ", Left = " + left + ", Right = " + right);
+    console.log ("CursorY + scrollOffset " + parseInt(cursorY + scrollOffsetY));
+    console.log ("CursorX + scrollOffset " + parseInt(cursorX + scrollOffsetX));
+    console.log ("Boundaries : Top = " + top + ", Bottom = " + bottom + ", Left = " + left + ", Right = " + right);
 
     return !(!(parseInt(cursorY) + parseInt(scrollOffsetY) > top &&
             parseInt(cursorY) + parseInt(scrollOffsetY) < bottom)
@@ -427,9 +430,9 @@ function isWithinOuterBoundaries(boundaries, currentX, currentY, boxSizeX, boxSi
     let left = 0;
     let right = parseInt('50') - parseInt(boxSizeX);
 
-    console.log("Current Y: " + pixelsToViewportWidth(currentY));
-    console.log("Current Z: " + pixelsToViewportWidth(currentX));
-    console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
+    // console.log("Current Y: " + pixelsToViewportWidth(currentY));
+    // console.log("Current Z: " + pixelsToViewportWidth(currentX));
+    // console.log("Coords: " + top + ' ' +  left + ' ' + right + ' ' + bottom);
     //console.log("Right: " + right);
 
     return ((currentY > top &&
