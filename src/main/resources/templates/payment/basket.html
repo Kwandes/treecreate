@@ -37,14 +37,16 @@
                            required>
 
                     <label for="inputStreetAddress">Street Address:</label>
-                    <input type="text" name="inputStreetAddress" id="inputStreetAddress" th:value="${user.streetAddress}"
+                    <input type="text" name="inputStreetAddress" id="inputStreetAddress"
+                           th:value="${user.streetAddress}"
                            maxlength="99" required>
 
                     <label for="inputCity">City:</label>
                     <input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
 
                     <label for="inputPostcode">Postcode:</label>
-                    <input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}" maxlength="15"
+                    <input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}"
+                           maxlength="15"
                            required>
 
                     <label for="inputCountry">Country:</label>
@@ -84,15 +86,27 @@
                             <td id="totalTax">0</td>
                             <td></td>
                         </tr>
+                        <tr>
+                            <td>Discount</td>
+                            <td></td>
+                            <td id="discountDisplay">0</td>
+                            <td></td>
+                        </tr>
                         <script>loadOrders()</script>
                     </table>
+                    <section id="discountCode">
+                        <label for="inputDiscountCode">Discount Code:</label>
+                        <input id="inputDiscountCode" placeholder="Your discount code" maxlength="25"><br>
+                        <input type="button" id="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
+                    </section>
                 </section>
             </section>
             <section class="basketSection">
                 <div id="acceptOrder" class="border">
                     <label for="termsAndConditionsCheckbox">
                         <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
-                        I have read the <a href="/orderTermsAndConditionsDanish" target="_blank">Terms and Conditions</a>
+                        I have read the <a href="/orderTermsAndConditionsDanish" target="_blank">Terms and
+                        Conditions</a>
                     </label>
                     <button onclick='goToPayment()'>Accept Order & Pay</button>
                 </div>

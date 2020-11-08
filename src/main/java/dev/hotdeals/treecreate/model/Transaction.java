@@ -69,6 +69,10 @@ public class Transaction
     @Column(name = "country", length = 30)
     private String country;
 
+    @Basic
+    @Column(name = "discount", length = 25)
+    private String discount;
+
     public int getId()
     {
         return id;
@@ -219,6 +223,16 @@ public class Transaction
         this.country = country;
     }
 
+    public String getDiscount()
+    {
+        return discount;
+    }
+
+    public void setDiscount(String discount)
+    {
+        this.discount = discount;
+    }
+
     @Override
     public boolean equals(Object o)
     {
@@ -236,13 +250,14 @@ public class Transaction
                 Objects.equals(streetAddress, that.streetAddress) &&
                 Objects.equals(city, that.city) &&
                 Objects.equals(postcode, that.postcode) &&
-                Objects.equals(country, that.country);
+                Objects.equals(country, that.country) &&
+                Objects.equals(discount, that.discount);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, user, orders, price, currency, status, createdOn, expectedDeliveryDate, streetAddress, city, postcode, country);
+        return Objects.hash(id, user, orders, price, currency, status, createdOn, expectedDeliveryDate, streetAddress, city, postcode, country, discount);
     }
 
     public String toString()
@@ -263,6 +278,7 @@ public class Transaction
                 ", city='" + city + '\'' +
                 ", postcode='" + postcode + '\'' +
                 ", country='" + country + '\'' +
+                ", discount='" + discount + '\'' +
                 '}';
     }
 }

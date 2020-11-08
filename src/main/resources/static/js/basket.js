@@ -170,6 +170,7 @@ async function goToPayment()
     const inputCity = document.getElementById("inputCity").value;
     const inputPostcode = document.getElementById("inputPostcode").value;
     const inputCountry = document.getElementById("inputCountry").value;
+    const inputDiscountCode = document.getElementById("inputDiscountCode").value;
 
     let paymentParameters = {
         name: inputName,
@@ -178,7 +179,8 @@ async function goToPayment()
         streetAddress: inputStreetAddress,
         city: inputCity,
         postcode: inputPostcode,
-        country: inputCountry
+        country: inputCountry,
+        discount: inputDiscountCode
     };
 
     console.log("Going to payment or smth");
@@ -210,4 +212,85 @@ async function goToPayment()
             })
         }
     })
+}
+
+let discountApplied = false;
+
+async function applyDiscount()
+{
+    let inputDiscountCode = document.getElementById("inputDiscountCode").value;
+    console.log("Verifying the discount code");
+    if (inputDiscountCode === undefined || inputDiscountCode === "")
+    {
+        console.log("The discount code cannot be empty",);
+        showBasketPopup("The discount code cannot be empty", true);
+        return false;
+    }
+    const result = await validateDiscountCode(inputDiscountCode);
+
+    if (result.status !== 200)
+    {
+        console.log("The provided discount code is not valid");
+        showBasketPopup("The provided discount code is not valid", true);
+        return false;
+    } else
+    {
+        console.log("Found a valid discount code");
+        result.text().then(body =>
+            {
+                const discountCode = JSON.parse(body);
+                const isActive = discountCode['active'];
+                if (!isActive)
+                {
+
+                    console.log("The provided discount code is no longer active");
+                    showBasketPopup("The provided discount code is no longer active", true);
+                    return false;
+                }
+
+                showBasketPopup("Code is okay, applying the discount", false)
+                const type = discountCode['discountType'];
+                const amount = discountCode['discountAmount'];
+
+                if (discountApplied)
+                {
+                        console.log("Discount has already been applied");
+                        return true;
+                }
+
+                if (type === "minus")
+                {
+                    console.log("Applying -" + amount + "kr discount");
+                    document.getElementById("discountDisplay").innerText = "-" + amount + "kr";
+                    const totalPriceRow = document.getElementById("totalPrice");
+                    let totalPrice = totalPriceRow.innerText.replace("kr", "");
+                    totalPrice = parseInt(totalPrice) - parseInt(amount);
+                    if (totalPrice < 0) totalPrice = 0;
+                    totalPriceRow.innerText = totalPrice + "kr";
+                } else if (type === "percent")
+                {
+                    console.log("Applying " + amount + "% discount");
+                    document.getElementById("discountDisplay").innerText = amount + "%";
+                    const totalPriceRow = document.getElementById("totalPrice");
+                    let totalPrice = totalPriceRow.innerText.replace("kr", "");
+                    let percent = (100 - parseInt(amount))/100;
+                    console.log("percent: " + percent);
+                    totalPrice = Math.floor(parseInt(totalPrice) * percent);
+                    totalPriceRow.innerText = totalPrice + "kr";
+                }
+
+                discountApplied = true;
+
+                return true;
+            }
+        )
+    }
+
+}
+
+async function validateDiscountCode(code)
+{
+    const response = await fetch(location.origin + "/getDiscountCode?code=" + code);
+    console.log("%cFetching discount code has finished, status: " + response.status, "color:mediumpurple");
+    return response;
 }

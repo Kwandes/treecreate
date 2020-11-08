@@ -1,7 +1,9 @@
 package dev.hotdeals.treecreate.controller;
 
 import dev.hotdeals.treecreate.config.CustomProperties;
+import dev.hotdeals.treecreate.model.DiscountCode;
 import dev.hotdeals.treecreate.model.User;
+import dev.hotdeals.treecreate.repository.DiscountCodeRepo;
 import dev.hotdeals.treecreate.repository.UserRepo;
 import dev.hotdeals.treecreate.model.Transaction;
 import dev.hotdeals.treecreate.model.TreeOrder;
@@ -96,6 +98,43 @@ public class PaymentController
         if (totalAmountOfOrders > 3)
             totalPrice = (int) (totalPrice * 0.75);
         totalPrice *= 100; // Quickpay takes 2 digits as decimal places, so 1000 becomes 10,00
+
+        if (transaction.getDiscount() != null)
+        {
+            LOGGER.info("Applying the discount for the transaction");
+            LOGGER.info("Total price pre-discount: " + totalPrice);
+            var discountCodeResponse = getDiscountCode(transaction.getDiscount());
+            if (discountCodeResponse.getStatusCode() != HttpStatus.OK)
+            {
+                LOGGER.info("Failed to find the discount code");
+            } else
+            {
+                var discountCode = discountCodeResponse.getBody();
+                if (!discountCode.getActive())
+                {
+                    LOGGER.info("Provided discount is no longer active");
+                } else
+                {
+                    int amount = Integer.parseInt(discountCode.getDiscountAmount());
+                    String type = discountCode.getDiscountType();
+                    if (type.equals("minus"))
+                    {
+                        LOGGER.info("Applying a discount of -" + amount + "kr");
+                        totalPrice = totalPrice - (amount * 100);
+                        if (totalPrice < 0) totalPrice = 0;
+                    }
+                    if (type.equals("percent"))
+                    {
+                        LOGGER.info("Applying a discount of " + amount + "%");
+                        double percent = (100.0 - amount) / 100;
+                        LOGGER.info("Percent: " + percent);
+                        totalPrice = (int) Math.floor(((totalPrice / 100.0) * percent)) * 100;
+
+                    }
+                }
+            }
+        }
+
         LOGGER.info("Price: " + totalPrice);
         LOGGER.info("Creating a new transaction");
         LOGGER.info("Transaction shipment info: " + transaction);
@@ -405,5 +444,26 @@ public class PaymentController
     {
         LOGGER.info("Recieved a callback from quickpay:\n" + body);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Autowired
+    DiscountCodeRepo discountCodeRepo;
+
+    @GetMapping("/getDiscountCode")
+    ResponseEntity<DiscountCode> getDiscountCode(@RequestParam(name = "code") String code)
+    {
+        LOGGER.info("Getting a discount for code: " + code);
+        if (code.equals(""))
+        {
+            LOGGER.warn("Provided discount code was empty");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        var discountCode = discountCodeRepo.findObeByDiscountCode(code);
+        if (discountCode == null)
+        {
+            LOGGER.warn("Provided discount code does not match existing codes");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(discountCode, HttpStatus.OK);
     }
 }
