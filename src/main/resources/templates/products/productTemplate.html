@@ -58,18 +58,16 @@
                 <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
                        maxlength="254" required>
                 <hr>
-                <p>Password</p>
+                <p><span th:text="#{login.password}"></span></p>
                 <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
                        maxlength="60" required>
                 <hr>
-                <a type="button" href="/forgotPassword" name="forgotPassword" id="forgotPassword">Forgot
-                    password?</a><br>
+                <a type="button" href="/forgotPassword" name="forgotPassword" id="forgotPassword"><span th:text="#{login.forgot.password}"></span></a><br>
 
                 <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button>
                 <br><br>
 
-                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();">SIGN
-                    UP</a><br>
+                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();"><span th:text="#{login.sign.up}"></span></a><br>
             </div>
         </div>
 
@@ -85,29 +83,30 @@
             <div class="modal-content">
                 <div class="header">
                     <a type="button" class="close" id="signUpModalCloseBtn" data-dismiss="modal">&times;</a>
-                    <h1 class="modal-title">Sign up</h1>
+                    <h1 class="modal-title"><span th:text="#{login.sign.up}"></span></h1>
                 </div>
                 <p>Email</p>
                 <input type="text" th:name="email" id="signUpEmail" placeholder="Type your email . . ."
                        maxlength="254" required>
                 <hr>
-                <p>Password</p>
+                <p><span th:text="#{login.password}"></span></p>
                 <input type="password" th:name="password" id="signUpPassword" placeholder="Type your password . . ."
                        maxlength="60" required>
-                <p>Confirm Password</p>
+                <hr>
+                <p><span th:text="#{login.confirm.password}"></span></p>
                 <input type="password" th:name="confirmPassword" id="signupConfirmPassword"
                        placeholder="Type your password . . ." maxlength="60" required>
                 <hr>
                 <!-- T&C for account creation -->
                 <div style="display: flex; flex-direction: row; justify-content: center">
-                    <p style="font-size:12px;">By signing up you are accepting the <a
+                    <p style="font-size:12px;"><span th:text="#{basket.terms.and.conditions.text}"></span> <a
                             href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit"
                             style="color:var(--actionColor);" id="accountTermsAndConditions"
-                            target="_blank">terms and conditions</a> of creating a user
+                            target="_blank"><span th:text="#{basket.terms.and.conditions.link}"></span> </a>
                     </p>
                 </div>
 
-                <button type="button" onclick="registerUser()" id="createAccountButton">Create account</button>
+                <button type="button" onclick="registerUser()" id="createAccountButton"><span th:text="#{login.create}"></span></button>
                 <br>
 
                 <button type="button" onclick="closeSignUpModal();"
