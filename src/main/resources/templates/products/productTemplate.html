@@ -9,52 +9,165 @@
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/cookiePrompt.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <section id="navigationContainer">
-    <nav id="navBar">
-        <div id="navBar-left">
-            <a href="/index"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
-                                  alt="treecreate" id="treecreateLogo" class="filterColor">
-                <hr class="hoverLine">
-            </a>
-            <a href="https://www.facebook.com/treecreate.dk" target="popup"
-               onclick="window.open('https://www.facebook.com/treecreate.dk', 'name', 'width=600,height=800')">
-                <img th:src="@{~/img/logos/facebookBlackLogo.svg}" alt="facebook" id="facebookIcon"
-                     class="icon filterColor">
-                <hr class="hoverLine">
-            </a>
-            <a href="https://www.instagram.com/tree_create/" target="popup"
-               onclick="window.open('https://www.instagram.com/tree_create/','name','width=600,height=800')">
-                <img th:src="@{~/img/logos/instagramBlackLogo.svg}" alt="instagram" id="instagramIcon"
-                     class="icon filterColor">
-                <hr class="hoverLine">
-            </a>
+    <script>isLoggedIn()</script>
+    <!-- cookie prompt modal -->
+    <div id="cookiePromptModalContainer">
+        <div class="modal fade" id="cookiePromptModal" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="header">
+                        <h2 class="modal-title">Cookies information</h2>
+                        <p>By clicking ACCEPT, you are agreeing with the cookie
+                            <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank">terms and
+                                conditions</a>
+                            of this page.</p>
+                    </div>
+                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton">I ACCEPT</button>
+                </div>
+            </div>
         </div>
-        <div id="navBar-right">
-            <a href="/index">
-                <span>Home</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/aboutUs">
-                <span>About Us</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
-                                           id="shoppingBasketIcon" class="icon filterColor">
-                <span> (0) Items</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/login">
-                <span>Login</span>
-                <hr class="hoverLine">
-            </a>
-            <a href="/changeLanguage"><img th:src="@{~/img/icons/englishIcon.svg}" alt="change language"
-                                           id="changeLanguageIcon" class="icon">
-                <hr class="hoverLine">
-            </a>
+        <div id="cookieCover"></div>
+    </div>
+
+    <div id="popupContainer" class="popupContainer">
+        <div id="popup" class="popup"><p id="popupText">Welcome Back!</p></div>
+    </div>
+    <!-- Login modal -->
+    <div class="modal fade" id="loginModal" role="dialog">
+        <div class="modal-dialog loginForm">
+            <!-- FACEBOOK SDK -->
+            <script th:src="@{/js/facebook.js}"></script>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="header">
+                    <a type="button" class="close" id="loginModalCloseBtn" data-dismiss="modal">&times;</a>
+                    <h1 class="modal-title">Log in</h1>
+                </div>
+
+                <p>Email</p>
+                <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
+                       maxlength="254" required>
+                <hr>
+                <p><span th:text="#{login.password}"></span></p>
+                <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
+                       maxlength="60" required>
+                <hr>
+                <a type="button" href="/forgotPassword" name="forgotPassword" id="forgotPassword"><span th:text="#{login.forgot.password}"></span></a><br>
+
+                <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button>
+                <br><br>
+
+                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();"><span th:text="#{login.sign.up}"></span></a><br>
+            </div>
         </div>
-    </nav>
+
+        <div id="popupModalContainer" class="popupContainer">
+            <div id="popupModal" class="popup"><p id="popupModalText">Welcome Back!</p></div>
+        </div>
+    </div>
+
+    <!-- Sign up modal -->
+    <div class="modal fade" id="signUpModal" role="dialog">
+        <div class="modal-dialog loginForm">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="header">
+                    <a type="button" class="close" id="signUpModalCloseBtn" data-dismiss="modal">&times;</a>
+                    <h1 class="modal-title"><span th:text="#{login.sign.up}"></span></h1>
+                </div>
+                <p>Email</p>
+                <input type="text" th:name="email" id="signUpEmail" placeholder="Type your email . . ."
+                       maxlength="254" required>
+                <hr>
+                <p><span th:text="#{login.password}"></span></p>
+                <input type="password" th:name="password" id="signUpPassword" placeholder="Type your password . . ."
+                       maxlength="60" required>
+                <hr>
+                <p><span th:text="#{login.confirm.password}"></span></p>
+                <input type="password" th:name="confirmPassword" id="signupConfirmPassword"
+                       placeholder="Type your password . . ." maxlength="60" required>
+                <hr>
+                <!-- T&C for account creation -->
+                <div style="display: flex; flex-direction: row; justify-content: center">
+                    <p style="font-size:12px;"><span th:text="#{basket.terms.and.conditions.text}"></span> <a
+                            href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit"
+                            style="color:var(--actionColor);" id="accountTermsAndConditions"
+                            target="_blank"><span th:text="#{basket.terms.and.conditions.link}"></span> </a>
+                    </p>
+                </div>
+
+                <button type="button" onclick="registerUser()" id="createAccountButton"><span th:text="#{login.create}"></span></button>
+                <br>
+
+                <button type="button" onclick="closeSignUpModal();"
+                        data-toggle="modal" data-target="#loginModal" id="backToLoginButton">login
+                </button>
+                <br><br>
+            </div>
+        </div>
+        <div id="signupPopupModalContainer" class="popupContainer">
+            <div id="signupPopupModal" class="popup"><p id="signupPopupModalText">Welcome !</p></div>
+        </div>
+    </div>
+
+    <section id="navbarContainer">
+        <div id="navBar">
+            <div id="navBar-left">
+                <a style="margin-left:25px;" href="/productExample"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
+                                               alt="treecreate" id="treecreateLogo" class="filterColor">
+                </a>
+                <a target="popup" onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
+                    <img th:src="@{~/img/logos/facebookBlackLogo.svg}" alt="facebook" id="facebookIcon"
+                         class="icon filterColor">
+                </a>
+                <a target="popup" onclick="window.open('https://www.instagram.com/treecreate.dk/','names')">
+                    <img th:src="@{~/img/logos/instagramBlackLogo.svg}" alt="instagram" id="instagramIcon"
+                         class="icon filterColor">
+                </a>
+            </div>
+            <div id="navBar-right">
+                <a href="/productExample">
+                    <span>Home</span>
+                    <hr class="hoverLine">
+                </a>
+                <a href="/products">
+                    <span th:text="#{navbar.products}"></span>
+                    <hr class="hoverLine">
+                </a>
+                <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
+                                               id="shoppingBasketIcon" class="icon filterColor">
+                    <span id="basketNavbarText"> (0) </span><span th:text=" #{navbar.items}"></span>
+                    <hr class="hoverLine">
+                </a>
+                <a id="loginButton" data-toggle="modal" data-target="#loginModal">
+                    <span>Login</span>
+                    <hr class="hoverLine">
+                </a>
+                <a id="profileButton" href="/profile">
+                    <span th:text="#{navbar.profile}"></span>
+                    <hr class="hoverLine">
+                </a>
+                <script th:src="@{/js/changeLanguage.js}"></script>
+                <a id="changeLanguage" onclick="changeLanguage()">
+                    <span th:text="#{landing.changeLanguage}"></span>
+                    <hr class="hoverLine">
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+
 </section>
 <section id="contentContainer">
     <div id="content">
@@ -84,25 +197,28 @@
     <nav id="footer">
         <div class="footer-row">
             <div class="section">
-                <span class="title">Contact</span><br>
-                <p>
-                    Email: info@treecreate.net
-                </p>
+                <span class="title" th:text="#{footer.contact.title}"></span><br>
+                <span th:text="#{footer.contact.text}"></span>
             </div>
             <div class="section">
-                <span class="title">Product</span><br>
-                Every purchase plants a tree<br>
-                Eco Friendly packaging<br>
-                Produced in Denmark<br>
+                <span class="title" th:text="#{footer.product.title}"></span><br>
+                <span th:text="#{footer.product.text}"></span>
+                <div style="margin-top:10px;"></div>
                 <img th:src="@{~/img/icons/danishTransportIcon.svg}" alt="Danish Transport" class="icon">
                 <img th:src="@{~/img/icons/ecoPackageIcon.svg}" alt="Eco friendly packaging" class="icon">
                 <img th:src="@{~/img/icons/recyclingIcon.svg}" alt="Recycled" class="icon">
             </div>
             <div class="section">
-                <span class="title">Address</span><br>
-                Denmark<br>
-                Copenhagen
+                <span class="title" th:text="#{footer.address.title}"></span><br>
+                <span th:text="#{footer.address.text}"></span>
             </div>
+        </div>
+        <div class="paymentMethods" style="margin: 1vw;">
+            <h2 class="modal-title"><span th:text="#{footer.payment.title}"> </span></h2>
+            <img th:src="@{~/img/logos/paymentLogo/dankortLogo.svg}" alt="Dankort" class="icon">
+            <img th:src="@{~/img/logos/paymentLogo/mastercardLogo.svg}" alt="Mastercard" class="icon">
+            <img th:src="@{~/img/logos/paymentLogo/visaLogo.svg}" alt="Visa" class="icon">
+            <img th:src="@{~/img/logos/paymentLogo/mobilePay.svg}" alt="Mobile Pay" class="icon">
         </div>
         <div class="footer-row">
             <div class="section">
@@ -111,10 +227,11 @@
         </div>
         <div class="footer-row" id="footer-bottom">
             <div class="section">
-                Copyright © 2020 TreeCreate All Rights Reserved.
+                <span th:text="#{footer.copyright.text}"></span>
             </div>
         </div>
     </nav>
 </section>
+
 </body>
 </html>

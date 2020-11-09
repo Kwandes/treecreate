@@ -1,0 +1,119 @@
+html, body
+{
+    background: var(--backgroundColor);
+}
+
+a
+{
+    color: var(--textColor);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover
+{
+    color: var(--textColor);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#contentContainer
+{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    height: fit-content;
+    min-height: 64vh;
+    width: 80vw;
+    margin: 0 10vw;
+    padding-top: 10vh;
+    padding-bottom: 6vh;
+}
+
+#profileNavContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-evenly;
+    height: fit-content;
+    width: 20vw;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.profileNav
+{
+    margin: 0 0.25vw 0.4vh 0;
+    padding: 1vh;
+    background: white;
+    text-align: center;
+    font-size: var(--fontRegular);
+}
+
+.profileNav:hover
+{
+    background: var(--mainColor);
+}
+
+.active
+{
+    border-left: 0.5vw solid var(--actionColor);
+    background: var(--mainSoftColor);
+    height: 100%;
+}
+
+#details
+{
+    width: 100%;
+    min-height: 50vh;
+    height: fit-content;
+    background: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    padding: 1vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-between;
+}
+
+#formUpdateInfo
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: space-between;
+    font-size: var(--fontRegular);
+
+    margin: 2.5vh 0;
+}
+
+#formTitle
+{
+    font-size: var(--fontTitle);
+    text-align: center;
+    margin: 1vh;
+}
+
+#formUpdateInfo label
+{
+    margin: 1vh 1vw;
+}
+
+#formUpdateInfo input
+{
+    border: 1px black solid;
+    border-radius: 2px;
+    width: 40vw;
+}
+
+#accountInfoSubmitBtn
+{
+    margin-bottom: 5vh;
+    width: 20vh;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--actionColor);
+    color: white;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+}

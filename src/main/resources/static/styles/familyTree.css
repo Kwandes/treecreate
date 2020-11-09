@@ -1,0 +1,86 @@
+@import "familyTreeAddToBasket.css";
+
+#product
+{
+    align-items: center;
+    flex-direction: row;
+    flex-flow: row wrap;
+}
+
+#familyTreeDesignContainer
+{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+    width: 50vw;
+    height: 50vw;
+
+    background-image: url("../img/images/treeDesign/tree1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#familyTreeOptionsContainer
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    min-width: 175px;
+    width: 20vw;
+    height: fit-content;
+    margin:0 1vw;
+}
+
+#familyTreeOptionsContainer button
+{
+    margin: 1vh;
+    padding: 0.5vh;
+    background-color: var(--actionColor);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    width: 7vw;
+}
+
+.largeButton
+{
+    width:15vw !important;
+}
+
+#fontSize
+{
+    flex-direction: row!important;
+    margin-bottom:2vh;
+}
+
+#familyTreeOptionsContainer button:hover
+{
+    transform: scale(0.9);
+    box-shadow: none;
+}
+
+.save
+{
+    display: flex;
+}
+
+#bannerDesignInputContainer
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+#boxSizeInputContainer
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
+

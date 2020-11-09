@@ -1,0 +1,311 @@
+#addToBasketContainer
+{
+    width: 40vw;
+    min-height: 50vh;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 23px;
+    background-color: white;
+}
+
+#addToBasketHeader
+{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    align-items: center;
+
+    height: 5vh;
+    margin: 2vh;
+    width: 90%;
+}
+
+#addToBasketBackBtn
+{
+    text-align: center;
+    margin: 1vh;
+    padding: 0.5vh;
+    width: 100px;
+    background-color: var(--actionColor);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+#addToBasketBackBtn:hover
+{
+    box-shadow: none;
+    transform:scale(0.9);
+    cursor: pointer;
+}
+
+#addToBasketContent
+{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+#addToBasketDetails
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 200px;
+    width: 20vw;
+    margin: 1vw;
+    min-height: 25vh;
+    height: fit-content;
+}
+
+.addToBasketDetail
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 5vh;
+    height: fit-content;
+    padding: 1vh 0;
+    width: 100%;
+}
+
+#addToBasketName, #addToBasketPrice
+{
+    flex-direction: row;
+}
+
+#nameLabel, #priceLabel
+{
+    font-size: var(--fontSubtitle);
+}
+
+#nameInput, #priceInput
+{
+    font-size: var(--fontSubtitle);
+    min-width: 100px;
+}
+
+#priceLabel
+{
+    width: 10vw;
+    text-align: right;
+}
+
+#priceInput
+{
+    font-size: var(--fontSubtitle);
+    border: none;
+}
+
+.fancySelection
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vh;
+    font-size: var(--fontRegular);
+}
+
+.fancyHeader
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    font-size: var(--fontRegular);
+}
+
+.addToBasketInfoIcon
+{
+    min-height: 15px;
+    min-width: 15px;
+    height: 1.5vh;
+    width: 1.5vh;
+    margin: 0 0.25vw;
+    background-image: url("../img/icons/questionIcon.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.addToBasketInfoIcon:hover
+{
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+    transform: scale(1.15);
+}
+
+.fancyContent
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.fancyInput
+{
+    min-width: 100px;
+    width: 15vw;
+    height: 4vh;
+    margin: 0 0.5vw;
+    border: 3px var(--actionColor) solid;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.arrowLeft
+{
+    width: 4vh;
+    height: 4vh;
+    border: none;
+    border-radius: 8px;
+
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    background-color: var(--actionColor);
+    background-image: url("../img/icons/leftArrow.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.arrowLeft:hover
+{
+    border-radius: 25%;
+    border: none;
+    transform:scale(0.9);
+    box-shadow: none;
+}
+
+.arrowRight
+{
+    width: 4vh;
+    height: 4vh;
+    border: none;
+    border-radius: 8px;
+
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    background-color: var(--actionColor);
+    background-image: url("../img/icons/rightArrow.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.arrowRight:hover
+{
+    border-radius: 25%;
+    border: none;
+    transform:scale(0.9);
+    box-shadow: none;
+}
+
+#recommendedSizes
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#addToBasketButton
+{
+    height: 5vh;
+    min-width: 125px;
+    width: 15vw;
+    margin: 1vw;
+    background-color: #28C553;
+    color: white;
+    font-weight: 900;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+#addToBasketButton:hover
+{
+    transform:scale(0.9);
+    box-shadow: none;
+
+}
+
+#addToBasketFooter
+{
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+    width: 100%;
+    min-height: 10vh;
+    height: fit-content;
+    margin: 2vh;
+}
+
+#addToBasketFooter p
+{
+    font-size: var(--fontSmall);
+    min-width: 200px;
+    width: 40%;
+    height: fit-content;
+    opacity: 0.75;
+}
+
+.addToBasketForm input:focus
+{
+    outline: none;
+    color: var(--mainColor);
+}
+
+.addToBasketForm input:hover
+{
+    color: var(--mainColor);
+}
+
+/* Modal stuff */
+#addToBasketModal .modal-dialog
+{
+    margin: 10vh auto 0 auto !important;
+}
+
+::placeholder
+{
+    color: var(--inactiveColor);
+}
+
+#addToBasketContainer button
+{
+    margin-top: 25px;
+    background-color: var(--actionColor);
+    color: white;
+    border-radius: 7px;
+    width: 40%;
+    height: 40px;
+    font-size: 24px;
+    border: none;
+    transition: 1s;
+}
+
+#addToBasketContainer button:hover
+{
+    transform: scale(1.1);
+}
+
+#addToBasketContainer button:focus
+{
+    outline: none;
+}
+
+#popupContainer /* Fuck off we are busy */
+{
+    display: none;
+}

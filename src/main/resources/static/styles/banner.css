@@ -1,0 +1,57 @@
+#familyTreeBanner
+{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../img/images/banner/banner1.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 0.6vw;
+    margin-bottom: 0;
+    height: 9.3vw;
+    width: 23.5vw;
+    z-index: 97;
+}
+
+#familyTreeBanner .curvyText {
+    display: inline-block;
+    margin-bottom: 4vw;
+    color: whitesmoke;
+}
+
+#familyTreeBanner .input
+{
+    min-width: 1vw; /*Needs to scale with parent size, or can probably be removed*/
+    max-width: 10vw; /*Needs to scale with parent size*/
+    max-height: 5vw; /*Needs to scale with parent size*/
+    overflow: hidden;
+    text-align: center;
+    font-family: Spectral, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.8vw; /*Needs to scale with parent size*/
+    line-height: 2vw; /*Needs to scale with parent size*/
+    color: black;
+    border: none;
+    padding: 0;
+    z-index: 97;
+}
+
+#familyTreeBanner #bannerText
+{
+    margin-top: 1vw;
+    height: 16vw;
+    width: 16vw;
+}
+
+#familyTreeBanner path
+{
+    fill: transparent;
+}
+
+#familyTreeBanner text
+{
+    font-size: 65px;
+    fill: black;
+}

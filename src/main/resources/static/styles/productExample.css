@@ -12,7 +12,7 @@ html, body
     flex-direction: column;
     justify-content: space-between;
 
-    background-image: url('../img/images/backgrounds/forestDarkImage.jpg');
+    background-color: white;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: 120% 120%;
@@ -25,16 +25,15 @@ html, body
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
+    padding-top: 6vh;
 }
 
 #content
 {
-    margin: 5vh 15vw;
+    margin: 8vh 15vw;
     width: 70vw;
     font-size: var(--fontRegular);
     text-align: center;
-    text-shadow: 0 1px 3px #000000;
 }
 
 #aboutUs
@@ -65,7 +64,6 @@ html, body
 {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     justify-content: space-between;
     width: 34vw;
     margin: 1vh 1vw;
@@ -73,16 +71,8 @@ html, body
 
 #aboutUs section img
 {
-    width: 34vw;
-    height: 34vh;
+    height: 300px;
     margin: 1vh 1vw;
-}
-
-#aboutUs section .imageCollection .image
-{
-    height: 30%;
-    width: 30%;
-    margin: 5%;
 }
 
 #aboutUs section .text
@@ -94,26 +84,15 @@ html, body
 #aboutUs #generalInformation
 {
     display: inline-block;
+    width: 90%;
 }
 
-#aboutUs #development
+@media all and (min-width: 200px) and (max-width: 1024px)
 {
-    text-align: left;
+    #content
+    {
+        margin: 0vh 5vw;
+        width: 90%;
+    }
 }
 
-#aboutUs #familytrees
-{
-    text-align: right;
-}
-
-#aboutUs #specialRequests
-{
-    text-align: left;
-}
-
-#footer
-{
-    /* Override the template footer to adjust for the dark background */
-    color: white;
-    text-shadow: 0 1px 3px #000000;
-}

@@ -1,0 +1,14 @@
+label
+{
+    width: 50vw;
+    margin: 1vh 25vw;
+}
+
+input
+{
+    margin-bottom: 1vh;
+    margin-left: 25vw;
+    width: 50vw;
+    border: 1px black solid;
+    border-radius: 2px;
+}

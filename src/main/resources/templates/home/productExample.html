@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product page</title>
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/productExample.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/cookiePrompt.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<section id="pageContainer">
+    <section th:replace="products/productTemplate :: #navigationContainer"></section>
+    <section id="contentContainer">
+        <div id="content">
+            <div id="aboutUsContainer">
+                <div id="aboutUs">
+                    <section id="generalInformation">
+                        <span class="title" th:text="#{home.intro.title}"></span><br>
+                        <img th:src="@{~/img/productPage/Artboard 3.png}" alt="Tree Design" class=""><br>
+                        <span th:text="#{home.intro.text}"></span><br>
+                    </section>
+                    <section id="development">
+                        <img th:src="@{~/img/productPage/Artboard 4.png}" alt="Tree Design" class="image">
+                        <div class="text">
+                            <span class="title" th:text="#{home.size.title}"></span><br>
+                            <span th:text="#{home.size.text}"></span><br>
+                            <p>
+                                20 x 20 cm - 495 kr.<br>
+                                25 x 25 cm - 695 kr.<br>
+                                30 x 30 cm - 995 kr.<br>
+                            </p>
+                            <span th:text="#{home.size.text.two}"></span>
+                        </div>
+                    </section>
+
+                    <section id="familytrees">
+                        <div class="text">
+                            <span class="title" th:text="#{home.package.title}"></span><br>
+                            <span th:text="#{home.package.text}"></span>
+                        </div>
+                        <img th:src="@{~/img/productPage/Artboard 1.png}" alt="Tree Design" class="image" style="margin:0!important">
+                    </section>
+
+                    <section id="goal">
+                        <img th:src="@{~/img/productPage/Artboard 2.png}" alt="Tree Design" class="image" style="margin-top:4vh;">
+                        <div class="text">
+                            <span class="title" th:text="#{home.team.title}"></span><br>
+                            <span th:text="#{home.team.text}"></span><br>
+                            <strong><span th:text="#{home.team.text.members}"></span><br></strong>
+                            <span th:text="#{home.team.text.two}"></span>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <section th:replace="products/productTemplate :: #footerContainer"></section>
+</section>
+</body>

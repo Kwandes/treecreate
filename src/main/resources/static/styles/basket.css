@@ -1,0 +1,111 @@
+#pageContainer
+{
+    min-height: 100vh;
+    height: fit-content;
+    background-color: var(--backgroundColor);
+    font-size: var(--fontRegular);
+}
+
+#contentContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 64vh;
+    padding-top: 10vh;
+    margin-bottom: 5vh;
+}
+
+#basketContainer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh;
+    height: fit-content;
+    width: fit-content;
+    max-width: 80vw;
+    background-color: white;
+    border: none;
+    border-radius: 2vw;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.basketSection
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    min-width: 420px;
+    width: fit-content;
+    max-width: 80vw;
+}
+
+.informationSection
+{
+    display: flex;
+    flex-direction: column;
+    min-width: 420px;
+    width: fit-content;
+    max-width: 55vw;
+}
+
+.border
+{
+    padding: 2.5vh;
+    margin: 2vh;
+    border: 2px var(--mainColor) solid;
+    border-radius: 10px;
+}
+
+#acceptOrder
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: fit-content;
+}
+
+#customerInformation label
+{
+    margin-left: 0.5vw;
+}
+
+#customerInformation input
+{
+    margin-bottom: 1vh;
+}
+
+#applyDiscountBtn
+{
+    width: 50%;
+    margin: 1vh 25%;
+    min-width: 100px;
+    padding: 2.5%;
+    background-color: var(--actionColor);
+    border-radius: 12px;
+    border: none;
+    color: white;
+}
+
+#orderInformation th
+{
+    padding: 0.5vh;
+    background-color: var(--mainColor);
+}
+#orderInformation td
+{
+    padding: 0.5vh;
+}
+#orderInformation td:last-child
+{
+    color: limegreen;
+}
+
+.title
+{
+    font-size: var(--fontTitle);
+}

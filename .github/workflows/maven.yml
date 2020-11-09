@@ -24,6 +24,7 @@ jobs:
       run: mvn -B package --file pom.xml
       env:
         TREECREATE_JDBC_URL: ${{ secrets.TREECREATE_JDBC_URL }}
+        TREECREATE_MAIL_PASS: ${{ secrets.TREECREATE_MAIL_PASS }}
 
     - name: Upload packaged jar
       uses: actions/upload-artifact@v2
@@ -59,6 +60,7 @@ jobs:
       run: java -jar project.jar &
       env:
         TREECREATE_JDBC_URL: ${{ secrets.TREECREATE_JDBC_URL }}
+        TREECREATE_MAIL_PASS: ${{ secrets.TREECREATE_MAIL_PASS }}
     
     - name: Wait 30 seconds
       uses: jakejarvis/wait-action@master

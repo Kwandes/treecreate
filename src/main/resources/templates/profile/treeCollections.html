@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree Collections</title>
+    <link th:href="@{/img/logos/treecreateLogo/browserLogo.svg}" rel="icon">
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link th:href="@{/styles/profile.css}" rel="stylesheet">
+    <link th:href="@{/styles/treeCollection.css}" rel="stylesheet">
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/treeCollections.js}"></script>
+    <script th:src="@{/js/cookiePrompt.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<section id="pageContainer">
+    <section th:replace="products/productTemplate :: #navigationContainer"></section>
+    <section id="contentContainer">
+        <div id="profileNavContainer">
+            <a href="/account/info">
+                <div class="profileNav" id="accountInfoButton">
+                    <span>Account info</span>
+                </div>
+            </a>
+            <a href="/account/collections" id="collectionsButton">
+                <div class="profileNav active">
+                    <span>Tree collection</span>
+                </div>
+            </a>
+            <a href="/account/orders" id="ordersButton">
+                <div class="profileNav">
+                    <span>Orders</span>
+                </div>
+            </a>
+            <a href="/logout" id="logoutButton">
+                <div class="profileNav">
+                    <span>Log out</span>
+                </div>
+            </a>
+        </div>
+        <div id="details">
+            <section class="collectionContainer">
+                <div class="designImage"></div>
+                <div class="designInfo">
+                    <section class="infoHeader">
+                        <span class="orderName">Untitled</span>
+                        <span class="spanBoxText">Boxes: 20</span>
+                    </section>
+                    <section class="infoContent">
+                        <span>Box content:</span>
+                        <span class="boxContent">James,. Hilda, Nika and more...</span>
+                        <span>Date created:</span>
+                        <span class="dateCreated">01/02/1969 22:22</span>
+                    </section>
+                    <section class="infoFooter">
+                        <button class="collectionInfoBtn" onclick="editDesign(this)">Edit</button>
+                        <button class="collectionInfoBtn" onclick="buyDesing()">Buy</button>
+                        <button class="collectionInfoBtn" onclick="deleteDesign(this)">Delete</button>
+                        <span class="orderId" hidden>0</span>
+                    </section>
+                </div>
+            </section>
+            <script>generateCollections()</script>
+        </div>
+    </section>
+    <section th:replace="products/productTemplate :: #footerContainer"></section>
+</section>
+</body>
+</html>
