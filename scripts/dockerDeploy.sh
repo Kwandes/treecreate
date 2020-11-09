@@ -11,6 +11,7 @@ echo ""
 echo "Pre-run checks:"
 echo "Environment variables:"
 JDBC_URL=${TREECREATE_JDBC_URL}
+PROD_JDBC_URL=${TREECREATE_PROD_JDBC_URL}
 QUICKPAY_SECRET=${TREECREATE_QUICKPAY_SECRET}
 MAIL_PASS=${TREECREATE_MAIL_PASS}
 
@@ -21,6 +22,13 @@ if [[ -z $JDBC_URL ]]; then
   checkStatus="false"
 else
   echo "JDBC URL is okay"
+fi
+
+if [[ -z $PROD_JDBC_URL ]]; then
+  echo "! PROD JDBC URL is missing!"
+  checkStatus="false"
+else
+  echo "PROD JDBC URL is okay"
 fi
 
 if [[ -z $QUICKPAY_SECRET ]]; then
@@ -63,6 +71,19 @@ git pull > /dev/null 2>&1
 echo ""
 read -p "What is the name you would like to deploy under [treecreate-X.X.X]? " dockerName
 dockerName="${dockerName:-treecreate-X.X.X}"
+
+echo ""
+
+read -p "Would you like to deploy as a test release [yes]? " testRelease
+testRelease="${testRelease:-test}"
+
+if [[ "$testRelease" != "test" ]]; then
+  testRelease = ""
+fi
+
+dockerName = dockerName + testRelease
+echo ""
+echo "Name: " + dockerName
 echo ""
 read -p "What is the port setup you would like to use [4001:5000]? " dockerPort
 dockerPort="${dockerPort:-4001:5000}"
@@ -95,12 +116,24 @@ echo "Variable check successful"
 echo ""
 echo "Building an image $dockerName"
 echo ""
-docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+if [[ "$testRelease" != "test" ]]; then
+  echo "Building for production"
+  docker build -t $dockerName --build-arg TREECREATE_PROD_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+else
+  echo "Building for testing"
+  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+fi
 echo ""
 echo "Building finished"
 echo "Running the image $dockerName on ports $dockerPort"
 echo ""
-docker run --name $dockerName -e TREECREATE_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
+if [[ "$testRelease" != "test" ]]; then
+  echo "Deploying to production"
+  docker run --name $dockerName -e TREECREATE_PROD_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
+else
+  echo "Deploying to testing"
+  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+fi
 
 echo "The image has been run"
 echo "You can check its status with"
