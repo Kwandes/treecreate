@@ -36,6 +36,7 @@
 
 #footer
 {
+    margin-top: 7vh;
     font-size: var(--fontSmall);
     text-align: center;
 }

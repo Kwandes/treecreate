@@ -164,7 +164,7 @@ function assignBoxBackground(imgArray)
 
     function increaseBox()
     {
-        if (boxSize < 50)
+        if (boxSize < 70)
         {
             boxSize++;
             setBoxSizeButActualSize();
