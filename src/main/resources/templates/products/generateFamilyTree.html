@@ -183,6 +183,16 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
                 </div>
                 <div id="familyTreeOptionsContainer">
+                    <div class="fancySelection">
+                        <div class="fancyHeader">
+                            <span>Name</span>
+                        </div>
+                        <div class="fancyContent">
+                            <input type="text" name="nameInput" class="fancyInput" id="nameInput" style="font-size: var(--fontRegular)"
+                                   placeholder="Untitled" maxlength="25">
+                        </div>
+                    </div>
+
                     <div class="fancySelection" id="bannerInput">
                         <div class="fancyHeader">
                             <span>Banner Text</span>
@@ -255,7 +265,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
 
                     <div class="save">
-                        <button id="saveDesignButton" onclick="saveDesign()">
+                        <button id="saveDesignButton" onclick="changeDesign()">
                             Save
                         </button>
                     </div>

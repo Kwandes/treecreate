@@ -41,12 +41,41 @@ async function addToBasket()
 
 }
 
+async function changeDesign()
+{
+    console.log("%Updating design", "color: mediumpurple");
+    const designJson = await getDesign();
+    if (designJson == null)
+    {
+        console.log("No design available, returning");
+        return;
+    }
+    console.log("Design: " + designJson);
+    console.dir(designJson)
+
+    console.log("-")
+
+    console.log("Saving the design");
+    let designId = await updateDesign(designJson);
+    let userId = await getCurrentUser();
+    console.log("Design saved, ID: " + designId);
+    console.log("Adding a new order for user: " + userId);
+}
+
 function getDesign()
 {
     console.log("%cThanks for saving me, I appreciate it", "color:blue");
 
     let boxArray = document.getElementsByClassName("draggableBox");
 
+    let designId;
+    if (location.search.includes("designId="))
+    {
+        designId = location.search.match("designId=(\\d+)")[1];
+    } else
+    {
+        designId = 1;
+    }
     const bannerDesign = document.getElementById("bannerDesignInput").getAttribute("value").toString();
     const bannerText = document.getElementById("bannerTextPath").innerHTML.toString().trim();
     const fontStyle = document.getElementById("fontInput").selectedIndex;
@@ -55,7 +84,7 @@ function getDesign()
     const nameInput = document.getElementById("nameInput").value;
 
     let familyTreeDesign = JSON.parse(JSON.stringify({
-        id: 1,
+        id: designId,
         name: nameInput,
         bannerDesign: bannerDesign,
         bannerText: bannerText,
@@ -118,6 +147,18 @@ async function saveDesign(designJson)
             body: designJson,
         });
     console.log("%cSaving family design has finished, status: " + response.status, "color:mediumpurple");
+    return await response.text();
+}
+
+async function updateDesign(designJson)
+{
+    const response = await fetch(location.origin + "/updateTreeDesign",
+        {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: designJson,
+        });
+    console.log("%Updating family design has finished, status: " + response.status, "color:mediumpurple");
     return await response.text();
 }
 

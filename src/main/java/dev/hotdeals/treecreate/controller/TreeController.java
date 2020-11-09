@@ -43,6 +43,29 @@ public class TreeController
         return new ResponseEntity<>(String.valueOf(savedDesign.getId()), HttpStatus.OK);
     }
 
+    @PostMapping("/updateTreeDesign")
+    ResponseEntity<String> updateTreeDesign(@RequestBody FamilyTreeDesignJSON design)
+    {
+        LOGGER.info("Updating tree design No. :" + design.getId());
+        TreeDesign treeDesign = treeDesignRepo.findById(design.getId()).orElse(null);
+        if (treeDesign != null)
+        {
+            treeDesign.setDateCreated(LocalDateTime.now().toString());
+            treeDesign.setDesignJson(design.stringify());
+            treeDesign.setId(design.getId());
+            System.out.println(design.stringify());
+            TreeDesign savedDesign = treeDesignRepo.save(treeDesign);
+            System.out.println(savedDesign.toString());
+            LOGGER.info("Saved Design Id: " + savedDesign.getId());
+            return new ResponseEntity<>(String.valueOf(savedDesign.getId()), HttpStatus.OK);
+        } else
+        {
+            LOGGER.warn("No Design with the requested Id was found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     @PostMapping("/addTreeOrder")
     ResponseEntity<String> addUser(@RequestBody TreeOrder treeOrder)
     {

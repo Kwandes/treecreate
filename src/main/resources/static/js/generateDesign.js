@@ -17,6 +17,7 @@ async function generateDesign()
     document.getElementById("fontInput").selectedIndex = design["fontStyle"];
     document.getElementById("boxSizeInput").value = design["boxSize"];
     document.getElementById("fontSizeInput").checked = design["isBigFont"];
+    document.getElementById("nameInput").value = design["name"];
 
     let boxes = design["boxes"];
     console.log("Generating boxes...")
