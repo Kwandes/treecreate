@@ -25,7 +25,7 @@ public class ResetToken
     @Column(name = "email")
     private String email;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", columnDefinition = "boolean default true")
     private Boolean isActive;
 
     public int getId()

@@ -1,6 +1,8 @@
 package dev.hotdeals.treecreate.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -73,169 +75,172 @@ public class Transaction
     @Column(name = "discount", length = 25)
     private String discount;
 
-    public int getId()
+    @OneToMany
+    @JoinColumn(name = "transaction_id")
+    private List<TreeOrder> orderList = new ArrayList<>();
+
+    public Transaction() {}
+
+    public Transaction(User user, String orders, int price, String currency, String status, String createdOn,
+                       String expectedDeliveryDate, String name, String phoneNumber, String email, String streetAddress,
+                       String city, String postcode, String country, String discount, List<TreeOrder> orderList)
     {
+        this.user = user;
+        this.orders = orders;
+        this.price = price;
+        this.currency = currency;
+        this.status = status;
+        this.createdOn = createdOn;
+        this.expectedDeliveryDate = expectedDeliveryDate;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.streetAddress = streetAddress;
+        this.city = city;
+        this.postcode = postcode;
+        this.country = country;
+        this.discount = discount;
+        this.orderList = orderList;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public User getUser()
-    {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public int getPrice()
-    {
-        return price;
-    }
-
-    public void setPrice(int price)
-    {
-        this.price = price;
-    }
-
-    public String getCurrency()
-    {
-        return currency;
-    }
-
-    public void setCurrency(String currency)
-    {
-        this.currency = currency;
-    }
-
-    public String getOrders()
-    {
+    public String getOrders() {
         return orders;
     }
 
-    public void setOrders(String orders)
-    {
+    public void setOrders(String orders) {
         this.orders = orders;
     }
 
-    public String getStatus()
-    {
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status)
-    {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getCreatedOn()
-    {
+    public String getCreatedOn() {
         return createdOn;
     }
 
-    public void setCreatedOn(String createdOn)
-    {
+    public void setCreatedOn(String createdOn) {
         this.createdOn = createdOn;
     }
 
-    public String getExpectedDeliveryDate()
-    {
+    public String getExpectedDeliveryDate() {
         return expectedDeliveryDate;
     }
 
-    public void setExpectedDeliveryDate(String expected)
-    {
-        this.expectedDeliveryDate = expected;
+    public void setExpectedDeliveryDate(String expectedDeliveryDate) {
+        this.expectedDeliveryDate = expectedDeliveryDate;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getPhoneNumber()
-    {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber)
-    {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email)
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getStreetAddress()
-    {
+    public String getStreetAddress() {
         return streetAddress;
     }
 
-    public void setStreetAddress(String streetAddress)
-    {
+    public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
     }
 
-    public String getCity()
-    {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(String city)
-    {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public String getPostcode()
-    {
+    public String getPostcode() {
         return postcode;
     }
 
-    public void setPostcode(String postcode)
-    {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
-    public String getCountry()
-    {
+    public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country)
-    {
+    public void setCountry(String country) {
         this.country = country;
     }
 
-    public String getDiscount()
-    {
+    public String getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount)
-    {
+    public void setDiscount(String discount) {
         this.discount = discount;
     }
 
+    public List<TreeOrder> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<TreeOrder> orderList) {
+        this.orderList = orderList;
+    }
+
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
@@ -247,17 +252,20 @@ public class Transaction
                 Objects.equals(status, that.status) &&
                 Objects.equals(createdOn, that.createdOn) &&
                 Objects.equals(expectedDeliveryDate, that.expectedDeliveryDate) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(phoneNumber, that.phoneNumber) &&
+                Objects.equals(email, that.email) &&
                 Objects.equals(streetAddress, that.streetAddress) &&
                 Objects.equals(city, that.city) &&
                 Objects.equals(postcode, that.postcode) &&
                 Objects.equals(country, that.country) &&
-                Objects.equals(discount, that.discount);
+                Objects.equals(discount, that.discount) &&
+                Objects.equals(orderList, that.orderList);
     }
 
     @Override
-    public int hashCode()
-    {
-        return Objects.hash(id, user, orders, price, currency, status, createdOn, expectedDeliveryDate, streetAddress, city, postcode, country, discount);
+    public int hashCode() {
+        return Objects.hash(id, user, orders, price, currency, status, createdOn, expectedDeliveryDate, name, phoneNumber, email, streetAddress, city, postcode, country, discount, orderList);
     }
 
     public String toString()
