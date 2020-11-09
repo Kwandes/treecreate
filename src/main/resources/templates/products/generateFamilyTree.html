@@ -155,9 +155,10 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                 <div id="familyTreeOptionsContainer">
 
                     <div class="fancySelection">
-                        <div class="fancyHeader"><span>Amount</span>
+                        <div class="fancyHeader">
+                            <span th:text="#{basket.info.amount.name}"></span>
                             <div id="amountInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText">Wow, much text</span>
+                                <span class="infoPopupText" th:text="#{basket.info.amount}"></span>
                             </div>
                         </div>
                         <div class="fancyContent">
@@ -170,9 +171,10 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
 
                     <div class="fancySelection">
-                        <div class="fancyHeader"><span>Product Size</span>
+                        <div class="fancyHeader">
+                            <span th:text="#{basket.info.design.size.name}"></span>
                             <div id="productSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText">Wow, much text</span>
+                                <span class="infoPopupText" th:text="#{basket.info.design.size}"></span>
                             </div>
                         </div>
                         <div class="fancyContent">
@@ -184,7 +186,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
                     <div class="fancySelection">
                         <div class="fancyHeader">
-                            <span>Name</span>
+                            <span th:text="#{basket.names}"></span>
                         </div>
                         <div class="fancyContent">
                             <input type="text" name="nameInput" class="fancyInput" id="nameInput" style="font-size: var(--fontRegular)"
@@ -194,9 +196,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
                     <div class="fancySelection" id="bannerInput">
                         <div class="fancyHeader">
-                            <span>Banner Text</span>
+                            <span th:text="#{familyTree.info.banner.text.name}"></span>
                             <div id="bannerTextInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText">Wow, much text</span>
+                                <span class="infoPopupText"th:text="#{familyTree.info.banner.text}"></span>
                             </div>
                         </div>
                         <div class="fancyContent">
@@ -209,7 +211,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <div class="fancyHeader">
                             <span>Banner Design</span>
                             <div id="bannerDesignInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText">Wow, much text</span>
+                                <span class="infoPopupText" th:text="#{familyTree.info.banner.design}"></span>
                             </div>
                         </div>
                         <div class="fancyContent" id="bannerDesignInputContainer">
@@ -222,9 +224,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
                     <div class="fancySelection" id="font">
                         <div class="fancyHeader">
-                            <span>Font Style</span>
+                            <span>Font</span>
                             <div id="fontStyleInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText">Wow, much text</span>
+                                <span class="infoPopupText" th:text="#{familyTree.info.font.style}"></span>
                             </div>
                         </div>
                         <div class="fancyContent" id="fontStyleInputContainer">
@@ -238,9 +240,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
                     <div class="fancySelection" id="boxSize">
                         <div class="fancyHeader">
-                            <span>Box Size</span>
+                            <span th:text="#{familyTree.info.box.size.name}"></span>
                             <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText">Wow, much text</span>
+                                <span class="infoPopupText" th:text="#{familyTree.info.box.size}"></span>
                             </div>
                         </div>
                         <div class="fancyContent" id="boxSizeInputContainer">
@@ -252,9 +254,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
                     <div class="fancySelection" id="fontSize">
                         <div class="fancyHeader" style="margin-right: 1vh;">
-                            <span>Big Font Size</span>
+                            <span th:text="#{familyTree.info.big.font.name}"></span>
                             <div id="bigFontSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText">Wow, much text</span>
+                                <span class="infoPopupText" th:text="#{familyTree.info.big.font}"></span>
                             </div>
                         </div>
                         <div class="fancyContent" id="bigFontSizeInputContainer">

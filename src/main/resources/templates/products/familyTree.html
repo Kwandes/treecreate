@@ -73,17 +73,18 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
         <div class="modal fade" id="addToBasketModal" role="dialog">
             <div class="modal-dialog" id="addToBasketContainer">
                 <section id="addToBasketHeader">
-                    <div id="addToBasketBackBtn" data-dismiss="modal">Back</div>
+                    <div id="addToBasketBackBtn" data-dismiss="modal"><span th:text="#{basket.back}"></span></div>
                 </section>
                 <section id="addToBasketContent">
                     <section id="addToBasketDetails">
+                        <span th:text="#{basket.names}" style="font-size:var(--fontRegular);"></span>
                         <div id="addToBasketName" class="addToBasketDetail">
-                            <label for="nameInput" id="nameLabel">Name: </label>
-                            <input type="text" name="nameInput" id="nameInput" value="Untitled" maxlength="25">
+                            <input class="fancyInput" type="text" name="nameInput" id="nameInput" value="Untitled" maxlength="25">
                         </div>
                         <div id="addToBasketAmount" class="addToBasketDetail">
                             <div class="fancySelection">
-                                <div class="fancyHeader"><span th:text="#{basket.info.amount.name}"></span>
+                                <div class="fancyHeader">
+                                    <span th:text="#{basket.info.amount.name}"></span>
                                     <div id="amountInfoIcon" class="addToBasketInfoIcon infoPopup">
                                         <span class="infoPopupText" th:text="#{basket.info.amount}"></span>
                                     </div>
@@ -99,7 +100,8 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         </div>
                         <div id="addToBasketSize" class="addToBasketDetail">
                             <div class="fancySelection">
-                                <div class="fancyHeader"><span th:text="#{basket.info.design.size.name}"></span>
+                                <div class="fancyHeader">
+                                    <span th:text="#{basket.info.design.size.name}"></span>
                                     <div id="productSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
                                         <span class="infoPopupText" th:text="#{basket.info.design.size}"></span>
                                     </div>
