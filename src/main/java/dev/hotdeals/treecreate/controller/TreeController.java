@@ -85,6 +85,39 @@ public class TreeController
         return new ResponseEntity<>(String.valueOf(savedOrder.getOrderId()), HttpStatus.OK);
     }
 
+    @PostMapping("/updateTreeOrder")
+    ResponseEntity<String> updateTreeOrder(@RequestBody TreeOrder treeOrder)
+    {
+        LOGGER.info("Editing tree order");
+        int userId = treeOrder.getUserByUserId().getId();
+        LOGGER.info("User id: " + userId);
+        User user = userRepo.findById(userId).orElse(null);
+        if (user == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        int treeDesignId = treeOrder.getTreeDesignById().getId();
+        LOGGER.info("Design id: " + treeDesignId);
+        TreeDesign treeDesign = treeDesignRepo.findById(treeDesignId).orElse(null);
+        if (treeDesign == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        TreeOrder order = treeOrderRepo.findByTreeDesignId(treeDesignId).orElse(null);
+        if (order != null)
+        {
+            order.setAmount(treeOrder.getAmount());
+            order.setSize(treeOrder.getSize());
+            order.setStatus(treeOrder.getStatus());
+            order.setTreeDesignById(treeOrder.getTreeDesignById());
+            order.setUserByUserId(treeOrder.getUserByUserId());
+            TreeOrder savedOrder = treeOrderRepo.save(order);
+            System.out.println(savedOrder.toString());
+            LOGGER.info("New order id: " + savedOrder.getOrderId());
+            return new ResponseEntity<>(String.valueOf(savedOrder.getOrderId()), HttpStatus.OK);
+        } else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     @GetMapping("/getUsers")
     ResponseEntity<List<User>> getUsers()
     {
@@ -192,5 +225,25 @@ public class TreeController
             }
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping(value = {"/products/getTreeOrderByDesignId"})
+    public ResponseEntity<String> getTreeOrderByDesignId(@RequestParam Integer designId)
+    {
+        if (designId == null)
+        {
+            LOGGER.warn("The Design ID is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        LOGGER.info("ID :" + designId);
+        var order = treeOrderRepo.findByTreeDesignId(designId).orElse(null);
+        if (order == null)
+        {
+            LOGGER.warn("The design was null, 400");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        LOGGER.info("Order: " + order.toString());
+        return new ResponseEntity<>(order.stringify(), HttpStatus.OK);
     }
 }

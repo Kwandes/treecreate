@@ -1,15 +1,24 @@
 async function generateDesign()
 {
     let design = await fetchDesign();
+    let order = await fetchOrder();
     if (design === '')
     {
         console.log("%cFailed to obtain the design data", "color:red");
         return;
     }
+    if (order === '')
+    {
+        console.log("%cFailed to obtain the order data", "color:red");
+        return;
+    }
     console.log("Design data: " + design);
+    console.log("Order data: " + order);
 
     design = JSON.parse(design);
     console.dir(design);
+    order = JSON.parse(order);
+    console.dir(order);
 
     document.getElementById("bannerDesignInput").getAttribute("value").replace(design["bannerDesign"]); // TODO - What the fuck how do you work
     document.getElementById("bannerTextInput").value = design["bannerText"];
@@ -18,6 +27,9 @@ async function generateDesign()
     document.getElementById("boxSizeInput").value = design["boxSize"];
     document.getElementById("fontSizeInput").checked = design["isBigFont"];
     document.getElementById("nameInput").value = design["name"];
+
+    document.getElementById("amountInput").value = order["amount"];
+    document.getElementById("sizeInput").value = order["size"];
 
     let boxes = design["boxes"];
     console.log("Generating boxes...")
@@ -130,5 +142,12 @@ async function fetchDesign()
 {
     const response = await fetch(location.origin + "/products/getFamilyTreeDesign" + location.search);
     console.log("%cFetching the design has finished, status: " + response.status, "color:mediumpurple");
+    return await response.text();
+}
+
+async function fetchOrder()
+{
+    const response = await fetch(location.origin + "/products/getTreeOrderByDesignId" + location.search);
+    console.log("%cFetching the order has finished, status: " + response.status, "color:mediumpurple");
     return await response.text();
 }
