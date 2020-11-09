@@ -30,7 +30,7 @@ html, body
 
 #content
 {
-    margin: 13vh 15vw;
+    margin: 8vh 15vw;
     width: 70vw;
     font-size: var(--fontRegular);
     text-align: center;
