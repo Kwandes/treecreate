@@ -21,7 +21,7 @@ public class DiscountCode
     private String dateCreated;
 
     @Basic
-    @Column(name = "active", length = 25)
+    @Column(name = "active", columnDefinition = "boolean default false")
     private Boolean active;
 
     @Basic
