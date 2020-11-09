@@ -56,8 +56,7 @@
                     </select>
 
                     <label for="checkboxNewsletter">
-                        <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter"> subscribe to the
-                        newsletter
+                        <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter"> <span th:text="#{basket.subscribe}"></span>
                     </label>
                 </section>
                 <section id="orderInformation" class="informationSection border">
@@ -105,10 +104,10 @@
                 <div id="acceptOrder" class="border">
                     <label for="termsAndConditionsCheckbox">
                         <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
-                        I have read the <a href="/orderTermsAndConditionsDanish" target="_blank">Terms and
-                        Conditions</a>
+                        <span th:text="#{basket.terms.and.conditions.text}"></span> <a href="/orderTermsAndConditionsDanish" target="_blank">
+                        <span th:text="#{basket.terms.and.conditions.link}"></span></a>
                     </label>
-                    <button onclick='goToPayment()'>Accept Order & Pay</button>
+                    <button onclick='goToPayment()'><span th:text="#{basket.accept.and.pay}"></span></button>
                 </div>
             </section>
         </div>

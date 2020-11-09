@@ -144,12 +144,12 @@
                     <hr class="hoverLine">
                 </a>
                 <a href="/products">
-                    <span>Product</span>
+                    <span th:text="#{navbar.products}"></span>
                     <hr class="hoverLine">
                 </a>
                 <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
                                                id="shoppingBasketIcon" class="icon filterColor">
-                    <span id="basketNavbarText"> (0) Items</span>
+                    <span id="basketNavbarText"> (0) <span th:text="#{navbar.items}"></span></span>
                     <hr class="hoverLine">
                 </a>
                 <a id="loginButton" data-toggle="modal" data-target="#loginModal">
@@ -157,7 +157,7 @@
                     <hr class="hoverLine">
                 </a>
                 <a id="profileButton" href="/profile">
-                    <span>Profile</span>
+                    <span th:text="#{navbar.profile}"></span>
                     <hr class="hoverLine">
                 </a>
             </div>
@@ -194,32 +194,24 @@
     <nav id="footer">
         <div class="footer-row">
             <div class="section">
-                <span class="title">Contact</span><br>
-                <p>
-                    TreeCreate CVR nr. 38 45 31 14<br>
-                    Email: info@treecreate.net<br>
-                    Phone nr. +45 26 19 23 27
-                </p>
+                <span class="title" th:text="#{footer.contact.title}"></span><br>
+                <span th:text="#{footer.contact.text}"></span>
             </div>
             <div class="section">
-                <span class="title">Product</span><br>
-                Every purchase plants a tree<br>
-                Eco Friendly packaging<br>
-                Produced in Denmark<br>
+                <span class="title" th:text="#{footer.product.title}"></span><br>
+                <span th:text="#{footer.product.text}"></span>
                 <div style="margin-top:10px;"></div>
                 <img th:src="@{~/img/icons/danishTransportIcon.svg}" alt="Danish Transport" class="icon">
                 <img th:src="@{~/img/icons/ecoPackageIcon.svg}" alt="Eco friendly packaging" class="icon">
                 <img th:src="@{~/img/icons/recyclingIcon.svg}" alt="Recycled" class="icon">
             </div>
             <div class="section">
-                <span class="title">Address</span><br>
-                Denmark<br>
-                Copenhagen<br>
-                Hillerødgade 69, 3.<br>
+                <span class="title" th:text="#{footer.address.title}"></span><br>
+                <span th:text="#{footer.address.text}"></span>
             </div>
         </div>
         <div class="paymentMethods" style="margin: 1vw;">
-            <h2 class="modal-title">Payment methods: </h2>
+            <h2 class="modal-title"><span th:text="#{footer.payment.title}"> </span></h2>
             <img th:src="@{~/img/logos/paymentLogo/dankortLogo.svg}" alt="Dankort" class="icon">
             <img th:src="@{~/img/logos/paymentLogo/mastercardLogo.svg}" alt="Mastercard" class="icon">
             <img th:src="@{~/img/logos/paymentLogo/visaLogo.svg}" alt="Visa" class="icon">
@@ -232,7 +224,7 @@
         </div>
         <div class="footer-row" id="footer-bottom">
             <div class="section">
-                <span>Copyright © 2020 TreeCreate All Rights Reserved.</span>
+                <span th:text="#{footer.copyright.text}"></span>
             </div>
         </div>
     </nav>
