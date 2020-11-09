@@ -5,7 +5,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Service
 public class MailService
@@ -28,13 +32,15 @@ public class MailService
         infoEmailSender.send(message);
     }
 
-    public void sendOrderMail(String emailText, String emailSubject, String to) throws MailException
+    public void sendOrderMail(String emailText, String emailSubject, String to) throws MailException, MessagingException
     {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("orders@treecreate.dk");
-        message.setTo(to);
-        message.setSubject(emailSubject);
-        message.setText(emailText);
-        orderEmailSender.send(message);
+        MimeMessage mimeMessage = orderEmailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+        mimeMessage.setContent(emailText, "text/html"); /* Use this or below line */
+        //helper.setText(htmlMsg, true); // Use this or above line.
+        helper.setTo(to);
+        helper.setSubject(emailSubject);
+        helper.setFrom("orders@treecreate.dk");
+        orderEmailSender.send(mimeMessage);
     }
 }

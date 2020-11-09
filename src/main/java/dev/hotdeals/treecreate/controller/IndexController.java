@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.mail.MessagingException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -97,7 +98,7 @@ public class IndexController
         try
         {
             mailService.sendOrderMail("Example Order Message", "Example Order Subject", "info@treecreate.dk");
-        } catch (MailException e)
+        } catch (MailException | MessagingException e)
         {
             LOGGER.error("Unable to send an email", e);
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);

@@ -9,6 +9,7 @@ import dev.hotdeals.treecreate.model.Transaction;
 import dev.hotdeals.treecreate.model.TreeOrder;
 import dev.hotdeals.treecreate.repository.TransactionRepo;
 import dev.hotdeals.treecreate.repository.TreeOrderRepo;
+import dev.hotdeals.treecreate.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
@@ -23,6 +25,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.*;
@@ -439,6 +442,122 @@ public class PaymentController
         return new ResponseEntity<>(transactionList, HttpStatus.OK);
     }
 
+    @Autowired
+    MailService mailService;
+
+    @GetMapping("/getTransaction/{id}")
+    ResponseEntity<Transaction> getPayment(HttpServletRequest request, @PathVariable(name = "id") String id)
+    {
+        LOGGER.info("Fetching transaction with an id: " + id);
+
+         /*
+        LOGGER.info("Transaction " + id + " - Get current user Id");
+        int userId;
+        try
+        {
+            userId = Integer.parseInt(Objects.requireNonNull(treeController.getCurrentUser(request).getBody()));
+        } catch (NullPointerException e)
+        {
+            LOGGER.error("Cannot fetch a transaction - user id obtained from the session is null");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        LOGGER.info("Get Transaction - User Id: " + userId);
+        User user = userRepo.findById(userId).orElse(null);
+        if (user == null)
+        {
+            LOGGER.info("The user is yikes");
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+        */
+        Transaction transaction;
+        try
+        {
+            transaction = transactionRepo.findById(Integer.parseInt(id)).orElse(null);
+        } catch (NumberFormatException e)
+        {
+            LOGGER.info("Provided transaction id was not a number");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (transaction == null)
+        {
+            LOGGER.info("Found no matching transaction");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        LOGGER.info("Found a transaction, orders: " + transaction.getOrders());
+
+        LOGGER.info("Sending an email");
+
+        try
+        {
+            mailService.sendOrderMail(
+                    " <p>\n" +
+                            "        Hi " + transaction.getUser().getName() + ",\n" +
+                            "        <br><br>\n" +
+                            "        Just to let you know - we've received your order " + transaction.getId() + ", and it is not being processed:\n" +
+                            "    </p>\n" +
+                            "    <h1>[Order " + transaction.getId() + "] (" + LocalDate.now().toString() + ")</h1>\n" +
+                            "    <table style=\"border-spacing: 0;\">\n" +
+                            "        <tr style=\"width: 60vw; margin: 0 18vw\">\n" +
+                            "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">Product</th>\n" +
+                            "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">Quantity</th>\n" +
+                            "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">price</th>\n" +
+                            "        </tr>\n" +
+                            "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
+                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: left\">" + "Fml" + "</td>\n" +
+                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: center\">69</td>\n" +
+                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: center\">1234kr</td>\n" +
+                            "        </tr>\n" +
+                            "    </table>\n" +
+                            "    <table style=\"border-spacing: 0\">\n" +
+                            "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Subtotal</td>\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + transaction.getPrice() + "kr</td>\n" +
+                            "        </tr>\n" +
+                            "        <tr>\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Shipping:</td>\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Free delivery | Estimated Delivery time: 2-3 weeks</td>\n" +
+                            "        </tr>\n" +
+                            "        <tr>\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Total:</td>\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + transaction.getPrice() + "kr</td>\n" +
+                            "        </tr>\n" +
+                            "    </table>\n" +
+                            "\n" +
+                            "    <br><br>\n" +
+                            "\n" +
+                            "    <table style=\"border-spacing: 0\">\n" +
+                            "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
+                            "            <th style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Billing Address</th>\n" +
+                            "            <th style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Shipping Address</th>\n" +
+                            "        </tr>\n" +
+                            "        <tr>\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
+                            "                " + transaction.getName() + "<br>\n" +
+                            "                " + transaction.getStreetAddress() + " <br>\n" +
+                            "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
+                            "                " + transaction.getCountry() + " <br>\n" +
+                            "                " + transaction.getPhoneNumber() + " <br>\n" +
+                            "                " + transaction.getEmail() + "\n" +
+                            "            </td>\n" +
+                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
+                            "                " + transaction.getName() + "<br>\n" +
+                            "                " + transaction.getStreetAddress() + " <br>\n" +
+                            "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
+                            "                " + transaction.getCountry() + " <br>\n" +
+                            "            </td>\n" +
+                            "        </tr>\n" +
+                            "    </table>"
+                    ,
+                    "Transaction test", "info@treecreate.dk");
+        } catch (MessagingException e)
+        {
+            LOGGER.error("Failed to send an email for transaction order info", e);
+        }
+
+        return new ResponseEntity<>(transaction, HttpStatus.OK);
+    }
+
     @PostMapping("/paymentCallback")
     ResponseEntity<String> paymentCallback(@RequestBody String body)
     {
@@ -465,5 +584,11 @@ public class PaymentController
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(discountCode, HttpStatus.OK);
+    }
+
+    @GetMapping("/fail")
+    String fail()
+    {
+        return "payment/fail";
     }
 }
