@@ -22,37 +22,37 @@
         <div id="basketContainer">
             <section class="basketSection">
                 <section id="customerInformation" class="informationSection border">
-                    <span id="formTitle" class="title">Delivery Information</span>
+                    <span id="formTitle" class="title"><span th:text="#{basket.delivery.info}"></span></span>
                     <input type="number" name="id" th:value="${user.id}" hidden>
 
-                    <label for="inputName">Name:</label>
+                    <label for="inputName"><span th:text="#{basket.names}"></span></label>
                     <input type="text" name="inputName" id="inputName" th:value="${user.name}" maxlength="80" required>
 
-                    <label for="inputPhoneNumber">Phone Number:</label>
+                    <label for="inputPhoneNumber"><span th:text="#{basket.phone.number}"></span></label>
                     <input type="number" name="inputPhoneNumber" id="inputPhoneNumber" th:value="${user.phoneNumber}"
                            maxlength="15" required>
 
-                    <label for="inputEmail">Email:</label>
+                    <label for="inputEmail">Email</label>
                     <input type="email" name="inputEmail" id="inputEmail" th:value="${user.email}" maxlength="254"
                            required>
 
-                    <label for="inputStreetAddress">Street Address:</label>
+                    <label for="inputStreetAddress"><span th:text="#{basket.street.address}"></span></label>
                     <input type="text" name="inputStreetAddress" id="inputStreetAddress"
                            th:value="${user.streetAddress}"
                            maxlength="99" required>
 
-                    <label for="inputCity">City:</label>
+                    <label for="inputCity"><span th:text="#{basket.city}"></span></label>
                     <input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
 
-                    <label for="inputPostcode">Postcode:</label>
+                    <label for="inputPostcode"><span th:text="#{basket.post.code}"></span></label>
                     <input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}"
                            maxlength="15"
                            required>
 
                     <label for="inputCountry">Country:</label>
                     <select name="inputCountry" id="inputCountry" th:field="${user.country}">
-                        <option value="Denmark">Denmark</option>
-                        <option value="Other">Other</option>
+                        <option value="Denmark"><span th:text="#{basket.denmark}"></span></option>
+                        <option value="Other"><span th:text="#{basket.other}"></span></option>
                     </select>
 
                     <label for="checkboxNewsletter">
@@ -62,10 +62,10 @@
                 <section id="orderInformation" class="informationSection border">
                     <table id="orderTable">
                         <tr>
-                            <th>Amount</th>
-                            <th>Product</th>
-                            <th>Total</th>
-                            <th>Save</th>
+                            <th><span th:text="#{basket.amount}"></span></th>
+                            <th><span th:text="#{basket.prod}"></span></th>
+                            <th><span th:text="#{basket.total}"></span></th>
+                            <th><span th:text="#{basket.save}"></span></th>
                         </tr>
                         <tr class="orderRow" style="display: none">
                             <td class="orderAmount">N/A</td>
@@ -74,13 +74,13 @@
                             <td class="orderSaved">N/A</td>
                         </tr>
                         <tr style="border-top: 1px solid var(--mainColor); margin-top: 1vh;">
-                            <td>Total Price</td>
+                            <td><span th:text="#{basket.total.price}"></span></td>
                             <td></td>
                             <td id="totalPrice">0</td>
                             <td id="totalSaved">0</td>
                         </tr>
                         <tr>
-                            <td>Tax</td>
+                            <td><span th:text="#{basket.tax}"></span></td>
                             <td></td>
                             <td id="totalTax">0</td>
                             <td></td>
@@ -95,7 +95,7 @@
                     </table>
                     <section id="discountCode">
                         <label for="inputDiscountCode">Discount Code:</label>
-                        <input id="inputDiscountCode" placeholder="Your discount code" maxlength="25"><br>
+                        <input id="inputDiscountCode" placeholder="ex. ABC123" maxlength="25"><br>
                         <input type="button" id="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
                     </section>
                 </section>
