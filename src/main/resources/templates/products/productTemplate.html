@@ -149,7 +149,7 @@
                 </a>
                 <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
                                                id="shoppingBasketIcon" class="icon filterColor">
-                    <span id="basketNavbarText"> (0) <span th:text="#{navbar.items}"></span></span>
+                    <span id="basketNavbarText"> (0) </span><span th:text=" #{navbar.items}"></span>
                     <hr class="hoverLine">
                 </a>
                 <a id="loginButton" data-toggle="modal" data-target="#loginModal">
@@ -160,7 +160,13 @@
                     <span th:text="#{navbar.profile}"></span>
                     <hr class="hoverLine">
                 </a>
+                <script th:src="@{/js/changeLanguage.js}"></script>
+                <a id="changeLanguage" onclick="changeLanguage()">
+                    <span th:text="#{landing.changeLanguage}"></span>
+                    <hr class="hoverLine">
+                </a>
             </div>
+
         </div>
 
     </section>

@@ -6,7 +6,7 @@ async function updateBasket()
     console.log("We have " + JSON.parse(basketItems).length + " items in the basket");
     let basketItemCount = JSON.parse(basketItems).length;
     const basket = document.getElementById("basketNavbarText");
-    basket.innerText = ' (' + basketItemCount + ') Items';
+    basket.innerText = ' (' + basketItemCount + ')';
 }
 
 async function fetchBasketItems()
