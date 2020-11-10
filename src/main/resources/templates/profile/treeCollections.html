@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Tree Collections</title>
+    <title>Basket</title>
     <link th:href="@{/img/logos/treecreateLogo/browserLogo.svg}" rel="icon">
     <link th:href="@{/styles/index.css}" rel="stylesheet">
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
@@ -25,7 +25,7 @@
         <div id="profileNavContainer">
             <a href="/account/info">
                 <div class="profileNav" id="accountInfoButton">
-                    <span th:text="#{account.info"></span>
+                    <span th:text="#{account.info}"></span>
                 </div>
             </a>
             <a href="/account/collections" id="collectionsButton">
@@ -55,6 +55,13 @@
                     <section class="infoContent">
                         <span th:text="#{collection.box.content}"></span>
                         <span class="boxContent">James,. Hilda, Nika and more...</span>
+
+                        <span th:text="#{collection.amount}"></span>
+                        <span class="amount">3</span>
+
+                        <span th:text="#{collection.size}"></span>
+                        <span class="size">25x25 cm</span>
+
                         <span th:text="#{collection.date.created}"></span>
                         <span class="dateCreated">01/02/1969 22:22</span>
                     </section>
@@ -66,6 +73,10 @@
                 </div>
             </section>
             <script>generateCollections()</script>
+
+            <a href="/shoppingBasket" class="collectionInfoBtn" id="checkoutButton">
+                <span th:text="#{collection.checkout}"></span>
+            </a>
         </div>
     </section>
     <section th:replace="products/productTemplate :: #footerContainer"></section>

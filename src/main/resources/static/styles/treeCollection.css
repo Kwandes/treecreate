@@ -85,5 +85,11 @@
 .collectionInfoBtn:hover
 {
     transform:scale(0.9);
+    color: white;
     filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0));
+}
+
+#checkoutButton
+{
+    visibility: hidden;
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
@@ -22,6 +23,8 @@ import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 @RestController
 public class TreeController
 {
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
     @Autowired
     UserRepo userRepo;
 
@@ -36,7 +39,7 @@ public class TreeController
     {
         LOGGER.info("Adding a new tree design");
         TreeDesign treeDesign = new TreeDesign();
-        treeDesign.setDateCreated(LocalDateTime.now().toString());
+        treeDesign.setDateCreated(LocalDateTime.now().format(formatter).toString());
         treeDesign.setDesignJson(design.stringify());
         TreeDesign savedDesign = treeDesignRepo.save(treeDesign);
         LOGGER.info("New Design Id: " + savedDesign.getId());
@@ -50,7 +53,7 @@ public class TreeController
         TreeDesign treeDesign = treeDesignRepo.findById(design.getId()).orElse(null);
         if (treeDesign != null)
         {
-            treeDesign.setDateCreated(LocalDateTime.now().toString());
+            treeDesign.setDateCreated(LocalDateTime.now().format(formatter));
             treeDesign.setDesignJson(design.stringify());
             treeDesign.setId(design.getId());
             System.out.println(design.stringify());

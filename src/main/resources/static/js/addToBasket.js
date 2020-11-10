@@ -77,6 +77,7 @@ async function changeDesign()
     console.dir(JSON.parse((orderInfo)));
     let orderId = await updateOrder(orderInfo);
     console.log("Order updated, Order id: " + orderId)
+    location.replace("/account/collections");
 }
 
 function getDesign()
