@@ -80,8 +80,6 @@ public class PaymentController
         LOGGER.info("Getting all orders for user " + user.getId());
         var orderList = treeOrderRepo.findAllByUserId(user.getId());
         int totalPrice = 0;
-        int totalAmountOfOrders = 0;
-        String orderIdList = "";
         Map<String, Integer> sizeToPriceMap = new HashMap<>();
         sizeToPriceMap.put("20x20 cm", 495);
         sizeToPriceMap.put("25x25 cm", 695);
@@ -90,15 +88,14 @@ public class PaymentController
         {
             if (order.getStatus().equals("active"))
             {
-                totalAmountOfOrders += order.getAmount();
-                orderIdList += order.getOrderId() + ",";
                 int price = sizeToPriceMap.get(order.getSize());
                 totalPrice += price * order.getAmount();
+            } else
+            {
+                orderList.remove(order);
             }
         }
-        orderIdList = orderIdList.substring(0, orderIdList.length() - 1);
-        LOGGER.info("Order Id list: " + orderIdList);
-        if (totalAmountOfOrders > 3)
+        if (orderList.size() > 3)
             totalPrice = (int) (totalPrice * 0.75);
         totalPrice *= 100; // Quickpay takes 2 digits as decimal places, so 1000 becomes 10,00
 
@@ -145,7 +142,7 @@ public class PaymentController
         transaction.setCurrency("dkk");
         transaction.setPrice(totalPrice);
         transaction.setUser(user);
-        transaction.setOrders(orderIdList);
+        transaction.setOrderList(orderList);
         transaction.setStatus("creating"); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
         transaction.setCreatedOn(LocalDateTime.now().toString()); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
         var expectedDeliveryDate = LocalDateTime.now().plusWeeks(2);
@@ -244,16 +241,9 @@ public class PaymentController
         transactionRepo.save(transaction);
 
         LOGGER.info("Transaction " + transaction.getId() + " - Changing the status of orders to pending");
-        String[] idList = orderIdList.split(",");
-        for (String orderId : idList)
+        for (TreeOrder order : orderList)
         {
-            LOGGER.info("Transaction " + transaction.getId() + " - Handling order with an id: " + orderId);
-            TreeOrder order = treeOrderRepo.findById(Integer.parseInt(orderId)).orElse(null);
-            if (order == null)
-            {
-                LOGGER.warn("Failed to find order id: " + orderId + " in transaction id: " + transaction.getId() + ". The order might have incorrect status now");
-                break;
-            }
+            LOGGER.info("Transaction - changing status of order" + order.getOrderId() + " to pending");
             order.setStatus("pending");
             treeOrderRepo.save(order);
         }
