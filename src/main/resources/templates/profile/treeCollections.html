@@ -47,19 +47,18 @@
                 <div class="designImage"></div>
                 <div class="designInfo">
                     <section class="infoHeader">
-                        <span class="orderName">Untitled</span>
-                        <span class="spanBoxText">Boxes: 20</span>
+                        <span class="orderName" th:text="#{collection.name}">Untitled</span>
+                        <span class="spanBoxText" th:text="#{collection.boxes}"></span>
                     </section>
                     <section class="infoContent">
-                        <span>Box content:</span>
+                        <span th:text="#{collection.box.content}"></span>
                         <span class="boxContent">James,. Hilda, Nika and more...</span>
-                        <span>Date created:</span>
+                        <span th:text="#{collection.date.created}"></span>
                         <span class="dateCreated">01/02/1969 22:22</span>
                     </section>
                     <section class="infoFooter">
-                        <button class="collectionInfoBtn" onclick="editDesign(this)">Edit</button>
-                        <button class="collectionInfoBtn" onclick="buyDesing()">Buy</button>
-                        <button class="collectionInfoBtn" onclick="deleteDesign(this)">Delete</button>
+                        <button class="collectionInfoBtn" onclick="editDesign(this)"><span th:text="#{collection.edit}"></span></button>
+                        <button class="collectionInfoBtn" onclick="deleteDesign(this)"><span th:text="#{collection.delete}"></span></button>
                         <span class="orderId" hidden>0</span>
                     </section>
                 </div>
