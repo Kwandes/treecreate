@@ -1,7 +1,7 @@
 #cookiePromptModal h2
 {
     font-size: 48px;
-    margin: 1vh 0 0 2vh;
+    margin: 1vh 0 2vh 0;
 }
 
 #cookiePromptModal p
@@ -20,14 +20,19 @@
     color: var(--actionColor);
 }
 
+.cookiePrompt
+{
+    padding: 3vh 5vh !important;
+}
+
 #cookiePromptModal button
 {
-    margin: 1vh 0 2vh 2vh;
+    margin: 2vh 0 0 0 ;
     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.17);
     background-color: var(--actionColor);
     color: white;
     border-radius: 7px;
-    width: 200px;
+    width: 250px;
     height: 40px;
     font-size: 24px;
     border: none;

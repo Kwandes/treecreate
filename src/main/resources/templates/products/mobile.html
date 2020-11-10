@@ -11,17 +11,65 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/landingPage.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         .center
         {
             margin: auto;
-            width: 95%;
+            width: 90%;
             padding: 10px;
             align-content: center;
             text-align: center;
-            font-size: 300px;
+        }
+
+        #emailContainer
+        {
+            margin: 4vh;
+        }
+
+        #emailInput
+        {
+            font-size: 18px;
+            line-height: 18px;
+            background: none;
+            border: 2px var(--actionColor) solid;
+            border-radius: 5px;
+            height: 37px;
+            min-width: 20vw;
+            max-width: 30vw;
+            width: 100%;
+            margin-right: 1vw;
+            color: black;
+            opacity: 1;
+            padding-left: 7px;
+        }
+
+        #emailInput::placeholder
+        {
+            color: black;
+            opacity: 1;
+            font-size: 18px;
+            line-height: 18px;
+        }
+
+        #emailSubmitBtn
+        {
+            font-size: 18px;
+            background: var(--actionColor);
+            border-radius: 7px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            height: 37px;
+            width: 85px;
+            border: none;
+            color: white;
+        }
+
+        #emailSubmitBtn:hover
+        {
+            box-shadow: none;
+            transform:scale(0.9);
         }
     </style>
 </head>
@@ -32,10 +80,21 @@
             <div id="productContainer">
                 <div id="product">
                     <div class="center">
-                        <h2 style="font-size: 50px">Oh No!</h2>
-                        <h3 style="font-size: 40px">Treecreate does not support modifying or creating a tree on mobile devices yet</h3>
-                        <h3 style="font-size: 40px">We hope you can return to this page on a computer to create your very own family tree</h3>
-                        <img style="border-radius: 10%; width: 70%" src="https://imaliyam.files.wordpress.com/2015/10/cat-crying-sad-cat.jpg" alt="Sad Cat">
+                        <h2 style="font-size: 50px">Ups!</h2>
+                        <h3 style=""><span th:text="#{mobile.text}"></span></h3>
+                        <h3 style="">
+                            <span th:text="#{mobile.text.two}"></span>
+                            <span style="color:var(--mainColor); font-weight:bold; font-decoration:underline;" th:text="#{mobile.text.treecreate}"></span>
+                            <span th:text="#{mobile.text.three}"></span>
+                            <span th:text="#{mobile.text.four}"></span>
+                        </h3>
+                        <div id="emailContainer">
+                            <input type="email" id="emailInput" name="newsletterEmail"
+                                   th:placeholder="#{landing.comingSoon.subscribe.input}"
+                                   required>
+                            <button id="emailSubmitBtn" type="button" onclick="submitPopup()"
+                                    th:text="#{landing.submit}"></button>
+                        </div>
                     </div>
                 </div>
             </div>
