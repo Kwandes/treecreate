@@ -50,4 +50,10 @@ public class ProductController
     {
         return "products/generateFamilyTree";
     }
+
+    @GetMapping(value = {"/products/readFamilyTree", "/products/read", "/products/readOnlyFamilyTree"})
+    public String readFamilyTree()
+    {
+        return "products/readOnlyFamilyTree";
+    }
 }

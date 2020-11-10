@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Read-Only Family Tree</title>
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/products.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link th:href="@{/styles/familyTree.css}" rel="stylesheet">
+    <link th:href="@{/styles/draggableBox.css}" rel="stylesheet">
+    <link th:href="@{/styles/banner.css}" rel="stylesheet">
+    <link th:href="@{/styles/popup.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <link href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="">
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/addToBasket.js}"></script>
+    <script th:src="@{/js/mobileRedirect.js}"></script>
+    <script th:src="@{/js/cookiePrompt.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!--  FACEBOOK HEADERS -->
+    <!-- You can use Open Graph tags to customize link previews.
+Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+
+    <!--  Website URL "https://www.your-domain.com/your-page.html"-->
+    <meta property="og:url" content="https://treecreate.dk/products/familyTree"/>
+    <!--  Type of content -->
+    <meta property="og:type" content="website"/>
+    <!--  Title of the site -->
+    <meta property="og:title" content="Tree Create"/>
+    <!--  Description of the site to be linked -->
+    <meta property="og:description" content="Create your family tree in engraved wood!"/>
+    <!--  Image that will show up on the link on FaceBook -->
+    <meta property="og:image" content="https://treecreate.dk/img/images/treeDesign/tree1.svg"/>
+    <!--  End of FaceBook headers -->
+
+</head>
+<body>
+<section th:replace="products/productTemplate :: #navigationContainer"></section>
+
+<!-- Start of Load FaceBook SDK for JavaScript -->
+
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }
+    (document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>isMobile()</script>
+
+<!-- End of Load FaceBook SDK for JavaScript -->
+
+<section id="contentContainer">
+    <div id="content">
+        <!--<div id="popupContainer" class="popupContainer">
+            <div id="popup" class="popup"><p id="popupText">Welcome Back!</p></div>
+        </div>-->
+        <!-- Login modal -->
+        <div class="modal fade" id="addToBasketModal" role="dialog">
+            <div class="modal-dialog" id="addToBasketContainer">
+                <section id="addToBasketHeader">
+                    <div id="addToBasketBackBtn" data-dismiss="modal">Back</div>
+                </section>
+                <section id="addToBasketContent">
+                    <section id="addToBasketTreeDesign">
+                        <div id="addToBasketTreeImage"></div>
+                    </section>
+                    <section id="addToBasketDetails">
+                        <div id="addToBasketPrice" class="addToBasketDetail">
+                            <label for="priceInput" id="priceLabel">Price: </label>
+                            <input type="text" name="priceInput" id="priceInput" value="695kr" readonly>
+                        </div>
+                        <div id="addToBasketButtonContainer" class="addToBasketDetail">
+                            <div id="recommendedSizes">
+                                <p>
+                                    Recommended size: <br>
+                                    20x20 | up to 20 names <br>
+                                    25x25 | up to 30 names <br>
+                                    30x30 | up to 40 names <br>
+                                </p>
+                                <input type="button" id="addToBasketButton" value="ADD TO BASKET"
+                                       onclick="addToBasket()" readonly>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section id="addToBasketFooter">
+                    <p>
+                        Note: When you purchase this tree you are automatically paying to plant a tree in the amazon
+                        forest.
+                    </p>
+                    <p>
+                        Note: Packaging is made of recycled materials that are eco friendly and the paper is FSC
+                        certified
+                    </p>
+                    <p>
+                        Note: The wood that is used for the design is a high quality hard oak and is produced here in
+                        denmark.
+                    </p>
+                </section>
+            </div>
+
+            <!--<div id="popupModalContainer" class="popupContainer">
+                <div id="popupModal" class="popup"><p id="popupModalText">Welcome Back!</p></div>
+            </div>-->
+        </div>
+
+        <div id="productContainer">
+            <div id="product">
+                <div id="familyTreeDesignContainer">
+                    <div id="draggableBoxContainer">
+                        <div class="draggableBox draggableBoxPreview">
+                            <input type="hidden" class="creationCursorX" value="0">
+                            <input type="hidden" class="creationCursorY" value="0">
+                            <div class="draggableBoxUpperRow">
+                                <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
+                            </div>
+                            <div class="draggableBoxMiddleRow">
+                                <span class="input draggableBoxInput" role="textbox"
+                                      onkeypress="return (this.innerText.length <= boxInputLimit)"></span>
+                                <!--The length needs to adjust to the box size-->
+                            </div>
+                            <div class="draggableBoxLowerRow">
+                                <div class="dragDraggableBoxButton"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="familyTreeBanner">
+                        <svg id="bannerText" viewBox="-450 -450 900 900">
+                            <path id="curve" d='M-420,-137
+                            C-130,46 120,46 420,-137'/>
+                            <text x="50%" y="0%" dominant-baseline="middle" text-anchor="middle">
+                                <textPath xlink:href="#curve" id="bannerTextPath">
+                                    familietræ
+                                </textPath>
+                            </text>
+                        </svg>
+
+                    </div>
+                </div>
+                <div id="familyTreeOptionsContainer" style="visibility: hidden">
+
+                    <div class="fancySelection">
+                        <div class="fancyHeader">
+                            <span th:text="#{basket.info.amount.name}"></span>
+                            <div id="amountInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText" th:text="#{basket.info.amount}"></span>
+                            </div>
+                        </div>
+                        <div class="fancyContent">
+                            <div class="arrowLeft" id="amountArrowLeft" alt="<"
+                                 onclick="decreaseAmount()"></div>
+                            <input type="text" id="amountInput" class="fancyInput" value="1" readonly>
+                            <div class="arrowRight" id="amountArrowRight" alt=">"
+                                 onclick="increaseAmount()"></div>
+                        </div>
+                    </div>
+
+                    <div class="fancySelection">
+                        <div class="fancyHeader">
+                            <span th:text="#{basket.info.design.size.name}"></span>
+                            <div id="productSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText" th:text="#{basket.info.design.size}"></span>
+                            </div>
+                        </div>
+                        <div class="fancyContent">
+                            <div class="arrowLeft" id="sizeArrowLeft" alt="<" onclick="decreaseSize()"></div>
+                            <input type="text" id="sizeInput" class="fancyInput" value="30x30 cm" readonly>
+                            <div class="arrowRight" id="sizeArrowRight" alt=">" onclick="increaseSize()"></div>
+                        </div>
+                    </div>
+
+                    <div class="fancySelection">
+                        <div class="fancyHeader">
+                            <span th:text="#{basket.names}"></span>
+                        </div>
+                        <div class="fancyContent">
+                            <input type="text" name="nameInput" class="fancyInput" id="nameInput" style="font-size: var(--fontRegular)"
+                                   placeholder="Untitled" maxlength="25">
+                        </div>
+                    </div>
+
+                    <div class="fancySelection" id="bannerInput">
+                        <div class="fancyHeader">
+                            <span th:text="#{familyTree.info.banner.text.name}"></span>
+                            <div id="bannerTextInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText"th:text="#{familyTree.info.banner.text}"></span>
+                            </div>
+                        </div>
+                        <div class="fancyContent">
+                            <input type="text" class="fancyInput" id="bannerTextInput" th:placeholder="#{familyTree.familyTree}"
+                                   maxlength="15">
+                        </div>
+                    </div>
+
+                    <div class="fancySelection" id="bannerDesign">
+                        <div class="fancyHeader">
+                            <span>Banner Design</span>
+                            <div id="bannerDesignInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText" th:text="#{familyTree.info.banner.design}"></span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="bannerDesignInputContainer">
+                            <div class="arrowLeft" id="previousBannerDesign" alt="<"></div>
+                            <input type="text" class="fancyInput" id="bannerDesignInput" value="Banner Style 1"
+                                   readonly>
+                            <div class="arrowRight" id="nextBannerDesign" alt=">"></div>
+                        </div>
+                    </div>
+
+                    <div class="fancySelection" id="font">
+                        <div class="fancyHeader">
+                            <span>Font</span>
+                            <div id="fontStyleInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText" th:text="#{familyTree.info.font.style}"></span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="fontStyleInputContainer">
+                            <select class="fancyInput" id="fontInput">
+                                <option value="0">Spectral</option>
+                                <option value="1">Sansita swashed</option>
+                                <option value="2">Roboto slab</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="fancySelection" id="boxSize">
+                        <div class="fancyHeader">
+                            <span th:text="#{familyTree.info.box.size.name}"></span>
+                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText" th:text="#{familyTree.info.box.size}"></span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="boxSizeInputContainer">
+                            <div class="arrowLeft" id="decreaseBoxButton" alt="<"></div>
+                            <input type="number" class="fancyInput" id="boxSizeInput" value="10" readonly>
+                            <div class="arrowRight" id="increaseBoxButton" alt=">"></div>
+                        </div>
+                    </div>
+
+                    <div class="fancySelection" id="fontSize">
+                        <div class="fancyHeader" style="margin-right: 1vh;">
+                            <span th:text="#{familyTree.info.big.font.name}"></span>
+                            <div id="bigFontSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                <span class="infoPopupText" th:text="#{familyTree.info.big.font}"></span>
+                            </div>
+                        </div>
+                        <div class="fancyContent" id="bigFontSizeInputContainer">
+                            <input type="checkbox" class="switch-input" id="fontSizeInput">
+                        </div>
+
+                    </div>
+
+                    <div class="save">
+                        <button id="saveDesignButton" onclick="changeDesign()">
+                            <span th:text="#{familyTree.option.save}"></span>
+                        </button>
+                    </div>
+
+                    <!-- AD SHARE FUNC LATER
+                    <div class="fb-share-button"
+                         data-href="https://treecreate.dk/products/familyTree"
+                         data-layout="box_count">
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<section th:replace="products/productTemplate :: #footerContainer"></section>
+<script th:src="@{/js/familyTree.js}"></script>
+<script th:src="@{/js/generateDesign.js}"></script>
+<script>convertToReadOnly()</script>
+</body>
+</html>

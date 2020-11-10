@@ -138,6 +138,15 @@ async function generateDesign()
     console.log("%c generation finished", "color:mediumpurple")
 }
 
+async function convertToReadOnly()
+{
+    await generateDesign();
+    document.getElementById("familyTreeOptionsContainer").remove();
+    let oldPage = document.getElementById("contentContainer");
+    let newPage = oldPage.cloneNode(true);
+    oldPage.parentNode.replaceChild(newPage, oldPage);
+}
+
 async function fetchDesign()
 {
     const response = await fetch(location.origin + "/products/getFamilyTreeDesign" + location.search);
