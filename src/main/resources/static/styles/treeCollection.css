@@ -17,9 +17,8 @@
     min-width: 100px;
     width: 20vw;
     height: 20vw;
-    border: 2px black solid;
     border-radius: 12px;
-    margin-top: 2vw;
+    margin: 3vw 0;
     background-image: url("../img/images/backgrounds/addToBasketDesignTree.png");
     background-position: center;
     background-repeat: no-repeat;

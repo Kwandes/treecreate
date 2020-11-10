@@ -9,6 +9,8 @@
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link th:href="@{/styles/profile.css}" rel="stylesheet">
     <link th:href="@{/styles/treeCollection.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/basket.js}"></script>
     <script th:src="@{/js/treeCollections.js}"></script>
@@ -23,22 +25,22 @@
         <div id="profileNavContainer">
             <a href="/account/info">
                 <div class="profileNav" id="accountInfoButton">
-                    <span>Account info</span>
+                    <span th:text="#{account.info"></span>
                 </div>
             </a>
             <a href="/account/collections" id="collectionsButton">
                 <div class="profileNav active">
-                    <span>Tree collection</span>
+                    <span th:text="#{account.tree.collection}"></span>
                 </div>
             </a>
             <a href="/account/orders" id="ordersButton">
                 <div class="profileNav">
-                    <span>Orders</span>
+                    <span th:text="#{account.orders}"></span>
                 </div>
             </a>
             <a href="/logout" id="logoutButton">
                 <div class="profileNav">
-                    <span>Log out</span>
+                    <span th:text="#{account.log.out}"></span>
                 </div>
             </a>
         </div>
