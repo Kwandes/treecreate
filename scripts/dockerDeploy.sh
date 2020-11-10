@@ -78,12 +78,14 @@ read -p "Would you like to deploy as a test release [yes]? " testRelease
 testRelease="${testRelease:-test}"
 
 if [[ "$testRelease" != "test" ]]; then
-  testRelease = ""
+  testRelease=""
+else
+  testRelease="-test"
 fi
 
-dockerName = dockerName + testRelease
+dockerName="$dockerName$testRelease"
 echo ""
-echo "Name: " + dockerName
+echo "Name: $dockerName"
 echo ""
 read -p "What is the port setup you would like to use [4001:5000]? " dockerPort
 dockerPort="${dockerPort:-4001:5000}"
@@ -116,9 +118,10 @@ echo "Variable check successful"
 echo ""
 echo "Building an image $dockerName"
 echo ""
-if [[ "$testRelease" != "test" ]]; then
+if [[ "$testRelease" != "-test" ]]; then
   echo "Building for production"
-  docker build -t $dockerName --build-arg TREECREATE_PROD_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+  # Even though we are building for prod, the test will occur on the dev DB just in case it causes issues
+  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
 else
   echo "Building for testing"
   docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
@@ -129,10 +132,11 @@ echo "Running the image $dockerName on ports $dockerPort"
 echo ""
 if [[ "$testRelease" != "test" ]]; then
   echo "Deploying to production"
-  docker run --name $dockerName -e TREECREATE_PROD_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
+  # The env variable (for the jdbc url) has to match the one inside the applicaiton.properties, so instead we assign a value of the production env variable to it (as opposed to directly assigning it)
+  docker run --name $dockerName -e TREECREATE_JDBC_URL=$PROD_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
 else
   echo "Deploying to testing"
-  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+  docker run --name $dockerName -e TREECREATE_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
 fi
 
 echo "The image has been run"
@@ -142,3 +146,4 @@ echo "To access logs, use"
 echo "docker logs $dockerName --follow"
 echo ""
 echo "Thank you for using Hotdeals.dev TM deployment system"
+
