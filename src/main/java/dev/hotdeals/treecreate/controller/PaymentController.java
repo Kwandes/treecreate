@@ -79,21 +79,22 @@ public class PaymentController
         LOGGER.info("Everything looks okay, creating a new transaction for user " + user.getId());
         LOGGER.info("Getting all orders for user " + user.getId());
         var orderList = treeOrderRepo.findAllByUserId(user.getId());
+        if (orderList.size() == 0)
+        {
+            LOGGER.warn("The order list for user " + user.getId() + " is empty! Cancelling the transaction");
+            return new ResponseEntity<>("Internal server error - failed to find orders. Contact Support for more information", HttpStatus.NOT_FOUND);
+        }
+        LOGGER.info("Order list size: " + orderList.size());
         int totalPrice = 0;
         Map<String, Integer> sizeToPriceMap = new HashMap<>();
         sizeToPriceMap.put("20x20 cm", 495);
         sizeToPriceMap.put("25x25 cm", 695);
         sizeToPriceMap.put("30x30 cm", 995);
+        orderList.removeIf(order -> !order.getStatus().equals("active"));
         for (TreeOrder order : orderList)
         {
-            if (order.getStatus().equals("active"))
-            {
-                int price = sizeToPriceMap.get(order.getSize());
-                totalPrice += price * order.getAmount();
-            } else
-            {
-                orderList.remove(order);
-            }
+            int price = sizeToPriceMap.get(order.getSize());
+            totalPrice += price * order.getAmount();
         }
         if (orderList.size() > 3)
             totalPrice = (int) (totalPrice * 0.75);
