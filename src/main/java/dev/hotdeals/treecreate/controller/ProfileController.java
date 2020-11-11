@@ -1,8 +1,10 @@
 package dev.hotdeals.treecreate.controller;
 
+import dev.hotdeals.treecreate.model.NewsletterEmail;
 import dev.hotdeals.treecreate.model.ResetToken;
 import dev.hotdeals.treecreate.model.TreeOrder;
 import dev.hotdeals.treecreate.model.User;
+import dev.hotdeals.treecreate.repository.NewsletterEmailRepo;
 import dev.hotdeals.treecreate.repository.ResetTokenRepo;
 import dev.hotdeals.treecreate.repository.TreeOrderRepo;
 import dev.hotdeals.treecreate.repository.UserRepo;
@@ -35,6 +37,9 @@ public class ProfileController
 
     @Autowired
     TreeController treeController;
+
+    @Autowired
+    NewsletterEmailRepo newsletterEmailRepo;
 
     @GetMapping(value = {"/profile", "/login"})
     String profileIndex()
@@ -261,6 +266,25 @@ public class ProfileController
             return "home/verificationSuccess";
         }
         return "home/verificationFail";
+    }
+
+    @GetMapping("/newsletterUnsubscribe")
+    String newsletterUnsubscribe(@RequestParam(name = "token") String token)
+    {
+        LOGGER.info("Unsubscribing from newsletter");
+
+        ResetToken resetToken = resetTokenRepo.findByToken(token).orElse(null);
+        if (resetToken != null)
+        {
+            String email = resetToken.getEmail();
+            List<NewsletterEmail> newsletterEmails = newsletterEmailRepo.findAllByEmail(email);
+            for (NewsletterEmail newsletterEmail : newsletterEmails)
+            {
+                newsletterEmailRepo.delete(newsletterEmail);
+            }
+            return "home/unsubscribeSuccess";
+        }
+        return "home/unsubscribeFail";
     }
 
     @GetMapping("/cookiesValidation")
