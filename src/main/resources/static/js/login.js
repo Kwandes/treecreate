@@ -138,11 +138,12 @@ async function registerUser()
 
     if (signUpEmail === '')
     {
-        console.log('yeet')
+        console.log('User has not input an Email')
         showSignupPopup('Email is required to register a new account', true);
         return;
     } else if (signUpPassword === '')
     {
+        console.log('User has not input an Email')
         showSignupPopup('Password is required to register a new account', true);
         return;
     }
