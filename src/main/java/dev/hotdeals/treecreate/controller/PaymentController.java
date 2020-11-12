@@ -475,72 +475,99 @@ public class PaymentController
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        LOGGER.info("Found a transaction, orders: " + transaction.getOrders());
+        LOGGER.info("Found a transaction, orders: " + transaction.getOrderList().size());
 
-        LOGGER.info("Sending an email");
+        LOGGER.info("Sending a order confirmation email for transaction " + transaction.getId() + " to email: " + transaction.getUser().getEmail());
+
+        Map<String, Integer> sizeToPriceMap = new HashMap<>();
+        sizeToPriceMap.put("20x20 cm", 495);
+        sizeToPriceMap.put("25x25 cm", 695);
+        sizeToPriceMap.put("30x30 cm", 995);
+
+        StringBuilder emailOrderRows = new StringBuilder();
+        for (TreeOrder order : transaction.getOrderList())
+        {
+            String designJson = order.getTreeDesignById().getDesignJson();
+            String designName = "Untitled";
+            String namePattern = "name\":\"([\\w\\s\"]+)\",";
+            Pattern pattern = Pattern.compile(namePattern);
+            Matcher matcher = pattern.matcher(designJson);
+            if (matcher.find())
+            {
+                designName = matcher.group(1);
+            } else
+            {
+                LOGGER.warn("Failed to obtain a match for the design name in order id: " + order.getOrderId());
+            }
+            int orderAmount = order.getAmount();
+            int orderPrice = sizeToPriceMap.get(order.getSize()) * orderAmount;
+            String row =
+                    "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
+                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: left\">" + designName + "</td>\n" +
+                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: center\">" + orderAmount + "</td>\n" +
+                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: center\">" + orderPrice + "kr" + "</td>\n" +
+                            "        </tr>\n";
+            emailOrderRows.append(row);
+        }
+
+        String emailSubject = " <p>\n" +
+                "        Hi " + transaction.getUser().getName() + ",\n" +
+                "        <br><br>\n" +
+                "        Just to let you know - we've received your order #" + transaction.getId() + ", and it is now being processed:\n" +
+                "    </p>\n" +
+                "    <h1>[Order " + transaction.getId() + "] (" + LocalDate.now().toString() + ")</h1>\n" +
+                "    <table style=\"border-spacing: 0;\">\n" +
+                "        <tr style=\"width: 60vw; margin: 0 18vw\">\n" +
+                "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">Product</th>\n" +
+                "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">Quantity</th>\n" +
+                "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">price</th>\n" +
+                "        </tr>\n" +
+                emailOrderRows +
+                "    </table>\n" +
+                "    <table style=\"border-spacing: 0\">\n" +
+                "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Subtotal</td>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + transaction.getPrice() / 100 + "kr</td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Shipping:</td>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Free delivery | Estimated Delivery time: 2-3 weeks</td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Total:</td>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + transaction.getPrice() / 100 + "kr</td>\n" +
+                "        </tr>\n" +
+                "    </table>\n" +
+                "\n" +
+                "    <br><br>\n" +
+                "\n" +
+                "    <table style=\"border-spacing: 0\">\n" +
+                "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
+                "            <th style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Billing Address</th>\n" +
+                "            <th style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Shipping Address</th>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
+                "                " + transaction.getName() + "<br>\n" +
+                "                " + transaction.getStreetAddress() + " <br>\n" +
+                "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
+                "                " + transaction.getCountry() + " <br>\n" +
+                "                " + transaction.getPhoneNumber() + " <br>\n" +
+                "                " + transaction.getEmail() + "\n" +
+                "            </td>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
+                "                " + transaction.getName() + "<br>\n" +
+                "                " + transaction.getStreetAddress() + " <br>\n" +
+                "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
+                "                " + transaction.getCountry() + " <br>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "    </table>";
 
         try
         {
-            mailService.sendOrderMail(
-                    " <p>\n" +
-                            "        Hi " + transaction.getUser().getName() + ",\n" +
-                            "        <br><br>\n" +
-                            "        Just to let you know - we've received your order " + transaction.getId() + ", and it is not being processed:\n" +
-                            "    </p>\n" +
-                            "    <h1>[Order " + transaction.getId() + "] (" + LocalDate.now().toString() + ")</h1>\n" +
-                            "    <table style=\"border-spacing: 0;\">\n" +
-                            "        <tr style=\"width: 60vw; margin: 0 18vw\">\n" +
-                            "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">Product</th>\n" +
-                            "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">Quantity</th>\n" +
-                            "            <th style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw;\">price</th>\n" +
-                            "        </tr>\n" +
-                            "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
-                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: left\">" + "Fml" + "</td>\n" +
-                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: center\">69</td>\n" +
-                            "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: center\">1234kr</td>\n" +
-                            "        </tr>\n" +
-                            "    </table>\n" +
-                            "    <table style=\"border-spacing: 0\">\n" +
-                            "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Subtotal</td>\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + transaction.getPrice() + "kr</td>\n" +
-                            "        </tr>\n" +
-                            "        <tr>\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Shipping:</td>\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Free delivery | Estimated Delivery time: 2-3 weeks</td>\n" +
-                            "        </tr>\n" +
-                            "        <tr>\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Total:</td>\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + transaction.getPrice() + "kr</td>\n" +
-                            "        </tr>\n" +
-                            "    </table>\n" +
-                            "\n" +
-                            "    <br><br>\n" +
-                            "\n" +
-                            "    <table style=\"border-spacing: 0\">\n" +
-                            "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
-                            "            <th style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Billing Address</th>\n" +
-                            "            <th style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Shipping Address</th>\n" +
-                            "        </tr>\n" +
-                            "        <tr>\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
-                            "                " + transaction.getName() + "<br>\n" +
-                            "                " + transaction.getStreetAddress() + " <br>\n" +
-                            "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
-                            "                " + transaction.getCountry() + " <br>\n" +
-                            "                " + transaction.getPhoneNumber() + " <br>\n" +
-                            "                " + transaction.getEmail() + "\n" +
-                            "            </td>\n" +
-                            "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
-                            "                " + transaction.getName() + "<br>\n" +
-                            "                " + transaction.getStreetAddress() + " <br>\n" +
-                            "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
-                            "                " + transaction.getCountry() + " <br>\n" +
-                            "            </td>\n" +
-                            "        </tr>\n" +
-                            "    </table>"
-                    ,
-                    "Transaction test", "info@treecreate.dk");
+            mailService.sendOrderMail(emailSubject,
+                    "Transaction test", transaction.getUser().getEmail());
         } catch (MessagingException e)
         {
             LOGGER.error("Failed to send an email for transaction order info", e);
