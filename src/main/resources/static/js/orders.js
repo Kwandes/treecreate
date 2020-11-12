@@ -69,7 +69,9 @@ async function generateOrders()
             orderItem.style.display = "flex";
 
             const design = order['treeDesignById'];
-            const designJson = JSON.parse(design['designJson'])
+            const designJson = JSON.parse(design['designJson']);
+            const designId = designJson.id;
+            console.dir(designJson);
 
             let itemPrice = orderSizes.get(order.size);
             let amount = parseInt(order.amount);
@@ -80,6 +82,7 @@ async function generateOrders()
                 itemSaved = itemTotal * 0.25;
                 itemTotal *= 0.75;
             }
+            orderItem.getElementsByClassName("orderDesignId")[0].innerText = designId;
             orderItem.getElementsByClassName("orderDesignName")[0].innerText = designJson.name;
             orderItem.getElementsByClassName("orderDesignSize")[0].innerText = order.size;
             orderItem.getElementsByClassName("orderDesignAmount")[0].innerText = 'amount:' + order.amount;
@@ -100,8 +103,12 @@ async function fetchTransactions()
     return await response.text();
 }
 
-function viewDesign(e)
+async function viewDesign(e)
 {
-    console.log("Viewing X");
+    const id = e.parentNode.getElementsByClassName("orderDesignId")[0].innerText;
+    console.log(id);
+    const response = await fetch(location.origin + "/products/readOnlyFamilyTree?designId=" + id);
+    console.log("%Displaying read only tree, status: " + response.status, "color:mediumpurple");
+    window.location.href = location.origin + "/products/readOnlyFamilyTree?designId=" + id;
 }
 
