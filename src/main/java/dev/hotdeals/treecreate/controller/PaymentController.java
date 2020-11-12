@@ -482,6 +482,9 @@ public class PaymentController
         sizeToPriceMap.put("25x25 cm", 695);
         sizeToPriceMap.put("30x30 cm", 995);
 
+        int subtotalPrice = 0;
+        int totalOrderAmount = 0;
+
         StringBuilder emailOrderRows = new StringBuilder();
         for (TreeOrder order : transaction.getOrderList())
         {
@@ -498,6 +501,7 @@ public class PaymentController
                 LOGGER.warn("Failed to obtain a match for the design name in order id: " + order.getOrderId());
             }
             int orderAmount = order.getAmount();
+            totalOrderAmount += orderAmount;
             int orderPrice = sizeToPriceMap.get(order.getSize()) * orderAmount;
             String row =
                     "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
@@ -506,6 +510,61 @@ public class PaymentController
                             "            <td style=\"width: 18vw;border: 1px lightgrey solid; padding: 1vh 1vw; text-align: center\">" + orderPrice + "kr" + "</td>\n" +
                             "        </tr>\n";
             emailOrderRows.append(row);
+            subtotalPrice += orderPrice;
+        }
+
+        int discountPrice = 0;
+        LOGGER.info("Order confirmation price calculation for transactionID: " + transaction.getId() +
+                " - Calculated Subtotal: " + subtotalPrice);
+        int totalPrice = subtotalPrice;
+
+
+        if (totalOrderAmount > 3)
+        {
+            discountPrice = (int) Math.ceil(totalPrice * 0.25);
+            totalPrice *= 0.75;
+        }
+
+        if (transaction.getDiscount() != null)
+        {
+            var discountCodeResponse = getDiscountCode(transaction.getDiscount());
+            if (discountCodeResponse.getStatusCode() != HttpStatus.OK)
+            {
+                LOGGER.warn("Failed to find the discount code for the transaction id: " + transaction.getId());
+            } else
+            {
+                var discountCode = discountCodeResponse.getBody();
+
+                int amount = Integer.parseInt(discountCode.getDiscountAmount());
+                String type = discountCode.getDiscountType();
+                if (type.equals("minus"))
+                {
+                    LOGGER.info("Order confirmation price calculation for transactionID: " + transaction.getId() +
+                            " - applying discount of -" + amount + " to total price of: " + totalPrice);
+                    discountPrice += amount;
+                    totalPrice = totalPrice - amount;
+                    if (totalPrice < 0) totalPrice = 0;
+                }
+                if (type.equals("percent"))
+                {
+                    LOGGER.info("Order confirmation price calculation for transactionID: " + transaction.getId() +
+                            " - applying discount of -" + amount + "% to total price of: " + totalPrice);
+                    double percent = (100.0 - amount) / 100;
+                    int newPrice = (int) Math.floor(((totalPrice) * percent)) * 100;
+                    int priceDifference = totalPrice - (newPrice / 100);
+                    totalPrice = newPrice / 100;
+                    discountPrice += priceDifference; // this is the discount obtained via the % discount
+                }
+            }
+        }
+        LOGGER.info("Re-calculated prices for order confirmation email for transaction: " + transaction.getId() +
+                " | Subtotal price (no discounts applied): " + subtotalPrice + " | discount: " + discountPrice +
+                " | total price (after discounts): " + totalPrice);
+
+        if (totalPrice * 100 != transaction.getPrice())
+        {
+            LOGGER.warn("During order confirmation price calculations, the total price (" + totalPrice * 100 + ") and" +
+                    " transaction's registered price (" + transaction.getPrice() + ") don't match!");
         }
 
         String emailSubject = " <p>\n" +
@@ -525,7 +584,11 @@ public class PaymentController
                 "    <table style=\"border-spacing: 0\">\n" +
                 "        <tr style=\"width: 60vw; margin: 0 18vw;\">\n" +
                 "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Subtotal</td>\n" +
-                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + transaction.getPrice() / 100 + "kr</td>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">" + subtotalPrice + "kr</td>\n" +
+                "        </tr>\n" +
+                "        <tr>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Discount:</td>\n" +
+                "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">-" + discountPrice + "kr</td>\n" +
                 "        </tr>\n" +
                 "        <tr>\n" +
                 "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw\">Shipping:</td>\n" +
@@ -562,6 +625,8 @@ public class PaymentController
                 "        </tr>\n" +
                 "    </table>";
 
+
+        LOGGER.info("Sending out the email to " + transaction.getEmail());
         try
         {
             mailService.sendOrderMail(emailSubject,
