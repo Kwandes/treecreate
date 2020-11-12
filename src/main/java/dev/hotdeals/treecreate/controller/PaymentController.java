@@ -91,13 +91,18 @@ public class PaymentController
         sizeToPriceMap.put("25x25 cm", 695);
         sizeToPriceMap.put("30x30 cm", 995);
         orderList.removeIf(order -> !order.getStatus().equals("active"));
+        int totalAmount = 0;
         for (TreeOrder order : orderList)
         {
             int price = sizeToPriceMap.get(order.getSize());
             totalPrice += price * order.getAmount();
+            totalAmount += order.getAmount();
         }
-        if (orderList.size() > 3)
+        if (totalAmount > 3)
+        {
+            LOGGER.info("Total amount of ordered designs was more than 3, applying a 25% discount to the total");
             totalPrice = (int) (totalPrice * 0.75);
+        }
         totalPrice *= 100; // Quickpay takes 2 digits as decimal places, so 1000 becomes 10,00
 
         if (transaction.getDiscount() != null)
@@ -348,16 +353,9 @@ public class PaymentController
             }
             LOGGER.info("Found a transaction with a status other than initial: " + paymentStatus);
 
-            var orderIdList = transaction.getOrders().split(",");
-            for (String orderId : orderIdList)
+            var orderIdList = transaction.getOrderList();
+            for (TreeOrder order : orderIdList)
             {
-                TreeOrder order = treeOrderRepo.findById(Integer.parseInt(orderId)).orElse(null);
-                if (order == null)
-                {
-                    LOGGER.warn("Updating order statuses - Transaction " + transaction.getId() +
-                            " - failed to find an order with an id: " + orderId);
-                    continue;
-                }
                 order.setStatus(paymentStatus);
                 treeOrderRepo.save(order);
             }
