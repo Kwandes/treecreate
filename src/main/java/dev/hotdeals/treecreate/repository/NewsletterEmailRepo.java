@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface NewsletterEmailRepo extends JpaRepository<NewsletterEmail, Integer>
 {
     List<NewsletterEmail> findAllByEmail(String email);
+    Optional<NewsletterEmail> findByToken(String token);
 }

@@ -16,25 +16,31 @@ public class NewsletterEmail
     @GenericGenerator(name = "native", strategy = "native")
     int id;
 
-    @Column(name = "time_plus_date", length = 50)
-    private String timePlusDate;
+    @Column(name = "date_created", length = 50)
+    private String dateCreated;
 
     @Column(name = "email", length = 255)
     private String email;
 
-    @Column(name = "newsletter_token", length = 10)
-    private String newsletterToken;
+    @Column(name = "token", length = 10)
+    private String token;
 
-    public NewsletterEmail(@NotNull int id, String timePlusDate, String email, String newsletterToken)
+    @Override
+    public boolean equals(Object o)
     {
-        this.id = id;
-        this.timePlusDate = timePlusDate;
-        this.email = email;
-        this.newsletterToken = newsletterToken;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewsletterEmail that = (NewsletterEmail) o;
+        return id == that.id &&
+                Objects.equals(dateCreated, that.dateCreated) &&
+                Objects.equals(email, that.email) &&
+                Objects.equals(token, that.token);
     }
 
-    public NewsletterEmail()
+    @Override
+    public int hashCode()
     {
+        return Objects.hash(id, dateCreated, email, token);
     }
 
     public int getId()
@@ -47,14 +53,14 @@ public class NewsletterEmail
         this.id = id;
     }
 
-    public String getTimePlusDate()
+    public String getDateCreated()
     {
-        return timePlusDate;
+        return dateCreated;
     }
 
-    public void setTimePlusDate(String timePlusDate)
+    public void setDateCreated(String dateCreated)
     {
-        this.timePlusDate = timePlusDate;
+        this.dateCreated = dateCreated;
     }
 
     public String getEmail()
@@ -67,31 +73,13 @@ public class NewsletterEmail
         this.email = email;
     }
 
-    public String getNewsletterToken()
+    public String getToken()
     {
-        return newsletterToken;
+        return token;
     }
 
-    public void setNewsletterToken(String newsletterToken)
+    public void setToken(String token)
     {
-        this.newsletterToken = newsletterToken;
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        NewsletterEmail that = (NewsletterEmail) o;
-        return id == that.id &&
-                Objects.equals(timePlusDate, that.timePlusDate) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(newsletterToken, that.newsletterToken);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(id, timePlusDate, email, newsletterToken);
+        this.token = token;
     }
 }
