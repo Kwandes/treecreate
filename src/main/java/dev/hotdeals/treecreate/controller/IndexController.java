@@ -82,7 +82,7 @@ public class IndexController
         try
         {
             mailService.sendInfoMail("Example Info Message", "Example Info Subject", "orders@treecreate.dk");
-        } catch (MailException e)
+        } catch (MailException | MessagingException e)
         {
             LOGGER.error("Unable to send an email", e);
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);

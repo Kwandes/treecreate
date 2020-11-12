@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -169,10 +170,17 @@ public class ProfileController
         }
         LOGGER.info("Sending a verification email to the user");
         // Verification link won't work on localhost since it is hardcoded to treecreate.dk.
-        mailService.sendInfoMail("Thank you for signing up at Treecreate\n" +
-                        "\nPlease click on the link in order to verify: https://treecreate.dk/verify?id=" + user.getId() + "&token=" + user.getVerification() +
-                        "\n\nThis is an automated email. Please do not reply to this email.",
-                "Confirm your e-mail", user.getEmail());
+        try
+        {
+            mailService.sendInfoMail("Thank you for signing up at Treecreate\n<br>" +
+                            "\nPlease click on the link <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
+                            "&token=" + user.getVerification() + "\">this link</a> in order to verify\n<br>" +
+                            "\n\nThis is an automated email. Please do not reply to this email.",
+                    "Confirm your e-mail", user.getEmail());
+        } catch (MessagingException e)
+        {
+            LOGGER.error("Failed to send an email to " + user.getEmail(), e);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -372,14 +380,15 @@ public class ProfileController
         resetTokenRepo.save(resetToken);
         try
         {
-            mailService.sendInfoMail("A request has been made to reset your password on Treecreate.dk" +
-                            "\nIf this was not you, you can ignore it" +
-                            "\n\nIn order to reset your password you can go to https://treecreate.dk/forgotPassword?id=" +
-                            resetToken.getId() + "&token=" + resetToken.getToken(),
+            mailService.sendInfoMail("A request has been made to reset your password on Treecreate.dk<br>" +
+                            "\nIf this was not you, you can ignore it<br>" +
+                            "\n\nIn order to reset your password, click on <br>" +
+                            "<a href=\"https://treecreate.dk/forgotPassword?id=" + resetToken.getId() +
+                            "&token=" + resetToken.getToken() + "\">this link</a>.",
                     "Treecreate reset password request", email);
             LOGGER.info("A request has been sent out, token " + resetToken.getToken());
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (MailException e)
+        } catch (MailException | MessagingException e)
         {
             LOGGER.error("An error occurred while sending a forgot password email for " + email, e);
             return new ResponseEntity<>("An error occurred while sending a forgot password email for " + email, HttpStatus.BAD_REQUEST);
