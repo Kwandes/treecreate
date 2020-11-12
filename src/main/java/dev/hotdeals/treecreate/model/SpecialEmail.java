@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "newsletter_email")
-public class NewsletterEmail
+@Table(name = "special_email")
+public class SpecialEmail
 {
     @Id
     @NotNull
@@ -22,18 +22,14 @@ public class NewsletterEmail
     @Column(name = "email", length = 255)
     private String email;
 
-    @Column(name = "newsletter_token", length = 10)
-    private String newsletterToken;
-
-    public NewsletterEmail(@NotNull int id, String timePlusDate, String email, String newsletterToken)
+    public SpecialEmail(@NotNull int id, String timePlusDate, String email)
     {
         this.id = id;
         this.timePlusDate = timePlusDate;
         this.email = email;
-        this.newsletterToken = newsletterToken;
     }
 
-    public NewsletterEmail()
+    public SpecialEmail()
     {
     }
 
@@ -67,31 +63,20 @@ public class NewsletterEmail
         this.email = email;
     }
 
-    public String getNewsletterToken()
-    {
-        return newsletterToken;
-    }
-
-    public void setNewsletterToken(String newsletterToken)
-    {
-        this.newsletterToken = newsletterToken;
-    }
-
     @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NewsletterEmail that = (NewsletterEmail) o;
+        SpecialEmail that = (SpecialEmail) o;
         return id == that.id &&
                 Objects.equals(timePlusDate, that.timePlusDate) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(newsletterToken, that.newsletterToken);
+                Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, timePlusDate, email, newsletterToken);
+        return Objects.hash(id, timePlusDate, email);
     }
 }
