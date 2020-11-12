@@ -29,7 +29,7 @@ public class IndexController
     @RequestMapping(value = {"", "/", "/index", "/index/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index()
     {
-        return "redirect:/landingPage";
+        return "redirect:/productExample";
     }
 
     @RequestMapping(value = "/productExample", method = {RequestMethod.GET, RequestMethod.POST})

@@ -26,7 +26,7 @@
                         <span class="title" th:text="#{home.intro.title}"></span><br>
                         <img th:src="@{~/img/productPage/Artboard 3.png}" alt="Tree Design" class=""><br>
                         <span th:text="#{home.intro.text}"></span><br><br>
-                        <button class="createNowBtn" href="/products/familyTree">
+                        <button class="createNowBtn" onclick="location.href='/products/familyTree'">
                             <span th:text="#{home.create.now}"></span>
                         </button>
                     </section>
@@ -62,7 +62,7 @@
                         </div>
                     </section>
 
-                    <button class="createNowBtn" href="/products/familyTree">
+                    <button class="createNowBtn" onclick="location.href='/products/familyTree'">
                         <span th:text="#{home.create.now}"></span>
                     </button>
 
