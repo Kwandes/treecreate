@@ -7,6 +7,7 @@
     <link th:href="@{/styles/productExample.css}" rel="stylesheet">
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link th:href="@{/styles/emailSubmit.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <script th:src="@{/js/login.js}"></script>
@@ -62,9 +63,21 @@
                         </div>
                     </section>
 
-                    <button class="createNowBtn" onclick="location.href='/products/familyTree'">
+                    <button style="margin-bottom: 2vh;" class="createNowBtn" onclick="location.href='/products/familyTree'">
                         <span th:text="#{home.create.now}"></span>
                     </button>
+
+                    <div id="emailSubscript">
+                        <h2><span th:text="#{home.subscribe.title}"></span></h2>
+
+                        <div style="margin:1vh 0!important;"id="emailContainer">
+                            <input type="email" id="emailInput" name="newsletterEmail"
+                                   th:placeholder="#{home.subscribe.input}"
+                                   required>
+                            <button id="emailSubmitBtn" type="button" onclick="submitPopup()"
+                                    th:text="#{landing.submit}"></button>
+                        </div>
+                    </div>
 
                 </div>
             </div>

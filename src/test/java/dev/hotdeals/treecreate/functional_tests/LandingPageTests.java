@@ -57,7 +57,7 @@ public class LandingPageTests
     @Test
     public void getLandingPageTitleTest()
     {
-        webDriver.get("http://localhost:" + port + "/landingPage");
+        webDriver.get("http://localhost:" + port + "/productExample");
         assertThat(webDriver.getTitle()).isEqualTo("Treecreate");
     }
 
