@@ -138,11 +138,11 @@ public class TreeController
     @GetMapping("/getTreeOrders")
     ResponseEntity<List<TreeOrder>> getTreeOrder(HttpServletRequest request, @RequestParam(required = false, name = "status") String orderStatus)
     {
-        LOGGER.info("Getting Tree orders for session " + request.getSession().getId());
+        //LOGGER.info("Getting Tree orders for session " + request.getSession().getId());
         int userId = 0;
         try
         {
-            LOGGER.info("Current User Returned body: " + getCurrentUser(request).getBody());
+            //LOGGER.info("Current User Returned body: " + getCurrentUser(request).getBody());
             userId = Integer.parseInt(getCurrentUser(request).getBody());
         } catch (NumberFormatException | NullPointerException e)
         {
@@ -164,7 +164,7 @@ public class TreeController
         if (session.getAttribute("userId") != null)
         {
             String userId = session.getAttribute("userId").toString();
-            LOGGER.info("Current User ID: " + userId);
+            //LOGGER.info("Current User ID: " + userId);
             return new ResponseEntity<>(userId, HttpStatus.OK);
         }
 
@@ -181,7 +181,7 @@ public class TreeController
             LOGGER.info("Saved user: " + user.toString());
         } else
         {
-            LOGGER.info("User found: " + user.toString());
+            //LOGGER.info("User found: " + user.toString());
         }
         return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
     }
