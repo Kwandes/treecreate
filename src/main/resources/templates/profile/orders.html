@@ -30,17 +30,17 @@
             </a>
             <a href="/account/collections" id="collectionsButton">
                 <div class="profileNav">
-                    <span>Tree collection</span>
+                    <span th:text="#{account.tree.collection}"></span>
                 </div>
             </a>
             <a href="/account/orders" id="ordersButton">
                 <div class="profileNav active">
-                    <span>Orders</span>
+                    <span th:text="#{account.orders}"></span>
                 </div>
             </a>
             <a href="/logout" id="logoutButton">
                 <div class="profileNav">
-                    <span>Log out</span>
+                    <span th:text="#{account.log.out}"></span>
                 </div>
             </a>
         </div>
@@ -70,7 +70,7 @@
                 <span class="orderTotalPrice orderInfo">Total Price: N/A dkk</span>
                 <span class="orderTransactionId orderInfo">Order Id: N/A</span>
             </section>
-            <span id="orderInfoDisclaimer">If you have any questions or issues with an order, you can contact us at info@treecreate.dk</span>
+            <span id="orderInfoDisclaimer" th:text="#{basket.issue.text}"></span>
             <script>generateOrders()</script>
         </div>
     </section>

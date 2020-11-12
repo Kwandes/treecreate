@@ -28,17 +28,17 @@
             </a>
             <a href="/account/collections" id="collectionsButton">
                 <div class="profileNav">
-                    <span>Tree collection</span>
+                    <span th:text="#{account.tree.collection}"></span>
                 </div>
             </a>
             <a href="/account/orders" id="ordersButton">
                 <div class="profileNav">
-                    <span>Orders</span>
+                    <span th:text="#{account.orders}"></span>
                 </div>
             </a>
             <a href="/logout" id="logoutButton">
                 <div class="profileNav">
-                    <span>Log out</span>
+                    <span th:text="#{account.log.out}"></span>
                 </div>
             </a>
         </div>
@@ -46,29 +46,36 @@
             <span id="formTitle">ACCOUNT INFO</span>
             <form action="/account/updateInfo" method="post" id="formUpdateInfo">
                 <input type="number" name="id" th:value="${user.id}" hidden>
-                <label for="inputPhoneNumber">Phone Number:</label>
+
+                <label for="inputPhoneNumber"><span th:text="#{basket.phone.number}"></span></label>
                 <input type="number" name="inputPhoneNumber" id="inputPhoneNumber" th:value="${user.phoneNumber}"
                        maxlength="15" required>
-                <label for="inputEmail">Email:</label>
+
+                <label for="inputEmail">Email :</label>
                 <input type="email" name="inputEmail" id="inputEmail" th:value="${user.email}" maxlength="254" required>
-                <label for="inputName">Name:</label>
+
+                <label for="inputName"><span th:text="#{basket.names}"></span></label>
                 <input type="text" name="inputName" id="inputName" th:value="${user.name}" maxlength="80" required>
-                <label for="inputStreetAddress">Street Name:</label>
+
+                <label for="inputStreetAddress"><span th:text="#{basket.street.address}"></span></label>
                 <input type="text" name="inputStreetAddress" id="inputStreetAddress" th:value="${user.streetAddress}"
                        maxlength="99" required>
-                <label for="inputCity">City:</label>
+
+                <label for="inputCity"><span th:text="#{basket.city}"></span></label>
                 <input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
-                <label for="inputPostcode">Postcode:</label>
+
+                <label for="inputPostcode"><span th:text="#{basket.post.code}"></span></label>
                 <input type="text" name="inputPostcode" id="inputPostcode" th:value="${user.postcode}" maxlength="15"
                        required>
-                <label for="inputCountry">Country:
+
+                <label for="inputCountry"><span th:text="#{basket.country}"></span>
                     <select name="inputCountry" id="inputCountry" th:field="${user.country}">
-                        <option value="Denmark">Denmark</option>
-                        <option value="Other">Other</option>
+                        <option value="Denmark"><span th:text="#{basket.denmark}"></span></option>
+                        <option value="Other"><span th:text="#{basket.other}"></span></option>
                     </select>
                 </label>
             </form>
-            <button type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo">Update Info</button>
+            <button type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo"><span th:text="#{basket.update.info}"></span></button>
         </div>
     </section>
     <section th:replace="products/productTemplate :: #footerContainer"></section>
