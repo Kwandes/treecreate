@@ -91,21 +91,65 @@
     color: white;
 }
 
-#orderInformation th
+#orderInformation
+{
+    justify-content: space-evenly;
+}
+
+#orderTable th
 {
     padding: 0.5vh;
     background-color: var(--mainColor);
 }
-#orderInformation td
+
+#orderTable td
 {
     padding: 0.5vh;
 }
-#orderInformation td:last-child
+
+#orderTable
 {
-    color: limegreen;
+    border-bottom: 2px var(--mainColor) solid;
 }
+
 
 .title
 {
     font-size: var(--fontTitle);
+}
+
+#orderSummary table
+{
+    width: 100%;
+    margin-bottom: 1vh;
+}
+
+#orderSummary td
+{
+    padding: 0.25vh;
+}
+
+.orderSummaryText
+{
+    text-align: right;
+}
+
+.orderSummaryValue
+{
+    text-align: left;
+}
+
+.orderSummaryFiller
+{
+    width: 10vw;
+}
+
+.taxRow, .discountRow
+{
+    font-size: var(--fontSmall);
+}
+
+.totalPriceRow
+{
+    font-size: var(--fontRegular);
 }
