@@ -121,22 +121,37 @@ public class PaymentController
                     LOGGER.info("Provided discount is no longer active");
                 } else
                 {
-                    int amount = Integer.parseInt(discountCode.getDiscountAmount());
-                    String type = discountCode.getDiscountType();
-                    if (type.equals("minus"))
-                    {
-                        LOGGER.info("Applying a discount of -" + amount + "kr");
-                        totalPrice = totalPrice - (amount * 100);
-                        if (totalPrice < 0) totalPrice = 0;
-                    }
-                    if (type.equals("percent"))
-                    {
-                        LOGGER.info("Applying a discount of " + amount + "%");
-                        double percent = (100.0 - amount) / 100;
-                        LOGGER.info("Percent: " + percent);
-                        totalPrice = (int) Math.floor(((totalPrice / 100.0) * percent)) * 100;
 
+                    if (discountCode.getTimesUsed() >= discountCode.getMaxUsages())
+                    {
+                        LOGGER.info("Max usages for discount code " + discountCode.getId() + " have been reached already. Not applying the discount");
+                        discountCode.setActive(false);
+                    } else
+                    {
+                        int amount = Integer.parseInt(discountCode.getDiscountAmount());
+                        String type = discountCode.getDiscountType();
+                        if (type.equals("minus"))
+                        {
+                            LOGGER.info("Applying a discount of -" + amount + "kr");
+                            totalPrice = totalPrice - (amount * 100);
+                            if (totalPrice < 0) totalPrice = 0;
+                        }
+                        if (type.equals("percent"))
+                        {
+                            LOGGER.info("Applying a discount of " + amount + "%");
+                            double percent = (100.0 - amount) / 100;
+                            LOGGER.info("Percent: " + percent);
+                            totalPrice = (int) Math.floor(((totalPrice / 100.0) * percent)) * 100;
+
+                        }
+                        discountCode.setTimesUsed(discountCode.getTimesUsed() + 1);
+                        if (discountCode.getTimesUsed() >= discountCode.getMaxUsages())
+                        {
+                            LOGGER.info("Max usages for discount code " + discountCode.getId() + " have been reached. Deactivating the discount");
+                            discountCode.setActive(false);
+                        }
                     }
+                    discountCodeRepo.save(discountCode);
                 }
             }
         }

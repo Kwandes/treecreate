@@ -32,6 +32,36 @@ public class DiscountCode
     @Column(name = "discount_amount", length = 25)
     private String discountAmount;
 
+    @Basic
+    @Column(name = "times_used", columnDefinition = "integer default 0")
+    private int timesUsed;
+
+    @Basic
+    @Column(name = "max_usages", columnDefinition = "integer default 1")
+    private int maxUsages;
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DiscountCode that = (DiscountCode) o;
+        return id == that.id &&
+                timesUsed == that.timesUsed &&
+                maxUsages == that.maxUsages &&
+                Objects.equals(discountCode, that.discountCode) &&
+                Objects.equals(dateCreated, that.dateCreated) &&
+                Objects.equals(active, that.active) &&
+                Objects.equals(discountType, that.discountType) &&
+                Objects.equals(discountAmount, that.discountAmount);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(id, discountCode, dateCreated, active, discountType, discountAmount, timesUsed, maxUsages);
+    }
+
     public int getId()
     {
         return id;
@@ -92,23 +122,23 @@ public class DiscountCode
         this.discountAmount = discountAmount;
     }
 
-    @Override
-    public boolean equals(Object o)
+    public int getTimesUsed()
     {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DiscountCode that = (DiscountCode) o;
-        return id == that.id &&
-                Objects.equals(discountCode, that.discountCode) &&
-                Objects.equals(dateCreated, that.dateCreated) &&
-                Objects.equals(active, that.active) &&
-                Objects.equals(discountType, that.discountType) &&
-                Objects.equals(discountAmount, that.discountAmount);
+        return timesUsed;
     }
 
-    @Override
-    public int hashCode()
+    public void setTimesUsed(int timesUsed)
     {
-        return Objects.hash(id, discountCode, dateCreated, active, discountType, discountAmount);
+        this.timesUsed = timesUsed;
+    }
+
+    public int getMaxUsages()
+    {
+        return maxUsages;
+    }
+
+    public void setMaxUsages(int maxUsages)
+    {
+        this.maxUsages = maxUsages;
     }
 }
