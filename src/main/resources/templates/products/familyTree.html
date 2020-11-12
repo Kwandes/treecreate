@@ -115,15 +115,12 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         </div>
                         <div id="addToBasketButtonContainer" class="addToBasketDetail" style=width:10vw>
                             <div id="recommendedSizes">
-                                <p>
-                                    Add four or more trees to your order in total<br>
-                                    and get 25% off your entire transaction <br>
-                                </p>
+                                <span th:text="#{basket.procent.off}"></span>
                                 <div id="addToBasketPrice" class="addToBasketDetail">
                                     <label for="priceInput" id="priceLabel"><span th:text="#{basket.price}"></span> </label>
                                     <input type="text" name="priceInput" id="priceInput" value="695kr" readonly>
                                 </div>
-                                <input type="button" id="addToBasketButton" value="ADD TO BASKET"
+                                <input type="button" id="addToBasketButton" th:value="#{basket.add.to.basket}"
                                        onclick="addToBasket()" readonly>
                             </div>
                             <!-- <div style="color:darkgreen; font-size:12px">You are now saving 25%!</div> -->
@@ -132,11 +129,10 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                 </section>
                 <section id="addToBasketFooter">
                     <p>
-                        Note: You can only purchase this tree when you have logged in and verified your email.
+                        <span th:text="#{basket.note.one}"></span>
                     </p>
                     <p>
-                        Note: Packaging is made of recycled materials that are eco friendly and the paper is FSC
-                        certified
+                        <span th:text="#{basket.note.two}"></span>
                     </p>
                 </section>
             </div>
