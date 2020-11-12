@@ -435,7 +435,7 @@ public class PaymentController
     MailService mailService;
 
     @GetMapping("/getTransaction/{id}")
-    ResponseEntity<Transaction> getPayment(HttpServletRequest request, @PathVariable(name = "id") String id)
+    ResponseEntity<Transaction> getPayment(@PathVariable(name = "id") String id)
     {
         LOGGER.info("Fetching transaction with an id: " + id);
 
@@ -642,7 +642,27 @@ public class PaymentController
     @PostMapping("/paymentCallback")
     ResponseEntity<String> paymentCallback(@RequestBody String body)
     {
-        LOGGER.info("Recieved a callback from quickpay:\n" + body);
+        LOGGER.info("Received a callback from quickpay:\n" + body);
+        String isAcceptedPattern = "accepted\":true";
+        Pattern pattern = Pattern.compile(isAcceptedPattern);
+        if (!pattern.matcher(isAcceptedPattern).find())
+        {
+            LOGGER.info("The callback ´accepted´ field is marked as false or missing, Ignoring the callback");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        LOGGER.info("The callback ´accepted´ field is marked as true. Continuing on to send a order confirmation email");
+        String orderIdPattern = "order_id\":\"(\\d+)";
+        pattern = Pattern.compile(orderIdPattern);
+        Matcher matcher = pattern.matcher(body);
+        if (matcher.find())
+        {
+            String orderId = matcher.group(1);
+            getPayment(orderId);
+        } else
+        {
+            LOGGER.warn("Failed to obtain the orderId from the callback. NOT sending a order confirmation email");
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
