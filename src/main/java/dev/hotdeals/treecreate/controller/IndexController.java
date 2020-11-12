@@ -29,7 +29,7 @@ public class IndexController
     @RequestMapping(value = {"", "/", "/index", "/index/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index()
     {
-        return "redirect:/landingPage";
+        return "redirect:/productExample";
     }
 
     @RequestMapping(value = "/productExample", method = {RequestMethod.GET, RequestMethod.POST})
@@ -82,7 +82,7 @@ public class IndexController
         try
         {
             mailService.sendInfoMail("Example Info Message", "Example Info Subject", "orders@treecreate.dk");
-        } catch (MailException e)
+        } catch (MailException | MessagingException e)
         {
             LOGGER.error("Unable to send an email", e);
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);

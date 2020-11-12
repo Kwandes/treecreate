@@ -79,6 +79,11 @@
     z-index: 100;
 }
 
+.draggableBoxPreview:hover
+{
+    z-index: 99;
+}
+
 .draggableBox:hover .dragDraggableBoxButton
 {
     visibility: visible;
@@ -87,6 +92,16 @@
 .draggableBox:hover .deleteDraggableBoxButton
 {
     visibility: visible;
+}
+
+.draggableBoxPreview:hover .dragDraggableBoxButton
+{
+    visibility: hidden;
+}
+
+.draggableBoxPreview:hover .deleteDraggableBoxButton
+{
+    visibility: hidden;
 }
 
 .draggableBox .icon

@@ -40,7 +40,7 @@
     font-size: var(--fontRegular);
     letter-spacing: 0.36px;
     height: 4vh;
-    padding: 0px 10px;
+    padding: 0px 20px;
     width: fit-content;
     color: var(--navbarMainColor);
     position: relative; /* Used to align the hoverLine element properly */
@@ -118,4 +118,24 @@ a::before {
     height: 100%;
     width: 15vh;
     vertical-align: middle;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    #navBar
+    {
+        padding: 1vh 0 0 0;
+        height: 4vh;
+        min-height: 0vh !important;
+    }
+
+    #navBar .icon
+    {
+        width: 1.5vh;
+    }
+
+    #treecreateLogo
+    {
+        width: 7vh;
+    }
 }

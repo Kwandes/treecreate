@@ -24,15 +24,14 @@
         <div class="modal fade" id="cookiePromptModal" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content">
+                <div class="modal-content cookiePrompt">
                     <div class="header">
-                        <h2 class="modal-title">Cookies information</h2>
-                        <p>By clicking ACCEPT, you are agreeing with the cookie
-                            <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank">terms and
-                                conditions</a>
-                            of this page.</p>
+                        <h2 class="modal-title"><span th:text="#{cookie.title}"></span></h2>
+                        <span th:text="#{cookie.text}"></span>
+                        <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank"><span th:text="#{cookie.link}"></span></a>
+                        <span th:text="#{cookie.text.two}"></span>
                     </div>
-                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton">I ACCEPT</button>
+                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton"><span th:text="#{cookie.accept}"></span></button>
                 </div>
             </div>
         </div>
@@ -99,10 +98,10 @@
                 <hr>
                 <!-- T&C for account creation -->
                 <div style="display: flex; flex-direction: row; justify-content: center">
-                    <p style="font-size:12px;"><span th:text="#{basket.terms.and.conditions.text}"></span> <a
+                    <p style="font-size:12px;"><span th:text="#{signup.terms.and.conditions.text}"></span> <a
                             href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit"
                             style="color:var(--actionColor);" id="accountTermsAndConditions"
-                            target="_blank"><span th:text="#{basket.terms.and.conditions.link}"></span> </a>
+                            target="_blank"><span th:text="#{signup.terms.and.conditions.link}"></span> </a>
                     </p>
                 </div>
 
@@ -126,11 +125,11 @@
                 <a style="margin-left:25px;" href="/productExample"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
                                                alt="treecreate" id="treecreateLogo" class="filterColor">
                 </a>
-                <a target="popup" onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')">
+                <a target="popup" onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')" style="padding:0 10px;">
                     <img th:src="@{~/img/logos/facebookBlackLogo.svg}" alt="facebook" id="facebookIcon"
                          class="icon filterColor">
                 </a>
-                <a target="popup" onclick="window.open('https://www.instagram.com/treecreate.dk/','names')">
+                <a target="popup" onclick="window.open('https://www.instagram.com/treecreate.dk/','names')" style="padding:0 10px;">
                     <img th:src="@{~/img/logos/instagramBlackLogo.svg}" alt="instagram" id="instagramIcon"
                          class="icon filterColor">
                 </a>
@@ -144,7 +143,7 @@
                     <span th:text="#{navbar.products}"></span>
                     <hr class="hoverLine">
                 </a>
-                <a href="/shoppingBasket"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
+                <a href="/account/collections"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
                                                id="shoppingBasketIcon" class="icon filterColor">
                     <span id="basketNavbarText"> (0) </span><span th:text=" #{navbar.items}"></span>
                     <hr class="hoverLine">

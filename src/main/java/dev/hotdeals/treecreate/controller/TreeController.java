@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
@@ -22,6 +23,8 @@ import static org.hibernate.bytecode.BytecodeLogger.LOGGER;
 @RestController
 public class TreeController
 {
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
     @Autowired
     UserRepo userRepo;
 
@@ -36,7 +39,7 @@ public class TreeController
     {
         LOGGER.info("Adding a new tree design");
         TreeDesign treeDesign = new TreeDesign();
-        treeDesign.setDateCreated(LocalDateTime.now().toString());
+        treeDesign.setDateCreated(LocalDateTime.now().format(formatter).toString());
         treeDesign.setDesignJson(design.stringify());
         TreeDesign savedDesign = treeDesignRepo.save(treeDesign);
         LOGGER.info("New Design Id: " + savedDesign.getId());
@@ -50,7 +53,7 @@ public class TreeController
         TreeDesign treeDesign = treeDesignRepo.findById(design.getId()).orElse(null);
         if (treeDesign != null)
         {
-            treeDesign.setDateCreated(LocalDateTime.now().toString());
+            treeDesign.setDateCreated(LocalDateTime.now().format(formatter));
             treeDesign.setDesignJson(design.stringify());
             treeDesign.setId(design.getId());
             System.out.println(design.stringify());
@@ -85,6 +88,39 @@ public class TreeController
         return new ResponseEntity<>(String.valueOf(savedOrder.getOrderId()), HttpStatus.OK);
     }
 
+    @PostMapping("/updateTreeOrder")
+    ResponseEntity<String> updateTreeOrder(@RequestBody TreeOrder treeOrder)
+    {
+        LOGGER.info("Editing tree order");
+        int userId = treeOrder.getUserByUserId().getId();
+        LOGGER.info("User id: " + userId);
+        User user = userRepo.findById(userId).orElse(null);
+        if (user == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        int treeDesignId = treeOrder.getTreeDesignById().getId();
+        LOGGER.info("Design id: " + treeDesignId);
+        TreeDesign treeDesign = treeDesignRepo.findById(treeDesignId).orElse(null);
+        if (treeDesign == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        TreeOrder order = treeOrderRepo.findByTreeDesignId(treeDesignId).orElse(null);
+        if (order != null)
+        {
+            order.setAmount(treeOrder.getAmount());
+            order.setSize(treeOrder.getSize());
+            order.setStatus(treeOrder.getStatus());
+            order.setTreeDesignById(treeOrder.getTreeDesignById());
+            order.setUserByUserId(treeOrder.getUserByUserId());
+            TreeOrder savedOrder = treeOrderRepo.save(order);
+            System.out.println(savedOrder.toString());
+            LOGGER.info("New order id: " + savedOrder.getOrderId());
+            return new ResponseEntity<>(String.valueOf(savedOrder.getOrderId()), HttpStatus.OK);
+        } else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
     @GetMapping("/getUsers")
     ResponseEntity<List<User>> getUsers()
     {
@@ -102,11 +138,11 @@ public class TreeController
     @GetMapping("/getTreeOrders")
     ResponseEntity<List<TreeOrder>> getTreeOrder(HttpServletRequest request, @RequestParam(required = false, name = "status") String orderStatus)
     {
-        LOGGER.info("Getting Tree orders for session " + request.getSession().getId());
+        //LOGGER.info("Getting Tree orders for session " + request.getSession().getId());
         int userId = 0;
         try
         {
-            LOGGER.info("Current User Returned body: " + getCurrentUser(request).getBody());
+            //LOGGER.info("Current User Returned body: " + getCurrentUser(request).getBody());
             userId = Integer.parseInt(getCurrentUser(request).getBody());
         } catch (NumberFormatException | NullPointerException e)
         {
@@ -128,7 +164,7 @@ public class TreeController
         if (session.getAttribute("userId") != null)
         {
             String userId = session.getAttribute("userId").toString();
-            LOGGER.info("Current User ID: " + userId);
+            //LOGGER.info("Current User ID: " + userId);
             return new ResponseEntity<>(userId, HttpStatus.OK);
         }
 
@@ -145,7 +181,7 @@ public class TreeController
             LOGGER.info("Saved user: " + user.toString());
         } else
         {
-            LOGGER.info("User found: " + user.toString());
+            //LOGGER.info("User found: " + user.toString());
         }
         return new ResponseEntity<>(String.valueOf(user.getId()), HttpStatus.OK);
     }
@@ -192,5 +228,25 @@ public class TreeController
             }
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping(value = {"/products/getTreeOrderByDesignId"})
+    public ResponseEntity<String> getTreeOrderByDesignId(@RequestParam Integer designId)
+    {
+        if (designId == null)
+        {
+            LOGGER.warn("The Design ID is null");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        LOGGER.info("ID :" + designId);
+        var order = treeOrderRepo.findByTreeDesignId(designId).orElse(null);
+        if (order == null)
+        {
+            LOGGER.warn("The design was null, 400");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        LOGGER.info("Order: " + order.toString());
+        return new ResponseEntity<>(order.stringify(), HttpStatus.OK);
     }
 }

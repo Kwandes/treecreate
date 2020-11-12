@@ -116,4 +116,13 @@ public class TreeOrder
     {
         return Objects.hash(orderId, amount, size, status, treeDesign, user);
     }
+
+    public String stringify()
+    {
+        return "{"+
+                "\"amount\":" + amount +
+                ",\"size\":\"" + size + "\"" +
+                ",\"status\":\"" + status + "\"" +
+                '}';
+    }
 }

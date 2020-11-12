@@ -57,11 +57,24 @@
     color: black;
     width: 70vw;
     margin: 0 0 1vh 0;
+}
 
+#footer-separator hr
+{
+    border-top: 1px solid black;
 }
 
 #footer-bottom section
 {
     display: flex;
     flex-direction: column;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    #footer .icon
+    {
+        height: 2vh;
+        width: 2vh;
+    }
 }

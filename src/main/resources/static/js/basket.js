@@ -35,34 +35,34 @@ async function loadOrders()
     let orders = JSON.parse(ordersJson);
     let totalPrice = 0;
     let totalSaved = 0;
+    let totalAmount = 0;
     for (let i = 0; i < orders.length; i++)
     {
         let orderRow = defaultRow.cloneNode(true);
-        orderRow.style.display = 'table-row'
+        orderRow.style.display = 'table-row';
         let order = orders[i];
-        orderRow.getElementsByClassName("orderAmount")[0].innerText = order['amount'];
-        orderRow.getElementsByClassName("orderProduct")[0].innerText = 'Family Tree - ' + order['size'];
+
         let itemPrice = sizes.get(order['size']);
         let amount = parseInt(order['amount']);
+        totalAmount += amount;
         let itemTotal = (itemPrice * amount);
-        let itemSaved = 0;
-        if (amount > 3)
-        {
-            itemSaved = itemTotal * 0.25;
-            itemTotal *= 0.75;
-        }
-        orderRow.getElementsByClassName("orderTotal")[0].innerText = itemTotal + 'kr';
-        orderRow.getElementsByClassName("orderSaved")[0].innerText = itemSaved + 'kr';
-
         totalPrice += itemTotal;
-        totalSaved += itemSaved;
+
+        orderRow.getElementsByClassName("orderAmount")[0].innerText = order['amount'];
+        orderRow.getElementsByClassName("orderProduct")[0].innerText = 'Family Tree - ' + order['size'];
+        orderRow.getElementsByClassName("orderTotal")[0].innerText = itemTotal + 'kr';
 
         let newRow = orderTable.insertRow(2);
         newRow.innerHTML = orderRow.innerHTML;
     }
+    if (totalAmount > 3)
+    {
+        totalSaved = totalPrice * 0.25;
+        totalPrice *= 0.75;
+    }
 
     document.getElementById("totalPrice").innerText = totalPrice + 'kr';
-    document.getElementById("totalSaved").innerText = totalSaved + 'kr';
+    document.getElementById("totalDiscount").innerText = '-' + totalSaved + 'kr';
     document.getElementById("totalTax").innerText = (totalPrice * 0.2) + 'kr';
 }
 
@@ -250,33 +250,46 @@ async function applyDiscount()
 
                 showBasketPopup("Code is okay, applying the discount", false)
                 const type = discountCode['discountType'];
-                const amount = discountCode['discountAmount'];
+                const amount = parseInt(discountCode['discountAmount']);
 
                 if (discountApplied)
                 {
-                        console.log("Discount has already been applied");
-                        return true;
+                    console.log("Discount has already been applied");
+                    return true;
                 }
+
+                const totalDiscountRow = document.getElementById("totalDiscount");
+                const totalPriceRow = document.getElementById("totalPrice");
+
+                // Obtain actual price and discount values pre-discount
+                let currentTotalPrice = parseInt(totalPriceRow.innerText.replace('kr', ''));
+                let currentDiscount = parseInt(totalDiscountRow.innerText.replace('-', '')
+                    .replace('kr', ''));
 
                 if (type === "minus")
                 {
                     console.log("Applying -" + amount + "kr discount");
-                    document.getElementById("discountDisplay").innerText = "-" + amount + "kr";
-                    const totalPriceRow = document.getElementById("totalPrice");
-                    let totalPrice = totalPriceRow.innerText.replace("kr", "");
-                    totalPrice = parseInt(totalPrice) - parseInt(amount);
+                    // Add the discount to the totalDiscount row
+                    let totalDiscount = currentDiscount + amount;
+                    totalDiscountRow.innerText = "-" + totalDiscount + "kr";
+
+                    // Update the totalPrice row
+                    let totalPrice = currentTotalPrice - amount;
                     if (totalPrice < 0) totalPrice = 0;
                     totalPriceRow.innerText = totalPrice + "kr";
                 } else if (type === "percent")
                 {
+                    // Apply the %-based discount
                     console.log("Applying " + amount + "% discount");
-                    document.getElementById("discountDisplay").innerText = amount + "%";
-                    const totalPriceRow = document.getElementById("totalPrice");
-                    let totalPrice = totalPriceRow.innerText.replace("kr", "");
-                    let percent = (100 - parseInt(amount))/100;
+                    let percent = (100 - parseInt(amount)) / 100;
                     console.log("percent: " + percent);
-                    totalPrice = Math.floor(parseInt(totalPrice) * percent);
+                    // Update the price row
+                    let totalPrice = Math.floor(currentTotalPrice * percent);
                     totalPriceRow.innerText = totalPrice + "kr";
+
+                    // Update the discount row
+                    let totalDiscount = currentDiscount + (currentTotalPrice - totalPrice);
+                    totalDiscountRow.innerText = "-" + totalDiscount + "kr";
                 }
 
                 discountApplied = true;

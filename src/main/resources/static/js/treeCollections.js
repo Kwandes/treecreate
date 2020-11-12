@@ -4,6 +4,8 @@ async function generateCollections()
     const collectionBaseline = document.getElementsByClassName("collectionContainer")[0];
     const detailsPage = document.getElementById("details");
     const ordersJson = await fetchOrders();
+    const checkoutButton = document.getElementById("checkoutButton");
+    const addDesignButton = document.getElementById("addDesignButton");
 
     if (ordersJson === '[]')
     {
@@ -11,6 +13,12 @@ async function generateCollections()
         return;
     }
     let orders = JSON.parse(ordersJson);
+    if (orders.length > 0) {
+        checkoutButton.style.visibility = "visible";
+        checkoutButton.style.order = orders.length + 1;
+        addDesignButton.style.visibility = "visible";
+        addDesignButton.style.order = orders.length + 1;
+    }
     //console.log("Order: " + ordersJson)
     console.log("Order count: " + (orders.length + 1))
     for (let i = 0; i < orders.length; i++)
@@ -42,11 +50,12 @@ async function generateCollections()
         }
         boxContent = boxContent.substr(0, boxContent.length - 2);
         collectionItem.getElementsByClassName("boxContent")[0].innerText = boxContent;
-
+        collectionItem.getElementsByClassName("size")[0].innerText = order['size'];
+        collectionItem.getElementsByClassName("amount")[0].innerText = order['amount'];
         let dateCreated = order['treeDesignById']['dateCreated'];
         dateCreated = dateCreated.replace('T', ' ');
         dateCreated = dateCreated.split('.')[0];
-        collectionItem.getElementsByClassName("dateCreated")[0].innerText = "Boxes: " + dateCreated;
+        collectionItem.getElementsByClassName("dateCreated")[0].innerText = dateCreated;
 
         console.log("Order id: " + order['orderId']);
         collectionItem.getElementsByClassName("orderId")[0].innerText = order['orderId'];

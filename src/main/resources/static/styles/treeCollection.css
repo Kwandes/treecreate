@@ -17,10 +17,9 @@
     min-width: 100px;
     width: 20vw;
     height: 20vw;
-    border: 2px black solid;
     border-radius: 12px;
-    margin-top: 2vw;
-    background-image: url("../img/images/backgrounds/addToBasketDesignTree.png");
+    margin: 3vw 0;
+    background-image: url("../img/images/backgrounds/addToBasketDesignTree2.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -80,10 +79,21 @@
     border: none;
     background-color: var(--actionColor);
     color: white;
-    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
 }
 
 .collectionInfoBtn:hover
 {
-    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 1));
+    transform:scale(0.9);
+    color: white;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0));
+}
+
+#checkoutButton, #addDesignButton
+{
+    text-align: center;
+    visibility: hidden;
+    font-size: var(--fontRegular);
+    width:40%;
+    margin: 1vh 0 1vh 0;
 }

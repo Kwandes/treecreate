@@ -7,11 +7,13 @@
     <link th:href="@{/styles/productExample.css}" rel="stylesheet">
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link th:href="@{/styles/emailSubmit.css}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/basket.js}"></script>
     <script th:src="@{/js/cookiePrompt.js}"></script>
+    <script th:src="@{/js/productExample.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
@@ -25,7 +27,10 @@
                     <section id="generalInformation">
                         <span class="title" th:text="#{home.intro.title}"></span><br>
                         <img th:src="@{~/img/productPage/Artboard 3.png}" alt="Tree Design" class=""><br>
-                        <span th:text="#{home.intro.text}"></span><br>
+                        <span th:text="#{home.intro.text}"></span><br><br>
+                        <button class="createNowBtn" onclick="location.href='/products/familyTree'">
+                            <span th:text="#{home.create.now}"></span>
+                        </button>
                     </section>
                     <section id="development">
                         <img th:src="@{~/img/productPage/Artboard 4.png}" alt="Tree Design" class="image">
@@ -59,6 +64,21 @@
                         </div>
                     </section>
 
+                    <button style="margin-bottom: 2vh;" class="createNowBtn" onclick="location.href='/products/familyTree'">
+                        <span th:text="#{home.create.now}"></span>
+                    </button>
+
+                    <div id="emailSubscript">
+                        <h2><span th:text="#{home.subscribe.title}"></span></h2>
+
+                        <div style="margin:1vh 0!important;"id="emailContainer">
+                            <input type="email" id="emailInput" name="newsletterEmail"
+                                   th:placeholder="#{home.subscribe.input}"
+                                   required>
+                            <button id="emailSubmitBtn" type="button" onclick="submitNewsletter()"
+                                    th:text="#{landing.submit}"></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

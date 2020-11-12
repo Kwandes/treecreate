@@ -92,7 +92,7 @@ a:hover
 {
     font-size: var(--fontTitle);
     text-align: center;
-    margin: 1vh;
+    margin: 3.5vh 2vh 1vh 2vh;
 }
 
 #formUpdateInfo label
@@ -107,13 +107,39 @@ a:hover
     width: 40vw;
 }
 
+#formUpdateInfo input:hover
+{
+    color: var(--actionColor);
+}
+
 #accountInfoSubmitBtn
 {
-    margin-bottom: 5vh;
-    width: 20vh;
-    border-radius: 5px;
+    width: 40%;
+    padding: 5px 2vw;
+    border-radius: 12px;
+    margin-bottom: 3.5vh;
     border: none;
     background-color: var(--actionColor);
     color: white;
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+    font-size: var(--fontRegular);
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.20));
+}
+
+#accountInfoSubmitBtn:hover
+{
+    transform:scale(0.9);
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0));
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    #contentContainer
+    {
+        padding-bottom: 0;
+    }
+
+    #details
+    {
+        margin-bottom: 13vh;
+    }
 }

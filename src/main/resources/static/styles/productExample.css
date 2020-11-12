@@ -87,6 +87,25 @@ html, body
     width: 90%;
 }
 
+.createNowBtn
+{
+    margin-top: 2vh;
+    font-size: 24px;
+    padding: 10px 15px;
+    color: var(--actionColor);
+    border: 2px solid var(--actionColor);
+    width: 30%;
+    background: rgba(0,0,0,0);
+    border-radius: 5px;
+}
+
+.createNowBtn:hover
+{
+    color:white;
+    background: var(--actionColor);
+    border-radius: 10px;
+}
+
 @media all and (min-width: 200px) and (max-width: 1024px)
 {
     #content

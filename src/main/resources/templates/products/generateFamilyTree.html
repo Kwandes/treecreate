@@ -202,7 +202,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                             </div>
                         </div>
                         <div class="fancyContent">
-                            <input type="text" class="fancyInput" id="bannerTextInput" placeholder="familietræ"
+                            <input type="text" class="fancyInput" id="bannerTextInput" th:placeholder="#{familyTree.familyTree}"
                                    maxlength="15">
                         </div>
                     </div>
@@ -267,7 +267,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
 
                     <div class="save">
                         <button id="saveDesignButton" onclick="changeDesign()">
-                            Save
+                            <span th:text="#{familyTree.option.save}"></span>
                         </button>
                     </div>
 

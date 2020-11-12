@@ -61,9 +61,10 @@
 
     min-width: 200px;
     width: 20vw;
-    margin: 1vw;
+    margin: 4px;
     min-height: 25vh;
     height: fit-content;
+    margin-bottom: 0px;
 }
 
 .addToBasketDetail
@@ -84,6 +85,11 @@
     flex-direction: row;
 }
 
+#addToBasketName
+{
+    min-width: 150px;
+}
+
 #nameLabel, #priceLabel
 {
     font-size: var(--fontSubtitle);
@@ -99,12 +105,16 @@
 {
     width: 10vw;
     text-align: right;
+    margin-bottom: 0px;
+    font-weight: 1;
 }
 
 #priceInput
 {
     font-size: var(--fontSubtitle);
+    width: 9vw;
     border: none;
+    margin-left: 8px;
 }
 
 .fancySelection

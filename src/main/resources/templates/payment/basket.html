@@ -8,6 +8,8 @@
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
     <link th:href="@{/styles/basket.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
     <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/basket.js}"></script>
     <script th:src="@{/js/addToBasket.js}"></script>
@@ -56,7 +58,8 @@
                     </select>
 
                     <label for="checkboxNewsletter">
-                        <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter"> <span th:text="#{basket.subscribe}"></span>
+                        <input type="checkbox" name="checkboxNewsletter" id="checkboxNewsletter"> <span
+                            th:text="#{basket.subscribe}"></span>
                     </label>
                 </section>
                 <section id="orderInformation" class="informationSection border">
@@ -65,38 +68,42 @@
                             <th><span th:text="#{basket.amount}"></span></th>
                             <th><span th:text="#{basket.prod}"></span></th>
                             <th><span th:text="#{basket.total}"></span></th>
-                            <th><span th:text="#{basket.save}"></span></th>
                         </tr>
                         <tr class="orderRow" style="display: none">
                             <td class="orderAmount">N/A</td>
                             <td class="orderProduct">Family Tree - N/A</td>
                             <td class="orderTotal">N/A</td>
-                            <td class="orderSaved">N/A</td>
                         </tr>
-                        <tr style="border-top: 1px solid var(--mainColor); margin-top: 1vh;">
-                            <td><span th:text="#{basket.total.price}"></span></td>
-                            <td></td>
-                            <td id="totalPrice">0</td>
-                            <td id="totalSaved">0</td>
-                        </tr>
-                        <tr>
-                            <td><span th:text="#{basket.tax}"></span></td>
-                            <td></td>
-                            <td id="totalTax">0</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Discount</td>
-                            <td></td>
-                            <td id="discountDisplay">0</td>
-                            <td></td>
-                        </tr>
-                        <script>loadOrders()</script>
                     </table>
-                    <section id="discountCode">
-                        <label for="inputDiscountCode">Discount Code:</label>
-                        <input id="inputDiscountCode" placeholder="ex. ABC123" maxlength="25"><br>
-                        <input type="button" id="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
+                    <section id="orderSummary">
+                        <table>
+                            <tr>
+                                <td class="orderSummaryFiller taxRow"></td>
+                                <td class="orderSummaryText taxRow"><span th:text="#{basket.tax}"></span></td>
+                                <td class="orderSummaryValue taxRow" id="totalTax" style="padding-left: 1vw">0</td>
+                            </tr>
+                            <tr>
+                                <td class="orderSummaryFiller discountRow"></td>
+                                <td class="orderSummaryText discountRow">Discount</td>
+                                <td class="orderSummaryValue discountRow"
+                                    id="totalDiscount" style="padding-left: 1vw"> 0
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="orderSummaryFiller totalPriceRow"></td>
+                                <td class="orderSummaryText totalPriceRow"><span th:text="#{basket.total.price}"></span>
+                                </td>
+                                <td class="orderSummaryValue totalPriceRow"
+                                    id="totalPrice" style="padding-left: 1vw"> 0
+                                </td>
+                            </tr>
+                            <script>loadOrders()</script>
+                        </table>
+                        <section id="discountCode">
+                            <label for="inputDiscountCode">Discount Code:</label>
+                            <input id="inputDiscountCode" placeholder="ex. ABC123" maxlength="25"><br>
+                            <input type="button" id="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
+                        </section>
                     </section>
                 </section>
             </section>
@@ -104,7 +111,8 @@
                 <div id="acceptOrder" class="border">
                     <label for="termsAndConditionsCheckbox">
                         <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
-                        <span th:text="#{basket.terms.and.conditions.text}"></span> <a href="/orderTermsAndConditionsDanish" target="_blank">
+                        <span th:text="#{basket.terms.and.conditions.text}"></span> <a
+                            href="/orderTermsAndConditionsDanish" target="_blank">
                         <span th:text="#{basket.terms.and.conditions.link}"></span></a>
                     </label>
                     <button onclick='goToPayment()'><span th:text="#{basket.accept.and.pay}"></span></button>

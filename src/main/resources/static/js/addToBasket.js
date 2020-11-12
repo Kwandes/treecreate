@@ -50,16 +50,34 @@ async function changeDesign()
         console.log("No design available, returning");
         return;
     }
+    const amount = document.getElementById("amountInput").value;
+    const treeSize = document.getElementById("sizeInput").value;
+    console.log("Saving a new order");
+    console.log("Amount: " + amount);
+    console.log("Size: " + treeSize);
     console.log("Design: " + designJson);
     console.dir(designJson)
 
     console.log("-")
 
-    console.log("Saving the design");
+    console.log("Saving the order");
     let designId = await updateDesign(designJson);
     let userId = await getCurrentUser();
     console.log("Design saved, ID: " + designId);
+    console.log("Adding a new order for user: " + userId)
+    let orderInfo = JSON.stringify({
+        "amount": amount,
+        "size": treeSize,
+        "status": "active",
+        "treeDesignById": {"id": designId},
+        "userByUserId": {"id": userId}
+    });
+    console.log("Design saved, ID: " + designId);
     console.log("Adding a new order for user: " + userId);
+    console.dir(JSON.parse((orderInfo)));
+    let orderId = await updateOrder(orderInfo);
+    console.log("Order updated, Order id: " + orderId)
+    location.replace("/account/collections");
 }
 
 function getDesign()
@@ -174,6 +192,18 @@ async function saveOrder(orderInfo)
     return await response.text();
 }
 
+async function updateOrder(orderInfo)
+{
+    const response = await fetch(location.origin + "/updateTreeOrder",
+        {
+            method: "POST",
+            headers: {'Content-type': 'application/json'},
+            body: orderInfo,
+        });
+    console.log("%Updating tree order has finished, status: " + response.status, "color:mediumpurple");
+    return await response.text();
+}
+
 
 function increaseAmount()
 {
@@ -249,15 +279,20 @@ function decreaseSize()
 //TODO - apply discounts on the Nth amount
 function updatePrice()
 {
-    const priceInput = document.getElementById("priceInput");
-    const sizeInput = document.getElementById("sizeInput");
-    const currentSizeIndex = sizeOptions.indexOf(sizeInput.value)
-    const sizePrice = sizePrices[currentSizeIndex];
-    const amount = document.getElementById("amountInput").value;
-    let price = amount * sizePrice;
-    if (amount > 3)
-    {
-        price *= 0.75;
+    const loginButton = document.getElementById("profileButton");
+    console.log(loginButton.style.display);
+    if (!(loginButton.style.display === "inline-block")) {
+        document.getElementById("loginButton").click();
+        showLoginPopup("Please login before adding items to the basket", true);
+    } else {
+        $("#addToBasketModal").modal();
+        const priceInput = document.getElementById("priceInput");
+        const sizeInput = document.getElementById("sizeInput");
+        const currentSizeIndex = sizeOptions.indexOf(sizeInput.value)
+        const sizePrice = sizePrices[currentSizeIndex];
+        const amount = document.getElementById("amountInput").value;
+        let price = amount * sizePrice;
+
+        priceInput.value = price + 'kr';
     }
-    priceInput.value = price + 'kr';
 }
