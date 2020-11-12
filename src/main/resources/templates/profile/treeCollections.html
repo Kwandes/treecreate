@@ -74,9 +74,14 @@
             </section>
             <script>generateCollections()</script>
 
-            <a href="/shoppingBasket" class="collectionInfoBtn" id="checkoutButton">
+            <a href="/shoppingBasket" style="margin-top: 2vh;" class="collectionInfoBtn" id="checkoutButton">
                 <span th:text="#{collection.checkout}"></span>
             </a>
+
+            <a href="/products/familyTree" style="margin-bottom: 4vh;" class="collectionInfoBtn" id="addDesignButton">
+                <span th:text="#{collection.add.design}"></span>
+            </a>
+
         </div>
     </section>
     <section th:replace="products/productTemplate :: #footerContainer"></section>

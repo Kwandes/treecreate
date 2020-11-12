@@ -5,6 +5,7 @@ async function generateCollections()
     const detailsPage = document.getElementById("details");
     const ordersJson = await fetchOrders();
     const checkoutButton = document.getElementById("checkoutButton");
+    const addDesignButton = document.getElementById("addDesignButton");
 
     if (ordersJson === '[]')
     {
@@ -15,6 +16,8 @@ async function generateCollections()
     if (orders.length > 0) {
         checkoutButton.style.visibility = "visible";
         checkoutButton.style.order = orders.length + 1;
+        addDesignButton.style.visibility = "visible";
+        addDesignButton.style.order = orders.length + 1;
     }
     //console.log("Order: " + ordersJson)
     console.log("Order count: " + (orders.length + 1))
