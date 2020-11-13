@@ -52,39 +52,40 @@ public class PaymentController
     @PostMapping("/startPayment")
     ResponseEntity<String> startPayment(HttpServletRequest request, @RequestBody Transaction transaction)
     {
-        LOGGER.info("Starting a new payment");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Starting a new payment");
         int id;
         try
         {
             id = Integer.parseInt(Objects.requireNonNull(treeController.getCurrentUser(request).getBody()));
         } catch (NullPointerException e)
         {
-            LOGGER.error("Cannot start a payment - user id obtained from the session is null");
+            LOGGER.error(request.getSession().getId() + " - Transaction - Cannot start a payment - user id obtained from the session is null");
             return new ResponseEntity<>("Failed to obtain the user from the session. Please do report this to the developers", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        LOGGER.info("Payment - User Id: " + id);
+        LOGGER.info(request.getSession().getId() + " - Transaction - User Id: " + id);
         User user = userRepo.findById(id).orElse(null);
         if (user == null)
         {
-            LOGGER.info("The user is yikes");
+            LOGGER.info(request.getSession().getId() + " - Transaction - The user is yikes");
             return new ResponseEntity<>("Failed to find a user with an ID of " + id, HttpStatus.NOT_FOUND);
         }
 
-        LOGGER.info("Verifying verification");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Verifying verification");
         if (!user.getVerification().equals("verified"))
         {
-            LOGGER.info("User " + user.getId() + " is not verified");
+            LOGGER.info(request.getSession().getId() + " - Transaction - User " + user.getId() + " is not verified");
             return new ResponseEntity<>("User is not verified", HttpStatus.FORBIDDEN);
         }
-        LOGGER.info("Everything looks okay, creating a new transaction for user " + user.getId());
-        LOGGER.info("Getting all orders for user " + user.getId());
+        LOGGER.info(request.getSession().getId() + " - Transaction - Everything looks okay, creating a new transaction for user " + user.getId());
+
+        LOGGER.info(request.getSession().getId() + " - Transaction - Getting all orders for user " + user.getId());
         var orderList = treeOrderRepo.findAllByUserId(user.getId());
         if (orderList.size() == 0)
         {
-            LOGGER.warn("The order list for user " + user.getId() + " is empty! Cancelling the transaction");
-            return new ResponseEntity<>("Internal server error - failed to find orders. Contact Support for more information", HttpStatus.NOT_FOUND);
+            LOGGER.warn(request.getSession().getId() + " - Transaction - The order list for user " + user.getId() + " is empty! Cancelling the transaction");
+            return new ResponseEntity<>(request.getSession().getId() + " - Transaction - Internal server error - failed to find orders. Contact Support for more information", HttpStatus.NOT_FOUND);
         }
-        LOGGER.info("Order list size: " + orderList.size());
+        LOGGER.info(request.getSession().getId() + " - Transaction - Order list size: " + orderList.size());
         int totalPrice = 0;
         Map<String, Integer> sizeToPriceMap = new HashMap<>();
         sizeToPriceMap.put("20x20 cm", 495);
@@ -100,31 +101,31 @@ public class PaymentController
         }
         if (totalAmount > 3)
         {
-            LOGGER.info("Total amount of ordered designs was more than 3, applying a 25% discount to the total");
+            LOGGER.info(request.getSession().getId() + " - Transaction - Total amount of ordered designs was more than 3, applying a 25% discount to the total");
             totalPrice = (int) (totalPrice * 0.75);
         }
         totalPrice *= 100; // Quickpay takes 2 digits as decimal places, so 1000 becomes 10,00
 
         if (transaction.getDiscount() != null)
         {
-            LOGGER.info("Applying the discount for the transaction in sessions ID: " + request.getSession().getId());
-            LOGGER.info("Total price pre-discount: " + totalPrice);
+            LOGGER.info(request.getSession().getId() + " - Transaction - Applying the discount for the transaction in sessions ID: " + request.getSession().getId());
+            LOGGER.info(request.getSession().getId() + " - Transaction - Total price pre-discount: " + totalPrice);
             var discountCodeResponse = getDiscountCode(transaction.getDiscount());
             if (discountCodeResponse.getStatusCode() != HttpStatus.OK)
             {
-                LOGGER.info("Failed to find the discount code");
+                LOGGER.info(request.getSession().getId() + " - Transaction - Failed to find the discount code");
             } else
             {
                 var discountCode = discountCodeResponse.getBody();
                 if (!discountCode.getActive())
                 {
-                    LOGGER.info("Provided discount is no longer active");
+                    LOGGER.info(request.getSession().getId() + " - Transaction - Provided discount is no longer active");
                 } else
                 {
 
                     if (discountCode.getTimesUsed() >= discountCode.getMaxUsages())
                     {
-                        LOGGER.info("Max usages for discount code " + discountCode.getId() + " have been reached already. Not applying the discount");
+                        LOGGER.info(request.getSession().getId() + " - Transaction - Max usages for discount code " + discountCode.getId() + " have been reached already. Not applying the discount");
                         discountCode.setActive(false);
                     } else
                     {
@@ -132,22 +133,22 @@ public class PaymentController
                         String type = discountCode.getDiscountType();
                         if (type.equals("minus"))
                         {
-                            LOGGER.info("Applying a discount of -" + amount + "kr");
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Applying a discount of -" + amount + "kr");
                             totalPrice = totalPrice - (amount * 100);
                             if (totalPrice < 0) totalPrice = 0;
                         }
                         if (type.equals("percent"))
                         {
-                            LOGGER.info("Applying a discount of " + amount + "%");
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Applying a discount of " + amount + "%");
                             double percent = (100.0 - amount) / 100;
-                            LOGGER.info("Percent: " + percent);
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Percent of total left: " + percent);
                             totalPrice = (int) Math.floor(((totalPrice / 100.0) * percent)) * 100;
 
                         }
                         discountCode.setTimesUsed(discountCode.getTimesUsed() + 1);
                         if (discountCode.getTimesUsed() >= discountCode.getMaxUsages())
                         {
-                            LOGGER.info("Max usages for discount code " + discountCode.getId() + " have been reached. Deactivating the discount (this is after applying it)");
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Max usages for discount code " + discountCode.getId() + " have been reached. Deactivating the discount (this is after applying it)");
                             discountCode.setActive(false);
                         }
                     }
@@ -449,6 +450,7 @@ public class PaymentController
     @Autowired
     MailService mailService;
 
+    // also sends the order confirmation email because I'm stupid
     @GetMapping("/getTransaction/{id}")
     ResponseEntity<Transaction> getPayment(@PathVariable(name = "id") String id)
     {
