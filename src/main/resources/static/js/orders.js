@@ -70,7 +70,7 @@ async function generateOrders()
 
             const design = order['treeDesignById'];
             const designJson = JSON.parse(design['designJson']);
-            const designId = designJson.id;
+            const designId = design.id;
             console.dir(designJson);
 
             let itemPrice = orderSizes.get(order.size);
