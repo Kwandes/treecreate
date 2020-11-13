@@ -65,12 +65,12 @@ public class ProductController
     @PostMapping("/specialRequest")
     ResponseEntity<String> updatePassword(@RequestBody String email)
     {
-        LOGGER.info("Received data: " + email);
+        LOGGER.info("Special request - Received data: " + email);
         SpecialEmail specialEmail = new SpecialEmail();
         specialEmail.setEmail(email);
         specialEmail.setTimePlusDate(LocalDateTime.now().toString());
         SpecialEmail savedSpecialEmail = specialEmailRepo.save(specialEmail);
-        LOGGER.info("Saved email : " + savedSpecialEmail.toString());
+        LOGGER.info("Special request - Saved email : " + savedSpecialEmail.toString());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
