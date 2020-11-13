@@ -279,6 +279,18 @@ function decreaseSize()
 //TODO - apply discounts on the Nth amount
 function updatePrice()
 {
+    const priceInput = document.getElementById("priceInput");
+    const sizeInput = document.getElementById("sizeInput");
+    const currentSizeIndex = sizeOptions.indexOf(sizeInput.value)
+    const sizePrice = sizePrices[currentSizeIndex];
+    const amount = document.getElementById("amountInput").value;
+    let price = amount * sizePrice;
+
+    priceInput.value = price + 'kr';
+}
+
+function checkLogin()
+{
     const loginButton = document.getElementById("profileButton");
     console.log(loginButton.style.display);
     if (!(loginButton.style.display === "inline-block")) {
@@ -286,13 +298,6 @@ function updatePrice()
         showLoginPopup("Please login before adding items to the basket", true);
     } else {
         $("#addToBasketModal").modal();
-        const priceInput = document.getElementById("priceInput");
-        const sizeInput = document.getElementById("sizeInput");
-        const currentSizeIndex = sizeOptions.indexOf(sizeInput.value)
-        const sizePrice = sizePrices[currentSizeIndex];
-        const amount = document.getElementById("amountInput").value;
-        let price = amount * sizePrice;
-
-        priceInput.value = price + 'kr';
+        updatePrice();
     }
 }
