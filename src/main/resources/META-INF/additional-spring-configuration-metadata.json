@@ -4,5 +4,10 @@
       "name": "custom.property.quickpay-secret",
       "type": "java.lang.String",
       "description": "API key used for quickpay authentication."
-  }
-] }
+    },
+    {
+      "name": "custom.property.environment-type",
+      "type": "java.lang.String",
+      "description": "Environment type the application is deployed in. {production, development}."
+    }
+  ] }

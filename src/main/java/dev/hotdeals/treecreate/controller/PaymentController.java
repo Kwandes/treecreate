@@ -78,6 +78,14 @@ public class PaymentController
         }
         LOGGER.info(request.getSession().getId() + " - Transaction - Everything looks okay, creating a new transaction for user " + user.getId());
 
+        LOGGER.info(request.getSession().getId() + " - Transaction - Getting the environment type");
+        String envType = customProperties.getEnvironmentType();
+        String orderIdPrefix = "test-";
+        if (envType.equals("production"))
+        {
+            orderIdPrefix = "order-";
+        }
+
         LOGGER.info(request.getSession().getId() + " - Transaction - Getting all orders for user " + user.getId());
         var orderList = treeOrderRepo.findAllByUserId(user.getId());
         if (orderList.size() == 0)
@@ -182,7 +190,8 @@ public class PaymentController
         LOGGER.info(request.getSession().getId() + " - Transaction - Transaction ID: " + transaction.getId());
         LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Creating a payment");
 
-        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Creating a payment with an order id: " + createPaymentOrderId(transaction.getId()));
+        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() +
+                " - Creating a payment with an order id: " + orderIdPrefix + createPaymentOrderId(transaction.getId()));
 
         String apiKey = customProperties.getQuickpaySecret();
         var client = HttpClient.newBuilder().build();
@@ -194,7 +203,7 @@ public class PaymentController
                 .header("Accept-Version", "v10")
                 .header("Authorization", basicAuth("", apiKey))
                 .POST(HttpRequest.BodyPublishers.ofString("currency=" + transaction.getCurrency() +
-                        "&order_id=" + createPaymentOrderId(transaction.getId())))
+                        "&order_id=" + orderIdPrefix + createPaymentOrderId(transaction.getId())))
                 .build();
 
         HttpResponse<String> response;
@@ -207,10 +216,11 @@ public class PaymentController
             return new ResponseEntity<>("A request for creating a payment has failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        LOGGER.info(request.getSession().getId() + " - Transaction - Getting the payment via the transaction id: " + createPaymentOrderId(transaction.getId()));
+        LOGGER.info(request.getSession().getId() + " - Transaction - Getting the payment via the transaction id: " +
+                orderIdPrefix + createPaymentOrderId(transaction.getId()));
 
         httpRequest = HttpRequest.newBuilder(
-                URI.create("https://api.quickpay.net/payments/?order_id=" + createPaymentOrderId(transaction.getId())))
+                URI.create("https://api.quickpay.net/payments/?order_id=" + orderIdPrefix + createPaymentOrderId(transaction.getId())))
                 .header("accept", "application/json")
                 .header("Content-Type", "multipart/form-data")
                 .header("Accept-Version", "v10")
@@ -238,6 +248,11 @@ public class PaymentController
 
         String paymentId = matcher.group(1);
         LOGGER.info(request.getSession().getId() + " - Transaction - Getting a payment link for transaction ID: " + paymentId);
+        if (!envType.equals("production"))
+        {
+            LOGGER.info(request.getSession().getId() + " - Transaction - The env type is " + envType +
+                    " so the callback url is being set to " + "https://testing.treecreate.dk/paymentCallback");
+        }
 
         httpRequest = HttpRequest.newBuilder(
                 URI.create("https://api.quickpay.net/payments/" + paymentId + "/link"))
@@ -245,7 +260,8 @@ public class PaymentController
                 .header("Content-Type", "multipart/form-data")
                 .header("Accept-Version", "v10")
                 .header("Authorization", basicAuth("", apiKey))
-                .PUT(HttpRequest.BodyPublishers.ofString("amount=" + totalPrice))
+                .PUT(HttpRequest.BodyPublishers.ofString("amount=" + totalPrice +
+                        "&callback_url=" + "https://testing.treecreate.dk/paymentCallback"))
                 .build();
 
         response = null;
@@ -415,8 +431,6 @@ public class PaymentController
     ResponseEntity<List<Transaction>> getPayment(HttpServletRequest request)
     {
         LOGGER.info(request.getSession().getId() + " - Fetching transactions");
-        LOGGER.info(request.getSession().getId() + " - Fetching transaction - First, update the existing orders etc");
-        updateOrderStatuses();
 
         LOGGER.info(request.getSession().getId() + " - Fetching transaction - Actual fetching transactions");
         int id;
@@ -444,6 +458,9 @@ public class PaymentController
         }
 
         LOGGER.info(request.getSession().getId() + " - Fetching transaction - Found " + transactionList.size() + " transactions for user " + user.getId());
+        LOGGER.info(request.getSession().getId() + " - Fetching transaction - Updating the existing orders while returning the current list");
+        // This is a compact version of a lambda expression
+        new Thread(this::updateOrderStatuses).start();
         return new ResponseEntity<>(transactionList, HttpStatus.OK);
     }
 
@@ -647,7 +664,7 @@ public class PaymentController
         try
         {
             mailService.sendOrderMail(emailSubject,
-                    "Fetching specific transaction - Transaction test", transaction.getUser().getEmail());
+                    "Order Confirmation", transaction.getUser().getEmail());
         } catch (MessagingException e)
         {
             LOGGER.error("Fetching specific transaction - Failed to send an email for transaction order info", e);
