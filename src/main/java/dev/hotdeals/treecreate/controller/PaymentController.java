@@ -696,6 +696,9 @@ public class PaymentController
         {
             mailService.sendOrderMail(emailSubject,
                     "Order Confirmation", transaction.getUser().getEmail());
+            LOGGER.info("Fetching specific transaction - Forwarding the order confirmation from " + transaction.getEmail() + " to orders@treecreate.dk");
+            mailService.sendOrderMail(emailSubject,
+                    "New Order Confirmation", "orders@treecreate.dk");
         } catch (MessagingException e)
         {
             LOGGER.error("Fetching specific transaction - Failed to send an email for transaction order info", e);
