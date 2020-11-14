@@ -697,7 +697,7 @@ public class PaymentController
         }
 
         LOGGER.info("The callback ´accepted´ field is marked as true. Continuing on to send a order confirmation email");
-        String orderIdPattern = "order_id\":\"(\\d+)";
+        String orderIdPattern = "order_id\":\"([\\w-]+)";
         pattern = Pattern.compile(orderIdPattern);
         Matcher matcher = pattern.matcher(body);
         if (matcher.find())
