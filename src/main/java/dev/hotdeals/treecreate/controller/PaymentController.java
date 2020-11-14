@@ -504,14 +504,29 @@ public class PaymentController
         }
         */
         Transaction transaction;
+
+        // The id comes as test-XXXX or order-XXXX. The extra characters have to be removed
+        int extractedId;
         try
         {
-            transaction = transactionRepo.findById(Integer.parseInt(id)).orElse(null);
+            String extractionPattern = "(\\d)";
+            Pattern pattern = Pattern.compile(extractionPattern);
+            if (pattern.matcher(id).find())
+            {
+                extractedId = Integer.parseInt(pattern.matcher(id).group(1));
+            } else
+            {
+                LOGGER.info("Fetching specific transaction - Provided transaction id does not seem valid");
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
         } catch (NumberFormatException e)
         {
             LOGGER.info("Fetching specific transaction - Provided transaction id was not a number");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        transaction = transactionRepo.findById(extractedId).orElse(null);
+
         if (transaction == null)
         {
             LOGGER.info("Fetching specific transaction - Found no matching transaction");
