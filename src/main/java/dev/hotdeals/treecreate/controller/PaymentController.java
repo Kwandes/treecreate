@@ -511,9 +511,10 @@ public class PaymentController
         {
             String extractionPattern = "(\\d)";
             Pattern pattern = Pattern.compile(extractionPattern);
-            if (pattern.matcher(id).find())
+            Matcher matcher = pattern.matcher(id);
+            if (matcher.find())
             {
-                extractedId = Integer.parseInt(pattern.matcher(id).group(1));
+                extractedId = Integer.parseInt(matcher.group(1));
             } else
             {
                 LOGGER.info("Fetching specific transaction - Provided transaction id does not seem valid");
