@@ -509,7 +509,7 @@ public class PaymentController
         int extractedId;
         try
         {
-            String extractionPattern = "(\\d)";
+            String extractionPattern = "0+(\\d+)";
             Pattern pattern = Pattern.compile(extractionPattern);
             Matcher matcher = pattern.matcher(id);
             if (matcher.find())
@@ -530,7 +530,7 @@ public class PaymentController
 
         if (transaction == null)
         {
-            LOGGER.info("Fetching specific transaction - Found no matching transaction");
+            LOGGER.info("Fetching specific transaction - Found no matching transaction for transaction id: " + extractedId);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
