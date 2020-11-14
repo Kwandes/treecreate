@@ -75,6 +75,10 @@ public class Transaction
     @Column(name = "discount", length = 25)
     private String discount;
 
+    @Basic
+    @Column(name = "payment_link", length = 150)
+    private String paymentLink;
+
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "transaction_id")
     private List<TreeOrder> orderList = new ArrayList<>();
@@ -83,7 +87,7 @@ public class Transaction
 
     public Transaction(User user, String orders, int price, String currency, String status, String createdOn,
                        String expectedDeliveryDate, String name, String phoneNumber, String email, String streetAddress,
-                       String city, String postcode, String country, String discount, List<TreeOrder> orderList)
+                       String city, String postcode, String country, String discount, String paymentLink, List<TreeOrder> orderList)
     {
         this.user = user;
         this.orders = orders;
@@ -100,6 +104,7 @@ public class Transaction
         this.postcode = postcode;
         this.country = country;
         this.discount = discount;
+        this.paymentLink = paymentLink;
         this.orderList = orderList;
     }
 
@@ -231,6 +236,16 @@ public class Transaction
         this.discount = discount;
     }
 
+    public String getPaymentLink()
+    {
+        return paymentLink;
+    }
+
+    public void setPaymentLink(String paymentLink)
+    {
+        this.paymentLink = paymentLink;
+    }
+
     public List<TreeOrder> getOrderList() {
         return orderList;
     }
@@ -260,6 +275,7 @@ public class Transaction
                 Objects.equals(postcode, that.postcode) &&
                 Objects.equals(country, that.country) &&
                 Objects.equals(discount, that.discount) &&
+                Objects.equals(paymentLink, that.paymentLink) &&
                 Objects.equals(orderList, that.orderList);
     }
 

@@ -277,6 +277,8 @@ public class PaymentController
 
         LOGGER.info(request.getSession().getId() + " - Transaction - Setting transaction " + transaction.getId() + " status to 'initial'");
         transaction.setStatus("initial");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Setting transaction " + transaction.getId() + " payment link to " + response.body());
+        transaction.setPaymentLink(response.body().substring(8, response.body().length()-2));
         transactionRepo.save(transaction);
 
         LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Changing the status of orders to pending");
