@@ -199,7 +199,7 @@ async function goToPayment()
             {
                 console.log("Returned data: " + data)
                 const paymentUrl = JSON.parse(data)['url'];
-                window.open(paymentUrl);
+                window.open(paymentUrl, "tab");
                 // Redirect to the orders tab
                 window.location.replace(window.origin + "/account/orders");
             })

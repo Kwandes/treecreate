@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Family Tree</title>
+    <link th:href="@{/img/logos/treecreateLogo/browserLogo.svg}" rel="icon">
     <link th:href="@{/styles/index.css}" rel="stylesheet">
     <link th:href="@{/styles/products.css}" rel="stylesheet">
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
@@ -153,7 +154,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                                 <div class="deleteDraggableBoxButton" onclick="deleteBox(this)"></div>
                             </div>
                             <div class="draggableBoxMiddleRow">
-                                <span class="input draggableBoxInput" role="textbox" contenteditable
+                                <span class="input draggableBoxInput" role="textbox" contenteditable spellcheck="false"
                                       onkeypress="return (this.innerText.length <= boxInputLimit)"></span>
                                 <!--The length needs to adjust to the box size-->
                             </div>
@@ -244,9 +245,8 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <div class="fancyContent" id="bigFontSizeInputContainer">
                             <input type="checkbox" class="switch-input" id="fontSizeInput">
                         </div>
-
                     </div>
-                    <button id="addToBasket" class="largeButton" onclick="updatePrice()">
+                    <button id="addToBasket" class="largeButton" onclick="checkLogin()">
                         <span th:text="#{familyTree.option.add}"></span>
                     </button>
 

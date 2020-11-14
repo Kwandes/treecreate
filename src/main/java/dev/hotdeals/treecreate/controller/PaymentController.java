@@ -10,6 +10,7 @@ import dev.hotdeals.treecreate.model.TreeOrder;
 import dev.hotdeals.treecreate.repository.TransactionRepo;
 import dev.hotdeals.treecreate.repository.TreeOrderRepo;
 import dev.hotdeals.treecreate.service.MailService;
+import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,39 +53,49 @@ public class PaymentController
     @PostMapping("/startPayment")
     ResponseEntity<String> startPayment(HttpServletRequest request, @RequestBody Transaction transaction)
     {
-        LOGGER.info("Starting a new payment");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Starting a new payment");
         int id;
         try
         {
             id = Integer.parseInt(Objects.requireNonNull(treeController.getCurrentUser(request).getBody()));
         } catch (NullPointerException e)
         {
-            LOGGER.error("Cannot start a payment - user id obtained from the session is null");
+            LOGGER.error(request.getSession().getId() + " - Transaction - Cannot start a payment - user id obtained from the session is null");
             return new ResponseEntity<>("Failed to obtain the user from the session. Please do report this to the developers", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        LOGGER.info("Payment - User Id: " + id);
+        LOGGER.info(request.getSession().getId() + " - Transaction - User Id: " + id);
         User user = userRepo.findById(id).orElse(null);
         if (user == null)
         {
-            LOGGER.info("The user is yikes");
+            LOGGER.info(request.getSession().getId() + " - Transaction - The user is yikes");
             return new ResponseEntity<>("Failed to find a user with an ID of " + id, HttpStatus.NOT_FOUND);
         }
 
-        LOGGER.info("Verifying verification");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Verifying verification");
         if (!user.getVerification().equals("verified"))
         {
-            LOGGER.info("User " + user.getId() + " is not verified");
+            LOGGER.info(request.getSession().getId() + " - Transaction - User " + user.getId() + " is not verified");
             return new ResponseEntity<>("User is not verified", HttpStatus.FORBIDDEN);
         }
-        LOGGER.info("Everything looks okay, creating a new transaction for user " + user.getId());
-        LOGGER.info("Getting all orders for user " + user.getId());
+        LOGGER.info(request.getSession().getId() + " - Transaction - Everything looks okay, creating a new transaction for user " + user.getId());
+
+        LOGGER.info(request.getSession().getId() + " - Transaction - Getting the environment type");
+        String envType = customProperties.getEnvironmentType();
+        String callbackUrl = "";
+        if (!envType.equals("production"))
+        {
+            // otherwise it is empty and doesn't get assigned to the paymentLink
+            callbackUrl = "&callback_url=https://testing.treecreate.dk/paymentCallback";
+        }
+
+        LOGGER.info(request.getSession().getId() + " - Transaction - Getting all orders for user " + user.getId());
         var orderList = treeOrderRepo.findAllByUserId(user.getId());
         if (orderList.size() == 0)
         {
-            LOGGER.warn("The order list for user " + user.getId() + " is empty! Cancelling the transaction");
-            return new ResponseEntity<>("Internal server error - failed to find orders. Contact Support for more information", HttpStatus.NOT_FOUND);
+            LOGGER.warn(request.getSession().getId() + " - Transaction - The order list for user " + user.getId() + " is empty! Cancelling the transaction");
+            return new ResponseEntity<>(request.getSession().getId() + " - Transaction - Internal server error - failed to find orders. Contact Support for more information", HttpStatus.NOT_FOUND);
         }
-        LOGGER.info("Order list size: " + orderList.size());
+        LOGGER.info(request.getSession().getId() + " - Transaction - Order list size: " + orderList.size());
         int totalPrice = 0;
         Map<String, Integer> sizeToPriceMap = new HashMap<>();
         sizeToPriceMap.put("20x20 cm", 495);
@@ -100,31 +111,31 @@ public class PaymentController
         }
         if (totalAmount > 3)
         {
-            LOGGER.info("Total amount of ordered designs was more than 3, applying a 25% discount to the total");
+            LOGGER.info(request.getSession().getId() + " - Transaction - Total amount of ordered designs was more than 3, applying a 25% discount to the total");
             totalPrice = (int) (totalPrice * 0.75);
         }
         totalPrice *= 100; // Quickpay takes 2 digits as decimal places, so 1000 becomes 10,00
 
         if (transaction.getDiscount() != null)
         {
-            LOGGER.info("Applying the discount for the transaction");
-            LOGGER.info("Total price pre-discount: " + totalPrice);
+            LOGGER.info(request.getSession().getId() + " - Transaction - Applying the discount for the transaction in sessions ID: " + request.getSession().getId());
+            LOGGER.info(request.getSession().getId() + " - Transaction - Total price pre-discount: " + totalPrice);
             var discountCodeResponse = getDiscountCode(transaction.getDiscount());
             if (discountCodeResponse.getStatusCode() != HttpStatus.OK)
             {
-                LOGGER.info("Failed to find the discount code");
+                LOGGER.info(request.getSession().getId() + " - Transaction - Failed to find the discount code");
             } else
             {
                 var discountCode = discountCodeResponse.getBody();
                 if (!discountCode.getActive())
                 {
-                    LOGGER.info("Provided discount is no longer active");
+                    LOGGER.info(request.getSession().getId() + " - Transaction - Provided discount is no longer active");
                 } else
                 {
 
                     if (discountCode.getTimesUsed() >= discountCode.getMaxUsages())
                     {
-                        LOGGER.info("Max usages for discount code " + discountCode.getId() + " have been reached already. Not applying the discount");
+                        LOGGER.info(request.getSession().getId() + " - Transaction - Max usages for discount code " + discountCode.getId() + " have been reached already. Not applying the discount");
                         discountCode.setActive(false);
                     } else
                     {
@@ -132,22 +143,22 @@ public class PaymentController
                         String type = discountCode.getDiscountType();
                         if (type.equals("minus"))
                         {
-                            LOGGER.info("Applying a discount of -" + amount + "kr");
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Applying a discount of -" + amount + "kr");
                             totalPrice = totalPrice - (amount * 100);
                             if (totalPrice < 0) totalPrice = 0;
                         }
                         if (type.equals("percent"))
                         {
-                            LOGGER.info("Applying a discount of " + amount + "%");
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Applying a discount of " + amount + "%");
                             double percent = (100.0 - amount) / 100;
-                            LOGGER.info("Percent: " + percent);
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Percent of total left: " + percent);
                             totalPrice = (int) Math.floor(((totalPrice / 100.0) * percent)) * 100;
 
                         }
                         discountCode.setTimesUsed(discountCode.getTimesUsed() + 1);
                         if (discountCode.getTimesUsed() >= discountCode.getMaxUsages())
                         {
-                            LOGGER.info("Max usages for discount code " + discountCode.getId() + " have been reached. Deactivating the discount");
+                            LOGGER.info(request.getSession().getId() + " - Transaction - Max usages for discount code " + discountCode.getId() + " have been reached. Deactivating the discount (this is after applying it)");
                             discountCode.setActive(false);
                         }
                     }
@@ -156,9 +167,9 @@ public class PaymentController
             }
         }
 
-        LOGGER.info("Price: " + totalPrice);
-        LOGGER.info("Creating a new transaction");
-        LOGGER.info("Transaction shipment info: " + transaction);
+        LOGGER.info(request.getSession().getId() + " - Transaction - Price: " + totalPrice);
+        LOGGER.info(request.getSession().getId() + " - Transaction - Creating a new transaction");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction shipment info: " + transaction);
         //Transaction transaction = new Transaction();
         transaction.setCurrency("dkk");
         transaction.setPrice(totalPrice);
@@ -178,10 +189,11 @@ public class PaymentController
         transaction.setExpectedDeliveryDate(expectedDeliveryDate.toLocalDate().toString()); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
         transaction.setStatus("creating"); // fallback for if the creation of the payment fails etc. It is set to "initial" once a link is created
         transactionRepo.save(transaction);
-        LOGGER.info("Transaction ID: " + transaction.getId());
-        LOGGER.info("Transaction " + transaction.getId() + " - Creating a payment");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction ID: " + transaction.getId());
+        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Creating a payment");
 
-        LOGGER.info("Transaction " + transaction.getId() + " - Creating a payment with an order id: " + createPaymentOrderId(transaction.getId()));
+        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() +
+                " - Creating a payment with an order id: " + createPaymentOrderId(transaction.getId()));
 
         String apiKey = customProperties.getQuickpaySecret();
         var client = HttpClient.newBuilder().build();
@@ -206,7 +218,8 @@ public class PaymentController
             return new ResponseEntity<>("A request for creating a payment has failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        LOGGER.info("Getting the payment via the transaction id: " + createPaymentOrderId(transaction.getId()));
+        LOGGER.info(request.getSession().getId() + " - Transaction - Getting the payment via the transaction id: " +
+                createPaymentOrderId(transaction.getId()));
 
         httpRequest = HttpRequest.newBuilder(
                 URI.create("https://api.quickpay.net/payments/?order_id=" + createPaymentOrderId(transaction.getId())))
@@ -231,12 +244,17 @@ public class PaymentController
         Matcher matcher = pattern.matcher(response.body());
         if (!matcher.find())
         {
-            LOGGER.info("Transaction " + transaction.getId() + " - Failed to find the payment ID in the response body");
+            LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Failed to find the payment ID in the response body");
             return new ResponseEntity<>("Failed to extract the payment id from the payment order", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         String paymentId = matcher.group(1);
-        LOGGER.info("Getting a payment link for transaction ID: " + paymentId);
+        LOGGER.info(request.getSession().getId() + " - Transaction - Getting a payment link for transaction ID: " + paymentId);
+        if (!envType.equals("production"))
+        {
+            LOGGER.info(request.getSession().getId() + " - Transaction - The env type is " + envType +
+                    " so the callback url is being set to " + "https://testing.treecreate.dk/paymentCallback");
+        }
 
         httpRequest = HttpRequest.newBuilder(
                 URI.create("https://api.quickpay.net/payments/" + paymentId + "/link"))
@@ -244,7 +262,7 @@ public class PaymentController
                 .header("Content-Type", "multipart/form-data")
                 .header("Accept-Version", "v10")
                 .header("Authorization", basicAuth("", apiKey))
-                .PUT(HttpRequest.BodyPublishers.ofString("amount=" + totalPrice))
+                .PUT(HttpRequest.BodyPublishers.ofString("amount=" + totalPrice + callbackUrl))
                 .build();
 
         response = null;
@@ -253,23 +271,25 @@ public class PaymentController
             response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e)
         {
-            LOGGER.error("Transaction " + transaction.getId() + " - Payment Link request made a fucky wucky", e);
+            LOGGER.error(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Payment Link request made a fucky wucky", e);
             return new ResponseEntity<>("A request for obtaining a payment link has failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        LOGGER.info("Setting transaction " + transaction.getId() + " status to 'initial'");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Setting transaction " + transaction.getId() + " status to 'initial'");
         transaction.setStatus("initial");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Setting transaction " + transaction.getId() + " payment link to " + response.body());
+        transaction.setPaymentLink(response.body().substring(8, response.body().length()-2));
         transactionRepo.save(transaction);
 
-        LOGGER.info("Transaction " + transaction.getId() + " - Changing the status of orders to pending");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Changing the status of orders to pending");
         for (TreeOrder order : orderList)
         {
-            LOGGER.info("Transaction - changing status of order" + order.getOrderId() + " to pending");
+            LOGGER.info(request.getSession().getId() + " - Transaction - Transaction - changing status of order" + order.getOrderId() + " to pending");
             order.setStatus("pending");
             treeOrderRepo.save(order);
         }
 
-        LOGGER.info("Transaction " + transaction.getId() + " - Returning a link");
+        LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Returning a link");
         return new ResponseEntity<>(response.body(), HttpStatus.OK);
     }
 
@@ -281,11 +301,16 @@ public class PaymentController
     public String createPaymentOrderId(int id)
     {
         String fluffedId = id + "";
+        String orderIdPrefix = "test-";
+        if (customProperties.getEnvironmentType().equals("production"))
+        {
+            orderIdPrefix = "order-";
+        }
         while (fluffedId.length() < 4)
         {
             fluffedId = "0" + fluffedId;
         }
-        return fluffedId;
+        return orderIdPrefix + fluffedId;
     }
 
     @GetMapping("/payment")
@@ -347,7 +372,7 @@ public class PaymentController
 
                 if (response.statusCode() != 200)
                 {
-                    LOGGER.warn("Failed to find a payment with transaction id: " + transaction.getId());
+                    LOGGER.warn("Updating order statuses - Failed to find a payment with transaction id: " + transaction.getId());
                     continue;
                 }
             } catch (IOException | InterruptedException e)
@@ -366,18 +391,25 @@ public class PaymentController
             {
                 continue;
             }
-            LOGGER.info("Found a transaction with a status other than initial: " + paymentStatus);
+            LOGGER.info("Updating order statuses - Found a transaction with a status other than initial: ID: " + transaction.getId() + " status: " + paymentStatus);
 
-            var orderIdList = transaction.getOrderList();
-            for (TreeOrder order : orderIdList)
+            try
             {
-                order.setStatus(paymentStatus);
-                treeOrderRepo.save(order);
+                var orderList = transaction.getOrderList();
+                for (TreeOrder order : orderList)
+                {
+                    order.setStatus(paymentStatus);
+                    treeOrderRepo.save(order);
+                }
+            } catch (LazyInitializationException e)
+            {
+                LOGGER.error("Updating order statuses - Failed to process an order list. Possible cause - no orders assigned to a transaction", e);
             }
             transaction.setStatus(paymentStatus);
             transactionRepo.save(transaction);
-            LOGGER.info("Finished setting status for transaction " + transaction.getId() + " and its orders. New status: " + paymentStatus);
+            LOGGER.info("Updating order statuses - Finished setting status for transaction " + transaction.getId() + " and its orders. New status: " + paymentStatus);
         }
+        LOGGER.info("Finished updating order statuses");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -413,46 +445,48 @@ public class PaymentController
     @GetMapping("/getTransaction")
     ResponseEntity<List<Transaction>> getPayment(HttpServletRequest request)
     {
-        LOGGER.info("Fetching transactions");
-        LOGGER.info("First, update the existing orders etc");
-        updateOrderStatuses();
+        LOGGER.info(request.getSession().getId() + " - Fetching transactions");
 
-        LOGGER.info("Actual fetching transactions");
+        LOGGER.info(request.getSession().getId() + " - Fetching transaction - Actual fetching transactions");
         int id;
         try
         {
             id = Integer.parseInt(Objects.requireNonNull(treeController.getCurrentUser(request).getBody()));
         } catch (NullPointerException e)
         {
-            LOGGER.error("Cannot fetch a transaction - user id obtained from the session is null");
+            LOGGER.error(request.getSession().getId() + " - Fetching transaction - Cannot fetch a transaction - user id obtained from the session is null");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        LOGGER.info("Get Transaction - User Id: " + id);
+        LOGGER.info(request.getSession().getId() + " - Fetching transaction - Get Transaction - User Id: " + id);
         User user = userRepo.findById(id).orElse(null);
         if (user == null)
         {
-            LOGGER.info("The user is yikes");
+            LOGGER.info(request.getSession().getId() + " - Fetching transaction - The user is yikes");
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
 
         var transactionList = transactionRepo.findAllByUserId(user.getId());
         if (transactionList.size() == 0)
         {
-            LOGGER.info("Found 0 transactions for user " + user.getId());
+            LOGGER.info(request.getSession().getId() + " - Fetching transaction - Found 0 transactions for user " + user.getId());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        LOGGER.info("Found " + transactionList.size() + " transactions for user " + user.getId());
+        LOGGER.info(request.getSession().getId() + " - Fetching transaction - Found " + transactionList.size() + " transactions for user " + user.getId());
+        LOGGER.info(request.getSession().getId() + " - Fetching transaction - Updating the existing orders while returning the current list");
+        // This is a compact version of a lambda expression
+        new Thread(this::updateOrderStatuses).start();
         return new ResponseEntity<>(transactionList, HttpStatus.OK);
     }
 
     @Autowired
     MailService mailService;
 
+    // also sends the order confirmation email because I'm stupid
     @GetMapping("/getTransaction/{id}")
     ResponseEntity<Transaction> getPayment(@PathVariable(name = "id") String id)
     {
-        LOGGER.info("Fetching transaction with an id: " + id);
+        LOGGER.info("Fetching specific transaction - Fetching transaction with an id: " + id);
 
          /*
         LOGGER.info("Transaction " + id + " - Get current user Id");
@@ -474,23 +508,39 @@ public class PaymentController
         }
         */
         Transaction transaction;
+
+        // The id comes as test-XXXX or order-XXXX. The extra characters have to be removed
+        int extractedId;
         try
         {
-            transaction = transactionRepo.findById(Integer.parseInt(id)).orElse(null);
+            String extractionPattern = "0+(\\d+)";
+            Pattern pattern = Pattern.compile(extractionPattern);
+            Matcher matcher = pattern.matcher(id);
+            if (matcher.find())
+            {
+                extractedId = Integer.parseInt(matcher.group(1));
+            } else
+            {
+                LOGGER.info("Fetching specific transaction - Provided transaction id does not seem valid");
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
         } catch (NumberFormatException e)
         {
-            LOGGER.info("Provided transaction id was not a number");
+            LOGGER.info("Fetching specific transaction - Provided transaction id was not a number");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        transaction = transactionRepo.findById(extractedId).orElse(null);
+
         if (transaction == null)
         {
-            LOGGER.info("Found no matching transaction");
+            LOGGER.info("Fetching specific transaction - Found no matching transaction for transaction id: " + extractedId);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        LOGGER.info("Found a transaction, orders: " + transaction.getOrderList().size());
+        LOGGER.info("Fetching specific transaction - Found a transaction, orders: " + transaction.getOrderList().size());
 
-        LOGGER.info("Sending a order confirmation email for transaction " + transaction.getId() + " to email: " + transaction.getUser().getEmail());
+        LOGGER.info("Fetching specific transaction - Sending a order confirmation email for transaction " + transaction.getId() + " to email: " + transaction.getUser().getEmail());
 
         Map<String, Integer> sizeToPriceMap = new HashMap<>();
         sizeToPriceMap.put("20x20 cm", 495);
@@ -513,7 +563,7 @@ public class PaymentController
                 designName = matcher.group(1);
             } else
             {
-                LOGGER.warn("Failed to obtain a match for the design name in order id: " + order.getOrderId());
+                LOGGER.warn("Fetching specific transaction - Failed to obtain a match for the design name in order id: " + order.getOrderId());
             }
             int orderAmount = order.getAmount();
             totalOrderAmount += orderAmount;
@@ -529,7 +579,7 @@ public class PaymentController
         }
 
         int discountPrice = 0;
-        LOGGER.info("Order confirmation price calculation for transactionID: " + transaction.getId() +
+        LOGGER.info("Fetching specific transaction - Order confirmation price calculation for transactionID: " + transaction.getId() +
                 " - Calculated Subtotal: " + subtotalPrice);
         int totalPrice = subtotalPrice;
 
@@ -545,7 +595,7 @@ public class PaymentController
             var discountCodeResponse = getDiscountCode(transaction.getDiscount());
             if (discountCodeResponse.getStatusCode() != HttpStatus.OK)
             {
-                LOGGER.warn("Failed to find the discount code for the transaction id: " + transaction.getId());
+                LOGGER.warn("Fetching specific transaction - Failed to find the discount code for the transaction id: " + transaction.getId());
             } else
             {
                 var discountCode = discountCodeResponse.getBody();
@@ -554,7 +604,7 @@ public class PaymentController
                 String type = discountCode.getDiscountType();
                 if (type.equals("minus"))
                 {
-                    LOGGER.info("Order confirmation price calculation for transactionID: " + transaction.getId() +
+                    LOGGER.info("Fetching specific transaction - Order confirmation price calculation for transactionID: " + transaction.getId() +
                             " - applying discount of -" + amount + " to total price of: " + totalPrice);
                     discountPrice += amount;
                     totalPrice = totalPrice - amount;
@@ -562,7 +612,7 @@ public class PaymentController
                 }
                 if (type.equals("percent"))
                 {
-                    LOGGER.info("Order confirmation price calculation for transactionID: " + transaction.getId() +
+                    LOGGER.info("Fetching specific transaction - Order confirmation price calculation for transactionID: " + transaction.getId() +
                             " - applying discount of -" + amount + "% to total price of: " + totalPrice);
                     double percent = (100.0 - amount) / 100;
                     int newPrice = (int) Math.floor(((totalPrice) * percent)) * 100;
@@ -572,18 +622,18 @@ public class PaymentController
                 }
             }
         }
-        LOGGER.info("Re-calculated prices for order confirmation email for transaction: " + transaction.getId() +
+        LOGGER.info("Fetching specific transaction - Re-calculated prices for order confirmation email for transaction: " + transaction.getId() +
                 " | Subtotal price (no discounts applied): " + subtotalPrice + " | discount: " + discountPrice +
                 " | total price (after discounts): " + totalPrice);
 
         if (totalPrice * 100 != transaction.getPrice())
         {
-            LOGGER.warn("During order confirmation price calculations, the total price (" + totalPrice * 100 + ") and" +
+            LOGGER.warn("Fetching specific transaction - During order confirmation price calculations, the total price (" + totalPrice * 100 + ") and" +
                     " transaction's registered price (" + transaction.getPrice() + ") don't match!");
         }
 
         String emailSubject = " <p>\n" +
-                "        Hi " + transaction.getUser().getName() + ",\n" +
+                "        Hi " + transaction.getName() + ",\n" +
                 "        <br><br>\n" +
                 "        Just to let you know - we've received your order #" + transaction.getId() + ", and it is now being processed:\n" +
                 "    </p>\n" +
@@ -641,14 +691,17 @@ public class PaymentController
                 "    </table>";
 
 
-        LOGGER.info("Sending out the email to " + transaction.getEmail());
+        LOGGER.info("Fetching specific transaction - Sending out the email to " + transaction.getEmail());
         try
         {
             mailService.sendOrderMail(emailSubject,
-                    "Transaction test", transaction.getUser().getEmail());
+                    "Order Confirmation", transaction.getUser().getEmail());
+            LOGGER.info("Fetching specific transaction - Forwarding the order confirmation from " + transaction.getEmail() + " to orders@treecreate.dk");
+            mailService.sendOrderMail(emailSubject,
+                    "New Order Confirmation", "orders@treecreate.dk");
         } catch (MessagingException e)
         {
-            LOGGER.error("Failed to send an email for transaction order info", e);
+            LOGGER.error("Fetching specific transaction - Failed to send an email for transaction order info", e);
         }
 
         return new ResponseEntity<>(transaction, HttpStatus.OK);
@@ -667,7 +720,7 @@ public class PaymentController
         }
 
         LOGGER.info("The callback ´accepted´ field is marked as true. Continuing on to send a order confirmation email");
-        String orderIdPattern = "order_id\":\"(\\d+)";
+        String orderIdPattern = "order_id\":\"([\\w-]+)";
         pattern = Pattern.compile(orderIdPattern);
         Matcher matcher = pattern.matcher(body);
         if (matcher.find())

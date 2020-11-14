@@ -40,6 +40,12 @@ async function generateOrders()
         transactionItem.getElementsByClassName('orderTotalPrice')[0].innerText = "Total Price: " + (transaction['price'] / 100) + " dkk";
         console.log("transaction id: " + transaction['id']);
         transactionItem.getElementsByClassName("orderTransactionId")[0].innerText = "transaction ID: " + transaction['id'];
+        if (status === "Waiting for payment")
+        {
+            console.log("Payment was not completed - adding a complete payment button with link: " + transaction['paymentLink'])
+            transactionItem.getElementsByClassName("orderCompletePaymentBtn")[0].style.display = "flex";
+            transactionItem.getElementsByClassName("orderCompletePaymentBtn")[0].setAttribute("onclick", "redirect(\"" + transaction['paymentLink'] + "\")");
+        }
 
         let createdOn = transaction['createdOn'];
         try
@@ -70,7 +76,7 @@ async function generateOrders()
 
             const design = order['treeDesignById'];
             const designJson = JSON.parse(design['designJson']);
-            const designId = designJson.id;
+            const designId = design.id;
             console.dir(designJson);
 
             let itemPrice = orderSizes.get(order.size);
@@ -110,5 +116,10 @@ async function viewDesign(e)
     const response = await fetch(location.origin + "/products/readOnlyFamilyTree?designId=" + id);
     console.log("%Displaying read only tree, status: " + response.status, "color:mediumpurple");
     window.location.href = location.origin + "/products/readOnlyFamilyTree?designId=" + id;
+}
+
+function redirect(link)
+{
+    window.location.href = link;
 }
 

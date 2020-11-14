@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Orders</title>
     <link th:href="@{/img/logos/treecreateLogo/browserLogo.svg}" rel="icon">
+    <link th:href="@{/img/logos/treecreateLogo/browserLogo.svg}" rel="icon">
     <link th:href="@{/styles/index.css}" rel="stylesheet">
     <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
     <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
@@ -70,6 +71,7 @@
                 </div>
                 <span class="orderTotalPrice orderInfo">Total Price: N/A dkk</span>
                 <span class="orderTransactionId orderInfo">Order Id: N/A</span>
+                <input type="button" class="orderCompletePaymentBtn orderInfo" value="Complete Payment" onclick="">
             </section>
             <span id="orderInfoDisclaimer" th:text="#{basket.issue.text}"></span>
             <script>generateOrders()</script>

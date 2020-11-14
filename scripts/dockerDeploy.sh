@@ -133,7 +133,7 @@ echo ""
 if [[ "$testRelease" != "-test" ]]; then
   echo "Deploying to production"
   # The env variable (for the jdbc url) has to match the one inside the applicaiton.properties, so instead we assign a value of the production env variable to it (as opposed to directly assigning it)
-  docker run --name $dockerName -e TREECREATE_JDBC_URL=$PROD_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
+  docker run --name $dockerName -e TREECREATE_JDBC_URL=$PROD_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS -TREECREATE_ENV=production --restart unless-stopped -dp $dockerPort $dockerName
 else
   echo "Deploying to testing"
   docker run --name $dockerName -e TREECREATE_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName

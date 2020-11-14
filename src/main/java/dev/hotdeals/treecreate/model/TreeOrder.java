@@ -125,4 +125,17 @@ public class TreeOrder
                 ",\"status\":\"" + status + "\"" +
                 '}';
     }
+
+    @Override
+    public String toString()
+    {
+        return "TreeOrder{" +
+                "orderId=" + orderId +
+                ", amount=" + amount +
+                ", size='" + size + '\'' +
+                ", status='" + status + '\'' +
+                ", user=" + user.getId() +
+                ", design=" + treeDesign.getId() +
+                '}';
+    }
 }

@@ -168,7 +168,7 @@ public class ProfileController
         {
             return result;
         }
-        LOGGER.info("Sending a verification email to the user");
+        LOGGER.info("Sending a verification email to user id: " + user.getId());
         // Verification link won't work on localhost since it is hardcoded to treecreate.dk.
         try
         {
@@ -186,10 +186,10 @@ public class ProfileController
 
     @ResponseBody
     @PostMapping("/submitLogin")
-    ResponseEntity<Boolean> validateCredentials(HttpServletRequest httpServletRequest, @RequestBody User body)
+    ResponseEntity<Boolean> validateCredentials(HttpServletRequest request, @RequestBody User body)
     {
-        LOGGER.info("Validating a login submission");
-        HttpSession session = httpServletRequest.getSession();
+        LOGGER.info("Validating a login submission for session " + request.getSession().getId());
+        HttpSession session = request.getSession();
         if (session.getAttribute("userId") != null)
         {
             LOGGER.info("Session " + session.getId() + " already is logged in as user " + session.getAttribute("userId"));

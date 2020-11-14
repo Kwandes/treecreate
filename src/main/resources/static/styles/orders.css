@@ -101,7 +101,7 @@
     margin: 0 10px;
 }
 
-.viewDesignBtn
+.viewDesignBtn, .orderCompletePaymentBtn
 {
     align-self: flex-end;
     min-width: 50px;
@@ -111,6 +111,11 @@
     border-radius: 12px;
     border: none;
     color: white;
+}
+
+.orderCompletePaymentBtn
+{
+    display: none;
 }
 
 .viewDesignBtn:hover
