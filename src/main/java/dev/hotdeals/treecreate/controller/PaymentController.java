@@ -633,7 +633,7 @@ public class PaymentController
         }
 
         String emailSubject = " <p>\n" +
-                "        Hi " + transaction.getUser().getName() + ",\n" +
+                "        Hi " + transaction.getName() + ",\n" +
                 "        <br><br>\n" +
                 "        Just to let you know - we've received your order #" + transaction.getId() + ", and it is now being processed:\n" +
                 "    </p>\n" +
