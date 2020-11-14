@@ -75,7 +75,7 @@ public class Transaction
     @Column(name = "discount", length = 25)
     private String discount;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "transaction_id")
     private List<TreeOrder> orderList = new ArrayList<>();
 

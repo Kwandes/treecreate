@@ -81,12 +81,8 @@ public class PaymentController
 
         LOGGER.info(request.getSession().getId() + " - Transaction - Getting the environment type");
         String envType = customProperties.getEnvironmentType();
-        String orderIdPrefix = "test-";
         String callbackUrl = "";
-        if (envType.equals("production"))
-        {
-            orderIdPrefix = "order-";
-        } else
+        if (!envType.equals("production"))
         {
             // otherwise it is empty and doesn't get assigned to the paymentLink
             callbackUrl = "&callback_url=https://testing.treecreate.dk/paymentCallback";
@@ -197,7 +193,7 @@ public class PaymentController
         LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Creating a payment");
 
         LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() +
-                " - Creating a payment with an order id: " + orderIdPrefix + createPaymentOrderId(transaction.getId()));
+                " - Creating a payment with an order id: " + createPaymentOrderId(transaction.getId()));
 
         String apiKey = customProperties.getQuickpaySecret();
         var client = HttpClient.newBuilder().build();
@@ -209,7 +205,7 @@ public class PaymentController
                 .header("Accept-Version", "v10")
                 .header("Authorization", basicAuth("", apiKey))
                 .POST(HttpRequest.BodyPublishers.ofString("currency=" + transaction.getCurrency() +
-                        "&order_id=" + orderIdPrefix + createPaymentOrderId(transaction.getId())))
+                        "&order_id=" + createPaymentOrderId(transaction.getId())))
                 .build();
 
         HttpResponse<String> response;
@@ -223,10 +219,10 @@ public class PaymentController
         }
 
         LOGGER.info(request.getSession().getId() + " - Transaction - Getting the payment via the transaction id: " +
-                orderIdPrefix + createPaymentOrderId(transaction.getId()));
+                createPaymentOrderId(transaction.getId()));
 
         httpRequest = HttpRequest.newBuilder(
-                URI.create("https://api.quickpay.net/payments/?order_id=" + orderIdPrefix + createPaymentOrderId(transaction.getId())))
+                URI.create("https://api.quickpay.net/payments/?order_id=" + createPaymentOrderId(transaction.getId())))
                 .header("accept", "application/json")
                 .header("Content-Type", "multipart/form-data")
                 .header("Accept-Version", "v10")
@@ -303,11 +299,16 @@ public class PaymentController
     public String createPaymentOrderId(int id)
     {
         String fluffedId = id + "";
+        String orderIdPrefix = "test-";
+        if (customProperties.getEnvironmentType().equals("production"))
+        {
+            orderIdPrefix = "order-";
+        }
         while (fluffedId.length() < 4)
         {
             fluffedId = "0" + fluffedId;
         }
-        return fluffedId;
+        return orderIdPrefix + fluffedId;
     }
 
     @GetMapping("/payment")
@@ -388,7 +389,7 @@ public class PaymentController
             {
                 continue;
             }
-            LOGGER.info("Updating order statuses - Found a transaction with a status other than initial: ID:" + transaction.getId() + " status: " + paymentStatus);
+            LOGGER.info("Updating order statuses - Found a transaction with a status other than initial: ID: " + transaction.getId() + " status: " + paymentStatus);
 
             try
             {
@@ -406,6 +407,7 @@ public class PaymentController
             transactionRepo.save(transaction);
             LOGGER.info("Updating order statuses - Finished setting status for transaction " + transaction.getId() + " and its orders. New status: " + paymentStatus);
         }
+        LOGGER.info("Finished updating order statuses");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
