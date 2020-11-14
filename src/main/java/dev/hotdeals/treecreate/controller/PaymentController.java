@@ -10,6 +10,7 @@ import dev.hotdeals.treecreate.model.TreeOrder;
 import dev.hotdeals.treecreate.repository.TransactionRepo;
 import dev.hotdeals.treecreate.repository.TreeOrderRepo;
 import dev.hotdeals.treecreate.service.MailService;
+import org.hibernate.LazyInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -81,9 +82,14 @@ public class PaymentController
         LOGGER.info(request.getSession().getId() + " - Transaction - Getting the environment type");
         String envType = customProperties.getEnvironmentType();
         String orderIdPrefix = "test-";
+        String callbackUrl = "";
         if (envType.equals("production"))
         {
             orderIdPrefix = "order-";
+        } else
+        {
+            // otherwise it is empty and doesn't get assigned to the paymentLink
+            callbackUrl = "&callback_url=https://testing.treecreate.dk/paymentCallback";
         }
 
         LOGGER.info(request.getSession().getId() + " - Transaction - Getting all orders for user " + user.getId());
@@ -260,8 +266,7 @@ public class PaymentController
                 .header("Content-Type", "multipart/form-data")
                 .header("Accept-Version", "v10")
                 .header("Authorization", basicAuth("", apiKey))
-                .PUT(HttpRequest.BodyPublishers.ofString("amount=" + totalPrice +
-                        "&callback_url=" + "https://testing.treecreate.dk/paymentCallback"))
+                .PUT(HttpRequest.BodyPublishers.ofString("amount=" + totalPrice + callbackUrl))
                 .build();
 
         response = null;
@@ -383,13 +388,19 @@ public class PaymentController
             {
                 continue;
             }
-            LOGGER.info("Updating order statuses - Found a transaction with a status other than initial: " + paymentStatus);
+            LOGGER.info("Updating order statuses - Found a transaction with a status other than initial: ID:" + transaction.getId() + " status: " + paymentStatus);
 
-            var orderIdList = transaction.getOrderList();
-            for (TreeOrder order : orderIdList)
+            try
             {
-                order.setStatus(paymentStatus);
-                treeOrderRepo.save(order);
+                var orderList = transaction.getOrderList();
+                for (TreeOrder order : orderList)
+                {
+                    order.setStatus(paymentStatus);
+                    treeOrderRepo.save(order);
+                }
+            } catch (LazyInitializationException e)
+            {
+                LOGGER.error("Updating order statuses - Failed to process an order list. Possible cause - no orders assigned to a transaction", e);
             }
             transaction.setStatus(paymentStatus);
             transactionRepo.save(transaction);
