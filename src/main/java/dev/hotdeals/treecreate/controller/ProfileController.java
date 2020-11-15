@@ -276,6 +276,60 @@ public class ProfileController
         return "home/verificationFail";
     }
 
+    @GetMapping("/isVerified")
+    ResponseEntity<Boolean> isVerified(HttpServletRequest request)
+    {
+        String userID = treeController.getCurrentUser(request).getBody();
+        User currentUser = userRepo.findById(Integer.parseInt(userID)).orElse(null);
+        if (currentUser != null)
+        {
+            return new ResponseEntity<>(currentUser.getVerification().equals("verified"), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/verificationGuide")
+    String verificationGuide()
+    {
+        return "home/verificationGuide";
+    }
+
+    /**
+     * Sends a email using info@treecreate.dk to the email address of currently logged in user
+     * @return whether or not the email got sent
+     */
+    @GetMapping("/sendVerificationEmail")
+    ResponseEntity<String> sendVerificationEmail(HttpServletRequest request)
+    {
+        String userID = treeController.getCurrentUser(request).getBody();
+        User user = userRepo.findById(Integer.parseInt(userID)).orElse(null);
+        if (user == null)
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (!user.getEmail().contains("@"))
+        {
+            return new ResponseEntity<>("The user does not have a valid email address", HttpStatus.BAD_REQUEST);
+        }
+
+        LOGGER.info("Sending a verification email to user id: " + user.getId());
+        // Verification link won't work on localhost since it is hardcoded to treecreate.dk.
+        try
+        {
+            mailService.sendInfoMail("Thank you for signing up at Treecreate\n<br>" +
+                            "\nPlease click on the link <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
+                            "&token=" + user.getVerification() + "\">this link</a> in order to verify\n<br>" +
+                            "\n\nThis is an automated email. Please do not reply to this email.",
+                    "Confirm your e-mail", user.getEmail());
+        } catch (MessagingException e)
+        {
+            LOGGER.error("Failed to send an email to " + user.getEmail(), e);
+            return new ResponseEntity<>("Failed to send an email to " + user.getEmail(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/newsletterUnsubscribe")
     String newsletterUnsubscribe(@RequestParam(name = "token") String token)
     {

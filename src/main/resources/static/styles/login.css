@@ -50,6 +50,7 @@
 {
     color: var(--mainColor);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .justText:hover
