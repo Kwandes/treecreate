@@ -29,7 +29,7 @@ public class MailService
         //helper.setText(htmlMsg, true); // Use this or above line.
         helper.setTo(to);
         helper.setSubject(emailSubject);
-        helper.setFrom("info@treecreate.dk");
+        helper.setFrom("Treecreate" + "<" +"info@treecreate.dk" + ">");
         infoEmailSender.send(mimeMessage);
     }
 
@@ -41,7 +41,7 @@ public class MailService
         //helper.setText(htmlMsg, true); // Use this or above line.
         helper.setTo(to);
         helper.setSubject(emailSubject);
-        helper.setFrom("orders@treecreate.dk");
+        helper.setFrom("Treecreate" + "<" + "orders@treecreate.dk" + ">");
         orderEmailSender.send(mimeMessage);
     }
 }
