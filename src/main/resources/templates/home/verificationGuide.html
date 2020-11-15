@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification Guide</title>
+    <link th:href="@{/img/logos/treecreateLogo/browserLogo.svg}" rel="icon">
+    <link th:href="@{/styles/index.css}" rel="stylesheet">
+    <link th:href="@{/styles/products.css}" rel="stylesheet">
+    <link th:href="@{/styles/productNavbar.css}" rel="stylesheet">
+    <link th:href="@{/styles/productFooter.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Share+Tech">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spectral">
+    <script th:src="@{/js/login.js}"></script>
+    <script th:src="@{/js/basket.js}"></script>
+    <script th:src="@{/js/cookiePrompt.js}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<section th:replace="products/productTemplate :: #navigationContainer"></section>
+<section id="contentContainer">
+    <div id="content">
+        <div id="productContainer" style="min-height: 66vh">
+            <div id="product"
+                 style="display: flex; flex-direction: column; justify-items: center; align-items: center; text-align: center">
+                <h2>How to verify your email</h2>
+                <p style="padding: 1vh; font-size: var(--fontRegular)">
+                    When creating a new account, a verification email has been sent to your inbox<br>
+                    Click the link in the email to verify your account <br>
+                    <br>
+                    You can resend the verification email if you have not received the message:
+                </p>
+                <input type="button" id="verificationButton"
+                       style="var(--fontRegular); padding: 1vh 1vw; width: fit-content"
+                       onclick="sendVerificationEmail()" value="Resend email">
+            </div>
+        </div>
+    </div>
+</section>
+<section th:replace="products/productTemplate :: #footerContainer"></section>
+</body>
+</html>

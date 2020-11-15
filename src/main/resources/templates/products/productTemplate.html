@@ -29,10 +29,12 @@
                     <div class="header">
                         <h2 class="modal-title"><span th:text="#{cookie.title}"></span></h2>
                         <span th:text="#{cookie.text}"></span>
-                        <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank"><span th:text="#{cookie.link}"></span></a>
+                        <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank"><span
+                                th:text="#{cookie.link}"></span></a>
                         <span th:text="#{cookie.text.two}"></span>
                     </div>
-                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton"><span th:text="#{cookie.accept}"></span></button>
+                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton"><span
+                            th:text="#{cookie.accept}"></span></button>
                 </div>
             </div>
         </div>
@@ -62,12 +64,14 @@
                 <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
                        maxlength="60" required>
                 <hr>
-                <a type="button" href="/forgotPassword" name="forgotPassword" id="forgotPassword"><span th:text="#{login.forgot.password}"></span></a><br>
+                <a type="button" href="/forgotPassword" name="forgotPassword" id="forgotPassword"><span
+                        th:text="#{login.forgot.password}"></span></a><br>
 
                 <button type="button" onclick="submitLogin()" id="loginSubmitButton">login</button>
                 <br><br>
 
-                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();"><span th:text="#{login.sign.up}"></span></a><br>
+                <a id="signUpButton" data-toggle="modal" data-target="#signUpModal" onclick="closeLoginModal();"><span
+                        th:text="#{login.sign.up}"></span></a><br>
             </div>
         </div>
 
@@ -106,7 +110,8 @@
                     </p>
                 </div>
 
-                <button type="button" onclick="registerUser()" id="createAccountButton"><span th:text="#{login.create}"></span></button>
+                <button type="button" onclick="registerUser()" id="createAccountButton"><span
+                        th:text="#{login.create}"></span></button>
                 <br>
 
                 <button type="button" onclick="closeSignUpModal();"
@@ -123,14 +128,17 @@
     <section id="navbarContainer">
         <div id="navBar">
             <div id="navBar-left">
-                <a style="margin-left:25px;" href="/productExample"><img th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
-                                               alt="treecreate" id="treecreateLogo" class="filterColor">
+                <a style="margin-left:25px;" href="/productExample"><img
+                        th:src="@{~/img/logos/treecreateLogo/TCTextLogo.svg}"
+                        alt="treecreate" id="treecreateLogo" class="filterColor">
                 </a>
-                <a target="popup" onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')" style="padding:0 10px;">
+                <a target="popup" onclick="window.open('https://www.facebook.com/treecreate.dk', 'name')"
+                   style="padding:0 10px;">
                     <img th:src="@{~/img/logos/facebookBlackLogo.svg}" alt="facebook" id="facebookIcon"
                          class="icon filterColor">
                 </a>
-                <a target="popup" onclick="window.open('https://www.instagram.com/treecreate.dk/','names')" style="padding:0 10px;">
+                <a target="popup" onclick="window.open('https://www.instagram.com/treecreate.dk/','names')"
+                   style="padding:0 10px;">
                     <img th:src="@{~/img/logos/instagramBlackLogo.svg}" alt="instagram" id="instagramIcon"
                          class="icon filterColor">
                 </a>
@@ -145,7 +153,7 @@
                     <hr class="hoverLine">
                 </a>
                 <a href="/account/collections"><img th:src="@{~/img/icons/shoppingBasketIcon.svg}" alt="basket"
-                                               id="shoppingBasketIcon" class="icon filterColor">
+                                                    id="shoppingBasketIcon" class="icon filterColor">
                     <span id="basketNavbarText"> (0) </span><span th:text=" #{navbar.items}"></span>
                     <hr class="hoverLine">
                 </a>
@@ -163,11 +171,14 @@
                     <hr class="hoverLine">
                 </a>
             </div>
+            <div id="verificationBanner">
+                <span>Please</span>
+                <input type="button" id="verificationButton" onclick="redirectVerificationPage();" value="verify">
+                <span>your email to continue using our website</span>
 
+            </div>
         </div>
-
     </section>
-
 </section>
 <section id="contentContainer">
     <div id="content">

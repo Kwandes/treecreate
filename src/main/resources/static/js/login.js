@@ -112,10 +112,14 @@ function isLoggedIn()
             });
 
             // Only trigger once isLoggedIN fetch has finished
+            // these are done sequentially in order to avoid overloading the API and making multiple copies of the same session user
+            // Call them in order of which has to show first
             console.log("Validating cookies...");
             await validateCookies();
             console.log("Updating the basket...");
             await updateBasket();
+            console.log("Checking the user verification status...")
+            await checkVerificationStatus();
         });
 }
 
@@ -169,7 +173,7 @@ async function registerUser()
         document.getElementById("signUpModalCloseBtn").click();
         showSignupPopup('Thanks for joining Treecreate!', false);
         setLoginStatus(true);
-        updateBasket();
+        await updateBasket();
     } else
     {
         showSignupPopup('An account with this email already exists. Try again', true);
@@ -228,4 +232,52 @@ function showSignupPopup(text, errorPopup)
     {
         popupContainer.style.display = 'none'
     }, 4000);
+}
+
+// Gets current users verification status, and if they are not verified and are logged it, it displays a reminder for them to verify
+function checkVerificationStatus()
+{
+    // Check if the user is logged in
+    if (document.getElementById("profileButton").style.display === "none")
+    {
+        return;
+    }
+
+    fetch(location.origin + "/isVerified").then(
+        response =>
+        {
+            console.log("%cFetching verification status finished, status: " + response.status, "color:mediumpurple");
+            response.json().then(data =>
+            {
+                if (data.toString() === 'false')
+                {
+                    console.log("User is not verified - displaying a verification reminder");
+                    document.getElementById("verificationBanner").style.display = "flex";
+                }
+            });
+        }
+    )
+}
+
+function redirectVerificationPage()
+{
+    window.open(location.origin + "/verificationGuide", "tab");
+}
+
+function sendVerificationEmail()
+{
+    fetch(location.origin + "/sendVerificationEmail").then(
+        response =>
+        {
+            if (response.status === 200)
+            {
+                console.log("The email has been sent");
+                showBasketPopup("The email has been sent");
+            } else
+            {
+                console.log("Something went wrong while sending the email, request status: " + response.status);
+                showBasketPopup("Something went wrong while sending the email. Try again later or contact support at info@treecreate.dk");
+            }
+        }
+    )
 }
