@@ -29,7 +29,7 @@ async function generateOrders()
         let status = transaction['status'];
         if (status === "initial")
         {
-            status = "Waiting for payment \n(May take a couple minute)";
+            status = "Waiting for payment \n(May take a couple minutes)";
         }
         if (status === "new")
         {
@@ -40,7 +40,7 @@ async function generateOrders()
         transactionItem.getElementsByClassName('orderTotalPrice')[0].innerText = "Total Price: " + (transaction['price'] / 100) + " dkk";
         console.log("transaction id: " + transaction['id']);
         transactionItem.getElementsByClassName("orderTransactionId")[0].innerText = "transaction ID: " + transaction['id'];
-        if (status === "Waiting for payment \n(May take a couple minute)")
+        if (status === "Waiting for payment \n(May take a couple minutes)")
         {
             console.log("Payment was not completed - adding a complete payment button with link: " + transaction['paymentLink'])
             transactionItem.getElementsByClassName("orderCompletePaymentBtn")[0].style.display = "flex";
