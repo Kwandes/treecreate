@@ -77,6 +77,11 @@ a:hover
     align-content: space-between;
 }
 
+#details label
+{
+    font-weight: 1;
+}
+
 #formUpdateInfo
 {
     display: flex;
@@ -86,6 +91,15 @@ a:hover
     font-size: var(--fontRegular);
 
     margin: 2.5vh 0;
+}
+
+#formUpdateInfo input
+{
+    border: 1px grey solid !important;
+    border-radius: 2px;
+    margin: 0.5vh;
+    padding: 5px 10px;
+    width: 50%;
 }
 
 #formTitle

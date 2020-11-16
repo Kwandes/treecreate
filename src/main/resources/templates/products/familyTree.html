@@ -82,6 +82,21 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <div id="addToBasketName" class="addToBasketDetail">
                             <input class="fancyInput" type="text" name="nameInput" id="nameInput" value="Untitled" maxlength="25">
                         </div>
+                        <div id="addToBasketSize" class="addToBasketDetail">
+                            <div class="fancySelection">
+                                <div class="fancyHeader">
+                                    <span th:text="#{basket.info.design.size.name}"></span>
+                                    <div id="productSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
+                                        <span class="infoPopupText" th:text="#{basket.info.design.size}"></span>
+                                    </div>
+                                </div>
+                                <div class="fancyContent">
+                                    <div class="arrowLeft" id="sizeArrowLeft" alt="<" onclick="decreaseSize()"></div>
+                                    <input type="text" id="sizeInput" class="fancyInput" value="30x30 cm" readonly>
+                                    <div class="arrowRight" id="sizeArrowRight" alt=">" onclick="increaseSize()"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div id="addToBasketAmount" class="addToBasketDetail">
                             <div class="fancySelection">
                                 <div class="fancyHeader">
@@ -96,21 +111,6 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                                     <input type="text" id="amountInput" class="fancyInput" value="1" readonly>
                                     <div class="arrowRight" id="amountArrowRight" alt=">"
                                          onclick="increaseAmount()"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="addToBasketSize" class="addToBasketDetail">
-                            <div class="fancySelection">
-                                <div class="fancyHeader">
-                                    <span th:text="#{basket.info.design.size.name}"></span>
-                                    <div id="productSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                        <span class="infoPopupText" th:text="#{basket.info.design.size}"></span>
-                                    </div>
-                                </div>
-                                <div class="fancyContent">
-                                    <div class="arrowLeft" id="sizeArrowLeft" alt="<" onclick="decreaseSize()"></div>
-                                    <input type="text" id="sizeInput" class="fancyInput" value="30x30 cm" readonly>
-                                    <div class="arrowRight" id="sizeArrowRight" alt=">" onclick="increaseSize()"></div>
                                 </div>
                             </div>
                         </div>
@@ -129,11 +129,11 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </section>
                 </section>
                 <section id="addToBasketFooter">
-                    <p>
-                        <span th:text="#{basket.note.one}"></span>
-                    </p>
-                    <p>
-                        <span th:text="#{basket.note.two}"></span>
+<!--                    <p>-->
+<!--                        <span th:text="#{basket.note.one}"></span>-->
+<!--                    </p>-->
+                    <p style="display: flex">
+                        <span style="text-align: center" th:text="#{basket.note.two}"></span>
                     </p>
                 </section>
             </div>
@@ -169,7 +169,7 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                             C-130,46 120,46 420,-137'/>
                             <text x="50%" y="0%" dominant-baseline="middle" text-anchor="middle">
                                 <textPath xlink:href="#curve" id="bannerTextPath">
-                                    Familietræ
+                                    Family Tree
                                 </textPath>
                             </text>
                         </svg>
@@ -215,9 +215,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     <div class="fancySelection" id="font">
                         <div class="fancyHeader">
                             <span>Font</span>
-                            <div id="fontStyleInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText" th:text="#{familyTree.info.font.style}"></span>
-                            </div>
+<!--                            <div id="fontStyleInfoIcon" class="addToBasketInfoIcon infoPopup">-->
+<!--                                <span class="infoPopupText" th:text="#{familyTree.info.font.style}"></span>-->
+<!--                            </div>-->
                         </div>
                         <div class="fancyContent" id="fontStyleInputContainer">
                             <select class="fancyInput" id="fontInput">
@@ -228,12 +228,13 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         </div>
                     </div>
 
+
                     <div class="fancySelection" id="boxSize">
                         <div class="fancyHeader">
                             <span th:text="#{familyTree.info.box.size.name}"></span>
-                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">
-                                <span class="infoPopupText" th:text="#{familyTree.info.box.size}"></span>
-                            </div>
+<!--                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">-->
+<!--                                <span class="infoPopupText" th:text="#{familyTree.info.box.size}"></span>-->
+<!--                            </div>-->
                         </div>
                         <div class="fancyContent" id="boxSizeInputContainer">
                             <div class="arrowLeft" id="decreaseBoxButton" alt="<"></div>

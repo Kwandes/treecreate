@@ -229,7 +229,7 @@ function assignBoxBackground(imgArray)
         banner.textContent = bannerInput.value;
         if (bannerInput.value === "")
         {
-            banner.textContent = 'familietræ';
+            banner.textContent = 'Family Tree';
         }
     }
 

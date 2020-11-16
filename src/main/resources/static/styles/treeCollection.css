@@ -29,9 +29,11 @@
 {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     min-width: 200px;
+    border: 2px solid var(--mainColor);
+    border-radius: 24px;
     width: 30vw;
     margin: 2vw;
 }
@@ -50,8 +52,8 @@
 {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    border-bottom: 2px black solid;
+    width: 80%;
+    border-bottom: 1.5px solid var(--mainColor);
 }
 
 .infoContent
@@ -59,7 +61,7 @@
     display: flex;
     margin: 1vh 0;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
 }
 
 .infoFooter
@@ -80,6 +82,7 @@
     background-color: var(--actionColor);
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.8vw;
 }
 
 .collectionInfoBtn:hover

@@ -43,15 +43,15 @@
             </a>
         </div>
         <div id="details">
-            <span id="formTitle">ACCOUNT INFO</span>
-            <form action="/account/updateInfo" method="post" id="formUpdateInfo">
+<!--            <span id="formTitle">ACCOUNT INFO</span>-->
+            <form action="/account/updateInfo" method="post" id="formUpdateInfo" class="inputBoxField" style="margin: 7vh 0">
                 <input type="number" name="id" th:value="${user.id}" hidden>
 
                 <label for="inputPhoneNumber"><span th:text="#{basket.phone.number}"></span></label>
                 <input type="number" name="inputPhoneNumber" id="inputPhoneNumber" th:value="${user.phoneNumber}"
                        maxlength="15" required>
 
-                <label for="inputEmail">Email :</label>
+                <label for="inputEmail"><span th:text="#{basket.email}"></span></label>
                 <input type="email" name="inputEmail" id="inputEmail" th:value="${user.email}" maxlength="254" required>
 
                 <label for="inputName"><span th:text="#{basket.names}"></span></label>
@@ -79,7 +79,7 @@
                     </select>
                 </label>
             </form>
-            <button type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo"><span th:text="#{basket.update.info}"></span></button>
+            <button style="margin-bottom: 9vh" type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo"><span th:text="#{basket.update.info}"></span></button>
         </div>
     </section>
     <section th:replace="products/productTemplate :: #footerContainer"></section>
