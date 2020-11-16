@@ -39,7 +39,7 @@
                     <div class="header">
                         <h2 class="modal-title"><span th:text="#{cookie.title}"></span></h2>
                         <span th:text="#{cookie.text}"></span>
-                        <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank"><span
+                        <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank" class="termsAndConditionsLink"><span
                                 th:text="#{cookie.link}"></span></a>
                         <span th:text="#{cookie.text.two}"></span>
                     </div>
@@ -112,12 +112,12 @@
                        placeholder="Type your password . . ." maxlength="60" required>
                 <hr>
                 <!-- T&C for account creation -->
-                <div style="display: flex; flex-direction: row; justify-content: center">
-                    <p style="font-size:12px;"><span th:text="#{signup.terms.and.conditions.text}"></span> <a
-                            href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit"
-                            style="color:var(--actionColor);" id="accountTermsAndConditions"
-                            target="_blank"><span th:text="#{signup.terms.and.conditions.link}"></span> </a>
+                <div style="display: flex; flex-direction: row; justify-content: center; font-size: 14px;">
+                    <p>
+                        <span th:text="#{signup.terms.and.conditions.text}"></span><a href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit"
+                           id="accountTermsAndConditions" target="_blank" class="termsAndConditionsLink"><span th:text="#{signup.terms.and.conditions.link}"></span></a>
                     </p>
+
                 </div>
 
                 <button type="button" onclick="registerUser()" id="createAccountButton"><span

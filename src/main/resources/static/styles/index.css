@@ -39,3 +39,13 @@ a
 { /* remove an outline on focusing of an element */
     outline: none;
 }
+
+.termsAndConditionsLink
+{
+    color:var(--actionColor) !important;
+}
+
+.termsAndConditionsLink:hover
+{
+    color:var(--actionColor) !important;
+}

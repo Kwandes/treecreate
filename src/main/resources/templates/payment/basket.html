@@ -108,14 +108,14 @@
                 </section>
             </section>
             <section class="basketSection">
-                <div id="acceptOrder" class="border">
+                <div id="acceptOrder" class="border" style="border:none!important;" >
                     <label for="termsAndConditionsCheckbox">
                         <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
                         <span th:text="#{basket.terms.and.conditions.text}"></span> <a
-                            href="/orderTermsAndConditionsDanish" target="_blank">
-                        <span th:text="#{basket.terms.and.conditions.link}"></span></a>
+                            href="/orderTermsAndConditionsDanish" target="_blank" class="termsAndConditionsLink">
+                        <span th:text="#{basket.terms.and.conditions.link}" class="termsAndCondition"></span></a>
                     </label>
-                    <button onclick='goToPayment()'><span th:text="#{basket.accept.and.pay}"></span></button>
+                    <button onclick='goToPayment()' id="acceptAndPay" style="background-color:#28C553;"><span th:text="#{basket.accept.and.pay}"></span></button>
                 </div>
             </section>
         </div>
