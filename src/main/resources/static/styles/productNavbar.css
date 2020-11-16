@@ -124,7 +124,6 @@ a::before {
 {
     #navBar
     {
-        padding: 1vh 0 0 0;
         height: 4vh;
         min-height: 0vh !important;
     }
