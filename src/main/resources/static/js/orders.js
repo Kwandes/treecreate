@@ -29,7 +29,7 @@ async function generateOrders()
         let status = transaction['status'];
         if (status === "initial")
         {
-            status = "Waiting for payment";
+            status = "Waiting for payment \n(May take a couple minute)";
         }
         if (status === "new")
         {
