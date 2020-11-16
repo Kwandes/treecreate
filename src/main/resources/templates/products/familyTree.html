@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&family=Sansita+Swashed:wght@500&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" href="">
+    <script th:src="@{/js/removeInfo.js}"></script>
     <script th:src="@{/js/login.js}"></script>
     <script th:src="@{/js/basket.js}"></script>
     <script th:src="@{/js/addToBasket.js}"></script>
@@ -60,10 +61,9 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
     }
     (document, 'script', 'facebook-jssdk'));
 </script>
+<!-- End of Load FaceBook SDK for JavaScript -->
 
 <script>isMobile()</script>
-
-<!-- End of Load FaceBook SDK for JavaScript -->
 
 <section id="contentContainer">
     <div id="content">
@@ -177,6 +177,13 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                     </div>
                 </div>
                 <div id="familyTreeOptionsContainer">
+
+                    <div id="infoText" style="text-align: center;">
+                        <span style="font-size: 18px; color: var(--actionColor); font-weight:bold;" th:text="#{familyTree.info.how.to.title}"></span>
+                        <button onclick="removeInfoText()" style="color: white; width:30px;">X</button><br>
+                        <span th:text="#{familyTree.info.how.to}"></span>
+                    </div>
+
                     <div class="fancySelection" id="bannerInput">
                         <div class="fancyHeader">
                             <span th:text="#{familyTree.info.banner.text.name}"></span>
