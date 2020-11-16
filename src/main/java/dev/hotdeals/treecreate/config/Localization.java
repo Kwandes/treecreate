@@ -21,7 +21,8 @@ public class Localization implements WebMvcConfigurer
     {
         CookieLocaleResolver slr = new CookieLocaleResolver();
         slr.setCookieName("Language-Locale");
-        slr.setDefaultLocale(new Locale("dk"));
+        //slr.setDefaultLocale(new Locale("dk"));
+        slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
 
