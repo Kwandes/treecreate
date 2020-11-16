@@ -61,6 +61,10 @@
                 <input type="text" name="inputStreetAddress" id="inputStreetAddress" th:value="${user.streetAddress}"
                        maxlength="99" required>
 
+                <label for="inputStreetAddress2"><span th:text="#{basket.street.address2}"></span></label>
+                <input type="text" name="inputStreetAddress2" id="inputStreetAddress2" th:value="${user.streetAddress2}"
+                       maxlength="99">
+
                 <label for="inputCity"><span th:text="#{basket.city}"></span></label>
                 <input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
 

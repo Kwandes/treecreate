@@ -79,6 +79,7 @@ async function validateBasket()
     const inputPhoneNumber = document.getElementById('inputPhoneNumber');
     const inputEmail = document.getElementById('inputEmail');
     const inputStreetAddress = document.getElementById('inputStreetAddress');
+    const inputStreetAddress2 = document.getElementById('inputStreetAddress2');
     const inputCity = document.getElementById('inputCity');
     const inputPostcode = document.getElementById('inputPostcode');
 
@@ -167,6 +168,7 @@ async function goToPayment()
     const inputPhoneNumber = document.getElementById("inputPhoneNumber").value;
     const inputEmail = document.getElementById("inputEmail").value;
     const inputStreetAddress = document.getElementById("inputStreetAddress").value;
+    const inputStreetAddress2 = document.getElementById("inputStreetAddress2").value;
     const inputCity = document.getElementById("inputCity").value;
     const inputPostcode = document.getElementById("inputPostcode").value;
     const inputCountry = document.getElementById("inputCountry").value;
@@ -177,6 +179,7 @@ async function goToPayment()
         phoneNumber: inputPhoneNumber,
         email: inputEmail,
         streetAddress: inputStreetAddress,
+        streetAddress2: inputStreetAddress2,
         city: inputCity,
         postcode: inputPostcode,
         country: inputCountry,

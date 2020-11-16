@@ -278,7 +278,7 @@ public class PaymentController
         LOGGER.info(request.getSession().getId() + " - Transaction - Setting transaction " + transaction.getId() + " status to 'initial'");
         transaction.setStatus("initial");
         LOGGER.info(request.getSession().getId() + " - Transaction - Setting transaction " + transaction.getId() + " payment link to " + response.body());
-        transaction.setPaymentLink(response.body().substring(8, response.body().length()-2));
+        transaction.setPaymentLink(response.body().substring(8, response.body().length() - 2));
         transactionRepo.save(transaction);
 
         LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Changing the status of orders to pending");
@@ -676,6 +676,8 @@ public class PaymentController
                 "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
                 "                " + transaction.getName() + "<br>\n" +
                 "                " + transaction.getStreetAddress() + " <br>\n" +
+                // If the street address line two is not empty, add it to the email
+                (transaction.getStreetAddress2() == null ? "" : (transaction.getStreetAddress2() + " <br>\n")) +
                 "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
                 "                " + transaction.getCountry() + " <br>\n" +
                 "                " + transaction.getPhoneNumber() + " <br>\n" +
@@ -684,6 +686,8 @@ public class PaymentController
                 "            <td style=\"width: 28vw;border: 1px lightgrey solid; padding: 1vh 1vw; line-height: 18px\">\n" +
                 "                " + transaction.getName() + "<br>\n" +
                 "                " + transaction.getStreetAddress() + " <br>\n" +
+                // If the street address line two is not empty, add it to the email
+                (transaction.getStreetAddress2() == null ? "" : (transaction.getStreetAddress2() + " <br>\n")) +
                 "                " + transaction.getPostcode() + " " + transaction.getCity() + " <br>\n" +
                 "                " + transaction.getCountry() + " <br>\n" +
                 "            </td>\n" +

@@ -59,7 +59,12 @@ async function generateOrders()
         }
         transactionItem.getElementsByClassName("orderDateCreated")[0].innerText = "Created on: " + createdOn;
         transactionItem.getElementsByClassName("orderExpectedDelivery")[0].innerText = "Expected Delivery Date: " + transaction['expectedDeliveryDate'];
-        transactionItem.getElementsByClassName("orderAddressStreetName")[0].innerText = "Street: " + transaction['streetAddress'];
+        transactionItem.getElementsByClassName("orderAddressStreetName")[0].innerText = "Address: " + transaction['streetAddress'];
+        if (transaction['streetAddress2'] !== null)
+        {
+            transactionItem.getElementsByClassName("orderAddressStreetName2")[0].style.display = "flex";
+            transactionItem.getElementsByClassName("orderAddressStreetName2")[0].innerText = "Address 2: " + transaction['streetAddress2'];
+        }
         transactionItem.getElementsByClassName("orderAddressCity")[0].innerText = "City: " + transaction['city'];
         transactionItem.getElementsByClassName("orderAddressPostcode")[0].innerText = "Postcode: " + transaction['postcode'];
 
