@@ -15,7 +15,7 @@
     flex-direction: column;
     width: 50vw;
     height: 50vw;
-
+    min-width: 1000px;
     background-image: url("../img/images/treeDesign/tree1.svg");
     background-repeat: no-repeat;
     background-position: center;
