@@ -94,6 +94,7 @@ function assignBoxBackground(imgArray)
 
     boundaries.addEventListener("mousedown", createBox);
     boundaries.addEventListener("mousemove", drag, false);
+    boundaries.addEventListener("touchmove", drag, false);
     bannerInput.addEventListener("input", updateBannerText, false);
     bannerNextButton.addEventListener("click", nextBanner, false);
     bannerPreviousButton.addEventListener("click", previousBanner, false);
@@ -327,8 +328,11 @@ function assignBoxBackground(imgArray)
 
             if (e.type === "touchstart")
             {
-                activeItem.initialX = e.touches[0].clientX - activeItem.xOffset;
-                activeItem.initialY = e.touches[0].clientY - activeItem.yOffset;
+                console.log("TouchStart Coords :");
+                activeItem.initialX = pixelsToViewportWidth(e.touches[0].clientX) - activeItem.xOffset;
+                activeItem.initialY = pixelsToViewportWidth(e.touches[0].clientY) - activeItem.yOffset;
+                console.log("X: " + activeItem.initialX);
+                console.log("Y: " + activeItem.initialY);
             } else
             {
                 // console.log("Drag start: xOffset: " + activeItem.xOffset);
@@ -362,10 +366,13 @@ function assignBoxBackground(imgArray)
         {
             if (e.type === "touchmove")
             {
+                console.log("Touchmove Coords : ");
                 e.preventDefault();
 
-                activeItem.currentX = e.touches[0].clientX - activeItem.initialX + window.scrollX;
-                activeItem.currentY = e.touches[0].clientY - activeItem.initialY + window.scrollY;
+                activeItem.currentX = pixelsToViewportWidth(e.touches[0].clientX) - activeItem.initialX;
+                activeItem.currentY = pixelsToViewportWidth(e.touches[0].clientY) - activeItem.initialY;
+                console.log("X: " + activeItem.currentX);
+                console.log("Y: " + activeItem.currentY);
             } else
             {
                 //console.log("Initials: " + activeItem.initialX + window.scrollX + ', ' + activeItem.initialY);
