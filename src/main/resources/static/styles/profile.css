@@ -89,8 +89,7 @@ a:hover
     align-items: flex-start;
     align-content: space-between;
     font-size: var(--fontRegular);
-
-    margin: 2.5vh 0;
+    margin: 7vh 0;
 }
 
 #formUpdateInfo input
@@ -145,15 +144,36 @@ a:hover
     box-shadow: none;
 }
 
+.updateInfoBtn
+{
+    margin-bottom: 9vh !important;
+}
+
 @media all and (min-width: 200px) and (max-width: 1024px)
 {
     #contentContainer
     {
         padding-bottom: 0;
     }
+    .updateInfoBtn
+    {
+        margin-bottom: 4vh !important;
+    }
+    #formUpdateInfo
+    {
+        margin: 2.5vh 0;
+    }
+}
 
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
     #details
     {
         margin-bottom: 13vh;
+    }
+
+    #contentContainer
+    {
+        padding-top: 20vh;
     }
 }

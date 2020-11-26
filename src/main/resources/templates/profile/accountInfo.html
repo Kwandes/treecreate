@@ -46,7 +46,7 @@
         </div>
         <div id="details">
 <!--            <span id="formTitle">ACCOUNT INFO</span>-->
-            <form action="/account/updateInfo" method="post" id="formUpdateInfo" class="inputBoxField" style="margin: 7vh 0">
+            <form action="/account/updateInfo" method="post" id="formUpdateInfo" class="inputBoxField">
                 <input type="number" name="id" th:value="${user.id}" hidden>
 
                 <label for="inputPhoneNumber"><span th:text="#{basket.phone.number}"></span></label>
@@ -81,7 +81,7 @@
                     </select>
                 </label>
             </form>
-            <button style="margin-bottom: 9vh" type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo"><span th:text="#{basket.update.info}"></span></button>
+            <button class="updateInfoBtn" type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo"><span th:text="#{basket.update.info}"></span></button>
         </div>
     </section>
     <section th:replace="products/productTemplate :: #footerContainer"></section>

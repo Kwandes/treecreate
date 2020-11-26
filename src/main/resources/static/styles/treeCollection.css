@@ -7,7 +7,6 @@
 
     min-width: 250px;
     width: 90%;
-    min-height: 30vh;
     height: fit-content;
     font-size: var(--fontRegular);
 }
@@ -32,10 +31,9 @@
     align-items: center;
     justify-content: flex-start;
     min-width: 200px;
-    border: 2px solid var(--mainColor);
     border-radius: 24px;
-    width: 30vw;
-    margin: 2vw;
+    width: 50vw;
+    margin: 2vw 0;
 }
 
 .infoHeader span
@@ -75,7 +73,7 @@
 
 .collectionInfoBtn
 {
-    width: fit-content;
+    width: 30%;
     padding: 5px 2vw;
     border-radius: 12px;
     border: none;
@@ -97,6 +95,29 @@
     text-align: center;
     visibility: hidden;
     font-size: var(--fontRegular);
-    width:40%;
+    width:59%;
     margin: 1vh 0 1vh 0;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    .designInfo
+    {
+        width: 30vh;
+        font-size: 26px;
+    }
+
+    #checkoutButton, #addDesignButton
+    {
+        width:62%;
+        font-size: 26px;
+    }
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+    .designInfo
+    {
+        width: 60vw !important;
+    }
 }

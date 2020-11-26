@@ -108,20 +108,20 @@
                         <section id="discountCode">
                             <label for="inputDiscountCode">Discount Code:</label>
                             <input id="inputDiscountCode" placeholder="ex. ABC123" maxlength="25"><br>
-                            <input type="button" id="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
+                            <input type="button" id="applyDiscountBtn" class="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
                         </section>
                     </section>
                 </section>
             </section>
             <section class="basketSection">
-                <div id="acceptOrder" class="border" style="border:none!important;" >
+                <div id="acceptOrder" class="border borderRemove" style="border:none!important;" >
                     <label for="termsAndConditionsCheckbox">
                         <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
                         <span th:text="#{basket.terms.and.conditions.text}"></span> <a
                             href="/orderTermsAndConditionsDanish" target="_blank" class="termsAndConditionsLink">
                         <span th:text="#{basket.terms.and.conditions.link}" class="termsAndCondition"></span></a>
                     </label>
-                    <button onclick='goToPayment()' id="acceptAndPay" style="background-color:#28C553;"><span th:text="#{basket.accept.and.pay}"></span></button>
+                    <button onclick='goToPayment()' id="acceptAndPay" class="acceptButton"><span th:text="#{basket.accept.and.pay}"></span></button>
                 </div>
             </section>
         </div>

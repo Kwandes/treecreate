@@ -142,9 +142,14 @@ a::before {
 
 @media all and (min-width: 200px) and (max-width: 1024px)
 {
+    #navBar a
+    {
+        font-size: var(--fontSubtitle);
+    }
+
     #navBar
     {
-        height: 4vh;
+        height: 4.5vh;
         min-height: 0vh !important;
     }
 

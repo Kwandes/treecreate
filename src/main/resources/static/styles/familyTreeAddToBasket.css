@@ -20,7 +20,7 @@
     align-items: center;
 
     height: 5vh;
-    margin: 2vh;
+    margin-top: 2vh;
     width: 90%;
 }
 
@@ -77,7 +77,6 @@
     min-height: 5vh;
     height: fit-content;
     padding: 1vh 0;
-    width: 100%;
 }
 
 #addToBasketName, #addToBasketPrice
@@ -265,7 +264,7 @@
 {
     font-size: var(--fontSmall);
     min-width: 200px;
-    width: 40%;
+    width: 60%;
     height: fit-content;
     opacity: 0.75;
 }
@@ -318,4 +317,48 @@
 #popupContainer /* Fuck off we are busy */
 {
     display: none;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    .fancyHeader
+    {
+        font-size: 36px;
+    }
+
+    .addToBasketDetail
+    {
+        width: none;
+    }
+
+    #recommendedSizes
+    {
+        width: 27vh;
+    }
+
+    #addToBasketFooter p
+    {
+        font-size: 26px;
+    }
+
+    #addToBasketButton
+    {
+        width: 100%;
+    }
+
+    #addToBasketContainer
+    {
+        width: 40vh;
+        font-size: 26px;
+    }
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+
+    .arrowLeft, .arrowRight
+    {
+        width: 4vw;
+        height: 4vw;
+    }
 }
