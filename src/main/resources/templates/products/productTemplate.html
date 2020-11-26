@@ -43,8 +43,10 @@
                                 th:text="#{cookie.link}"></span></a>
                         <span th:text="#{cookie.text.two}"></span>
                     </div>
-                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton"><span
-                            th:text="#{cookie.accept}"></span></button>
+                    <div class="center">
+                        <button type="button" onclick="acceptCookies()" id="acceptCookiesButton"><span
+                                th:text="#{cookie.accept}"></span></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -249,6 +251,12 @@
         <div class="footer-row" id="footer-bottom">
             <div class="section">
                 <span th:text="#{footer.copyright.text}"></span>
+                <a href="/cookieTermsAndConditionsDanish" class="termsAndConditionsLink" target="_blank">
+                    <span th:text="#{footer.cookie.policy}" ></span>
+                </a>
+                <a href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit" target="_blank" class="termsAndConditionsLink">
+                    <span th:text="#{footer.terms.of.service}"></span>
+                </a>
             </div>
         </div>
     </nav>
