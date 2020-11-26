@@ -45,3 +45,22 @@
     box-shadow: none;
     transform:scale(0.9);
 }
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    #emailInput
+    {
+        max-width: 50vw;
+        font-size: var(--fontSubtitle);
+        height: 60px;
+        padding-left: 14px;
+    }
+
+    #emailSubmitBtn
+    {
+        font-size: var(--fontSubtitle);
+        height: 60px;
+        width: 110px;
+    }
+
+}

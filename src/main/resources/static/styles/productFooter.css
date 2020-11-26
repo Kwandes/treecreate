@@ -67,7 +67,12 @@
 #footer-bottom section
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.link
+{
+    color: var (--actionColor);
 }
 
 @media all and (min-width: 200px) and (max-width: 1024px)
@@ -76,5 +81,18 @@
     {
         height: 2vh;
         width: 2vh;
+    }
+
+    #footer
+    {
+        font-size: var(--fontRegular);
+    }
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+    #footer .icon {
+        height: 6vh;
+        width: 6vh;
     }
 }

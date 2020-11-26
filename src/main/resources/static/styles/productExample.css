@@ -96,7 +96,7 @@ html, body
     /*border: 2px solid white;*/
     /*color: var(--actionColor);*/
     border: 2px solid var(--actionColor);
-    width: 30%;
+    width: 40%;
     background: var(--actionColor);
     /*background: rgba(0,0,0,0);*/
     /*border-radius: 5px;*/
@@ -113,12 +113,50 @@ html, body
     border-radius: 5px;
 }
 
+.displayMobile
+{
+    display: none;
+}
+
 @media all and (min-width: 200px) and (max-width: 1024px)
 {
     #content
     {
         margin: 0vh 5vw;
         width: 90%;
+        font-size: 28px;
+    }
+
+    .displayMobile
+    {
+        display: block !important;
+    }
+
+    .mobileView
+    {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .text
+    {
+        width: 70% !important;
+    }
+
+    .image
+    {
+        height: 400px !important;
+    }
+
+    .noMobileDisplay
+    {
+        display:none;
+    }
+
+    .createNowBtn
+    {
+        font-size: 36px;
+        width: 50%;
     }
 }
 
