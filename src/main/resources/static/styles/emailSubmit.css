@@ -58,7 +58,7 @@
 
     #emailSubmitBtn
     {
-        font-size: var(--fontSubtitle);
+        font-size: var(--mFontRegular);
         height: 60px;
         width: 110px;
     }

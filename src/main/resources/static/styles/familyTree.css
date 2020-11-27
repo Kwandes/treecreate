@@ -101,24 +101,24 @@
 {
     .howToTitle
     {
-        font-size: 36px;
+        font-size: var(--mFontLarge);
     }
 
     .howToText
     {
-        font-size: 24px;
+        font-size: var(--mFontRegular);
     }
 
     #familyTreeOptionsContainer
     {
         width: 70%;
-        font-size: 24px;
+        font-size: var(--mFontRegular);
     }
 
     .fancyInput
     {
         width: 350px;
-        font-size: 26px;
+        font-size: var(--mFontRegular);
     }
 
     #infoText
@@ -128,7 +128,7 @@
 
     .designOption
     {
-        font-size: 26px;
+        font-size: var(--mFontRegular);
         margin-right: 10px;
         margin-bottom: 10px;
     }

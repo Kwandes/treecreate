@@ -211,18 +211,18 @@ input[type=checkbox]
 
     .title
     {
-        font-size: var(--fontYourMom);
+        font-size: var(--mFontTitle);
     }
 
     .informationSection
     {
         min-width: 40vh;
-        font-size: 26px;
+        font-size: var(--mFontRegular);
     }
 
     .taxRow, .discountRow, .totalPriceRow
     {
-        font-size: 26px;
+        font-size: var(--mFontRegular);
     }
 }
 
@@ -240,7 +240,7 @@ input[type=checkbox]
 
     .informationSection {
          min-width: 100vh;
-         font-size: 26px;
+         font-size: var(--mFontRegular);
          margin-top: 10vh;
     }
 }

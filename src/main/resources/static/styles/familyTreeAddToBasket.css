@@ -323,7 +323,7 @@
 {
     .fancyHeader
     {
-        font-size: 36px;
+        font-size: var(--mFontLarge);
     }
 
     .addToBasketDetail
@@ -338,7 +338,7 @@
 
     #addToBasketFooter p
     {
-        font-size: 26px;
+        font-size: var(--mFontRegular);
     }
 
     #addToBasketButton
@@ -349,7 +349,7 @@
     #addToBasketContainer
     {
         width: 40vh;
-        font-size: 26px;
+        font-size: var(--mFontRegular);
     }
 }
 

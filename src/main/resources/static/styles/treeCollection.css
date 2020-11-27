@@ -104,13 +104,13 @@
     .designInfo
     {
         width: 30vh;
-        font-size: 26px;
+        font-size: var(--mFontRegular);
     }
 
     #checkoutButton, #addDesignButton
     {
         width:62%;
-        font-size: 26px;
+        font-size: var(--mFontRegular);
     }
 }
 

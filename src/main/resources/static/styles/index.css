@@ -27,6 +27,10 @@ body, html
     --fontSubtitle: 24px;
     --fontTitle: 26px;
     --fontYourMom: 48px;
+
+    --mFontRegular: 26px;
+    --mFontLarge: 34px;
+    --mFontTitle: 55px;
 }
 
 a
