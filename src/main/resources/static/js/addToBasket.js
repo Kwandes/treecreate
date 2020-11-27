@@ -286,7 +286,7 @@ function updatePrice()
     const amount = document.getElementById("amountInput").value;
     let price = amount * sizePrice;
 
-    priceInput.value = price + 'kr';
+    priceInput.value = price + 'DKK';
 }
 
 function checkLogin()
@@ -295,7 +295,7 @@ function checkLogin()
     console.log(loginButton.style.display);
     if (!(loginButton.style.display === "inline-block")) {
         document.getElementById("loginButton").click();
-        showLoginPopup("Please login before adding items to the basket", true);
+        showPopup(localeAddToBasketCheckLogin, true);
     } else {
         $("#addToBasketModal").modal();
         updatePrice();

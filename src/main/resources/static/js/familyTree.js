@@ -230,7 +230,7 @@ function assignBoxBackground(imgArray)
         banner.textContent = bannerInput.value;
         if (bannerInput.value === "")
         {
-            banner.textContent = 'Family Tree';
+            banner.textContent = localeFamilyTree;
         }
     }
 

@@ -49,7 +49,7 @@ async function loadOrders()
         totalPrice += itemTotal;
 
         orderRow.getElementsByClassName("orderAmount")[0].innerText = order['amount'];
-        orderRow.getElementsByClassName("orderProduct")[0].innerText = 'Family Tree - ' + order['size'];
+        orderRow.getElementsByClassName("orderProduct")[0].innerText = localeBasketOrderProduct + order['size'];
         orderRow.getElementsByClassName("orderTotal")[0].innerText = itemTotal + 'kr';
 
         let newRow = orderTable.insertRow(2);
@@ -72,7 +72,7 @@ async function validateBasket()
     const orders = await fetchBasketItems();
     if (JSON.parse(orders).length === 0)
     {
-        showBasketPopup("There are no orders to purchase", true)
+        showBasketPopup(localeBasketValidateBasket, true);
         return false;
     }
     const inputName = document.getElementById('inputName');
@@ -85,32 +85,32 @@ async function validateBasket()
 
     if (inputName.value === '')
     {
-        showBasketPopup("The name is required", true);
+        showBasketPopup(localeBasketValidateBasketName, true);
         return false;
     }
     if (inputPhoneNumber.value === '')
     {
-        showBasketPopup("The phone number is required", true);
+        showBasketPopup(localeBasketValidateBasketPhoneNumber, true);
         return false;
     }
     if (inputEmail.value === '')
     {
-        showBasketPopup("The email is required", true);
+        showBasketPopup(localeBasketValidateBasketEmail, true);
         return false;
     }
     if (inputStreetAddress.value === '')
     {
-        showBasketPopup("The street address is required", true);
+        showBasketPopup(localeBasketValidateBasketStreetAddress, true);
         return false;
     }
     if (inputCity.value === '')
     {
-        showBasketPopup("The city is required", true);
+        showBasketPopup(localeBasketValidateBasketCity, true);
         return false;
     }
     if (inputPostcode.value === '')
     {
-        showBasketPopup("The postcode is required", true);
+        showBasketPopup(localeBasketValidateBasketPostcode, true);
         return false;
     }
 
@@ -118,8 +118,7 @@ async function validateBasket()
 
     if (termsCheckbox.checked === false)
     {
-
-        showBasketPopup("You have to accept our terms and conditions", true)
+        showBasketPopup(localeBasketValidateBasketTermsAndConditions, true)
         return false;
     }
     console.log("The basket information is correct")
@@ -186,7 +185,7 @@ async function goToPayment()
         discount: inputDiscountCode
     };
 
-    console.log("Going to payment or smth");
+    console.log("Going to payment");
     fetch(location.origin + "/startPayment",
         {
             method: "POST",
@@ -226,7 +225,7 @@ async function applyDiscount()
     if (inputDiscountCode === undefined || inputDiscountCode === "")
     {
         console.log("The discount code cannot be empty",);
-        showBasketPopup("The discount code cannot be empty", true);
+        showBasketPopup(localeBasketApplyDiscountEmpty, true);
         return false;
     }
     const result = await validateDiscountCode(inputDiscountCode);
@@ -234,7 +233,7 @@ async function applyDiscount()
     if (result.status !== 200)
     {
         console.log("The provided discount code is not valid");
-        showBasketPopup("The provided discount code is not valid", true);
+        showBasketPopup(localeBasketApplyDiscountNotValid, true);
         return false;
     } else
     {
@@ -247,11 +246,11 @@ async function applyDiscount()
                 {
 
                     console.log("The provided discount code is no longer active");
-                    showBasketPopup("The provided discount code is no longer active", true);
+                    showBasketPopup(localeBasketApplyDiscountNotActive, true);
                     return false;
                 }
 
-                showBasketPopup("Code is okay, applying the discount", false)
+                showBasketPopup(localeBasketApplyDiscountAccepted, false)
                 const type = discountCode['discountType'];
                 const amount = parseInt(discountCode['discountAmount']);
 

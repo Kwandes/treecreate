@@ -76,8 +76,11 @@
                             <th><span th:text="#{basket.total}"></span></th>
                         </tr>
                         <tr class="orderRow" style="display: none">
+                            <script>
+                                let localeBasketOrderProduct = "[[#{basket.order.product}]]";
+                            </script>
                             <td class="orderAmount">N/A</td>
-                            <td class="orderProduct">Family Tree - N/A</td>
+                            <td class="orderProduct">N/A</td>
                             <td class="orderTotal">N/A</td>
                         </tr>
                     </table>

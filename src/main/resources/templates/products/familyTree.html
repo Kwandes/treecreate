@@ -170,12 +170,12 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                             <path id="curve" d='M-420,-137
                             C-130,46 120,46 420,-137'/>
                             <text x="50%" y="0%" dominant-baseline="middle" text-anchor="middle">
-                                <textPath xlink:href="#curve" id="bannerTextPath">
-                                    Family Tree
-                                </textPath>
+                                <textPath xlink:href="#curve" id="bannerTextPath" th:text="#{familyTree.familyTree}"></textPath>
+                                <script>
+                                    let localeFamilyTree  = "[[#{familyTree.familyTree}]]";
+                                </script>
                             </text>
                         </svg>
-
                     </div>
                 </div>
                 <div id="familyTreeOptionsContainer">

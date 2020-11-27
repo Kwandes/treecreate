@@ -28,7 +28,7 @@
         <div id="profileNavContainer">
             <a href="/account/info">
                 <div class="profileNav" id="accountInfoButton">
-                    <span>Account info</span>
+                    <span th:text="#{account.info}"></span>
                 </div>
             </a>
             <a href="/account/collections" id="collectionsButton">
@@ -50,31 +50,64 @@
         <div id="details">
             <section class="orderContainer">
                 <div class="orderHeader">
+                    <script>
+                        let localeOrdersGenerateOrdersStatusInitial = "[[#{orders.details.status.initial}]]";
+                        let localeOrdersGenerateOrdersStatusNew = "[[#{orders.details.status.new}]]";
+                        let localeOrdersGenerateOrdersStatus = "[[#{orders.details.status}]]";
+                    </script>
                     <span class="orderStatus orderInfo">Status: N/A</span>
+                    <script>
+                        let localeOrdersGenerateOrdersCreatedOn = "[[#{orders.details.created.on}]]";
+                    </script>
                     <span class="orderDateCreated orderInfo">Created on: N/A</span>
+                    <script>
+                        let localeOrdersGenerateOrdersExpectedDelivery = "[[#{orders.details.expected.delivery}]]";
+                    </script>
                     <span class="orderExpectedDelivery orderInfo">Expected Delivery Date: N/A</span>
                 </div>
                 <div class="orderDesignInfo orderInfo">
-                    <span class="orderTitle">Designs:</span>
+                    <span class="orderTitle" th:text="#{orders.designs}"></span>
                     <section class="orderDesignContainer">
+                        <script>
+                            let localeOrdersGenerateOrdersAmount = "[[#{orders.details.amount}]]";
+                            let localeOrdersGenerateOrdersPrice = "[[#{orders.details.price}]]";
+                        </script>
                         <span style="display: none" class="orderDesignId orderDesignEntry">id</span>
                         <span class="orderDesignName orderDesignEntry">N/A</span>
                         <span class="orderDesignSize orderDesignEntry">XxX cm</span>
                         <span class="orderDesignAmount orderDesignEntry">amount: N/A</span>
                         <span class="orderDesignPrice orderDesignEntry">price: N/A</span>
-                        <input type="button" class="viewDesignBtn" onclick="viewDesign(this)" value="View">
+                        <input type="button" class="viewDesignBtn" onclick="viewDesign(this)" th:value="#{orders.view}">
                     </section>
                 </div>
                 <div class="orderShipmentInfo orderInfo">
-                    <span class="orderTitle">Delivery Address:</span>
+                    <span class="orderTitle" th:text="#{orders.address}"></span>
+                    <script>
+                        let localeOrdersGenerateOrdersAddress = "[[#{orders.details.address}]]";
+                    </script>
                     <span class="orderAddressStreetName">Address: N/A</span>
+                    <script>
+                        let localeOrdersGenerateOrdersAddress2 = "[[#{orders.details.address2}]]";
+                    </script>
                     <span class="orderAddressStreetName2" style="display: none">Address 2: N/A</span>
+                    <script>
+                        let localeOrdersGenerateOrdersCity = "[[#{orders.details.city}]]";
+                    </script>
                     <span class="orderAddressCity">City: YN/A</span>
+                    <script>
+                        let localeOrdersGenerateOrdersPostcode = "[[#{orders.details.postcode}]]";
+                    </script>
                     <span class="orderAddressPostcode">Postcode: N/A</span>
                 </div>
+                <script>
+                    let localeOrdersGenerateOrdersTotalPrice = "[[#{orders.details.total.price}]]";
+                </script>
                 <span class="orderTotalPrice orderInfo">Total Price: N/A dkk</span>
+                <script>
+                    let localeOrdersGenerateOrdersTransactionId = "[[#{orders.details.transaction.id}]]";
+                </script>
                 <span class="orderTransactionId orderInfo">Order Id: N/A</span>
-                <input type="button" class="orderCompletePaymentBtn orderInfo" value="Complete Payment" onclick="">
+                <input type="button" class="orderCompletePaymentBtn orderInfo" th:value="#{orders.complete.payment}" onclick="">
             </section>
             <span id="orderInfoDisclaimer" th:text="#{basket.issue.text}"></span>
             <script>generateOrders()</script>

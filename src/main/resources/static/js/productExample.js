@@ -11,7 +11,7 @@ async function submitNewsletter()
     if (email.match("^\\b[\\w.!#$%&’*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)+\\b$") == null)
     {
         console.log("Provided email does not seem to be a valid email");
-        showBasketPopup("Provided email does not seem to be a valid email", true)
+        showBasketPopup(localeProductExampleSubmitNewsletterEmptyEmail, true)
         return;
     }
 
@@ -31,11 +31,11 @@ async function submitNewsletter()
         if (response.status === 200)
         {
             console.log(email + " has been added to the newsletter list");
-            showBasketPopup(email + " has been added to the newsletter list", false);
+            showBasketPopup(email + localeProductExampleSubmitNewsletterSuccess, false);
         } else
         {
             console.log(email + " has failed to be added");
-            showBasketPopup("An issue occurred when trying to join the newsletter", true);
+            showBasketPopup(localeProductExampleSubmitNewsletterFailure, true);
         }
     });
 }

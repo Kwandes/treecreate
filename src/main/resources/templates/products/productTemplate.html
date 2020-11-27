@@ -30,6 +30,37 @@
 <body>
 <section id="navigationContainer">
     <script>isLoggedIn()</script>
+    <script>
+        // Localisation messages for popup and popupModal (error popup)
+        let localeAddToBasketCheckLogin = "[[#{addToBasket.checkLogin}]]";
+        let localeBasketValidateBasket = "[[#{basket.popup.validate}]]";
+        let localeBasketValidateBasketName = "[[#{basket.popup.validate.name}]]";
+        let localeBasketValidateBasketPhoneNumber = "[[#{basket.popup.validate.phone.number}]]";
+        let localeBasketValidateBasketEmail = "[[#{basket.popup.validate.email}]]";
+        let localeBasketValidateBasketStreetAddress = "[[#{basket.popup.validate.street.address}]]";
+        let localeBasketValidateBasketCity = "[[#{basket.popup.validate.city}]]";
+        let localeBasketValidateBasketPostcode = "[[#{basket.popup.validate.postcode}]]";
+        let localeBasketValidateBasketTermsAndConditions = "[[#{basket.popup.validate.terms.and.conditions}]]";
+        let localeBasketApplyDiscountEmpty = "[[#{basket.popup.discount.empty}]]";
+        let localeBasketApplyDiscountNotValid = "[[#{basket.popup.discount.not.valid}]]";
+        let localeBasketApplyDiscountNotActive = "[[#{basket.popup.discount.not.active}]]";
+        let localeBasketApplyDiscountAccepted = "[[#{basket.popup.discount.accepted}]]";
+        let localeLoginSubmitLoginEmail = "[[#{login.popup.submit.email}]]";
+        let localeLoginSubmitLoginPassword = "[[#{login.popup.submit.password}]]";
+        let localeLoginSubmitLoginValid = "[[#{login.popup.valid}]]";
+        let localeLoginSubmitLoginInvalid = "[[#{login.popup.invalid}]]";
+        let localeLoginRegisterUserEmail = "[[#{signup.popup.email}]]";
+        let localeLoginRegisterUserPassword = "[[#{signup.popup.password}]]";
+        let localeLoginRegisterUserPasswordMismatch = "[[#{signup.popup.password.mismatch}]]";
+        let localeLoginRegisterUserEmailInvalid = "[[#{signup.popup.email.invalid}]]";
+        let localeLoginRegisterUserSuccess = "[[#{signup.popup.success}]]";
+        let localeLoginRegisterUserAlreadyExists = "[[#{signup.popup.already.exists}]]";
+        let localeLoginSendVerificationEmailSuccess = "[[#{productTemplate.verification.email.success}]]";
+        let localeLoginSendVerificationEmailFailure = "[[#{productTemplate.verification.email.failure}]]";
+        let localeProductExampleSubmitNewsletterEmptyEmail = "[[#{productTemplate.newsletter.email}]]";
+        let localeProductExampleSubmitNewsletterSuccess = "[[#{productTemplate.newsletter.success}]]";
+        let localeProductExampleSubmitNewsletterFailure = "[[#{productTemplate.newsletter.failure}]]";
+    </script>
     <!-- cookie prompt modal -->
     <div id="cookiePromptModalContainer">
         <div class="modal fade" id="cookiePromptModal" role="dialog">
@@ -177,11 +208,11 @@
                     <span th:text="#{navbar.profile}"></span>
                     <hr class="hoverLine">
                 </a>
-                <!-- <script th:src="@{/js/changeLanguage.js}"></script>
+                <script th:src="@{/js/changeLanguage.js}"></script>
                 <a id="changeLanguage" onclick="changeLanguage()">
                     <span th:text="#{landing.changeLanguage}"></span>
                     <hr class="hoverLine">
-                </a>-->
+                </a>
             </div>
             <div id="verificationBanner">
                 <span>Please</span>
