@@ -715,9 +715,7 @@ public class PaymentController
     ResponseEntity<String> paymentCallback(@RequestBody String body)
     {
         LOGGER.info("Received a callback from quickpay:\n" + body);
-        String isAcceptedPattern = "accepted\":true";
-        Pattern pattern = Pattern.compile(isAcceptedPattern);
-        if (!pattern.matcher(isAcceptedPattern).find())
+        if (!body.contains("accepted\":true"))
         {
             LOGGER.info("The callback ´accepted´ field is marked as false or missing, Ignoring the callback");
             return new ResponseEntity<>(HttpStatus.OK);
@@ -725,7 +723,7 @@ public class PaymentController
 
         LOGGER.info("The callback ´accepted´ field is marked as true. Continuing on to send a order confirmation email");
         String orderIdPattern = "order_id\":\"([\\w-]+)";
-        pattern = Pattern.compile(orderIdPattern);
+        Pattern pattern = Pattern.compile(orderIdPattern);
         Matcher matcher = pattern.matcher(body);
         if (matcher.find())
         {
