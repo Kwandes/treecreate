@@ -1,4 +1,5 @@
 @import "familyTreeAddToBasket.css";
+@import "checkBox.css";
 
 #product
 {
@@ -15,7 +16,7 @@
     flex-direction: column;
     width: 50vw;
     height: 50vw;
-
+    min-width: 1000px;
     background-image: url("../img/images/treeDesign/tree1.svg");
     background-repeat: no-repeat;
     background-position: center;
@@ -31,6 +32,7 @@
     width: 20vw;
     height: fit-content;
     margin:0 1vw;
+    margin-bottom: 5vw;
 }
 
 #familyTreeOptionsContainer button
@@ -47,7 +49,7 @@
 
 .largeButton
 {
-    width:15vw !important;
+    width: 75% !important;
 }
 
 #fontSize
@@ -83,4 +85,80 @@
     flex-direction: row;
 }
 
+.howToTitle
+{
+    font-size: 24px;
+    color: var(--actionColor);
+    font-weight:bold;
+}
+
+.xButton
+{
+    width:4vh !important;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    .howToTitle
+    {
+        font-size: var(--mFontLarge);
+    }
+
+    .howToText
+    {
+        font-size: var(--mFontRegular);
+    }
+
+    #familyTreeOptionsContainer
+    {
+        width: 70%;
+        font-size: var(--mFontRegular);
+    }
+
+    .fancyInput
+    {
+        width: 350px;
+        font-size: var(--mFontRegular);
+    }
+
+    #infoText
+    {
+        margin-top: 80px;
+    }
+
+    .designOption
+    {
+        font-size: var(--mFontRegular);
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .designOptionCheckbox
+    {
+        margin-top: 32px;
+    }
+
+    .largeButton
+    {
+        width: 50% !important;
+    }
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+    .xButton
+    {
+        width:4vw !important;
+    }
+
+    .fancyInput
+    {
+        height: 4vw;
+    }
+
+    #familyTreeDesignContainer
+    {
+        margin-top: 5vw;
+    }
+}
 

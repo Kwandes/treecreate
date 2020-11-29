@@ -15,6 +15,8 @@
     <script th:src="@{/js/cookiePrompt.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript1"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript2"></script>
 </head>
 <body>
 <section th:replace="products/productTemplate :: #navigationContainer"></section>
@@ -23,16 +25,16 @@
         <div id="productContainer" style="min-height: 66vh">
             <div id="product"
                  style="display: flex; flex-direction: column; justify-items: center; align-items: center; text-align: center">
-                <h2>How to verify your email</h2>
+                <h2><span th:text="#{home.how.to.verify.email.title}"></span></h2>
                 <p style="padding: 1vh; font-size: var(--fontRegular)">
-                    When creating a new account, a verification email has been sent to your inbox<br>
-                    Click the link in the email to verify your account <br>
+                    <span th:text="#{home.how.to.verify.email.text1}"></span><br>
+                    <span th:text="#{home.how.to.verify.email.text2}"></span> <br>
                     <br>
-                    You can resend the verification email if you have not received the message:
+                    <span th:text="#{home.how.to.verify.email.text3}"></span>
                 </p>
                 <input type="button" id="verificationButton"
                        style="var(--fontRegular); padding: 1vh 1vw; width: fit-content"
-                       onclick="sendVerificationEmail()" value="Resend email">
+                       onclick="sendVerificationEmail()" th:value="#{home.resend.email}">
             </div>
         </div>
     </div>

@@ -92,18 +92,30 @@ html, body
     margin-top: 2vh;
     font-size: 24px;
     padding: 10px 15px;
-    color: var(--actionColor);
+    color: white;
+    /*border: 2px solid white;*/
+    /*color: var(--actionColor);*/
     border: 2px solid var(--actionColor);
-    width: 30%;
-    background: rgba(0,0,0,0);
-    border-radius: 5px;
+    width: 40%;
+    background: var(--actionColor);
+    /*background: rgba(0,0,0,0);*/
+    /*border-radius: 5px;*/
+    border-radius: 10px;
 }
 
 .createNowBtn:hover
 {
-    color:white;
-    background: var(--actionColor);
-    border-radius: 10px;
+    color:var(--actionColor);
+    background: white;
+    /*color:white;*/
+    /*background: var(--actionColor);*/
+    /*border-radius: 10px;*/
+    border-radius: 5px;
+}
+
+.displayMobile
+{
+    display: none;
 }
 
 @media all and (min-width: 200px) and (max-width: 1024px)
@@ -112,6 +124,39 @@ html, body
     {
         margin: 0vh 5vw;
         width: 90%;
+        font-size: 28px;
+    }
+
+    .displayMobile
+    {
+        display: block !important;
+    }
+
+    .mobileView
+    {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .text
+    {
+        width: 70% !important;
+    }
+
+    .image
+    {
+        height: 400px !important;
+    }
+
+    .noMobileDisplay
+    {
+        display:none;
+    }
+
+    .createNowBtn
+    {
+        font-size: 36px;
+        width: 50%;
     }
 }
 

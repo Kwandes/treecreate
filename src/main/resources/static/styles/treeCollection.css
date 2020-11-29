@@ -7,7 +7,6 @@
 
     min-width: 250px;
     width: 90%;
-    min-height: 30vh;
     height: fit-content;
     font-size: var(--fontRegular);
 }
@@ -29,11 +28,12 @@
 {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: flex-start;
     min-width: 200px;
-    width: 30vw;
-    margin: 2vw;
+    border-radius: 24px;
+    width: 50vw;
+    margin: 2vw 0;
 }
 
 .infoHeader span
@@ -50,8 +50,8 @@
 {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    border-bottom: 2px black solid;
+    width: 80%;
+    border-bottom: 1.5px solid var(--mainColor);
 }
 
 .infoContent
@@ -59,7 +59,7 @@
     display: flex;
     margin: 1vh 0;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
 }
 
 .infoFooter
@@ -73,20 +73,21 @@
 
 .collectionInfoBtn
 {
-    width: fit-content;
+    width: 30%;
     padding: 5px 2vw;
     border-radius: 12px;
     border: none;
     background-color: var(--actionColor);
     color: white;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.8vw;
 }
 
 .collectionInfoBtn:hover
 {
     transform:scale(0.9);
     color: white;
-    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0));
+    box-shadow: none;
 }
 
 #checkoutButton, #addDesignButton
@@ -94,6 +95,29 @@
     text-align: center;
     visibility: hidden;
     font-size: var(--fontRegular);
-    width:40%;
+    width:59%;
     margin: 1vh 0 1vh 0;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    .designInfo
+    {
+        width: 30vh;
+        font-size: var(--mFontRegular);
+    }
+
+    #checkoutButton, #addDesignButton
+    {
+        width:62%;
+        font-size: var(--mFontRegular);
+    }
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+    .designInfo
+    {
+        width: 60vw !important;
+    }
 }

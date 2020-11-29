@@ -119,6 +119,7 @@ public class ProfileController
             user.setEmail(request.getParameter("inputEmail"));
             user.setPhoneNumber(request.getParameter("inputPhoneNumber"));
             user.setStreetAddress(request.getParameter("inputStreetAddress"));
+            user.setStreetAddress2(request.getParameter("inputStreetAddress2"));
             user.setCity(request.getParameter("inputCity"));
             user.setPostcode(request.getParameter("inputPostcode"));
 

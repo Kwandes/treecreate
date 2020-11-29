@@ -32,8 +32,10 @@ async function generateCollections()
         const design = JSON.parse(order['treeDesignById']['designJson']);
         console.dir(design);
 
-        collectionItem.getElementsByClassName('orderName')[0].innerText = "Name: " + design['name'];
-        collectionItem.getElementsByClassName("spanBoxText")[0].innerText = "Boxes: " + design['boxes'].length;
+        collectionItem.getElementsByClassName('orderName')[0]
+            .innerText = localeTreeCollectionsGenerateCollectionsName + design['name'];
+        collectionItem.getElementsByClassName("spanBoxText")[0]
+            .innerText = localeTreeCollectionsGenerateCollectionsBoxes + design['boxes'].length;
 
         let boxContent = '';
         for (let j = 0; j < design['boxes'].length; j++)

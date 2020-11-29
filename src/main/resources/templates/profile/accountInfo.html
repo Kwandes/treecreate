@@ -15,6 +15,8 @@
     <script th:src="@{/js/cookiePrompt.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript1"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript2"></script>
 </head>
 <body>
 <section id="pageContainer">
@@ -23,7 +25,7 @@
         <div id="profileNavContainer">
             <a href="/account/info">
                 <div class="profileNav active" id="accountInfoButton">
-                    <span>Account info</span>
+                    <span th:text="#{account.info}"></span>
                 </div>
             </a>
             <a href="/account/collections" id="collectionsButton">
@@ -43,15 +45,15 @@
             </a>
         </div>
         <div id="details">
-            <span id="formTitle">ACCOUNT INFO</span>
-            <form action="/account/updateInfo" method="post" id="formUpdateInfo">
+<!--            <span id="formTitle">ACCOUNT INFO</span>-->
+            <form action="/account/updateInfo" method="post" id="formUpdateInfo" class="inputBoxField">
                 <input type="number" name="id" th:value="${user.id}" hidden>
 
                 <label for="inputPhoneNumber"><span th:text="#{basket.phone.number}"></span></label>
                 <input type="number" name="inputPhoneNumber" id="inputPhoneNumber" th:value="${user.phoneNumber}"
                        maxlength="15" required>
 
-                <label for="inputEmail">Email :</label>
+                <label for="inputEmail"><span th:text="#{basket.email}"></span></label>
                 <input type="email" name="inputEmail" id="inputEmail" th:value="${user.email}" maxlength="254" required>
 
                 <label for="inputName"><span th:text="#{basket.names}"></span></label>
@@ -60,6 +62,10 @@
                 <label for="inputStreetAddress"><span th:text="#{basket.street.address}"></span></label>
                 <input type="text" name="inputStreetAddress" id="inputStreetAddress" th:value="${user.streetAddress}"
                        maxlength="99" required>
+
+                <label for="inputStreetAddress2"><span th:text="#{basket.street.address2}"></span></label>
+                <input type="text" name="inputStreetAddress2" id="inputStreetAddress2" th:value="${user.streetAddress2}"
+                       maxlength="99">
 
                 <label for="inputCity"><span th:text="#{basket.city}"></span></label>
                 <input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
@@ -75,7 +81,7 @@
                     </select>
                 </label>
             </form>
-            <button type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo"><span th:text="#{basket.update.info}"></span></button>
+            <button class="updateInfoBtn" type="submit" id="accountInfoSubmitBtn" form="formUpdateInfo"><span th:text="#{basket.update.info}"></span></button>
         </div>
     </section>
     <section th:replace="products/productTemplate :: #footerContainer"></section>

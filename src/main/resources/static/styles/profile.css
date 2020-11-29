@@ -77,6 +77,11 @@ a:hover
     align-content: space-between;
 }
 
+#details label
+{
+    font-weight: 1;
+}
+
 #formUpdateInfo
 {
     display: flex;
@@ -84,8 +89,16 @@ a:hover
     align-items: flex-start;
     align-content: space-between;
     font-size: var(--fontRegular);
+    margin: 7vh 0;
+}
 
-    margin: 2.5vh 0;
+#formUpdateInfo input
+{
+    border: 1px grey solid !important;
+    border-radius: 2px;
+    margin: 0.5vh;
+    padding: 5px 10px;
+    width: 50%;
 }
 
 #formTitle
@@ -122,13 +135,18 @@ a:hover
     background-color: var(--actionColor);
     color: white;
     font-size: var(--fontRegular);
-    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.20));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 #accountInfoSubmitBtn:hover
 {
     transform:scale(0.9);
-    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0));
+    box-shadow: none;
+}
+
+.updateInfoBtn
+{
+    margin-bottom: 9vh !important;
 }
 
 @media all and (min-width: 200px) and (max-width: 1024px)
@@ -137,9 +155,25 @@ a:hover
     {
         padding-bottom: 0;
     }
+    .updateInfoBtn
+    {
+        margin-bottom: 4vh !important;
+    }
+    #formUpdateInfo
+    {
+        margin: 2.5vh 0;
+    }
+}
 
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
     #details
     {
         margin-bottom: 13vh;
+    }
+
+    #contentContainer
+    {
+        padding-top: 20vh;
     }
 }

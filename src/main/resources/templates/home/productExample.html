@@ -17,6 +17,8 @@
     <script th:src="@{/js/productExample.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript1"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript2"></script>
 </head>
 <body>
 <section id="pageContainer">
@@ -33,7 +35,7 @@
                             <span th:text="#{home.create.now}"></span>
                         </button>
                     </section>
-                    <section id="development">
+                    <section id="development" class="mobileView">
                         <img th:src="@{~/img/productPage/Artboard 4.png}" alt="Tree Design" class="image">
                         <div class="text">
                             <span class="title" th:text="#{home.size.title}"></span><br>
@@ -47,15 +49,16 @@
                         </div>
                     </section>
 
-                    <section id="familytrees">
+                    <section id="familytrees" class="mobileView">
+                        <img th:src="@{~/img/productPage/Artboard 1.png}" alt="Tree Design" class="image displayMobile" style="margin:0!important">
                         <div class="text">
                             <span class="title" th:text="#{home.package.title}"></span><br>
                             <span th:text="#{home.package.text}"></span>
                         </div>
-                        <img th:src="@{~/img/productPage/Artboard 1.png}" alt="Tree Design" class="image" style="margin:0!important">
+                        <img th:src="@{~/img/productPage/Artboard 1.png}" alt="Tree Design" class="image noMobileDisplay" style="margin:0!important">
                     </section>
 
-                    <section id="goal">
+                    <section id="goal" class="mobileView">
                         <img th:src="@{~/img/productPage/Artboard 2.png}" alt="Tree Design" class="image" style="margin-top:4vh;">
                         <div class="text">
                             <span class="title" th:text="#{home.team.title}"></span><br>

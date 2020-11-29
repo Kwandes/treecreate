@@ -15,11 +15,52 @@
     <script th:src="@{/js/cookiePrompt.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4VY53TX2KS" id="googleAnalyticsScript1"></script>
+    <script id="googleAnalyticsScript2">
+        window.dataLayer = window.dataLayer || [];
+        function gtag()
+        {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'G-4VY53TX2KS');
+    </script>
 </head>
 <body>
 <section id="navigationContainer">
     <script>isLoggedIn()</script>
+    <script>
+        // Localisation messages for popup and popupModal (error popup)
+        let localeAddToBasketCheckLogin = "[[#{addToBasket.checkLogin}]]";
+        let localeBasketValidateBasket = "[[#{basket.popup.validate}]]";
+        let localeBasketValidateBasketName = "[[#{basket.popup.validate.name}]]";
+        let localeBasketValidateBasketPhoneNumber = "[[#{basket.popup.validate.phone.number}]]";
+        let localeBasketValidateBasketEmail = "[[#{basket.popup.validate.email}]]";
+        let localeBasketValidateBasketStreetAddress = "[[#{basket.popup.validate.street.address}]]";
+        let localeBasketValidateBasketCity = "[[#{basket.popup.validate.city}]]";
+        let localeBasketValidateBasketPostcode = "[[#{basket.popup.validate.postcode}]]";
+        let localeBasketValidateBasketTermsAndConditions = "[[#{basket.popup.validate.terms.and.conditions}]]";
+        let localeBasketApplyDiscountEmpty = "[[#{basket.popup.discount.empty}]]";
+        let localeBasketApplyDiscountNotValid = "[[#{basket.popup.discount.not.valid}]]";
+        let localeBasketApplyDiscountNotActive = "[[#{basket.popup.discount.not.active}]]";
+        let localeBasketApplyDiscountAccepted = "[[#{basket.popup.discount.accepted}]]";
+        let localeLoginSubmitLoginEmail = "[[#{login.popup.submit.email}]]";
+        let localeLoginSubmitLoginPassword = "[[#{login.popup.submit.password}]]";
+        let localeLoginSubmitLoginValid = "[[#{login.popup.valid}]]";
+        let localeLoginSubmitLoginInvalid = "[[#{login.popup.invalid}]]";
+        let localeLoginRegisterUserEmail = "[[#{signup.popup.email}]]";
+        let localeLoginRegisterUserPassword = "[[#{signup.popup.password}]]";
+        let localeLoginRegisterUserPasswordMismatch = "[[#{signup.popup.password.mismatch}]]";
+        let localeLoginRegisterUserEmailInvalid = "[[#{signup.popup.email.invalid}]]";
+        let localeLoginRegisterUserSuccess = "[[#{signup.popup.success}]]";
+        let localeLoginRegisterUserAlreadyExists = "[[#{signup.popup.already.exists}]]";
+        let localeLoginSendVerificationEmailSuccess = "[[#{productTemplate.verification.email.success}]]";
+        let localeLoginSendVerificationEmailFailure = "[[#{productTemplate.verification.email.failure}]]";
+        let localeProductExampleSubmitNewsletterEmptyEmail = "[[#{productTemplate.newsletter.email}]]";
+        let localeProductExampleSubmitNewsletterSuccess = "[[#{productTemplate.newsletter.success}]]";
+        let localeProductExampleSubmitNewsletterFailure = "[[#{productTemplate.newsletter.failure}]]";
+    </script>
     <!-- cookie prompt modal -->
     <div id="cookiePromptModalContainer">
         <div class="modal fade" id="cookiePromptModal" role="dialog">
@@ -29,12 +70,14 @@
                     <div class="header">
                         <h2 class="modal-title"><span th:text="#{cookie.title}"></span></h2>
                         <span th:text="#{cookie.text}"></span>
-                        <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank"><span
+                        <a href="/cookieTermsAndConditionsDanish" id="cookieTerms" target="_blank" class="termsAndConditionsLink"><span
                                 th:text="#{cookie.link}"></span></a>
                         <span th:text="#{cookie.text.two}"></span>
                     </div>
-                    <button type="button" onclick="acceptCookies()" id="acceptCookiesButton"><span
-                            th:text="#{cookie.accept}"></span></button>
+                    <div class="center">
+                        <button type="button" onclick="acceptCookies()" id="acceptCookiesButton"><span
+                                th:text="#{cookie.accept}"></span></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,11 +100,11 @@
                 </div>
 
                 <p>Email</p>
-                <input type="text" th:name="email" id="loginEmail" placeholder="Type your email . . ."
+                <input type="text" th:name="email" id="loginEmail" th:placeholder="#{home.type.email}"
                        maxlength="254" required>
                 <hr>
                 <p><span th:text="#{login.password}"></span></p>
-                <input type="password" th:name="password" id="loginPassword" placeholder="Type your password . . ."
+                <input type="password" th:name="password" id="loginPassword" th:placeholder="#{home.type.password}"
                        maxlength="60" required>
                 <hr>
                 <a type="button" href="/forgotPassword" name="forgotPassword" id="forgotPassword"><span
@@ -90,11 +133,11 @@
                     <h1 class="modal-title"><span th:text="#{login.sign.up}"></span></h1>
                 </div>
                 <p>Email</p>
-                <input type="text" th:name="email" id="signUpEmail" placeholder="Type your email . . ."
+                <input type="text" th:name="email" id="signUpEmail" th:placeholder="#{home.type.email}"
                        maxlength="254" required>
                 <hr>
                 <p><span th:text="#{login.password}"></span></p>
-                <input type="password" th:name="password" id="signUpPassword" placeholder="Type your password . . ."
+                <input type="password" th:name="password" id="signUpPassword" th:placeholder="#{home.type.password}"
                        maxlength="60" required>
                 <hr>
                 <p><span th:text="#{login.confirm.password}"></span></p>
@@ -102,12 +145,12 @@
                        placeholder="Type your password . . ." maxlength="60" required>
                 <hr>
                 <!-- T&C for account creation -->
-                <div style="display: flex; flex-direction: row; justify-content: center">
-                    <p style="font-size:12px;"><span th:text="#{signup.terms.and.conditions.text}"></span> <a
-                            href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit"
-                            style="color:var(--actionColor);" id="accountTermsAndConditions"
-                            target="_blank"><span th:text="#{signup.terms.and.conditions.link}"></span> </a>
+                <div class="termsAndConditions">
+                    <p>
+                        <span th:text="#{signup.terms.and.conditions.text}"></span><a href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit"
+                           id="accountTermsAndConditions" target="_blank" class="termsAndConditionsLink"><span th:text="#{signup.terms.and.conditions.link}"></span></a>
                     </p>
+
                 </div>
 
                 <button type="button" onclick="registerUser()" id="createAccountButton"><span
@@ -172,9 +215,9 @@
                 </a>
             </div>
             <div id="verificationBanner">
-                <span>Please</span>
-                <input type="button" id="verificationButton" onclick="redirectVerificationPage();" value="verify">
-                <span>your email to continue using our website</span>
+                <span th:text="#{home.verify.email.text1}"></span>
+                <input type="button" id="verificationButton" onclick="redirectVerificationPage();" th:value="#{home.verify.email.text2}">
+                <span th:text="#{home.verify.email.text3}"></span>
 
             </div>
         </div>
@@ -212,16 +255,16 @@
                 <span th:text="#{footer.contact.text}"></span>
             </div>
             <div class="section">
+                <span class="title" th:text="#{footer.address.title}"></span><br>
+                <span th:text="#{footer.address.text}"></span>
+            </div>
+            <div class="section">
                 <span class="title" th:text="#{footer.product.title}"></span><br>
                 <span th:text="#{footer.product.text}"></span>
                 <div style="margin-top:10px;"></div>
-                <img th:src="@{~/img/icons/danishTransportIcon.svg}" alt="Danish Transport" class="icon">
+                <!-- <img th:src="@{~/img/icons/danishTransportIcon.svg}" alt="Danish Transport" class="icon">
                 <img th:src="@{~/img/icons/ecoPackageIcon.svg}" alt="Eco friendly packaging" class="icon">
-                <img th:src="@{~/img/icons/recyclingIcon.svg}" alt="Recycled" class="icon">
-            </div>
-            <div class="section">
-                <span class="title" th:text="#{footer.address.title}"></span><br>
-                <span th:text="#{footer.address.text}"></span>
+                <img th:src="@{~/img/icons/recyclingIcon.svg}" alt="Recycled" class="icon"> -->
             </div>
         </div>
         <div class="paymentMethods" style="margin: 1vw;">
@@ -239,6 +282,12 @@
         <div class="footer-row" id="footer-bottom">
             <div class="section">
                 <span th:text="#{footer.copyright.text}"></span>
+                <a href="/cookieTermsAndConditionsDanish" class="termsAndConditionsLink" target="_blank">
+                    <span th:text="#{footer.cookie.policy}" ></span>
+                </a>
+                <a href="https://docs.google.com/document/d/1lMEzya3HeEzvLG6wwDYhAw0memVBxNc8J3q-4sJN-u8/edit" target="_blank" class="termsAndConditionsLink">
+                    <span th:text="#{footer.terms.of.service}"></span>
+                </a>
             </div>
         </div>
     </nav>

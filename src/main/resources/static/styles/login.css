@@ -125,18 +125,43 @@
     outline: none;
 }
 
+.termsAndConditions
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 14px;
+}
+
 @media all and (min-width: 200px) and (max-width: 1024px)
 {
+    .termsAndConditions
+    {
+        font-size: var(--mFontRegular);
+    }
+
+    .loginForm a
+    {
+        margin-bottom: 1vh;
+    }
+
+    .loginForm button
+    {
+        font-size: var(--mFontLarge);
+        height: 3vh;
+    }
+
     .modal-content
     {
         border-radius: 23px !important;
         padding: 3vh 6vh;
+        font-size: var(--mFontLarge);
     }
 
     .loginForm h1
     {
-        font-size: 48px;
-        padding: 2vh 0vh 4vh 0vh;
+        font-size: var(--mFontTitle);
+        padding: 0 0 2vh 0;
     }
 
     .modal-content
@@ -149,3 +174,16 @@
         margin: 6vh auto !important;
     }
 }
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+    .loginForm button
+    {
+        height: 5vw;
+    }
+    .modal-content
+    {
+        padding: 5vw;
+    }
+}
+

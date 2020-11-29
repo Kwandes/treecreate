@@ -29,18 +29,21 @@ async function generateOrders()
         let status = transaction['status'];
         if (status === "initial")
         {
-            status = "Waiting for payment";
+            status = localeOrdersGenerateOrdersStatusInitial;
         }
         if (status === "new")
         {
-            status = "Payment Successful";
+            status = localeOrdersGenerateOrdersStatusNew;
         }
 
-        transactionItem.getElementsByClassName('orderStatus')[0].innerText = "Status: " + status;
-        transactionItem.getElementsByClassName('orderTotalPrice')[0].innerText = "Total Price: " + (transaction['price'] / 100) + " dkk";
+        transactionItem.getElementsByClassName('orderStatus')[0]
+            .innerText = localeOrdersGenerateOrdersStatus + status;
+        transactionItem.getElementsByClassName('orderTotalPrice')[0]
+            .innerText = localeOrdersGenerateOrdersTotalPrice + (transaction['price'] / 100) + " dkk";
         console.log("transaction id: " + transaction['id']);
-        transactionItem.getElementsByClassName("orderTransactionId")[0].innerText = "transaction ID: " + transaction['id'];
-        if (status === "Waiting for payment")
+        transactionItem.getElementsByClassName("orderTransactionId")[0]
+            .innerText = localeOrdersGenerateOrdersTransactionId + transaction['id'];
+        if (status === localeOrdersGenerateOrdersStatusInitial)
         {
             console.log("Payment was not completed - adding a complete payment button with link: " + transaction['paymentLink'])
             transactionItem.getElementsByClassName("orderCompletePaymentBtn")[0].style.display = "flex";
@@ -57,11 +60,16 @@ async function generateOrders()
             console.log("%cFailed to handle createdOn properly: " + e, "color:red");
             createdOn = "N/A";
         }
-        transactionItem.getElementsByClassName("orderDateCreated")[0].innerText = "Created on: " + createdOn;
-        transactionItem.getElementsByClassName("orderExpectedDelivery")[0].innerText = "Expected Delivery Date: " + transaction['expectedDeliveryDate'];
-        transactionItem.getElementsByClassName("orderAddressStreetName")[0].innerText = "Street: " + transaction['streetAddress'];
-        transactionItem.getElementsByClassName("orderAddressCity")[0].innerText = "City: " + transaction['city'];
-        transactionItem.getElementsByClassName("orderAddressPostcode")[0].innerText = "Postcode: " + transaction['postcode'];
+        transactionItem.getElementsByClassName("orderDateCreated")[0].innerText = localeOrdersGenerateOrdersCreatedOn + createdOn;
+        transactionItem.getElementsByClassName("orderExpectedDelivery")[0].innerText = localeOrdersGenerateOrdersExpectedDelivery + transaction['expectedDeliveryDate'];
+        transactionItem.getElementsByClassName("orderAddressStreetName")[0].innerText = localeOrdersGenerateOrdersAddress + transaction['streetAddress'];
+        if (transaction['streetAddress2'] !== null)
+        {
+            transactionItem.getElementsByClassName("orderAddressStreetName2")[0].style.display = "flex";
+            transactionItem.getElementsByClassName("orderAddressStreetName2")[0].innerText = localeOrdersGenerateOrdersAddress2 + transaction['streetAddress2'];
+        }
+        transactionItem.getElementsByClassName("orderAddressCity")[0].innerText = localeOrdersGenerateOrdersCity + transaction['city'];
+        transactionItem.getElementsByClassName("orderAddressPostcode")[0].innerText = localeOrdersGenerateOrdersPostcode + transaction['postcode'];
 
         //console.log("Transaction object:")
         //console.dir(transaction);
@@ -91,8 +99,8 @@ async function generateOrders()
             orderItem.getElementsByClassName("orderDesignId")[0].innerText = designId;
             orderItem.getElementsByClassName("orderDesignName")[0].innerText = designJson.name;
             orderItem.getElementsByClassName("orderDesignSize")[0].innerText = order.size;
-            orderItem.getElementsByClassName("orderDesignAmount")[0].innerText = 'amount:' + order.amount;
-            orderItem.getElementsByClassName("orderDesignPrice")[0].innerText = 'price: ' + itemTotal + 'kr';
+            orderItem.getElementsByClassName("orderDesignAmount")[0].innerText = localeOrdersGenerateOrdersAmount + order.amount;
+            orderItem.getElementsByClassName("orderDesignPrice")[0].innerText = localeOrdersGenerateOrdersPrice + itemTotal + 'kr';
 
             transactionItem.getElementsByClassName("orderDesignInfo")[0].append(orderItem);
         }

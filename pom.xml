@@ -10,7 +10,7 @@
     </parent>
     <groupId>dev.hotdeals</groupId>
     <artifactId>treecreate</artifactId>
-    <version>0.9.77</version>
+    <version>1.0.0</version>
     <name>treecreate</name>
     <description>Springboot-based website for Treecreate project</description>
 

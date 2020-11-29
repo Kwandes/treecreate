@@ -17,6 +17,8 @@
     <script th:src="@{/js/cookiePrompt.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript1"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript2"></script>
 </head>
 <body>
 <section id="pageContainer">
@@ -46,15 +48,19 @@
         </div>
         <div id="details">
             <section class="collectionContainer">
-                <div class="designImage"></div>
+                <!-- <div class="designImage"></div> -->
                 <div class="designInfo">
                     <section class="infoHeader">
+                        <script>
+                            let localeTreeCollectionsGenerateCollectionsName = "[[#{collection.name}]]";
+                            let localeTreeCollectionsGenerateCollectionsBoxes = "[[#{collection.boxes}]]";
+                        </script>
                         <span class="orderName" th:text="#{collection.name}">Untitled</span>
                         <span class="spanBoxText" th:text="#{collection.boxes}"></span>
                     </section>
                     <section class="infoContent">
-                        <span th:text="#{collection.box.content}"></span>
-                        <span class="boxContent">James,. Hilda, Nika and more...</span>
+                        <span style="display: none" th:text="#{collection.box.content}"></span>
+                        <span style="display: none" class="boxContent">James,. Hilda, Nika and more...</span>
 
                         <span th:text="#{collection.amount}"></span>
                         <span class="amount">3</span>

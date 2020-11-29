@@ -60,6 +60,10 @@ public class Transaction
     private String streetAddress;
 
     @Basic
+    @Column(name = "street_address_2", length = 99)
+    private String streetAddress2;
+
+    @Basic
     @Column(name = "city", length = 50)
     private String city;
 
@@ -202,6 +206,16 @@ public class Transaction
 
     public void setStreetAddress(String streetAddress) {
         this.streetAddress = streetAddress;
+    }
+
+    public String getStreetAddress2()
+    {
+        return streetAddress2;
+    }
+
+    public void setStreetAddress2(String streetAddress2)
+    {
+        this.streetAddress2 = streetAddress2;
     }
 
     public String getCity() {

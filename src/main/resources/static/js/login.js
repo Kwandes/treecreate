@@ -5,11 +5,11 @@ async function submitLogin()
 
     if (loginEmail === '')
     {
-        showPopup('Email is required to login', true);
+        showPopup(localeLoginSubmitLoginEmail, true);
         return;
     } else if (loginPassword === '')
     {
-        showPopup('Password is required to login', true);
+        showPopup(localeLoginSubmitLoginPassword, true);
         return;
     }
 
@@ -18,12 +18,12 @@ async function submitLogin()
     if (result)
     {
         document.getElementById("loginModalCloseBtn").click();
-        showPopup('Welcome Back!', false);
+        showPopup(localeLoginSubmitLoginValid, false);
         setLoginStatus(true);
         updateBasket();
     } else
     {
-        showPopup('The credentials are invalid. Try again', true);
+        showPopup(localeLoginSubmitLoginInvalid, true);
     }
 }
 
@@ -143,26 +143,26 @@ async function registerUser()
     if (signUpEmail === '')
     {
         console.log('User has not input an Email')
-        showSignupPopup('Email is required to register a new account', true);
+        showSignupPopup(localeLoginRegisterUserEmail, true);
         return;
     } else if (signUpPassword === '')
     {
         console.log('User has not input an Email')
-        showSignupPopup('Password is required to register a new account', true);
+        showSignupPopup(localeLoginRegisterUserPassword, true);
         return;
     }
 
     if (signUpPassword !== signupConfirmPassword)
     {
         console.log("The passwords don't match");
-        showSignupPopup("The passwords don't match", true);
+        showSignupPopup(localeLoginRegisterUserPasswordMismatch, true);
         return;
     }
 
     if (signUpEmail.match("^\\b[\\w.!#$%&’*+\\/=?^`{|}~-]+@[\\w-]+(?:\\.[\\w-]+)+\\b$") == null)
     {
         console.log("Provided email does not seem to be a valid email");
-        showSignupPopup("Provided email does not seem to be a valid email", true)
+        showSignupPopup(localeLoginRegisterUserEmailInvalid, true)
         return;
     }
     let result = await submitNewUser(signUpEmail, signUpPassword);
@@ -171,12 +171,12 @@ async function registerUser()
     {
         console.log("Registration successful, you're logged in");
         document.getElementById("signUpModalCloseBtn").click();
-        showSignupPopup('Thanks for joining Treecreate!', false);
+        showSignupPopup(localeLoginRegisterUserSuccess, false);
         setLoginStatus(true);
         await updateBasket();
     } else
     {
-        showSignupPopup('An account with this email already exists. Try again', true);
+        showSignupPopup(localeLoginRegisterUserAlreadyExists, true);
     }
 }
 
@@ -272,11 +272,11 @@ function sendVerificationEmail()
             if (response.status === 200)
             {
                 console.log("The email has been sent");
-                showBasketPopup("The email has been sent");
+                showBasketPopup(localeLoginSendVerificationEmailSuccess);
             } else
             {
                 console.log("Something went wrong while sending the email, request status: " + response.status);
-                showBasketPopup("Something went wrong while sending the email. Try again later or contact support at info@treecreate.dk");
+                showBasketPopup(localeLoginSendVerificationEmailFailure);
             }
         }
     )

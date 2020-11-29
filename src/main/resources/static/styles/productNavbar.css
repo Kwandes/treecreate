@@ -120,26 +120,6 @@ a::before {
     vertical-align: middle;
 }
 
-@media all and (min-width: 200px) and (max-width: 1024px)
-{
-    #navBar
-    {
-        padding: 1vh 0 0 0;
-        height: 4vh;
-        min-height: 0vh !important;
-    }
-
-    #navBar .icon
-    {
-        width: 1.5vh;
-    }
-
-    #treecreateLogo
-    {
-        width: 7vh;
-    }
-}
-
 #verificationBanner
 {
     display: none;
@@ -159,3 +139,51 @@ a::before {
     background-color: var(--actionColor);
     color: white;
 }
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    #navBar a
+    {
+        font-size: var(--fontSubtitle);
+    }
+
+    #navBar
+    {
+        height: 4.5vh;
+        min-height: 0vh !important;
+    }
+
+    #navBar .icon
+    {
+        width: 1.5vh;
+    }
+
+    #treecreateLogo
+    {
+        width: 7vh;
+    }
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+    #navBar
+    {
+        height: 10vh !important;
+        padding-bottom: 1.5vh;
+    }
+
+    #navBar .icon {
+        width: 4vh;
+    }
+
+    #treecreateLogo {
+        width: 15vh;
+    }
+
+    #aboutUs section
+    {
+        margin-top: 10vh;
+    }
+}
+
+

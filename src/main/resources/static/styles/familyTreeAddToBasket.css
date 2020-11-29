@@ -20,7 +20,7 @@
     align-items: center;
 
     height: 5vh;
-    margin: 2vh;
+    margin-top: 2vh;
     width: 90%;
 }
 
@@ -77,7 +77,6 @@
     min-height: 5vh;
     height: fit-content;
     padding: 1vh 0;
-    width: 100%;
 }
 
 #addToBasketName, #addToBasketPrice
@@ -103,7 +102,6 @@
 
 #priceLabel
 {
-    width: 10vw;
     text-align: right;
     margin-bottom: 0px;
     font-weight: 1;
@@ -265,7 +263,7 @@
 {
     font-size: var(--fontSmall);
     min-width: 200px;
-    width: 40%;
+    width: 60%;
     height: fit-content;
     opacity: 0.75;
 }
@@ -318,4 +316,48 @@
 #popupContainer /* Fuck off we are busy */
 {
     display: none;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    .fancyHeader
+    {
+        font-size: var(--mFontLarge);
+    }
+
+    .addToBasketDetail
+    {
+        width: none;
+    }
+
+    #recommendedSizes
+    {
+        width: 27vh;
+    }
+
+    #addToBasketFooter p
+    {
+        font-size: var(--mFontRegular);
+    }
+
+    #addToBasketButton
+    {
+        width: 100%;
+    }
+
+    #addToBasketContainer
+    {
+        width: 40vh;
+        font-size: var(--mFontRegular);
+    }
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px) and (orientation:landscape)
+{
+
+    .arrowLeft, .arrowRight
+    {
+        width: 4vw;
+        height: 4vw;
+    }
 }

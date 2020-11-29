@@ -16,6 +16,8 @@
     <script th:src="@{/js/cookiePrompt.js}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript1"></script>
+    <script th:replace="products/productTemplate :: #googleAnalyticsScript2"></script>
 </head>
 <body>
 <section id="pageContainer">
@@ -43,6 +45,10 @@
                            th:value="${user.streetAddress}"
                            maxlength="99" required>
 
+                    <label for="inputStreetAddress2"><span th:text="#{basket.street.address2}"></span></label>
+                    <input type="text" name="inputStreetAddressTwo" id="inputStreetAddress2"
+                           th:value="${user.streetAddress2}"
+                           maxlength="99">
                     <label for="inputCity"><span th:text="#{basket.city}"></span></label>
                     <input type="text" name="inputCity" id="inputCity" th:value="${user.city}" maxlength="50" required>
 
@@ -70,8 +76,11 @@
                             <th><span th:text="#{basket.total}"></span></th>
                         </tr>
                         <tr class="orderRow" style="display: none">
+                            <script>
+                                let localeBasketOrderProduct = "[[#{basket.order.product}]]";
+                            </script>
                             <td class="orderAmount">N/A</td>
-                            <td class="orderProduct">Family Tree - N/A</td>
+                            <td class="orderProduct">N/A</td>
                             <td class="orderTotal">N/A</td>
                         </tr>
                     </table>
@@ -102,20 +111,20 @@
                         <section id="discountCode">
                             <label for="inputDiscountCode">Discount Code:</label>
                             <input id="inputDiscountCode" placeholder="ex. ABC123" maxlength="25"><br>
-                            <input type="button" id="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
+                            <input type="button" id="applyDiscountBtn" class="applyDiscountBtn" onclick="applyDiscount()" value="Apply discount">
                         </section>
                     </section>
                 </section>
             </section>
             <section class="basketSection">
-                <div id="acceptOrder" class="border">
+                <div id="acceptOrder" class="border borderRemove" style="border:none!important;" >
                     <label for="termsAndConditionsCheckbox">
                         <input id="termsAndConditionsCheckbox" name="termsAndConditions" type="checkbox" required>
                         <span th:text="#{basket.terms.and.conditions.text}"></span> <a
-                            href="/orderTermsAndConditionsDanish" target="_blank">
-                        <span th:text="#{basket.terms.and.conditions.link}"></span></a>
+                            href="/orderTermsAndConditionsDanish" target="_blank" class="termsAndConditionsLink">
+                        <span th:text="#{basket.terms.and.conditions.link}" class="termsAndCondition"></span></a>
                     </label>
-                    <button onclick='goToPayment()'><span th:text="#{basket.accept.and.pay}"></span></button>
+                    <button onclick='goToPayment()' id="acceptAndPay" class="acceptButton"><span th:text="#{basket.accept.and.pay}"></span></button>
                 </div>
             </section>
         </div>

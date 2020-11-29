@@ -43,3 +43,23 @@
 {
     transform: scale(1.1);
 }
+
+.center
+{
+    text-align: center;
+}
+
+@media all and (min-width: 200px) and (max-width: 1024px)
+{
+    #cookiePromptModal
+    {
+        font-size: var(--mFontRegular);
+    }
+
+    #cookiePromptModal button
+    {
+        width: 350px;
+        height: 50px;
+        font-size: var(--mFontLarge);
+    }
+}
