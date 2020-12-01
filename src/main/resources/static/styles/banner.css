@@ -55,3 +55,14 @@
     font-size: 65px;
     fill: black;
 }
+
+/* Safari 10.1+ */
+
+@media not all and (min-resolution:.001dpcm) { @media {
+
+    #familyTreeBanner #bannerText /* fix banner issue on safari */
+    {
+        padding-top: 6px;
+    }
+
+}}
