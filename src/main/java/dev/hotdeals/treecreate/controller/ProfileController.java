@@ -318,11 +318,19 @@ public class ProfileController
         // Verification link won't work on localhost since it is hardcoded to treecreate.dk.
         try
         {
-            mailService.sendInfoMail("Thank you for signing up at Treecreate\n<br>" +
+            mailService.sendInfoMail("Tak for tilmeldingen hos Treecreate\n<br>" +
+                            "Tryk på linket <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
+                            "&token=" + user.getVerification() + "\">this link</a> for at godkende din profil.\n<br>" +
+                            "\n\nDette er en automatiseret e-mail. Lad være med at besvare denne e-mail.\n" +
+                            "Hav en dejlig dag!<br><br>" +
+                            "" +
+                            "---- ENGLISH VERSION ----" +
+                            "Thank you for signing up at Treecreate\n<br>" +
                             "\nPlease click on the link <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
-                            "&token=" + user.getVerification() + "\">this link</a> in order to verify\n<br>" +
-                            "\n\nThis is an automated email. Please do not reply to this email.",
-                    "Confirm your e-mail", user.getEmail());
+                            "&token=" + user.getVerification() + "\">this link</a> in order to verify.\n<br>" +
+                            "\n\nThis is an automated email. Please do not reply to this e-mail.<br><br>" +
+                            "Have a nice day!",
+                    "Godkend din e-mail", user.getEmail());
         } catch (MessagingException e)
         {
             LOGGER.error("Failed to send an email to " + user.getEmail(), e);
@@ -435,12 +443,21 @@ public class ProfileController
         resetTokenRepo.save(resetToken);
         try
         {
-            mailService.sendInfoMail("A request has been made to reset your password on Treecreate.dk<br>" +
+            mailService.sendInfoMail("Der er bleven anmodet om at skifte kode på din Treecreate profil.<br>" +
+                            "\nHvis det ikke er dig, kontakt venligst info@treecreate.dk med problemet, eller se bort fra denne email.<br>" +
+                            "\n\nFor at få et nyt kodeord skal du clicke <br>" +
+                            "<a href=\"https://treecreate.dk/forgotPassword?id=" + resetToken.getId() +
+                            "&token=\" + resetToken.getToken() + \"\\\">this link</a>.<br><br>" +
+                            "Hav en dejlig dag!<br><br>" +
+                            "" +
+                            "---- ENGLISH VERSION ----\" +" +
+                            "A request has been made to reset your password on Treecreate.dk<br>" +
                             "\nIf this was not you, you can ignore it<br>" +
                             "\n\nIn order to reset your password, click on <br>" +
                             "<a href=\"https://treecreate.dk/forgotPassword?id=" + resetToken.getId() +
-                            "&token=" + resetToken.getToken() + "\">this link</a>.",
-                    "Treecreate reset password request", email);
+                            "&token=" + resetToken.getToken() + "\">this link</a>.<br><br>" +
+                            "Have a nice day!",
+                    "Treecreate - nyt kodeord", email);
             LOGGER.info("A request has been sent out, token " + resetToken.getToken());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (MailException | MessagingException e)
