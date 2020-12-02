@@ -90,6 +90,7 @@ a::before {
 #navBar-left .icon:hover
 {
     transform: scale(1.1);
+    transition: 0.3s;
 }
 
 #navBar-right .icon

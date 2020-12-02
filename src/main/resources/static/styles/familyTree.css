@@ -45,6 +45,7 @@
     border-radius: 5px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     width: 7vw;
+    transition: 0.3s;
 }
 
 .largeButton
