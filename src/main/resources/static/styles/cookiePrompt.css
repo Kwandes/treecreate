@@ -36,7 +36,7 @@
     height: 40px;
     font-size: 24px;
     border: none;
-    transition: 1s;
+    transition: 0.5s;
 }
 
 #cookiePromptModal button:hover

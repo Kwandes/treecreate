@@ -173,10 +173,18 @@ public class ProfileController
         // Verification link won't work on localhost since it is hardcoded to treecreate.dk.
         try
         {
-            mailService.sendInfoMail("Thank you for signing up at Treecreate\n<br>" +
+            mailService.sendInfoMail("Tak for tilmeldingen hos Treecreate.\n<br>" +
+                            "Tryk på linket <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
+                            "&token=" + user.getVerification() + "\">her</a> for at godkende din profil.\n<br>" +
+                            "\n\nDette er en automatiseret e-mail. Ikke svar denne e-mail.\n<br><br>" +
+                            "Hav en dejlig dag!<br><br>" +
+                            "" +
+                            "---- ENGLISH VERSION ----<br>" +
+                            "Thank you for signing up at Treecreate.\n<br>" +
                             "\nPlease click on the link <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
-                            "&token=" + user.getVerification() + "\">this link</a> in order to verify\n<br>" +
-                            "\n\nThis is an automated email. Please do not reply to this email.",
+                            "&token=" + user.getVerification() + "\">this link</a> in order to verify your account.\n<br>" +
+                            "\n\nThis is an automated email. Please do not reply to this e-mail.<br><br>" +
+                            "Have a nice day!",
                     "Confirm your e-mail", user.getEmail());
         } catch (MessagingException e)
         {
@@ -318,16 +326,16 @@ public class ProfileController
         // Verification link won't work on localhost since it is hardcoded to treecreate.dk.
         try
         {
-            mailService.sendInfoMail("Tak for tilmeldingen hos Treecreate\n<br>" +
+            mailService.sendInfoMail("Tak for tilmeldingen hos Treecreate.\n<br>" +
                             "Tryk på linket <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
-                            "&token=" + user.getVerification() + "\">this link</a> for at godkende din profil.\n<br>" +
-                            "\n\nDette er en automatiseret e-mail. Lad være med at besvare denne e-mail.\n" +
+                            "&token=" + user.getVerification() + "\">her</a> for at godkende din profil.\n<br>" +
+                            "\n\nDette er en automatiseret e-mail. Ikke svar denne e-mail.\n<br><br>" +
                             "Hav en dejlig dag!<br><br>" +
                             "" +
-                            "---- ENGLISH VERSION ----" +
-                            "Thank you for signing up at Treecreate\n<br>" +
+                            "---- ENGLISH VERSION ----<br>" +
+                            "Thank you for signing up at Treecreate.\n<br>" +
                             "\nPlease click on the link <a href=\"https://treecreate.dk/verify?id=" + user.getId() +
-                            "&token=" + user.getVerification() + "\">this link</a> in order to verify.\n<br>" +
+                            "&token=" + user.getVerification() + "\">this link</a> in order to verify your account.\n<br>" +
                             "\n\nThis is an automated email. Please do not reply to this e-mail.<br><br>" +
                             "Have a nice day!",
                     "Godkend din e-mail", user.getEmail());
@@ -444,16 +452,16 @@ public class ProfileController
         try
         {
             mailService.sendInfoMail("Der er bleven anmodet om at skifte kode på din Treecreate profil.<br>" +
-                            "\nHvis det ikke er dig, kontakt venligst info@treecreate.dk med problemet, eller se bort fra denne email.<br>" +
-                            "\n\nFor at få et nyt kodeord skal du clicke <br>" +
+                            "Hvis det ikke er dig, kontakt venligst info@treecreate.dk med problemet, eller se bort fra denne email.<br>" +
+                            "For at få et nyt kodeord skal du clicke <br>" +
                             "<a href=\"https://treecreate.dk/forgotPassword?id=" + resetToken.getId() +
-                            "&token=\" + resetToken.getToken() + \"\\\">this link</a>.<br><br>" +
+                            "&token=" + resetToken.getToken() + "\">this link</a>.<br><br>" +
                             "Hav en dejlig dag!<br><br>" +
                             "" +
-                            "---- ENGLISH VERSION ----\" +" +
-                            "A request has been made to reset your password on Treecreate.dk<br>" +
-                            "\nIf this was not you, you can ignore it<br>" +
-                            "\n\nIn order to reset your password, click on <br>" +
+                            "---- ENGLISH VERSION ---- <br>" +
+                            "A request has been made to reset your password on your Treecreate profile.<br>" +
+                            "\nIf this was not you, you can ignore this e-mail or contact info@treecreate.dk. <br><br>" +
+                            "\nIn order to reset your password, click on <br>" +
                             "<a href=\"https://treecreate.dk/forgotPassword?id=" + resetToken.getId() +
                             "&token=" + resetToken.getToken() + "\">this link</a>.<br><br>" +
                             "Have a nice day!",
