@@ -694,6 +694,13 @@ public class PaymentController
                 "        </tr>\n" +
                 "    </table>";
 
+        String designViewLink = "https://treecreate.dk/products/readOnlyFamilyTree?designId=";
+
+        StringBuilder emailOrderLinks = new StringBuilder();
+        for (TreeOrder order : transaction.getOrderList())
+        {
+            emailOrderLinks.append("<p>").append(designViewLink).append(order.getTreeDesignById().getId()).append("</p>");
+        }
 
         LOGGER.info("Fetching specific transaction - Sending out the email to " + transaction.getEmail());
         try
@@ -701,7 +708,7 @@ public class PaymentController
             mailService.sendOrderMail(emailSubject,
                     "Order Confirmation", transaction.getUser().getEmail());
             LOGGER.info("Fetching specific transaction - Forwarding the order confirmation from " + transaction.getEmail() + " to orders@treecreate.dk");
-            mailService.sendOrderMail(emailSubject,
+            mailService.sendOrderMail(emailSubject + emailOrderLinks,
                     "New Order Confirmation", "orders@treecreate.dk");
         } catch (MessagingException e)
         {
