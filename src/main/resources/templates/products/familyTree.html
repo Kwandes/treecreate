@@ -186,6 +186,20 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                         <span class="howToText" th:text="#{familyTree.info.how.to}"></span>
                     </div>
 
+                    <div class="fancySelection" id="boxSize">
+                        <div class="fancyHeader">
+                            <span class="designOption" th:text="#{familyTree.info.box.size.name}"></span>
+                            <!--                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">-->
+                            <!--                                <span class="infoPopupText" th:text="#{familyTree.info.box.size}"></span>-->
+                            <!--                            </div>-->
+                        </div>
+                        <div class="fancyContent" id="boxSizeInputContainer">
+                            <div class="arrowLeft" id="decreaseBoxButton" alt="<"></div>
+                            <input type="number" class="fancyInput" id="boxSizeInput" value="10" readonly>
+                            <div class="arrowRight" id="increaseBoxButton" alt=">"></div>
+                        </div>
+                    </div>
+
                     <div class="fancySelection" id="bannerInput">
                         <div class="fancyHeader">
                             <span class="designOption" th:text="#{familyTree.info.banner.text.name}"></span>
@@ -227,21 +241,6 @@ Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
                                 <option value="1">Sansita swashed</option>
                                 <option value="2">Roboto slab</option>
                             </select>
-                        </div>
-                    </div>
-
-
-                    <div class="fancySelection" id="boxSize">
-                        <div class="fancyHeader">
-                            <span class="designOption" th:text="#{familyTree.info.box.size.name}"></span>
-<!--                            <div id="boxSizeInfoIcon" class="addToBasketInfoIcon infoPopup">-->
-<!--                                <span class="infoPopupText" th:text="#{familyTree.info.box.size}"></span>-->
-<!--                            </div>-->
-                        </div>
-                        <div class="fancyContent" id="boxSizeInputContainer">
-                            <div class="arrowLeft" id="decreaseBoxButton" alt="<"></div>
-                            <input type="number" class="fancyInput" id="boxSizeInput" value="10" readonly>
-                            <div class="arrowRight" id="increaseBoxButton" alt=">"></div>
                         </div>
                     </div>
 
