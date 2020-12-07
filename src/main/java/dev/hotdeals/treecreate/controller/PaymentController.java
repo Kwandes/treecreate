@@ -633,9 +633,9 @@ public class PaymentController
         }
 
         String emailSubject = " <p>\n" +
-                "        Hi " + transaction.getName() + ",\n" +
+                "        Hello dear customer!  " + transaction.getName() + ",\n" +
                 "        <br><br>\n" +
-                "        Just to let you know - we've received your order #" + transaction.getId() + ", and it is now being processed:\n" +
+                "        We have now received your order #" + transaction.getId() + ", and it is now being processed:\n" +
                 "    </p>\n" +
                 "    <h1>[Order " + transaction.getId() + "] (" + LocalDate.now().toString() + ")</h1>\n" +
                 "    <table style=\"border-spacing: 0;\">\n" +
@@ -694,6 +694,13 @@ public class PaymentController
                 "        </tr>\n" +
                 "    </table>";
 
+        String designViewLink = "https://treecreate.dk/products/readOnlyFamilyTree?designId=";
+
+        StringBuilder emailOrderLinks = new StringBuilder();
+        for (TreeOrder order : transaction.getOrderList())
+        {
+            emailOrderLinks.append("<p>").append(designViewLink).append(order.getTreeDesignById().getId()).append("</p>");
+        }
 
         LOGGER.info("Fetching specific transaction - Sending out the email to " + transaction.getEmail());
         try
@@ -701,7 +708,7 @@ public class PaymentController
             mailService.sendOrderMail(emailSubject,
                     "Order Confirmation", transaction.getUser().getEmail());
             LOGGER.info("Fetching specific transaction - Forwarding the order confirmation from " + transaction.getEmail() + " to orders@treecreate.dk");
-            mailService.sendOrderMail(emailSubject,
+            mailService.sendOrderMail(emailSubject + emailOrderLinks,
                     "New Order Confirmation", "orders@treecreate.dk");
         } catch (MessagingException e)
         {

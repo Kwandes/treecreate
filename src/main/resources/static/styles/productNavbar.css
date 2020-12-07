@@ -90,6 +90,7 @@ a::before {
 #navBar-left .icon:hover
 {
     transform: scale(1.1);
+    transition: 0.3s;
 }
 
 #navBar-right .icon
@@ -135,9 +136,30 @@ a::before {
 {
     padding: 0 0.5vw;
     border: none;
-    border-radius: 12px;
     background-color: var(--actionColor);
     color: white;
+}
+
+#verificationButton:hover
+{
+    transform: scale(0.9);
+}
+
+.resendButton
+{
+    margin: 1vh;
+    width: 30%;
+    padding: 0.5vh !important;
+    border-radius: 5px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    font-size: var(--fontRegular);
+    transition: 0.3s;
+}
+
+.resendButton:hover
+{
+    transform: scale(0.9);
+    box-shadow: none;
 }
 
 @media all and (min-width: 200px) and (max-width: 1024px)

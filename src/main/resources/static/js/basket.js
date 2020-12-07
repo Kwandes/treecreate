@@ -209,8 +209,9 @@ async function goToPayment()
         {
             response.text().then(data =>
             {
-                console.log("Returned data: " + data)
-                showBasketPopup(data, true)
+                console.log("Returned data: " + data);
+                const message = localeBasketGoToPaymentUserNotVerified;
+                showBasketPopup( message, true);
             })
         }
     })

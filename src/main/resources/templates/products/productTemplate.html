@@ -60,6 +60,7 @@
         let localeProductExampleSubmitNewsletterEmptyEmail = "[[#{productTemplate.newsletter.email}]]";
         let localeProductExampleSubmitNewsletterSuccess = "[[#{productTemplate.newsletter.success}]]";
         let localeProductExampleSubmitNewsletterFailure = "[[#{productTemplate.newsletter.failure}]]";
+        let localeBasketGoToPaymentUserNotVerified = "[[#{login.user.not.verified}]]";
     </script>
     <!-- cookie prompt modal -->
     <div id="cookiePromptModalContainer">
@@ -249,17 +250,17 @@
 </section>
 <section id="footerContainer">
     <nav id="footer">
-        <div class="footer-row">
+        <div class="footer-row topFooter">
             <div class="section">
-                <span class="title" th:text="#{footer.contact.title}"></span><br>
+                <span class="title" th:text="#{footer.contact.title}"></span>
                 <span th:text="#{footer.contact.text}"></span>
             </div>
             <div class="section">
-                <span class="title" th:text="#{footer.address.title}"></span><br>
+                <span class="title" th:text="#{footer.address.title}"></span>
                 <span th:text="#{footer.address.text}"></span>
             </div>
             <div class="section">
-                <span class="title" th:text="#{footer.product.title}"></span><br>
+                <span class="title" th:text="#{footer.product.title}"></span>
                 <span th:text="#{footer.product.text}"></span>
                 <div style="margin-top:10px;"></div>
                 <!-- <img th:src="@{~/img/icons/danishTransportIcon.svg}" alt="Danish Transport" class="icon">

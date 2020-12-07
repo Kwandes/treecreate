@@ -31,6 +31,15 @@
                         <span class="title" th:text="#{home.intro.title}"></span><br>
                         <img th:src="@{~/img/productPage/Artboard 3.png}" alt="Tree Design" class=""><br>
                         <span th:text="#{home.intro.text}"></span><br><br>
+                        <div id="expectedDate" style="font-size: 20px;">
+                            <p><span th:text="#{basket.expected.delivery}" ></span> <span id="datetime"></span> )</p>
+
+                            <script>
+                                var dt = new Date(Date.now() + 10096e5);
+                                document.getElementById("datetime").innerHTML = dt.toLocaleDateString();
+                            </script>
+                        </div>
+                        <br>
                         <button class="createNowBtn" onclick="location.href='/products/familyTree'">
                             <span th:text="#{home.create.now}"></span>
                         </button>
