@@ -29,6 +29,11 @@
     margin: 0 2vw;
 }
 
+#footer .topFooter .section
+{
+    white-space: pre-line;
+}
+
 #footer .footer-row:first-child .section
 {
     width: 25%;
@@ -72,7 +77,7 @@
 
 .link
 {
-    color: var (--actionColor);
+    color: var(--actionColor);
 }
 
 @media all and (min-width: 200px) and (max-width: 1024px)
