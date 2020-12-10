@@ -244,7 +244,8 @@ public class PaymentController
         Matcher matcher = pattern.matcher(response.body());
         if (!matcher.find())
         {
-            LOGGER.info(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Failed to find the payment ID in the response body");
+            LOGGER.error(request.getSession().getId() + " - Transaction - Transaction " + transaction.getId() + " - Failed to find the payment ID in the response body");
+            LOGGER.info(request.getSession().getId() + " - Transaction - Response body: " + response.body());
             return new ResponseEntity<>("Failed to extract the payment id from the payment order", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
