@@ -69,8 +69,8 @@ fi
 echo "Pulling the newest version..."
 git pull > /dev/null 2>&1
 echo ""
-read -p "What is the name you would like to deploy under [treecreate-X.X.X]? " dockerName
-dockerName="${dockerName:-treecreate-X.X.X}"
+read -p "What is the name you would like to deploy under [treecreate-x.x.x]? " dockerName
+dockerName="${dockerName:-treecreate-x.x.x}"
 
 echo ""
 
@@ -114,6 +114,18 @@ else
   exit 1
 fi
 
+echo "Checking cpu architecture type to determine dockerfile"
+architecture=$(uname -m)
+
+if [[ "$architecture" == "arm"* ]]; then
+  dockerfile="Dockerfile-arm"
+  echo "CPU is an ARM CPU, Deploying with Dockerfile-arm"
+else
+  dockerfile="Dockerfile"
+  echo "CPU is x86-64 bit, Deploying with Dockerfile"
+fi
+
+
 echo "Variable check successful"
 echo ""
 echo "Building an image $dockerName"
@@ -121,10 +133,10 @@ echo ""
 if [[ "$testRelease" != "-test" ]]; then
   echo "Building for production"
   # Even though we are building for prod, the test will occur on the dev DB just in case it causes issues
-  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f $dockerfile .
 else
   echo "Building for testing"
-  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f Dockerfile-arm .
+  docker build -t $dockerName --build-arg TREECREATE_JDBC_URL --build-arg TREECREATE_QUICKPAY_SECRET --build-arg TREECREATE_MAIL_PASS -f $dockerfile .
 fi
 echo ""
 echo "Building finished"
@@ -133,7 +145,7 @@ echo ""
 if [[ "$testRelease" != "-test" ]]; then
   echo "Deploying to production"
   # The env variable (for the jdbc url) has to match the one inside the applicaiton.properties, so instead we assign a value of the production env variable to it (as opposed to directly assigning it)
-  docker run --name $dockerName -e TREECREATE_JDBC_URL=$PROD_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS -TREECREATE_ENV=production --restart unless-stopped -dp $dockerPort $dockerName
+  docker run --name $dockerName -e TREECREATE_JDBC_URL=$PROD_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS -e TREECREATE_ENV=production --restart unless-stopped -dp $dockerPort $dockerName
 else
   echo "Deploying to testing"
   docker run --name $dockerName -e TREECREATE_JDBC_URL -e TREECREATE_QUICKPAY_SECRET -e TREECREATE_MAIL_PASS --restart unless-stopped -dp $dockerPort $dockerName
