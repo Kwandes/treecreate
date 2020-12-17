@@ -10,13 +10,15 @@
     </parent>
     <groupId>dev.hotdeals</groupId>
     <artifactId>treecreate</artifactId>
-    <version>1.1.12</version>
+    <version>1.1.13</version>
     <name>treecreate</name>
     <description>Springboot-based website for Treecreate project</description>
 
     <properties>
         <java.version>11</java.version>
     </properties>
+
+    <packaging>war</packaging>
 
     <dependencies>
         <dependency>
@@ -120,9 +122,16 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.3.5.RELEASE</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
