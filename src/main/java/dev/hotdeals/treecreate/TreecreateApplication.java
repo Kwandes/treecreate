@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class TreecreateApplication extends SpringBootServletInitializer
+public class TreecreateApplication
 {
 
     public static void main(String[] args)
