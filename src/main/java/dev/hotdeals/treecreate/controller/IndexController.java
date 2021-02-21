@@ -36,7 +36,7 @@ public class IndexController
     @RequestMapping(value = "/productExample", method = {RequestMethod.GET, RequestMethod.POST})
     public String productExample()
     {
-        return "home/productExample";
+        return "redirect:/landingPage";
     }
 
     @RequestMapping(value = "/orderTermsAndConditionsDanish", method = {RequestMethod.GET, RequestMethod.POST})
@@ -76,6 +76,6 @@ public class IndexController
     @RequestMapping(value = {"mobile", "/mobile", "/mobile.html"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String mobile()
     {
-        return "products/mobile";
+        return "redirect:/landingPage";
     }
 }
