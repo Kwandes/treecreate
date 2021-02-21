@@ -1,6 +1,7 @@
 package dev.hotdeals.treecreate.controller;
 
-import dev.hotdeals.treecreate.service.MailService;
+
+
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
@@ -29,7 +30,7 @@ public class IndexController
     @RequestMapping(value = {"", "/", "/index", "/index/"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String index()
     {
-        return "redirect:/productExample";
+        return "redirect:/landingPage";
     }
 
     @RequestMapping(value = "/productExample", method = {RequestMethod.GET, RequestMethod.POST})
@@ -70,41 +71,6 @@ public class IndexController
             LOGGER.error("Failed to retrieve the pom.xml", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    @Autowired
-    MailService mailService;
-
-    @GetMapping("/sendMail")
-    ResponseEntity<String> sendMail()
-    {
-        LOGGER.info("Sending an email");
-        try
-        {
-            mailService.sendInfoMail("Example Info Message", "Example Info Subject", "orders@treecreate.dk");
-        } catch (MailException | MessagingException e)
-        {
-            LOGGER.error("Unable to send an email", e);
-            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-        }
-        LOGGER.info("Email sending finished question mark?");
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/sendOrderMail")
-    ResponseEntity<String> sendOrderMail()
-    {
-        LOGGER.info("Sending an email");
-        try
-        {
-            mailService.sendOrderMail("Example Order Message", "Example Order Subject", "info@treecreate.dk");
-        } catch (MailException | MessagingException e)
-        {
-            LOGGER.error("Unable to send an email", e);
-            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-        }
-        LOGGER.info("Email sending finished");
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = {"mobile", "/mobile", "/mobile.html"}, method = {RequestMethod.GET, RequestMethod.POST})
