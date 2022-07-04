@@ -1,6 +1,10 @@
 # Treecreate
 > Website-based service for laser engravings in wood and other materials.
 
+### Project has been moved
+
+> The Springboot-thymeleaf version is no longer used by Treecreate. Instead we have re-designed the website and developed it again from scratch using Angular and Springboot. Check it out [here](https://github.com/treecreate/webstore).
+
 ### Installation and Deployment
 
 >The program is docker-compatible and that is the suggested deployment method.
